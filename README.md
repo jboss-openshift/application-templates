@@ -18,6 +18,7 @@ the following:
  * DB_USER: The name of the database user.
  * DB_PASSWORD: The password for the database user.
  * DB_DATABASE: The database/tablespace to connect to.
+ * DB_JNDI: The JNDI name to use for datasource definitions (e.g. eap: java:jdbc/mydb or jws: jdbc/mydb)
 
 ##Common Image Repositories
 The `jboss-image-streams.json` file contains __ImageStream__ definitions for all
@@ -28,7 +29,13 @@ before using any of the templates in these folders.
 ##Example
 The easiest way to use the templates is to install them in your project, then use the _Create+_ button in the OpenShift console to create your application.  The console will prompt you for the values for all of the parameters used by the template.  To set this up for a particula template:
 ```
-$ openshift cli create -n myproject -f templates/jboss-image-streams.json
-$ openshift cli create -n myproject -f templates/webserver/jws-tomcat7-basic-sti.json
+$ openshift cli create -n myproject -f jboss-image-streams.json
+$ openshift cli create -n myproject -f webserver/jws-tomcat7-basic-sti.json
 ```
 After executing the above, you should be able to see the template after pressing _Create+_ in your project.
+
+Or, if you prefer the command line:
+```
+$ openshift cli create -n yourproject -f jboss-image-streams.json
+$ openshift cli process -n yourproject -f eap/eap6-basic-sti.json -v APPLICATION_NAME=helloworld,APPLICATION_HOSTNAME=helloworld.yourproject.local,GIT_URI=https://github.com/jboss-developer/jboss-eap-quickstarts,GIT_REF=6.4.x,GIT_CONTEXT_DIR=helloworld | openshift cli create -n yourproject -f -
+```
