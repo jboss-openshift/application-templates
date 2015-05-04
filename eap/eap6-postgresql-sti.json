@@ -384,7 +384,7 @@
                                 "containers": [
                                     {
                                         "name": "${APPLICATION_NAME}-postgresql",
-                                        "image": "ci.dev.openshift.redhat.com:5000/openshift/postgresql-92-rhel7:latest",
+                                        "image": "registry.access.redhat.com/openshift3_beta/postgresql-92-rhel7:latest",
                                         "ports": [
                                             {
                                                 "name": "${APPLICATION_NAME}-postgresql-tcp-5432",

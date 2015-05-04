@@ -332,7 +332,7 @@
                                 "containers": [
                                     {
                                         "name": "${APPLICATION_NAME}-mysql",
-                                        "image": "ci.dev.openshift.redhat.com:5000/openshift/mysql-55-rhel7:latest",
+                                        "image": "registry.access.redhat.com/openshift3_beta/mysql-55-rhel7:latest",
                                         "ports": [
                                             {
                                                 "name": "${APPLICATION_NAME}-mysql-tcp-3306",
