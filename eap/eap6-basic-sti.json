@@ -164,7 +164,7 @@
                 {
                     "type": "imageChange",
                     "imageChange": {
-                        "image": "ce-registry.usersys.redhat.com/jboss-eap6/eap-openshift:${EAP_RELEASE}",
+                        "image": "registry.access.redhat.com/jboss-eap-6/eap-openshift:${EAP_RELEASE}",
                         "from": {
                             "name": "jboss-eap6-openshift"
                         },

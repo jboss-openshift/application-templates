@@ -129,7 +129,7 @@
                 {
                     "type": "imageChange",
                     "imageChange": {
-                        "image": "ce-registry.usersys.redhat.com/jboss-webserver3/tomcat8-openshift:${JWS_RELEASE}",
+                        "image": "registry.access.redhat.com/jboss-webserver-3/tomcat8-openshift:${JWS_RELEASE}",
                         "from": {
                             "name": "jboss-webserver3-tomcat8-openshift"
                         },
