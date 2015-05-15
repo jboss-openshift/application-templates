@@ -69,6 +69,25 @@
             "kind": "ImageStream",
             "apiVersion": "v1beta1",
             "metadata": {
+                "name": "jboss-amq-62",
+                "annotations": {
+                    "description": "JBoss ActiveMQ 6.2 broker image."
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "registry.access.redhat.com/jboss-amq-6/amq:6.2",
+                "tags": [
+                    {
+                        "name": "latest",
+                        "dockerImageReference": "registry.access.redhat.com/jboss-amq-6/amq:6.2"
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1beta1",
+            "metadata": {
                 "name": "jboss-mysql-55",
                 "annotations": {
                     "description": "Provides MySQL 5.5 images for use with JBoss Middleware products."
