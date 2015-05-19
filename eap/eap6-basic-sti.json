@@ -61,6 +61,21 @@
             "description": "Project namespace within which application is deployed.  Required for proper configuraiton of clustering",
             "name": "NAMESPACE",
             "value": ""
+        },
+        {
+            "description": "The name of the keystore file within the local configuration directory",
+            "name": "EAP_HTTPS_KEYSTORE",
+            "value": ""
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "name": "EAP_HTTPS_NAME",
+            "value": ""
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "name": "EAP_HTTPS_PASSWORD",
+            "value": ""
         }
     ],
     "items": [
@@ -85,6 +100,30 @@
                 },
                 "annotations": {
                     "description": "The web server's http port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1beta3",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 8443,
+                        "targetPort": 8443
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-https-service",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The web server's https port."
                 }
             }
         },
@@ -128,6 +167,25 @@
             },
             "host": "${APPLICATION_HOSTNAME}",
             "serviceName": "${APPLICATION_NAME}-http-service"
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1beta1",
+            "id": "${APPLICATION_NAME}-https-route",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-https-route",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Route for application's https service."
+                }
+            },
+            "host": "${APPLICATION_HOSTNAME}",
+            "serviceName": "${APPLICATION_NAME}-https-service",
+            "tls": {
+                "termination" : "passthrough"
+            }
         },
         {
             "kind": "ImageStream",
@@ -247,6 +305,11 @@
                                                 "protocol": "TCP"
                                             },
                                             {
+                                                "name": "${APPLICATION_NAME}-tcp-8443",
+                                                "containerPort": 8443,
+                                                "protocol": "TCP"
+                                            },
+                                            {
                                                 "name": "${APPLICATION_NAME}-ping-8888",
                                                 "containerPort": 8888,
                                                 "protocol": "TCP"
@@ -264,9 +327,20 @@
                                             {
                                                 "name": "OPENSHIFT_PING_DOMAIN",
                                                 "value": "${DNS_DOMAIN}"
+                                            },
+                                            {
+                                                "name": "EAP_HTTPS_KEYSTORE",
+                                                "value": "${EAP_HTTPS_KEYSTORE}"
+                                            },
+                                            {
+                                                "name": "EAP_HTTPS_NAME",
+                                                "value": "${EAP_HTTPS_NAME}"
+                                            },
+                                            {
+                                                "name": "EAP_HTTPS_PASSWORD",
+                                                "value": "${EAP_HTTPS_PASSWORD}"
                                             }
                                         ]
-
                                     }
                                 ]
                             }
