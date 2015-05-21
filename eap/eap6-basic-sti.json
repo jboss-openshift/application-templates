@@ -63,6 +63,11 @@
             "value": ""
         },
         {
+            "description": "The name of the secret containing the keystore file",
+            "name": "EAP_HTTPS_SECRET",
+            "value": ""
+        },
+        {
             "description": "The name of the keystore file within the local configuration directory",
             "name": "EAP_HTTPS_KEYSTORE",
             "value": ""
@@ -298,6 +303,13 @@
                                         "name": "${APPLICATION_NAME}",
                                         "image": "${APPLICATION_NAME}",
                                         "imagePullPolicy": "PullAlways",
+                                        "volumeMounts": [
+                                            {
+                                                "name": "eap-keystore-volume",
+                                                "mountPath": "/etc/eap-secret-volume",
+                                                "readOnly": true
+                                            }
+                                        ],
                                         "ports": [
                                             {
                                                 "name": "${APPLICATION_NAME}-tcp-8080",
@@ -329,6 +341,10 @@
                                                 "value": "${DNS_DOMAIN}"
                                             },
                                             {
+                                                "name": "EAP_HTTPS_KEYSTORE_DIR",
+                                                "value": "/etc/eap-secret-volume"
+                                            },
+                                            {
                                                 "name": "EAP_HTTPS_KEYSTORE",
                                                 "value": "${EAP_HTTPS_KEYSTORE}"
                                             },
@@ -341,6 +357,20 @@
                                                 "value": "${EAP_HTTPS_PASSWORD}"
                                             }
                                         ]
+                                    }
+                                ],
+                                "volumes": [
+                                    {
+                                        "name": "eap-keystore-volume",
+                                        "source": {
+                                            "secret": {
+                                                "target": {
+                                                    "kind": "Secret",
+                                                    "namespace": "${NAMESPACE}",
+                                                    "name": "${EAP_HTTPS_SECRET}"
+                                                }
+                                            }
+                                        }
                                     }
                                 ]
                             }
