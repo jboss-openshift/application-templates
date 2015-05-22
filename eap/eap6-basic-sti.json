@@ -68,7 +68,7 @@
             "value": "eap-app-secret"
         },
         {
-            "description": "The name of the keystore file within the local configuration directory",
+            "description": "The name of the keystore file within the secret",
             "name": "EAP_HTTPS_KEYSTORE",
             "value": "keystore.jks"
         },
