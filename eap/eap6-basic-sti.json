@@ -366,7 +366,6 @@
                                             "secret": {
                                                 "target": {
                                                     "kind": "Secret",
-                                                    "namespace": "${NAMESPACE}",
                                                     "name": "${EAP_HTTPS_SECRET}"
                                                 }
                                             }
