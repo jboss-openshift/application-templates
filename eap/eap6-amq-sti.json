@@ -85,16 +85,6 @@
             "value": ""
         },
         {
-            "description": "Domain name for OpenShift DNS.  Required for proper configuration of clustering",
-            "name": "DNS_DOMAIN",
-            "value": "local"
-        },
-        {
-            "description": "Project namespace within which application is deployed.  Required for proper configuraiton of clustering",
-            "name": "NAMESPACE",
-            "value": ""
-        },
-        {
             "description": "The name of the secret containing the keystore file",
             "name": "EAP_HTTPS_SECRET",
             "value": "eap-app-secret"
@@ -423,16 +413,12 @@
                                         "value": "${MQ_TOPICS}"
                                     },
                                     {
-                                        "name": "OPENSHIFT_PING_SERVICE",
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
                                         "value": "${APPLICATION_NAME}-ping"
                                     },
                                     {
-                                        "name": "OPENSHIFT_PING_NAMESPACE",
-                                        "value": "${NAMESPACE}"
-                                    },
-                                    {
-                                        "name": "OPENSHIFT_PING_DOMAIN",
-                                        "value": "${DNS_DOMAIN}"
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
+                                        "value": "8888"
                                     },
                                     {
                                         "name": "EAP_HTTPS_KEYSTORE_DIR",
