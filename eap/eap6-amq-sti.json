@@ -271,8 +271,8 @@
                     "contextDir":"${GIT_CONTEXT_DIR}"
                 },
                 "strategy": {
-                    "type": "STI",
-                    "stiStrategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
                             "name": "jboss-eap6-openshift:${EAP_RELEASE}"

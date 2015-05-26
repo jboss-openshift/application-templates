@@ -3,7 +3,7 @@
     "apiVersion": "v1beta3",
     "metadata": {
         "annotations": {
-            "description": "Application template for ActiveMQ brokers.",
+            "description": "Application template for ActiveMQ brokers."
         },
         "name": "amq6"
     },
@@ -258,6 +258,7 @@
                             {
                                 "name": "${APPLICATION_NAME}-amq",
                                 "image": "registry.access.redhat.com/openshift3_beta/amq-62-rhel7:latest",
+                                "imagePullPolicy": "Always",
                                 "ports": [
                                     {
                                         "name": "${APPLICATION_NAME}-amq-amqp",
