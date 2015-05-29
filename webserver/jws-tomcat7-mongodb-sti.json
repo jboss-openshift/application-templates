@@ -3,6 +3,7 @@
     "apiVersion": "v1beta1",
     "metadata": {
         "annotations": {
+            "iconClass" : "icon-tomcat",
             "description": "Application template for JWS MongoDB applications built using STI."
         },
         "name": "jws-tomcat7-mongodb-sti"

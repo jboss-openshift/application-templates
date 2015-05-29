@@ -3,6 +3,7 @@
     "apiVersion": "v1beta1",
     "metadata": {
         "annotations": {
+            "iconClass" : "icon-jboss",
             "description": "Application template for EAP 6 applications built using STI."
         },
         "name": "eap6-basic-sti"
