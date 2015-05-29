@@ -254,7 +254,7 @@
         },
         {
             "kind": "BuildConfig",
-            "apiVersion": "v1beta1",
+            "apiVersion": "v1beta3",
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
