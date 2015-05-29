@@ -254,14 +254,38 @@
         },
         {
             "kind": "BuildConfig",
-            "apiVersion": "v1beta3",
+            "apiVersion": "v1beta1",
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 }
             },
-            "spec": {
+            "triggers": [
+                {
+                    "type": "github",
+                    "github": {
+                        "secret": "${GITHUB_TRIGGER_SECRET}"
+                    }
+                },
+                {
+                    "type": "generic",
+                    "generic": {
+                        "secret": "${GENERIC_TRIGGER_SECRET}"
+                    }
+                },
+                {
+                    "type": "imageChange",
+                    "imageChange": {
+                        "image": "registry.access.redhat.com/jboss-eap-6/eap-openshift:${EAP_RELEASE}",
+                        "from": {
+                            "name": "jboss-eap6-openshift"
+                        },
+                        "tag": "${EAP_RELEASE}"
+                    }
+                }
+            ],
+            "parameters": {
                 "source": {
                     "type": "Git",
                     "git": {
@@ -274,34 +298,17 @@
                     "type": "STI",
                     "stiStrategy": {
                         "from": {
-                            "kind": "ImageStreamTag",
-                            "name": "jboss-eap6-openshift:${EAP_RELEASE}"
-                        }
+                            "name": "jboss-eap6-openshift"
+                        },
+                        "tag": "${EAP_RELEASE}",
+                        "clean": true
                     }
                 },
                 "output": {
                     "to": {
                         "name": "${APPLICATION_NAME}"
                     }
-                },
-                "triggers": [
-                     {
-                         "type": "github",
-                         "github": {
-                             "secret": "${GITHUB_TRIGGER_SECRET}"
-                         }
-                     },
-                     {
-                         "type": "generic",
-                         "generic": {
-                             "secret": "${GENERIC_TRIGGER_SECRET}"
-                         }
-                     },
-                     {
-                         "type": "imageChange",
-                         "imageChange": {}
-                     }
-                 ]
+                }
             }
         },
         {
