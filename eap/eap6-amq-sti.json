@@ -3,7 +3,8 @@
     "apiVersion": "v1beta3",
     "metadata": {
         "annotations": {
-            "description": "Application template for EAP 6 A-MQ applications built using STI."
+            "description": "Application template for EAP 6 A-MQ applications built using STI.",
+            "iconClass" : "jboss"
         },
         "name": "eap6-amq-sti"
     },
