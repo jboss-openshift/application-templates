@@ -12,6 +12,11 @@
     },
     "parameters": [
         {
+            "description": "ActiveMQ Release version, e.g. 6.2, etc.",
+            "name": "AMQ_RELEASE",
+            "value": "6.2"
+        },
+        {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "broker"
@@ -236,7 +241,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-amq-62:latest"
+                                "name": "jboss-amq-6:${AMQ_RELEASE}"
                             }
                         }
                     }
@@ -257,7 +262,7 @@
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-amq",
-                                "image": "registry.access.redhat.com/openshift3_beta/amq-62-rhel7:latest",
+                                "image": "registry.access.redhat.com/jboss-amq-6/amq-openshift:${AMQ_RELEASE}",
                                 "imagePullPolicy": "Always",
                                 "ports": [
                                     {
