@@ -34,9 +34,9 @@
             "generate": "expression"
         },
         {
-            "description": "Protocol to configure.  Only tcp (openwire) is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP",
+            "description": "Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP",
             "name": "MQ_PROTOCOL",
-            "value": "tcp"
+            "value": "openwire"
         },
         {
             "description": "Queue names",
