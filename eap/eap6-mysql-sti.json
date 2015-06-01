@@ -3,7 +3,8 @@
     "apiVersion": "v1beta1",
     "metadata": {
         "annotations": {
-            "description": "Application template for EAP 6 MySQL applications built using STI."
+            "description": "Application template for EAP 6 MySQL applications built using STI.",
+            "iconClass" : "jboss"
         },
         "name": "eap6-mysql-sti"
     },
