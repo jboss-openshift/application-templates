@@ -350,6 +350,10 @@
                                     {
                                         "name": "AMQ_ADMIN_PASSWORD",
                                         "value": "${AMQ_ADMIN_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-amq-tcp"
                                     }
                                 ]
                             }
