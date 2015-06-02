@@ -47,6 +47,18 @@
             "description": "Topic names",
             "name": "MQ_TOPICS",
             "value": ""
+        },
+        {
+            "description": "ActiveMQ Admin User",
+            "name": "AMQ_ADMIN_USERNAME",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "ActiveMQ Admin Password",
+            "name": "AMQ_ADMIN_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
         }
     ],
     "objects": [
@@ -264,6 +276,15 @@
                                 "name": "${APPLICATION_NAME}-amq",
                                 "image": "registry.access.redhat.com/jboss-amq-6/amq-openshift:${AMQ_RELEASE}",
                                 "imagePullPolicy": "Always",
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "curl -s -L -u ${AMQ_ADMIN_USERNAME}:${AMQ_ADMIN_PASSWORD} 'http://localhost:8161/hawtio/jolokia/read/org.apache.activemq:type=Broker,brokerName=*,service=Health/CurrentStatus' | grep -q '\"CurrentStatus\" *: *\"Good\"'"
+                                        ]
+                                    }
+                                },
                                 "ports": [
                                     {
                                         "name": "${APPLICATION_NAME}-amq-amqp",
@@ -321,6 +342,14 @@
                                     {
                                         "name": "AMQ_TOPICS",
                                         "value": "${MQ_TOPICS}"
+                                    },
+                                    {
+                                        "name": "AMQ_ADMIN_USERNAME",
+                                        "value": "${AMQ_ADMIN_USERNAME}"
+                                    },
+                                    {
+                                        "name": "AMQ_ADMIN_PASSWORD",
+                                        "value": "${AMQ_ADMIN_PASSWORD}"
                                     }
                                 ]
                             }
