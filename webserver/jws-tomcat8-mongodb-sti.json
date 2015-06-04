@@ -91,6 +91,12 @@
             "generate": "expression"
         },
         {
+            "description": "Database admin password",
+            "name": "DB_ADMIN_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
             "description": "Database name",
             "name": "DB_DATABASE",
             "value": "root"
@@ -362,6 +368,10 @@
                                         "value": "${DB_DATABASE}"
                                     },
                                     {
+                                        "name": "DB_ADMIN_PASSWORD",
+                                        "value": "${DB_ADMIN_PASSWORD}"
+                                    },
+                                    {
                                         "name": "JWS_HTTPS_CERTIFICATE_DIR",
                                         "value": "/etc/jws-secret-volume"
                                     },
@@ -457,6 +467,10 @@
                                     {
                                         "name": "MONGODB_DATABASE",
                                         "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "MONGODB_ADMIN_PASSWORD",
+                                        "value": "${DB_ADMIN_PASSWORD}"
                                     }
                                 ]
                             }

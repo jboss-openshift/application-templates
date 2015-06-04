@@ -76,6 +76,12 @@
             "value": "root"
         },
         {
+            "description": "Database admin password",
+            "name": "DB_ADMIN_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
             "description": "The name of the secret containing the keystore file",
             "name": "EAP_HTTPS_SECRET",
             "value": "eap-app-secret"
@@ -402,6 +408,10 @@
                                         "value": "${DB_DATABASE}"
                                     },
                                     {
+                                        "name": "DB_ADMIN_PASSWORD",
+                                        "value": "${DB_ADMIN_PASSWORD}"
+                                    },
+                                    {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
                                         "value": "${APPLICATION_NAME}-ping"
                                     },
@@ -505,6 +515,10 @@
                                     {
                                         "name": "MONGODB_DATABASE",
                                         "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "MONGODB_ADMIN_PASSWORD",
+                                        "value": "${DB_ADMIN_PASSWORD}"
                                     }
                                 ]
                             }
