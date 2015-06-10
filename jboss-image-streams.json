@@ -1,6 +1,6 @@
 {
     "kind": "Config",
-    "apiVersion": "v1beta1",
+    "apiVersion": "v1beta3",
     "metadata": {
         "name": "jboss-image-streams",
         "annotations": {
@@ -10,7 +10,7 @@
     "items": [
         {
             "kind": "ImageStream",
-            "apiVersion": "v1beta1",
+            "apiVersion": "v1",
             "metadata": {
                 "name": "jboss-webserver3-tomcat7-openshift",
                 "annotations": {
@@ -29,7 +29,7 @@
         },
         {
             "kind": "ImageStream",
-            "apiVersion": "v1beta1",
+            "apiVersion": "v1",
             "metadata": {
                 "name": "jboss-webserver3-tomcat8-openshift",
                 "annotations": {
@@ -48,7 +48,7 @@
         },
         {
             "kind": "ImageStream",
-            "apiVersion": "v1beta1",
+            "apiVersion": "v1",
             "metadata": {
                 "name": "jboss-eap6-openshift",
                 "annotations": {
@@ -67,7 +67,7 @@
         },
         {
             "kind": "ImageStream",
-            "apiVersion": "v1beta1",
+            "apiVersion": "v1",
             "metadata": {
                 "name": "jboss-amq-6",
                 "annotations": {
@@ -86,7 +86,7 @@
         },
         {
             "kind": "ImageStream",
-            "apiVersion": "v1beta1",
+            "apiVersion": "v1",
             "metadata": {
                 "name": "jboss-mysql-55",
                 "annotations": {
@@ -105,7 +105,7 @@
         },
         {
             "kind": "ImageStream",
-            "apiVersion": "v1beta1",
+            "apiVersion": "v1",
             "metadata": {
                 "name": "jboss-postgresql-92",
                 "annotations": {
@@ -124,7 +124,7 @@
         },
         {
             "kind": "ImageStream",
-            "apiVersion": "v1beta1",
+            "apiVersion": "v1",
             "metadata": {
                 "name": "jboss-mongodb-24",
                 "annotations": {

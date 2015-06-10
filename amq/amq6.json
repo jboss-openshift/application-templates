@@ -1,6 +1,6 @@
 {
     "kind": "Template",
-    "apiVersion": "v1beta3",
+    "apiVersion": "v1",
     "metadata": {
         "annotations": {
             "description": "Application template for ActiveMQ brokers."
@@ -52,7 +52,7 @@
     "objects": [
         {
             "kind": "Service",
-            "apiVersion": "v1beta3",
+            "apiVersion": "v1",
             "spec": {
                 "ports": [
                     {
@@ -76,7 +76,7 @@
         },
         {
             "kind": "Service",
-            "apiVersion": "v1beta3",
+            "apiVersion": "v1",
             "spec": {
                 "ports": [
                     {
@@ -100,7 +100,7 @@
         },
         {
             "kind": "Service",
-            "apiVersion": "v1beta3",
+            "apiVersion": "v1",
             "spec": {
                 "ports": [
                     {
@@ -124,7 +124,7 @@
         },
         {
             "kind": "Service",
-            "apiVersion": "v1beta3",
+            "apiVersion": "v1",
             "spec": {
                 "ports": [
                     {
@@ -148,7 +148,7 @@
         },
         {
             "kind": "Service",
-            "apiVersion": "v1beta3",
+            "apiVersion": "v1",
             "spec": {
                 "ports": [
                     {
@@ -172,7 +172,7 @@
         },
         {
             "kind": "Service",
-            "apiVersion": "v1beta3",
+            "apiVersion": "v1",
             "spec": {
                 "ports": [
                     {
@@ -196,7 +196,7 @@
         },
         {
             "kind": "Service",
-            "apiVersion": "v1beta3",
+            "apiVersion": "v1",
             "spec": {
                 "ports": [
                     {
@@ -220,7 +220,7 @@
         },
         {
             "kind": "DeploymentConfig",
-            "apiVersion": "v1beta3",
+            "apiVersion": "v1",
             "metadata": {
                 "name": "${APPLICATION_NAME}-amq",
                 "labels": {
