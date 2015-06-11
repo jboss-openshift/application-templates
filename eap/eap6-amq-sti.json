@@ -368,6 +368,7 @@
                                     }
                                 ],
                                 "readinessProbe": {
+                                    "initialDelaySeconds": 1,
                                     "exec": {
                                         "command": [
                                             "/bin/bash",
