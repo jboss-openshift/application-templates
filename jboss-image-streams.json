@@ -1,6 +1,6 @@
 {
-    "kind": "Config",
-    "apiVersion": "v1beta3",
+    "kind": "List",
+    "apiVersion": "v1",
     "metadata": {
         "name": "jboss-image-streams",
         "annotations": {
