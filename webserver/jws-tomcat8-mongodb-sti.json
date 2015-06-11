@@ -315,6 +315,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccount": "jws-service-account",
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
@@ -382,13 +383,8 @@
                         "volumes": [
                             {
                                 "name": "jws-certificate-volume",
-                                "source": {
-                                    "secret": {
-                                        "target": {
-                                            "kind": "Secret",
-                                            "name": "${JWS_HTTPS_SECRET}"
-                                        }
-                                    }
+                                "secret": {
+                                    "secretName": "${JWS_HTTPS_SECRET}"
                                 }
                             }
                         ]
