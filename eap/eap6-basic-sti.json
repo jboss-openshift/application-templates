@@ -294,6 +294,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccount": "eap-service-account",
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
@@ -364,13 +365,8 @@
                         "volumes": [
                             {
                                 "name": "eap-keystore-volume",
-                                "source": {
-                                    "secret": {
-                                        "target": {
-                                            "kind": "Secret",
-                                            "name": "${EAP_HTTPS_SECRET}"
-                                        }
-                                    }
+                                "secret": {
+                                    "secretName": "${EAP_HTTPS_SECRET}"
                                 }
                             }
                         ]
