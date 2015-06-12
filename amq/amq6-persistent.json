@@ -22,6 +22,11 @@
             "value": "broker"
         },
         {
+            "description": "Size of persistent storage for database volume.",
+            "name": "VOLUME_CAPACITY",
+            "value": "512Mi"
+        },
+        {
             "description": "Broker user name",
             "name": "MQ_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
@@ -322,6 +327,12 @@
                                         "protocol": "TCP"
                                     }
                                 ],
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/opt/amq/data/kahadb",
+                                        "name": "${APPLICATION_NAME}-amq-pvol"
+                                    }
+                                ],
                                 "env": [
                                     {
                                         "name": "AMQ_USER",
@@ -353,7 +364,33 @@
                                     }
                                 ]
                             }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "${APPLICATION_NAME}-amq-pvol",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${APPLICATION_NAME}-amq-claim"
+                                }
+                            }
                         ]
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-claim",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "accessModes": [ "ReadWriteOnce" ],
+                "resources": {
+                    "requests": {
+                        "storage": "${VOLUME_CAPACITY}"
                     }
                 }
             }

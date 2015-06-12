@@ -4,12 +4,12 @@
     "metadata": {
         "annotations": {
             "iconClass" : "icon-tomcat",
-            "description": "Application template for JWS PostgreSQL applications built using STI."
+            "description": "Application template for JWS MongoDB applications with persistent storage built using STI."
         },
-        "name": "jws-tomcat7-postgresql-sti"
+        "name": "jws-tomcat7-mongodb-persistent-sti"
     },
     "labels": {
-        "template": "jws-tomcat7-postgresql-sti"
+        "template": "jws-tomcat7-mongodb-persistent-sti"
     },
     "parameters": [
         {
@@ -42,16 +42,19 @@
             "value": ""
         },
         {
-            "description": "Github trigger secret",
-            "name": "GITHUB_TRIGGER_SECRET",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb",
+            "name": "DB_JNDI",
+            "value": ""
         },
         {
-            "description": "Generic build trigger secret",
-            "name": "GENERIC_TRIGGER_SECRET",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "description": "Database name",
+            "name": "DB_DATABASE",
+            "value": "root"
+        },
+        {
+            "description": "Size of persistent storage for database volume.",
+            "name": "VOLUME_CAPACITY",
+            "value": "512Mi"
         },
         {
             "description": "The name of the secret containing the certificate files",
@@ -74,11 +77,6 @@
             "value": ""
         },
         {
-            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql",
-            "name": "DB_JNDI",
-            "value": ""
-        },
-        {
             "description": "Database user name",
             "name": "DB_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
@@ -91,9 +89,10 @@
             "generate": "expression"
         },
         {
-            "description": "Database name",
-            "name": "DB_DATABASE",
-            "value": "root"
+            "description": "Database admin password",
+            "name": "DB_ADMIN_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
         },
         {
             "description": "JWS Admin User",
@@ -104,6 +103,18 @@
         {
             "description": "JWS Admin Password",
             "name": "JWS_ADMIN_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Github trigger secret",
+            "name": "GITHUB_TRIGGER_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Generic build trigger secret",
+            "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression"
         }
@@ -163,16 +174,16 @@
             "spec": {
                 "ports": [
                     {
-                        "port": 5432,
-                        "targetPort": 5432
+                        "port": 27017,
+                        "targetPort": 27017
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                    "deploymentConfig": "${APPLICATION_NAME}-mongodb"
                 }
             },
             "metadata": {
-                "name": "${APPLICATION_NAME}-postgresql",
+                "name": "${APPLICATION_NAME}-mongodb",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
@@ -364,7 +375,7 @@
                                 "env": [
                                     {
                                         "name": "DB_SERVICE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-postgresql=DB"
+                                        "value": "${APPLICATION_NAME}-mongodb=DB"
                                     },
                                     {
                                         "name": "DB_JNDI",
@@ -381,6 +392,10 @@
                                     {
                                         "name": "DB_DATABASE",
                                         "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "DB_ADMIN_PASSWORD",
+                                        "value": "${DB_ADMIN_PASSWORD}"
                                     },
                                     {
                                         "name": "JWS_HTTPS_CERTIFICATE_DIR",
@@ -425,7 +440,7 @@
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
-                "name": "${APPLICATION_NAME}-postgresql",
+                "name": "${APPLICATION_NAME}-mongodb",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 }
@@ -440,55 +455,92 @@
                         "imageChangeParams": {
                             "automatic": true,
                             "containerNames": [
-                                "${APPLICATION_NAME}-postgresql"
+                                "${APPLICATION_NAME}-mongodb"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-postgresql-92:latest"
+                                "name": "jboss-mongodb-24:latest"
                             }
                         }
                     }
                 ],
                 "replicas": 1,
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                    "deploymentConfig": "${APPLICATION_NAME}-mongodb"
                 },
                 "template": {
                     "metadata": {
-                        "name": "${APPLICATION_NAME}-postgresql",
+                        "name": "${APPLICATION_NAME}-mongodb",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-postgresql",
+                            "deploymentConfig": "${APPLICATION_NAME}-mongodb",
                             "application": "${APPLICATION_NAME}"
                         }
                     },
                     "spec": {
                         "containers": [
                             {
-                                "name": "${APPLICATION_NAME}-postgresql",
-                                "image": "registry.access.redhat.com/openshift3_beta/postgresql-92-rhel7:latest",
+                                "name": "${APPLICATION_NAME}-mongodb",
+                                "image": "registry.access.redhat.com/openshift3_beta/mongodb-24-rhel7:latest",
+                                "imagePullPolicy": "Always",
                                 "ports": [
                                     {
-                                        "name": "${APPLICATION_NAME}-postgresql-tcp-5432",
-                                        "containerPort": 5432,
+                                        "name": "${APPLICATION_NAME}-mongodb-tcp-27017",
+                                        "containerPort": 27017,
                                         "protocol": "TCP"
                                     }
                                 ],
+                                "volumeMounts": [
+                                     {
+                                         "mountPath": "/var/lib/mongodb/data",
+                                         "name": "${APPLICATION_NAME}-mongodb-pvol"
+                                     }
+                                 ],
                                 "env": [
                                     {
-                                        "name": "POSTGRESQL_USER",
+                                        "name": "MONGODB_USERNAME",
                                         "value": "${DB_USERNAME}"
                                     },
                                     {
-                                        "name": "POSTGRESQL_PASSWORD",
+                                        "name": "MONGODB_PASSWORD",
                                         "value": "${DB_PASSWORD}"
                                     },
                                     {
-                                        "name": "POSTGRESQL_DATABASE",
+                                        "name": "MONGODB_DATABASE",
                                         "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "MONGODB_ADMIN_PASSWORD",
+                                        "value": "${DB_ADMIN_PASSWORD}"
                                     }
                                 ]
                             }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "${APPLICATION_NAME}-mongodb-pvol",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${APPLICATION_NAME}-mongodb-claim"
+                                }
+                            }
                         ]
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-mongodb-claim",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "accessModes": [ "ReadWriteOnce" ],
+                "resources": {
+                    "requests": {
+                        "storage": "${VOLUME_CAPACITY}"
                     }
                 }
             }

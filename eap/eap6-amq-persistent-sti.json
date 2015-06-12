@@ -3,29 +3,34 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass" : "icon-tomcat",
-            "description": "Application template for JWS PostgreSQL applications built using STI."
+            "description": "Application template for EAP 6 A-MQ applications with persistent storage built using STI.",
+            "iconClass" : "icon-jboss"
         },
-        "name": "jws-tomcat8-postgresql-sti"
+        "name": "eap6-amq-persistent-sti"
     },
     "labels": {
-        "template": "jws-tomcat8-postgresql-sti"
+        "template": "eap6-amq-persistent-sti"
     },
     "parameters": [
         {
-            "description": "JWS Release version, e.g. 3.0, 2.1, etc.",
-            "name": "JWS_RELEASE",
-            "value": "3.0"
+            "description": "EAP Release version, e.g. 6.4, etc.",
+            "name": "EAP_RELEASE",
+            "value": "6.4"
+        },
+        {
+            "description": "ActiveMQ Release version, e.g. 6.2, etc.",
+            "name": "AMQ_RELEASE",
+            "value": "6.2"
         },
         {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
-            "value": "jws-app"
+            "value": "eap-app"
         },
         {
             "description": "Hostname for service routes",
             "name": "APPLICATION_HOSTNAME",
-            "value": "jws-app.local"
+            "value": "eap-app.local"
         },
         {
             "description": "Git source URI for application",
@@ -42,56 +47,71 @@
             "value": ""
         },
         {
-            "description": "The name of the secret containing the certificate files",
-            "name": "JWS_HTTPS_SECRET",
-            "value": "jws-app-secret"
+            "description": "Size of persistent storage for database volume.",
+            "name": "VOLUME_CAPACITY",
+            "value": "512Mi"
         },
         {
-            "description": "The name of the certificate file within the secret",
-            "name": "JWS_HTTPS_CERTIFICATE",
-            "value": "server.crt"
+            "description": "JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory",
+            "name": "MQ_JNDI",
+            "value": "java:/ConnectionFactory"
         },
         {
-            "description": "The name of the certificate key file within the secret",
-            "name": "JWS_HTTPS_CERTIFICATE_KEY",
-            "value": "server.key"
+            "description": "Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP",
+            "name": "MQ_PROTOCOL",
+            "value": "openwire"
         },
         {
-            "description": "The certificate password",
-            "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
+            "description": "Queue names",
+            "name": "MQ_QUEUES",
             "value": ""
         },
         {
-            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql",
-            "name": "DB_JNDI",
+            "description": "Topic names",
+            "name": "MQ_TOPICS",
             "value": ""
         },
         {
-            "description": "Database user name",
-            "name": "DB_USERNAME",
+            "description": "Broker user name",
+            "name": "MQ_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression"
         },
         {
-            "description": "Database user password",
-            "name": "DB_PASSWORD",
+            "description": "Broker user password",
+            "name": "MQ_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression"
         },
         {
-            "description": "Database name",
-            "name": "DB_DATABASE",
-            "value": "root"
+            "description": "The name of the secret containing the keystore file",
+            "name": "EAP_HTTPS_SECRET",
+            "value": "eap-app-secret"
         },
         {
-            "description": "JWS Admin User",
-            "name": "JWS_ADMIN_USERNAME",
-            "from": "[a-zA-Z0-9]{8}",
+            "description": "The name of the keystore file within the secret",
+            "name": "EAP_HTTPS_KEYSTORE",
+            "value": "keystore.jks"
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "name": "EAP_HTTPS_NAME",
+            "value": ""
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "name": "EAP_HTTPS_PASSWORD",
+            "value": ""
+        },
+        {
+            "description": "ActiveMQ Admin User",
+            "name": "AMQ_ADMIN_USERNAME",
+            "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression"
         },
         {
-            "description": "JWS Admin Password",
-            "name": "JWS_ADMIN_PASSWORD",
+            "description": "ActiveMQ Admin Password",
+            "name": "AMQ_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression"
         },
@@ -163,21 +183,46 @@
             "spec": {
                 "ports": [
                     {
-                        "port": 5432,
-                        "targetPort": 5432
+                        "port": 8888,
+                        "targetPort": 8888
                     }
                 ],
+                "portalIP": "None",
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                    "deploymentConfig": "${APPLICATION_NAME}"
                 }
             },
             "metadata": {
-                "name": "${APPLICATION_NAME}-postgresql",
+                "name": "${APPLICATION_NAME}-ping",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The database server's port."
+                    "description": "Ping service for clustered applications."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 61616,
+                        "targetPort": 61616
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-tcp",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The broker's tcp (openwire) port."
                 }
             }
         },
@@ -186,13 +231,13 @@
             "apiVersion": "v1",
             "id": "${APPLICATION_NAME}-http-route",
             "metadata": {
-                "name": "${APPLICATION_NAME}-http-route",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Route for application's http service."
-                }
+              "name": "${APPLICATION_NAME}-http-route",
+              "labels": {
+                  "application": "${APPLICATION_NAME}"
+              },
+              "annotations": {
+                  "description": "Route for application's http service."
+              }
             },
             "spec": {
                 "host": "${APPLICATION_HOSTNAME}",
@@ -257,7 +302,7 @@
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-webserver3-tomcat8-openshift:${JWS_RELEASE}"
+                            "name": "jboss-eap6-openshift:${EAP_RELEASE}"
                         }
                     }
                 },
@@ -327,28 +372,28 @@
                         }
                     },
                     "spec": {
-                        "serviceAccount": "jws-service-account",
+                        "serviceAccount": "eap-service-account",
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
+                                "volumeMounts": [
+                                    {
+                                        "name": "eap-keystore-volume",
+                                        "mountPath": "/etc/eap-secret-volume",
+                                        "readOnly": true
+                                    }
+                                ],
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "curl -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer&att=stateName' |grep -iq 'stateName *= *STARTED'"
+                                            "/opt/eap/bin/jboss-cli.sh --connect ':read-attribute(name=server-state)' | grep -iq running"
                                         ]
                                     }
                                 },
-                                "volumeMounts": [
-                                    {
-                                        "name": "jws-certificate-volume",
-                                        "mountPath": "/etc/jws-secret-volume",
-                                        "readOnly": true
-                                    }
-                                ],
                                 "ports": [
                                     {
                                         "name": "${APPLICATION_NAME}-tcp-8080",
@@ -359,61 +404,74 @@
                                         "name": "${APPLICATION_NAME}-tcp-8443",
                                         "containerPort": 8443,
                                         "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "${APPLICATION_NAME}-ping-8888",
+                                        "containerPort": 8888,
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
                                     {
-                                        "name": "DB_SERVICE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-postgresql=DB"
+                                        "name": "MQ_SERVICE_PREFIX_MAPPING",
+                                        "value": "${APPLICATION_NAME}-amq=MQ"
                                     },
                                     {
-                                        "name": "DB_JNDI",
-                                        "value": "${DB_JNDI}"
+                                        "name": "MQ_JNDI",
+                                        "value": "${MQ_JNDI}"
                                     },
                                     {
-                                        "name": "DB_USERNAME",
-                                        "value": "${DB_USERNAME}"
+                                        "name": "MQ_USERNAME",
+                                        "value": "${MQ_USERNAME}"
                                     },
                                     {
-                                        "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "name": "MQ_PASSWORD",
+                                        "value": "${MQ_PASSWORD}"
                                     },
                                     {
-                                        "name": "DB_DATABASE",
-                                        "value": "${DB_DATABASE}"
+                                        "name": "MQ_PROTOCOL",
+                                        "value": "tcp"
                                     },
                                     {
-                                        "name": "JWS_HTTPS_CERTIFICATE_DIR",
-                                        "value": "/etc/jws-secret-volume"
+                                        "name": "MQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
                                     },
                                     {
-                                        "name": "JWS_HTTPS_CERTIFICATE",
-                                        "value": "${JWS_HTTPS_CERTIFICATE}"
+                                        "name": "MQ_TOPICS",
+                                        "value": "${MQ_TOPICS}"
                                     },
                                     {
-                                        "name": "JWS_HTTPS_CERTIFICATE_KEY",
-                                        "value": "${JWS_HTTPS_CERTIFICATE_KEY}"
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-ping"
                                     },
                                     {
-                                        "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
-                                        "value": "${JWS_HTTPS_CERTIFICATE_PASSWORD}"
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
+                                        "value": "8888"
                                     },
                                     {
-                                        "name": "JWS_ADMIN_USERNAME",
-                                        "value": "${JWS_ADMIN_USERNAME}"
+                                        "name": "EAP_HTTPS_KEYSTORE_DIR",
+                                        "value": "/etc/eap-secret-volume"
                                     },
                                     {
-                                        "name": "JWS_ADMIN_PASSWORD",
-                                        "value": "${JWS_ADMIN_PASSWORD}"
+                                        "name": "EAP_HTTPS_KEYSTORE",
+                                        "value": "${EAP_HTTPS_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "EAP_HTTPS_NAME",
+                                        "value": "${EAP_HTTPS_NAME}"
+                                    },
+                                    {
+                                        "name": "EAP_HTTPS_PASSWORD",
+                                        "value": "${EAP_HTTPS_PASSWORD}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
                             {
-                                "name": "jws-certificate-volume",
+                                "name": "eap-keystore-volume",
                                 "secret": {
-                                    "secretName": "${JWS_HTTPS_SECRET}"
+                                    "secretName": "${EAP_HTTPS_SECRET}"
                                 }
                             }
                         ]
@@ -425,7 +483,7 @@
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
-                "name": "${APPLICATION_NAME}-postgresql",
+                "name": "${APPLICATION_NAME}-amq",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 }
@@ -440,55 +498,143 @@
                         "imageChangeParams": {
                             "automatic": true,
                             "containerNames": [
-                                "${APPLICATION_NAME}-postgresql"
+                                "${APPLICATION_NAME}-amq"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-postgresql-92:latest"
+                                "name": "jboss-amq-6:${AMQ_RELEASE}"
                             }
                         }
                     }
                 ],
                 "replicas": 1,
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
                 },
                 "template": {
                     "metadata": {
-                        "name": "${APPLICATION_NAME}-postgresql",
+                        "name": "${APPLICATION_NAME}-amq",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-postgresql",
+                            "deploymentConfig": "${APPLICATION_NAME}-amq",
                             "application": "${APPLICATION_NAME}"
                         }
                     },
                     "spec": {
                         "containers": [
                             {
-                                "name": "${APPLICATION_NAME}-postgresql",
-                                "image": "registry.access.redhat.com/openshift3_beta/postgresql-92-rhel7:latest",
+                                "name": "${APPLICATION_NAME}-amq",
+                                "image": "registry.access.redhat.com/jboss-amq-6/amq-openshift:${AMQ_RELEASE}",
+                                "imagePullPolicy": "Always",
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "curl -s -L -u ${AMQ_ADMIN_USERNAME}:${AMQ_ADMIN_PASSWORD} 'http://localhost:8161/hawtio/jolokia/read/org.apache.activemq:type=Broker,brokerName=*,service=Health/CurrentStatus' | grep -q '\"CurrentStatus\" *: *\"Good\"'"
+                                        ]
+                                    }
+                                },
                                 "ports": [
                                     {
-                                        "name": "${APPLICATION_NAME}-postgresql-tcp-5432",
-                                        "containerPort": 5432,
+                                        "name": "${APPLICATION_NAME}-amq-amqp",
+                                        "containerPort": 5672,
                                         "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "${APPLICATION_NAME}-amq-amqp-ssl",
+                                        "containerPort": 5671,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "${APPLICATION_NAME}-amq-mqtt",
+                                        "containerPort": 1883,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "${APPLICATION_NAME}-amq-stomp",
+                                        "containerPort": 61613,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "${APPLICATION_NAME}-amq-stomp-ssl",
+                                        "containerPort": 61612,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "${APPLICATION_NAME}-amq-tcp",
+                                        "containerPort": 61616,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "${APPLICATION_NAME}-amq-tcp-ssl",
+                                        "containerPort": 61617,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/opt/amq/data/kahadb",
+                                        "name": "${APPLICATION_NAME}-amq-pvol"
                                     }
                                 ],
                                 "env": [
                                     {
-                                        "name": "POSTGRESQL_USER",
-                                        "value": "${DB_USERNAME}"
+                                        "name": "AMQ_USER",
+                                        "value": "${MQ_USERNAME}"
                                     },
                                     {
-                                        "name": "POSTGRESQL_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "name": "AMQ_PASSWORD",
+                                        "value": "${MQ_PASSWORD}"
                                     },
                                     {
-                                        "name": "POSTGRESQL_DATABASE",
-                                        "value": "${DB_DATABASE}"
+                                        "name": "AMQ_PROTOCOLS",
+                                        "value": "${MQ_PROTOCOL}"
+                                    },
+                                    {
+                                        "name": "AMQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
+                                    },
+                                    {
+                                        "name": "AMQ_TOPICS",
+                                        "value": "${MQ_TOPICS}"
+                                    },
+                                    {
+                                        "name": "AMQ_ADMIN_USERNAME",
+                                        "value": "${AMQ_ADMIN_USERNAME}"
+                                    },
+                                    {
+                                        "name": "AMQ_ADMIN_PASSWORD",
+                                        "value": "${AMQ_ADMIN_PASSWORD}"
                                     }
                                 ]
                             }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "${APPLICATION_NAME}-amq-pvol",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${APPLICATION_NAME}-amq-claim"
+                                }
+                            }
                         ]
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-claim",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "accessModes": [ "ReadWriteOnce" ],
+                "resources": {
+                    "requests": {
+                        "storage": "${VOLUME_CAPACITY}"
                     }
                 }
             }
