@@ -369,12 +369,11 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "initialDelaySeconds": 1,
                                     "exec": {
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "/opt/eap/bin/jboss-cli.sh --connect ':read-attribute(name=server-state)' | grep -iq running"
+                                            "/opt/eap/bin/readinessProbe.sh"
                                         ]
                                     }
                                 },
