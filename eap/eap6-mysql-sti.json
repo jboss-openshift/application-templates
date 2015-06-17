@@ -54,6 +54,22 @@
             "generate": "expression"
         },
         {
+            "description": "HornetQ cluster admin password",
+            "name": "HORNETQ_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Queue names",
+            "name": "HORNETQ_QUEUES",
+            "value": ""
+        },
+        {
+            "description": "Topic names",
+            "name": "HORNETQ_TOPICS",
+            "value": ""
+        },
+        {
             "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql",
             "name": "DB_JNDI",
             "value": ""
@@ -424,6 +440,18 @@
                                     {
                                         "name": "EAP_HTTPS_PASSWORD",
                                         "value": "${EAP_HTTPS_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_CLUSTER_PASSWORD",
+                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_QUEUES",
+                                        "value": "${HORNETQ_QUEUES}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_TOPICS",
+                                        "value": "${HORNETQ_TOPICS}"
                                     }
                                 ]
                             }
