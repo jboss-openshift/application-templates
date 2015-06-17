@@ -415,7 +415,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-postgresql-92"
+                                "name": "jboss-postgresql-92:latest"
                             }
                         }
                     }
