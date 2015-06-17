@@ -24,7 +24,7 @@
         {
             "description": "Broker user name",
             "name": "MQ_USERNAME",
-            "from": "[a-zA-Z0-9]{8}",
+            "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression"
         },
         {
