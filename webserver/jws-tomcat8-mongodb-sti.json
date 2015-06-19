@@ -498,7 +498,7 @@
                                 ],
                                 "env": [
                                     {
-                                        "name": "MONGODB_USERNAME",
+                                        "name": "MONGODB_USER",
                                         "value": "${DB_USERNAME}"
                                     },
                                     {
