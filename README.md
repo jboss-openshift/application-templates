@@ -39,3 +39,9 @@ Or, if you prefer the command line:
 $ osc create -n yourproject -f jboss-image-streams.json
 $ osc process -n yourproject -f eap/eap6-basic-sti.json -v APPLICATION_NAME=helloworld,APPLICATION_HOSTNAME=helloworld.yourproject.local,GIT_URI=https://github.com/jboss-developer/jboss-eap-quickstarts,GIT_REF=6.4.x,GIT_CONTEXT_DIR=helloworld | osc create -n yourproject -f -
 ```
+
+You may also install them into the `openshift` namespace in order to make them
+available to all users:
+```
+$ oc create -n openshift -f jboss-image-streams.json
+```
