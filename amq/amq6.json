@@ -55,12 +55,12 @@
 		},
 		{
 			"description": "SSL trust store filename",
-			"name": "AMQ_TRUST_STORE",
+			"name": "AMQ_TRUSTSTORE",
 			"value": "broker.ts"
 		},
 		{
 			"description": "SSL key store filename",
-			"name": "AMQ_KEY_STORE",
+			"name": "AMQ_KEYSTORE",
 			"value": "broker.ks"
 		}	
     ],
@@ -339,12 +339,16 @@
                                         "value": "${MQ_TOPICS}"
                                     },
 									{
-										"name": "AMQ_TRUST_STORE",
-										"value": "${AMQ_TRUST_STORE}"
+										"name": "AMQ_KEYSTORE_TRUSTSTORE_DIR",
+										"value": "/etc/amq-secret-volume"
 									},
 									{
-										"name": "AMQ_KEY_STORE",
-										"value": "${AMQ_KEY_STORE}"
+										"name": "AMQ_TRUSTSTORE",
+										"value": "${AMQ_TRUSTSTORE}"
+									},
+									{
+										"name": "AMQ_KEYSTORE",
+										"value": "${AMQ_KEYSTORE}"
 									}
                                 ],
 								"volumeMounts": [
