@@ -430,6 +430,10 @@
                                         "value": "${DB_DATABASE}"
                                     },
                                     {
+                                        "name": "TX_DATABASE_PREFIX_MAPPING",
+                                        "value": "${APPLICATION_NAME}-postgresql=DB"
+                                    },
+                                    {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
                                         "value": "${APPLICATION_NAME}-ping"
                                     },
