@@ -22,18 +22,6 @@
             "value": "broker"
         },
         {
-            "description": "Broker user name",
-            "name": "MQ_USERNAME",
-            "from": "user[a-zA-Z0-9]{3}",
-            "generate": "expression"
-        },
-        {
-            "description": "Broker user password",
-            "name": "MQ_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
-        },
-        {
             "description": "Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP",
             "name": "MQ_PROTOCOL",
             "value": "openwire"
@@ -47,6 +35,18 @@
             "description": "Topic names",
             "name": "MQ_TOPICS",
             "value": ""
+        },
+        {
+            "description": "Broker user name",
+            "name": "MQ_USERNAME",
+            "from": "user[a-zA-Z0-9]{3}",
+            "generate": "expression"
+        },
+        {
+            "description": "Broker user password",
+            "name": "MQ_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
         },
         {
             "description": "ActiveMQ Admin User",

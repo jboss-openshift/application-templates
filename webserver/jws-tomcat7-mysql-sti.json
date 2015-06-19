@@ -42,16 +42,14 @@
             "value": ""
         },
         {
-            "description": "Github trigger secret",
-            "name": "GITHUB_TRIGGER_SECRET",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb",
+            "name": "DB_JNDI",
+            "value": ""
         },
         {
-            "description": "Generic build trigger secret",
-            "name": "GENERIC_TRIGGER_SECRET",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "description": "Database name",
+            "name": "DB_DATABASE",
+            "value": "root"
         },
         {
             "description": "The name of the secret containing the certificate files",
@@ -74,9 +72,24 @@
             "value": ""
         },
         {
-            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql",
-            "name": "DB_JNDI",
-            "value": ""
+            "description": "Sets how the table names are stored and compared.",
+            "name": "MYSQL_LOWER_CASE_TABLE_NAMES"
+        },
+        {
+            "description": "The maximum permitted number of simultaneous client connections.",
+            "name": "MYSQL_MAX_CONNECTIONS"
+        },
+        {
+            "description": "The minimum length of the word to be included in a FULLTEXT index.",
+            "name": "MYSQL_FT_MIN_WORD_LEN"
+        },
+        {
+            "description": "The maximum length of the word to be included in a FULLTEXT index.",
+            "name": "MYSQL_FT_MAX_WORD_LEN"
+        },
+        {
+            "description": "Controls the innodb_use_native_aio setting value if the native AIO is broken.",
+            "name": "MYSQL_AIO"
         },
         {
             "description": "Database user name",
@@ -91,11 +104,6 @@
             "generate": "expression"
         },
         {
-            "description": "Database name",
-            "name": "DB_DATABASE",
-            "value": "root"
-        },
-        {
             "description": "JWS Admin User",
             "name": "JWS_ADMIN_USERNAME",
             "from": "[a-zA-Z0-9]{8}",
@@ -104,6 +112,18 @@
         {
             "description": "JWS Admin Password",
             "name": "JWS_ADMIN_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Github trigger secret",
+            "name": "GITHUB_TRIGGER_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Generic build trigger secret",
+            "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression"
         }
@@ -485,6 +505,26 @@
                                     {
                                         "name": "MYSQL_DATABASE",
                                         "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
+                                        "value": "${MYSQL_LOWER_CASE_TABLE_NAMES}"
+                                    },
+                                    {
+                                        "name": "MYSQL_MAX_CONNECTIONS",
+                                        "value": "${MYSQL_MAX_CONNECTIONS}"
+                                    },
+                                    {
+                                        "name": "MYSQL_FT_MIN_WORD_LEN",
+                                        "value": "${MYSQL_FT_MIN_WORD_LEN}"
+                                    },
+                                    {
+                                        "name": "MYSQL_FT_MAX_WORD_LEN",
+                                        "value": "${MYSQL_FT_MAX_WORD_LEN}"
+                                    },
+                                    {
+                                        "name": "MYSQL_AIO",
+                                        "value": "${MYSQL_AIO}"
                                     }
                                 ]
                             }

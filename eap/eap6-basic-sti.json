@@ -42,24 +42,6 @@
             "value": ""
         },
         {
-            "description": "Github trigger secret",
-            "name": "GITHUB_TRIGGER_SECRET",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
-        },
-        {
-            "description": "Generic build trigger secret",
-            "name": "GENERIC_TRIGGER_SECRET",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
-        },
-        {
-            "description": "HornetQ cluster admin password",
-            "name": "HORNETQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
-        },
-        {
             "description": "Queue names",
             "name": "HORNETQ_QUEUES",
             "value": ""
@@ -88,6 +70,24 @@
             "description": "The password for the keystore and certificate",
             "name": "EAP_HTTPS_PASSWORD",
             "value": ""
+        },
+        {
+            "description": "HornetQ cluster admin password",
+            "name": "HORNETQ_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Github trigger secret",
+            "name": "GITHUB_TRIGGER_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Generic build trigger secret",
+            "name": "GENERIC_TRIGGER_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
         }
     ],
     "objects": [

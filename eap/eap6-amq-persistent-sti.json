@@ -72,18 +72,6 @@
             "value": ""
         },
         {
-            "description": "Broker user name",
-            "name": "MQ_USERNAME",
-            "from": "user[a-zA-Z0-9]{3}",
-            "generate": "expression"
-        },
-        {
-            "description": "Broker user password",
-            "name": "MQ_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
-        },
-        {
             "description": "The name of the secret containing the keystore file",
             "name": "EAP_HTTPS_SECRET",
             "value": "eap-app-secret"
@@ -102,6 +90,18 @@
             "description": "The password for the keystore and certificate",
             "name": "EAP_HTTPS_PASSWORD",
             "value": ""
+        },
+        {
+            "description": "Broker user name",
+            "name": "MQ_USERNAME",
+            "from": "user[a-zA-Z0-9]{3}",
+            "generate": "expression"
+        },
+        {
+            "description": "Broker user password",
+            "name": "MQ_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
         },
         {
             "description": "ActiveMQ Admin User",
@@ -390,7 +390,7 @@
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "/opt/eap/bin/jboss-cli.sh --connect ':read-attribute(name=server-state)' | grep -iq running"
+                                            "/opt/eap/bin/readinessProbe.sh"
                                         ]
                                     }
                                 },

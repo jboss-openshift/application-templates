@@ -77,6 +77,18 @@
             "value": ""
         },
         {
+            "description": "Disable data file preallocation.",
+            "name": "MONGODB_NOPREALLOC"
+        },
+        {
+            "description": "Set MongoDB to use a smaller default data file size.",
+            "name": "MONGODB_SMALLFILES"
+        },
+        {
+            "description": "Runs MongoDB in a quiet mode that attempts to limit the amount of output.",
+            "name": "MONGODB_QUIET"
+        },
+        {
             "description": "Database user name",
             "name": "DB_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
@@ -511,6 +523,18 @@
                                     {
                                         "name": "MONGODB_ADMIN_PASSWORD",
                                         "value": "${DB_ADMIN_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MONGODB_NOPREALLOC",
+                                        "value": "${MONGODB_NOPREALLOC}"
+                                    },
+                                    {
+                                        "name": "MONGODB_SMALLFILES",
+                                        "value": "${MONGODB_SMALLFILES}"
+                                    },
+                                    {
+                                        "name": "MONGODB_QUIET",
+                                        "value": "${MONGODB_QUIET}"
                                     }
                                 ]
                             }

@@ -77,6 +77,14 @@
             "value": ""
         },
         {
+            "description": "The maximum number of client connections allowed. This also sets the maximum number of prepared transactions.",
+            "name": "POSTGRESQL_MAX_CONNECTIONS"
+        },
+        {
+            "description": "Configures how much memory is dedicated to PostgreSQL for caching data.",
+            "name": "POSTGRESQL_SHARED_BUFFERS"
+        },
+        {
             "description": "Database user name",
             "name": "DB_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
@@ -496,6 +504,14 @@
                                     {
                                         "name": "POSTGRESQL_DATABASE",
                                         "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_MAX_CONNECTIONS",
+                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_SHARED_BUFFERS",
+                                        "value": "${POSTGRESQL_SHARED_BUFFERS}"
                                     }
                                 ]
                             }

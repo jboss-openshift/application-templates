@@ -42,22 +42,14 @@
             "value": ""
         },
         {
-            "description": "Github trigger secret",
-            "name": "GITHUB_TRIGGER_SECRET",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql",
+            "name": "DB_JNDI",
+            "value": ""
         },
         {
-            "description": "Generic build trigger secret",
-            "name": "GENERIC_TRIGGER_SECRET",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
-        },
-        {
-            "description": "HornetQ cluster admin password",
-            "name": "HORNETQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "description": "Database name",
+            "name": "DB_DATABASE",
+            "value": "root"
         },
         {
             "description": "Queue names",
@@ -68,28 +60,6 @@
             "description": "Topic names",
             "name": "HORNETQ_TOPICS",
             "value": ""
-        },
-        {
-            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql",
-            "name": "DB_JNDI",
-            "value": ""
-        },
-        {
-            "description": "Database user name",
-            "name": "DB_USERNAME",
-            "from": "user[a-zA-Z0-9]{3}",
-            "generate": "expression"
-        },
-        {
-            "description": "Database user password",
-            "name": "DB_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
-        },
-        {
-            "description": "Database name",
-            "name": "DB_DATABASE",
-            "value": "root"
         },
         {
             "description": "The name of the secret containing the keystore file",
@@ -110,6 +80,44 @@
             "description": "The password for the keystore and certificate",
             "name": "EAP_HTTPS_PASSWORD",
             "value": ""
+        },
+        {
+            "description": "The maximum number of client connections allowed. This also sets the maximum number of prepared transactions.",
+            "name": "POSTGRESQL_MAX_CONNECTIONS"
+        },
+        {
+            "description": "Configures how much memory is dedicated to PostgreSQL for caching data.",
+            "name": "POSTGRESQL_SHARED_BUFFERS"
+        },
+        {
+            "description": "HornetQ cluster admin password",
+            "name": "HORNETQ_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Database user name",
+            "name": "DB_USERNAME",
+            "from": "user[a-zA-Z0-9]{3}",
+            "generate": "expression"
+        },
+        {
+            "description": "Database user password",
+            "name": "DB_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Github trigger secret",
+            "name": "GITHUB_TRIGGER_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Generic build trigger secret",
+            "name": "GENERIC_TRIGGER_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
         }
     ],
     "objects": [
@@ -532,6 +540,14 @@
                                     {
                                         "name": "POSTGRESQL_DATABASE",
                                         "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_MAX_CONNECTIONS",
+                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_SHARED_BUFFERS",
+                                        "value": "${POSTGRESQL_SHARED_BUFFERS}"
                                     }
                                 ]
                             }

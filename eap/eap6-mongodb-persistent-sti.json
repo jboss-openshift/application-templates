@@ -42,22 +42,6 @@
             "value": ""
         },
         {
-            "description": "HornetQ cluster admin password",
-            "name": "HORNETQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
-        },
-        {
-            "description": "Queue names",
-            "name": "HORNETQ_QUEUES",
-            "value": ""
-        },
-        {
-            "description": "Topic names",
-            "name": "HORNETQ_TOPICS",
-            "value": ""
-        },
-        {
             "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb",
             "name": "DB_JNDI",
             "value": ""
@@ -73,22 +57,14 @@
             "value": "512Mi"
         },
         {
-            "description": "Database user name",
-            "name": "DB_USERNAME",
-            "from": "user[a-zA-Z0-9]{3}",
-            "generate": "expression"
+            "description": "Queue names",
+            "name": "HORNETQ_QUEUES",
+            "value": ""
         },
         {
-            "description": "Database user password",
-            "name": "DB_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
-        },
-        {
-            "description": "Database admin password",
-            "name": "DB_ADMIN_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "description": "Topic names",
+            "name": "HORNETQ_TOPICS",
+            "value": ""
         },
         {
             "description": "The name of the secret containing the keystore file",
@@ -109,6 +85,42 @@
             "description": "The password for the keystore and certificate",
             "name": "EAP_HTTPS_PASSWORD",
             "value": ""
+        },
+        {
+            "description": "Disable data file preallocation.",
+            "name": "MONGODB_NOPREALLOC"
+        },
+        {
+            "description": "Set MongoDB to use a smaller default data file size.",
+            "name": "MONGODB_SMALLFILES"
+        },
+        {
+            "description": "Runs MongoDB in a quiet mode that attempts to limit the amount of output.",
+            "name": "MONGODB_QUIET"
+        },
+        {
+            "description": "HornetQ cluster admin password",
+            "name": "HORNETQ_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Database user name",
+            "name": "DB_USERNAME",
+            "from": "user[a-zA-Z0-9]{3}",
+            "generate": "expression"
+        },
+        {
+            "description": "Database user password",
+            "name": "DB_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
+        },
+        {
+            "description": "Database admin password",
+            "name": "DB_ADMIN_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression"
         },
         {
             "description": "Github trigger secret",
@@ -557,6 +569,18 @@
                                     {
                                         "name": "MONGODB_ADMIN_PASSWORD",
                                         "value": "${DB_ADMIN_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MONGODB_NOPREALLOC",
+                                        "value": "${MONGODB_NOPREALLOC}"
+                                    },
+                                    {
+                                        "name": "MONGODB_SMALLFILES",
+                                        "value": "${MONGODB_SMALLFILES}"
+                                    },
+                                    {
+                                        "name": "MONGODB_QUIET",
+                                        "value": "${MONGODB_QUIET}"
                                     }
                                 ]
                             }
