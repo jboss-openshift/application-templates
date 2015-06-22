@@ -66,6 +66,20 @@
     ],
     "objects": [
         {
+            "kind": "ServiceAccount",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "amq-service-account",
+                    "creationTimestamp": null
+            },
+            "secrets": [
+                {
+                    "kind": "Secret",
+                    "name": "${AMQ_SECRET}"
+                }
+            ]
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
