@@ -87,6 +87,18 @@
             "value": ""
         },
         {
+            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
+            "name": "DB_MIN_POOL_SIZE"
+        },
+        {
+            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
+            "name": "DB_MAX_POOL_SIZE"
+        },
+        {
+            "description": "Sets transaction-isolation for the configured datasource.",
+            "name": "DB_TX_ISOLATION"
+        },
+        {
             "description": "Sets how the table names are stored and compared.",
             "name": "MYSQL_LOWER_CASE_TABLE_NAMES"
         },
@@ -443,7 +455,19 @@
                                     },
                                     {
                                         "name": "TX_DATABASE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-postgresql=DB"
+                                        "value": "${APPLICATION_NAME}-mysql=DB"
+                                    },
+                                    {
+                                        "name": "DB_MIN_POOL_SIZE",
+                                        "value": "${DB_MIN_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "DB_MAX_POOL_SIZE",
+                                        "value": "${DB_MAX_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "DB_TX_ISOLATION",
+                                        "value": "${DB_TX_ISOLATION}"
                                     },
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",

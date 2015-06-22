@@ -72,6 +72,18 @@
             "value": ""
         },
         {
+            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
+            "name": "DB_MIN_POOL_SIZE"
+        },
+        {
+            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
+            "name": "DB_MAX_POOL_SIZE"
+        },
+        {
+            "description": "Sets transaction-isolation for the configured datasource.",
+            "name": "DB_TX_ISOLATION"
+        },
+        {
             "description": "The maximum number of client connections allowed. This also sets the maximum number of prepared transactions.",
             "name": "POSTGRESQL_MAX_CONNECTIONS"
         },
@@ -389,6 +401,18 @@
                                     {
                                         "name": "DB_DATABASE",
                                         "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "DB_MIN_POOL_SIZE",
+                                        "value": "${DB_MIN_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "DB_MAX_POOL_SIZE",
+                                        "value": "${DB_MAX_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "DB_TX_ISOLATION",
+                                        "value": "${DB_TX_ISOLATION}"
                                     },
                                     {
                                         "name": "JWS_HTTPS_CERTIFICATE_DIR",
