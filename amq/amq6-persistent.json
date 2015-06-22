@@ -64,6 +64,21 @@
             "name": "AMQ_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression"
+        },
+        {
+            "description": "Name of a secret containing SSL related files",
+            "name": "AMQ_SECRET",
+            "value": "amq-app-secret"
+        },
+        {
+            "description": "SSL trust store filename",
+            "name": "AMQ_TRUSTSTORE",
+            "value": "broker.ts"
+        },
+        {
+            "description": "SSL key store filename",
+            "name": "AMQ_KEYSTORE",
+            "value": "broker.ks"
         }
     ],
     "objects": [
@@ -276,11 +291,19 @@
                         }
                     },
                     "spec": {
+                        "serviceAccount": "amq-service-account",
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-amq",
                                 "image": "registry.access.redhat.com/jboss-amq-6/amq-openshift:${AMQ_RELEASE}",
                                 "imagePullPolicy": "Always",
+                                "volumeMounts": [
+                                    {
+                                        "name": "broker-secret-volume",
+                                        "mountPath": "/etc/amq-secret-volume",
+                                        "readOnly": true
+                                    }
+                                ],
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [
@@ -361,11 +384,29 @@
                                     {
                                         "name": "AMQ_ADMIN_PASSWORD",
                                         "value": "${AMQ_ADMIN_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AMQ_KEYSTORE_TRUSTSTORE_DIR",
+                                        "value": "/etc/amq-secret-volume"
+                                    },
+                                    {
+                                        "name": "AMQ_TRUSTSTORE",
+                                        "value": "${AMQ_TRUSTSTORE}"
+                                    },
+                                    {
+                                        "name": "AMQ_KEYSTORE",
+                                        "value": "${AMQ_KEYSTORE}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
+                            {
+                                "name": "broker-secret-volume",
+                                "secret": {
+                                    "secretName": "${AMQ_SECRET}"
+                                }
+                            },
                             {
                                 "name": "${APPLICATION_NAME}-amq-pvol",
                                 "persistentVolumeClaim": {
