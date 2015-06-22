@@ -48,21 +48,21 @@
             "name": "MQ_TOPICS",
             "value": ""
         },
-		{
-			"description": "Name of a secret containing SSL related files",
-			"name": "AMQ_SECRET",
-			"value": ""
-		},
-		{
-			"description": "SSL trust store filename",
-			"name": "AMQ_TRUSTSTORE",
-			"value": "broker.ts"
-		},
-		{
-			"description": "SSL key store filename",
-			"name": "AMQ_KEYSTORE",
-			"value": "broker.ks"
-		}	
+        {
+            "description": "Name of a secret containing SSL related files",
+            "name": "AMQ_SECRET",
+            "value": ""
+        },
+        {
+            "description": "SSL trust store filename",
+            "name": "AMQ_TRUSTSTORE",
+            "value": "broker.ts"
+        },
+        {
+            "description": "SSL key store filename",
+            "name": "AMQ_KEYSTORE",
+            "value": "broker.ks"
+        }
     ],
     "objects": [
         {
@@ -274,7 +274,7 @@
                         }
                     },
                     "spec": {
-						"serviceAccount": "amq-service-account",
+                        "serviceAccount": "amq-service-account",
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-amq",
@@ -338,36 +338,36 @@
                                         "name": "AMQ_TOPICS",
                                         "value": "${MQ_TOPICS}"
                                     },
-									{
-										"name": "AMQ_KEYSTORE_TRUSTSTORE_DIR",
-										"value": "/etc/amq-secret-volume"
-									},
-									{
-										"name": "AMQ_TRUSTSTORE",
-										"value": "${AMQ_TRUSTSTORE}"
-									},
-									{
-										"name": "AMQ_KEYSTORE",
-										"value": "${AMQ_KEYSTORE}"
-									}
+                                    {
+                                        "name": "AMQ_KEYSTORE_TRUSTSTORE_DIR",
+                                        "value": "/etc/amq-secret-volume"
+                                    },
+                                    {
+                                        "name": "AMQ_TRUSTSTORE",
+                                        "value": "${AMQ_TRUSTSTORE}"
+                                    },
+                                    {
+                                        "name": "AMQ_KEYSTORE",
+                                        "value": "${AMQ_KEYSTORE}"
+                                    }
                                 ],
-								"volumeMounts": [
-									{
-										"name": "broker-secret-volume",
-										"readOnly": true,
-										"mountPath": "/etc/amq-secret-volume"
-									}
-								]
+                                "volumeMounts": [
+                                    {
+                                        "name": "broker-secret-volume",
+                                        "readOnly": true,
+                                        "mountPath": "/etc/amq-secret-volume"
+                                    }
+                                ]
                             }
                         ],
-						"volumes": [
-							{
-          						"name": "broker-secret-volume",
-          						"secret": {
-            						"secretName": "${AMQ_SECRET}"
-          						}
-        					}
-      					]
+                        "volumes": [
+                            {
+                                "name": "broker-secret-volume",
+                                "secret": {
+                                    "secretName": "${AMQ_SECRET}"
+                                }
+                            }
+                        ]
                     }
                 }
             }
