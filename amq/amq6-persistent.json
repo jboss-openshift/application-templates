@@ -273,6 +273,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
+                                "namespace": "openshift",
                                 "name": "jboss-amq-6:${AMQ_RELEASE}"
                             }
                         }
@@ -295,7 +296,7 @@
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-amq",
-                                "image": "registry.access.redhat.com/jboss-amq-6/amq-openshift:${AMQ_RELEASE}",
+                                "image": "jboss-amq-6",
                                 "imagePullPolicy": "Always",
                                 "volumeMounts": [
                                     {

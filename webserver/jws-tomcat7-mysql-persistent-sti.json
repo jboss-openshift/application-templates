@@ -294,6 +294,7 @@
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
+                            "namespace": "openshift",
                             "name": "jboss-webserver3-tomcat7-openshift:${JWS_RELEASE}"
                         }
                     }
@@ -493,7 +494,8 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-mysql-55:latest"
+                                "namespace": "openshift",
+                                "name": "mysql:latest"
                             }
                         }
                     }
@@ -514,7 +516,7 @@
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-mysql",
-                                "image": "registry.access.redhat.com/openshift3_beta/mysql-55-rhel7:latest",
+                                "image": "mysql",
                                 "ports": [
                                     {
                                         "name": "${APPLICATION_NAME}-mysql-tcp-3306",

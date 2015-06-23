@@ -323,6 +323,7 @@
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
+                            "namespace": "openshift",
                             "name": "jboss-eap6-openshift:${EAP_RELEASE}"
                         }
                     }
@@ -543,7 +544,8 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-mysql-55:latest"
+                                "namespace": "openshift",
+                                "name": "mysql:latest"
                             }
                         }
                     }
@@ -564,7 +566,7 @@
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-mysql",
-                                "image": "registry.access.redhat.com/openshift3_beta/mysql-55-rhel7:latest",
+                                "image": "mysql",
                                 "imagePullPolicy": "Always",
                                 "ports": [
                                     {

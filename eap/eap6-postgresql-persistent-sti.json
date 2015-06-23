@@ -311,6 +311,7 @@
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
+                            "namespace": "openshift",
                             "name": "jboss-eap6-openshift:${EAP_RELEASE}"
                         }
                     }
@@ -531,7 +532,8 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-postgresql-92:latest"
+                                "namespace": "openshift",
+                                "name": "postgresql:latest"
                             }
                         }
                     }
@@ -552,7 +554,7 @@
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-postgresql",
-                                "image": "registry.access.redhat.com/openshift3_beta/postgresql-92-rhel7:latest",
+                                "image": "postgresql",
                                 "imagePullPolicy": "Always",
                                 "ports": [
                                     {

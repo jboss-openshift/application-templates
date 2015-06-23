@@ -211,6 +211,7 @@
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
+                            "namespace": "openshift",
                             "name": "jboss-webserver3-tomcat8-openshift:${JWS_RELEASE}"
                         }
                     }

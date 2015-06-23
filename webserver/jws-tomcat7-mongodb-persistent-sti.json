@@ -292,6 +292,7 @@
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
+                            "namespace": "openshift",
                             "name": "jboss-webserver3-tomcat7-openshift:${JWS_RELEASE}"
                         }
                     }
@@ -495,7 +496,8 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-mongodb-24:latest"
+                                "namespace": "openshift",
+                                "name": "mongodb:latest"
                             }
                         }
                     }
@@ -516,7 +518,7 @@
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-mongodb",
-                                "image": "registry.access.redhat.com/openshift3_beta/mongodb-24-rhel7:latest",
+                                "image": "mongodb",
                                 "imagePullPolicy": "Always",
                                 "ports": [
                                     {
