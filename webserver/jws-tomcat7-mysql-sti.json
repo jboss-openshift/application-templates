@@ -23,9 +23,9 @@
             "value": "jws-app"
         },
         {
-            "description": "Hostname for service routes",
+            "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "name": "APPLICATION_HOSTNAME",
-            "value": "jws-app.local"
+            "value": ""
         },
         {
             "description": "Git source URI for application",
@@ -156,7 +156,7 @@
                 }
             },
             "metadata": {
-                "name": "${APPLICATION_NAME}-http-service",
+                "name": "${APPLICATION_NAME}",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
@@ -180,7 +180,7 @@
                 }
             },
             "metadata": {
-                "name": "${APPLICATION_NAME}-https-service",
+                "name": "secure-${APPLICATION_NAME}",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
@@ -229,7 +229,7 @@
             "spec": {
                 "host": "${APPLICATION_HOSTNAME}",
                 "to": {
-                    "name": "${APPLICATION_NAME}-http-service"
+                    "name": "${APPLICATION_NAME}"
                 }
             }
         },
@@ -249,7 +249,7 @@
             "spec": {
                 "host": "${APPLICATION_HOSTNAME}",
                 "to": {
-                    "name": "${APPLICATION_NAME}-https-service"
+                    "name": "secure-${APPLICATION_NAME}"
                 },
                 "tls": {
                     "termination" : "passthrough"

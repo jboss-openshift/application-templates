@@ -23,23 +23,24 @@
             "value": "eap-app"
         },
         {
-            "description": "Hostname for service routes",
+            "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "name": "APPLICATION_HOSTNAME",
-            "value": "eap-app.local"
+            "value": ""
         },
         {
             "description": "Git source URI for application",
-            "name": "GIT_URI"
+            "name": "GIT_URI",
+            "value": "https://github.com/jboss-developer/jboss-eap-quickstarts"
         },
         {
             "description": "Git branch/tag reference",
             "name": "GIT_REF",
-            "value": "master"
+            "value": "6.4.x"
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "GIT_CONTEXT_DIR",
-            "value": ""
+            "value": "kitchensink"
         },
         {
             "description": "Queue names",
@@ -106,7 +107,7 @@
                 }
             },
             "metadata": {
-                "name": "${APPLICATION_NAME}-http-service",
+                "name": "${APPLICATION_NAME}",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
@@ -130,7 +131,7 @@
                 }
             },
             "metadata": {
-                "name": "${APPLICATION_NAME}-https-service",
+                "name": "secure-${APPLICATION_NAME}",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
@@ -180,7 +181,7 @@
             "spec": {
                 "host": "${APPLICATION_HOSTNAME}",
                 "to": {
-                    "name": "${APPLICATION_NAME}-http-service"
+                    "name": "${APPLICATION_NAME}"
                 }
             }
         },
@@ -200,7 +201,7 @@
             "spec": {
                 "host": "${APPLICATION_HOSTNAME}",
                 "to": {
-                    "name": "${APPLICATION_NAME}-https-service"
+                    "name": "secure-${APPLICATION_NAME}"
                 },
                 "tls": {
                     "termination" : "passthrough"
