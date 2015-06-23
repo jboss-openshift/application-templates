@@ -51,7 +51,7 @@
         {
             "description": "Name of a secret containing SSL related files",
             "name": "AMQ_SECRET",
-            "value": ""
+            "value": "amq-app-secret"
         },
         {
             "description": "SSL trust store filename",
@@ -65,20 +65,6 @@
         }
     ],
     "objects": [
-        {
-            "kind": "ServiceAccount",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "amq-service-account",
-                    "creationTimestamp": null
-            },
-            "secrets": [
-                {
-                    "kind": "Secret",
-                    "name": "${AMQ_SECRET}"
-                }
-            ]
-        },
         {
             "kind": "Service",
             "apiVersion": "v1",
