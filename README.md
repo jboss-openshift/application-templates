@@ -11,7 +11,7 @@ template is configured with the following basic parameters:
  * GIT_REF: the git reference to use when pulling the project.
  * GIT_CONTEXT_DIR: the relative directory within the project to build (if other than the root directory)
  * APPLICATION_HOSTNAME: the hostname to register for the route (for templates
-   exposing services publicly, through the router).
+   exposing services publicly, through the router).  If unset, the default, the hostnames will be of the form: `<service-name>.<project-name>.<default-domain-suffix>`, e.g. eap-app.myproject.v3.openshift.com
 
 In addition to these basic parameters, templates utilizing databases will have
 the following:
@@ -23,25 +23,24 @@ the following:
 ##Common Image Repositories
 The `jboss-image-streams.json` file contains __ImageStream__ definitions for all
 JBoss Middleware products and supported database images.  This will need to be
-installed (`oc create -f jboss-images-streams.json -n <namespace>`)
-before using any of the templates in these folders.
+installed in the common `openshift` namespace (`oc create -f jboss-images-streams.json -n openshift`) before using any of the templates in these folders.  You will also need to install (into the `openshift` namespace) the database image streams supplied by OpenShift to use any of the templates that integrate with MySQL, PostgreSQL or MongoDB.
 
 ##Example
-The easiest way to use the templates is to install them in your project, then use the _Create+_ button in the OpenShift console to create your application.  The console will prompt you for the values for all of the parameters used by the template.  To set this up for a particula template:
+The easiest way to use the templates is to install them in your project, then use the _Create+_ button in the OpenShift console to create your application.  The console will prompt you for the values for all of the parameters used by the template.  To set this up for a particular template:
 ```
-$ oc create -n myproject -f jboss-image-streams.json
+$ oc create -n openshift -f jboss-image-streams.json
 $ oc create -n myproject -f webserver/jws-tomcat7-basic-sti.json
 ```
 After executing the above, you should be able to see the template after pressing _Create+_ in your project.
 
 Or, if you prefer the command line:
 ```
-$ oc create -n yourproject -f jboss-image-streams.json
-$ oc process -n yourproject -f eap/eap6-basic-sti.json -v APPLICATION_NAME=helloworld,APPLICATION_HOSTNAME=helloworld.yourproject.local,GIT_URI=https://github.com/jboss-developer/jboss-eap-quickstarts,GIT_REF=6.4.x,GIT_CONTEXT_DIR=helloworld | oc create -n yourproject -f -
+$ oc create -n openshift -f jboss-image-streams.json
+$ oc process -n yourproject -f eap/eap6-basic-sti.json -v APPLICATION_NAME=helloworld,GIT_URI=https://github.com/jboss-developer/jboss-eap-quickstarts,GIT_REF=6.4.x,GIT_CONTEXT_DIR=helloworld | oc create -n yourproject -f -
 ```
 
-You may also install them into the `openshift` namespace in order to make them
+You may also install the templates into the `openshift` namespace in order to make them
 available to all users:
 ```
-$ oc create -n openshift -f jboss-image-streams.json
+$ oc create -n openshift -f webserver/jws-tomcat7-basic-sti.json
 ```
