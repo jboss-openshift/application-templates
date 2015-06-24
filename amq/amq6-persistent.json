@@ -303,6 +303,10 @@
                                         "name": "broker-secret-volume",
                                         "mountPath": "/etc/amq-secret-volume",
                                         "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/opt/amq/data/kahadb",
+                                        "name": "${APPLICATION_NAME}-amq-pvol"
                                     }
                                 ],
                                 "readinessProbe": {
@@ -349,12 +353,6 @@
                                         "name": "${APPLICATION_NAME}-amq-tcp-ssl",
                                         "containerPort": 61617,
                                         "protocol": "TCP"
-                                    }
-                                ],
-                                "volumeMounts": [
-                                    {
-                                        "mountPath": "/opt/amq/data/kahadb",
-                                        "name": "${APPLICATION_NAME}-amq-pvol"
                                     }
                                 ],
                                 "env": [
