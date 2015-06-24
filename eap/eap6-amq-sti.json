@@ -497,7 +497,7 @@
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-amq",
-                                "image": "registry.access.redhat.com/jboss-amq-6/amq-openshift:${AMQ_RELEASE}",
+                                "image": "registry.access.redhat.com/jboss-amq-6-openshift3_beta/amq-openshift:${AMQ_RELEASE}",
                                 "imagePullPolicy": "Always",
                                 "ports": [
                                     {

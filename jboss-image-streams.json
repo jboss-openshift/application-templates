@@ -18,11 +18,11 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "registry.access.redhat.com/jboss-webserver-3/tomcat7-openshift",
+                "dockerImageRepository": "registry.access.redhat.com/jboss-webserver-3-openshift3_beta/tomcat7-openshift",
                 "tags": [
                     {
                         "name": "3.0",
-                        "dockerImageReference": "registry.access.redhat.com/jboss-webserver-3/tomcat7-openshift:3.0"
+                        "dockerImageReference": "registry.access.redhat.com/jboss-webserver-3-openshift3_beta/tomcat7-openshift:3.0"
                     }
                 ]
             }
@@ -37,11 +37,11 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "registry.access.redhat.com/jboss-webserver-3/tomcat8-openshift",
+                "dockerImageRepository": "registry.access.redhat.com/jboss-webserver-3-openshift3_beta/tomcat8-openshift",
                 "tags": [
                     {
                         "name": "3.0",
-                        "dockerImageReference": "registry.access.redhat.com/jboss-webserver-3/tomcat8-openshift:3.0"
+                        "dockerImageReference": "registry.access.redhat.com/jboss-webserver-3-openshift3_beta/tomcat8-openshift:3.0"
                     }
                 ]
             }
@@ -56,11 +56,11 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "registry.access.redhat.com/jboss-eap-6/eap-openshift",
+                "dockerImageRepository": "registry.access.redhat.com/jboss-eap-6-openshift3_beta/eap-openshift",
                 "tags": [
                     {
                         "name": "6.4",
-                        "dockerImageReference": "registry.access.redhat.com/jboss-eap-6/eap-openshift:6.4"
+                        "dockerImageReference": "registry.access.redhat.com/jboss-eap-6-openshift3_beta/eap-openshift:6.4"
                     }
                 ]
             }
@@ -75,11 +75,11 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "registry.access.redhat.com/jboss-amq-6/amq-openshift:6.2",
+                "dockerImageRepository": "registry.access.redhat.com/jboss-amq-6-openshift3_beta/amq-openshift:6.2",
                 "tags": [
                     {
                         "name": "6.2",
-                        "dockerImageReference": "registry.access.redhat.com/jboss-amq-6/amq-openshift:6.2"
+                        "dockerImageReference": "registry.access.redhat.com/jboss-amq-6-openshift3_beta/amq-openshift:6.2"
                     }
                 ]
             }
