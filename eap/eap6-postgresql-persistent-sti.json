@@ -125,7 +125,7 @@
             "generate": "expression"
         },
         {
-            "description": "Github trigger secret",
+            "description": "GitHub trigger secret",
             "name": "GITHUB_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression"
@@ -324,7 +324,7 @@
                 },
                 "triggers": [
                     {
-                        "type": "Github",
+                        "type": "GitHub",
                         "github": {
                             "secret": "${GITHUB_TRIGGER_SECRET}"
                         }
