@@ -3,7 +3,7 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass" : "icon-tomcat",
+            "iconClass": "icon-tomcat",
             "description": "Application template for JWS MySQL applications with persistent storage built using STI."
         },
         "name": "jws-tomcat7-mysql-persistent-sti"
@@ -143,6 +143,11 @@
             "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression"
+        },
+        {
+            "description": "Namespace in which the ImageStream for the STI build image is installed. The standard jboss-webserver3-tomcat7-openshift ImageStream should be installled in the openshift namespace. You should only need to modify this if you've installed the ImageStream in a different namespace/project.",
+            "value": "openshift",
+            "name": "BUILD_IMAGE_NAMESPACE"
         }
     ],
     "objects": [
@@ -257,7 +262,7 @@
                     "name": "secure-${APPLICATION_NAME}"
                 },
                 "tls": {
-                    "termination" : "passthrough"
+                    "termination": "passthrough"
                 }
             }
         },
@@ -287,14 +292,14 @@
                         "uri": "${GIT_URI}",
                         "ref": "${GIT_REF}"
                     },
-                    "contextDir":"${GIT_CONTEXT_DIR}"
+                    "contextDir": "${GIT_CONTEXT_DIR}"
                 },
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
-                            "namespace": "openshift",
+                            "namespace": "${BUILD_IMAGE_NAMESPACE}",
                             "name": "jboss-webserver3-tomcat7-openshift:${JWS_RELEASE}"
                         }
                     }
@@ -495,7 +500,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "namespace": "openshift",
+                                "namespace": "${BUILD_IMAGE_NAMESPACE}",
                                 "name": "mysql:latest"
                             }
                         }
@@ -525,11 +530,11 @@
                                     }
                                 ],
                                 "volumeMounts": [
-                                     {
-                                         "mountPath": "/var/lib/mysql/data",
-                                         "name": "${APPLICATION_NAME}-mysql-pvol"
-                                     }
-                                 ],
+                                    {
+                                        "mountPath": "/var/lib/mysql/data",
+                                        "name": "${APPLICATION_NAME}-mysql-pvol"
+                                    }
+                                ],
                                 "env": [
                                     {
                                         "name": "MYSQL_USER",
@@ -588,7 +593,9 @@
                 }
             },
             "spec": {
-                "accessModes": [ "ReadWriteOnce" ],
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
                 "resources": {
                     "requests": {
                         "storage": "${VOLUME_CAPACITY}"
