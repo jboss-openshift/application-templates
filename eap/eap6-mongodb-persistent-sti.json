@@ -4,7 +4,7 @@
     "metadata": {
         "annotations": {
             "description": "Application template for EAP 6 MongDB applications with persistent storage built using STI.",
-            "iconClass" : "icon-jboss"
+            "iconClass": "icon-jboss"
         },
         "name": "eap6-mongodb-persistent-sti"
     },
@@ -145,6 +145,11 @@
             "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression"
+        },
+        {
+            "description": "Namespace in which the ImageStream for the STI build image is installed. The standard jboss-eap-openshift ImageStream should be installled in the openshift namespace. You should only need to modify this if you've installed the ImageStream in a different namespace/project.",
+            "value": "openshift",
+            "name": "BUILD_IMAGE_NAMESPACE"
         }
     ],
     "objects": [
@@ -284,7 +289,7 @@
                     "name": "secure-${APPLICATION_NAME}"
                 },
                 "tls": {
-                    "termination" : "passthrough"
+                    "termination": "passthrough"
                 }
             }
         },
@@ -314,14 +319,14 @@
                         "uri": "${GIT_URI}",
                         "ref": "${GIT_REF}"
                     },
-                    "contextDir":"${GIT_CONTEXT_DIR}"
+                    "contextDir": "${GIT_CONTEXT_DIR}"
                 },
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
-                            "namespace": "openshift",
+                            "namespace": "${BUILD_IMAGE_NAMESPACE}",
                             "name": "jboss-eap6-openshift:${EAP_RELEASE}"
                         }
                     }
@@ -543,7 +548,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "namespace": "openshift",
+                                "namespace": "${BUILD_IMAGE_NAMESPACE}",
                                 "name": "mongodb:latest"
                             }
                         }
@@ -574,11 +579,11 @@
                                     }
                                 ],
                                 "volumeMounts": [
-                                     {
-                                         "mountPath": "/var/lib/mongodb/data",
-                                         "name": "${APPLICATION_NAME}-mongodb-pvol"
-                                     }
-                                 ],
+                                    {
+                                        "mountPath": "/var/lib/mongodb/data",
+                                        "name": "${APPLICATION_NAME}-mongodb-pvol"
+                                    }
+                                ],
                                 "env": [
                                     {
                                         "name": "MONGODB_USER",
@@ -633,7 +638,9 @@
                 }
             },
             "spec": {
-                "accessModes": [ "ReadWriteOnce" ],
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
                 "resources": {
                     "requests": {
                         "storage": "${VOLUME_CAPACITY}"
