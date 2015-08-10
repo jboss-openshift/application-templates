@@ -4,7 +4,7 @@
     "metadata": {
         "annotations": {
             "description": "Application template for EAP 6 PostgreSQL applications built using STI.",
-            "iconClass" : "icon-jboss"
+            "iconClass": "icon-jboss"
         },
         "name": "eap6-postgresql-sti"
     },
@@ -130,6 +130,11 @@
             "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression"
+        },
+        {
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "name": "IMAGE_STREAM_NAMESPACE",
+            "value": "openshift"
         }
     ],
     "objects": [
@@ -269,7 +274,7 @@
                     "name": "secure-${APPLICATION_NAME}"
                 },
                 "tls": {
-                    "termination" : "passthrough"
+                    "termination": "passthrough"
                 }
             }
         },
@@ -299,14 +304,14 @@
                         "uri": "${GIT_URI}",
                         "ref": "${GIT_REF}"
                     },
-                    "contextDir":"${GIT_CONTEXT_DIR}"
+                    "contextDir": "${GIT_CONTEXT_DIR}"
                 },
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
-                            "namespace": "openshift",
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
                             "name": "jboss-eap6-openshift:${EAP_RELEASE}"
                         }
                     }
@@ -528,7 +533,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "namespace": "openshift",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
                                 "name": "postgresql:latest"
                             }
                         }

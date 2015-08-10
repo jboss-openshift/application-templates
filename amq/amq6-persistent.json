@@ -79,6 +79,11 @@
             "description": "SSL key store filename",
             "name": "AMQ_KEYSTORE",
             "value": "broker.ks"
+        },
+        {
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "name": "IMAGE_STREAM_NAMESPACE",
+            "value": "openshift"
         }
     ],
     "objects": [
@@ -273,7 +278,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "namespace": "openshift",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
                                 "name": "jboss-amq-6:${AMQ_RELEASE}"
                             }
                         }
@@ -427,7 +432,9 @@
                 }
             },
             "spec": {
-                "accessModes": [ "ReadWriteOnce" ],
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
                 "resources": {
                     "requests": {
                         "storage": "${VOLUME_CAPACITY}"
