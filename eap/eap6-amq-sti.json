@@ -563,8 +563,8 @@
                                         "value": "${MQ_PASSWORD}"
                                     },
                                     {
-                                        "name": "AMQ_PROTOCOLS",
-                                        "value": "${MQ_PROTOCOL}"
+                                        "name": "AMQ_TRANSPORTS",
+                                        "value": "${MQ_TRANSPORTS}"
                                     },
                                     {
                                         "name": "AMQ_QUEUES",
