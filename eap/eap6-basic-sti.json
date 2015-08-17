@@ -102,31 +102,6 @@
             }
         },
         {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 8888,
-                        "targetPort": 8888
-                    }
-                ],
-                "portalIP": "None",
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            },
-            "metadata": {
-                "name": "${APPLICATION_NAME}-ping",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Ping service for clustered applications."
-                }
-            }
-        },
-        {
             "kind": "Route",
             "apiVersion": "v1",
             "id": "${APPLICATION_NAME}-http-route",
@@ -279,12 +254,16 @@
                                 ],
                                 "env": [
                                     {
-                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
-                                        "value": "${APPLICATION_NAME}-ping"
+                                        "name": "OPENSHIFT_KUBE_PING_LABELS",
+                                        "value": "application=${APPLICATION_NAME}"
                                     },
                                     {
-                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
-                                        "value": "8888"
+                                        "name": "OPENSHIFT_KUBE_PING_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "HORNETQ_CLUSTER_PASSWORD",
