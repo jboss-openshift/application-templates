@@ -1,0 +1,145 @@
+= $template
+
+$description
+
+toc::[levels=2]
+
+== Parameters
+
+Templates allow you to define parameters which take on a value. That value is then substituted wherever the parameter is referenced.
+References can be defined in any text field in the objects list field. Refer to the
+https://docs.openshift.org/latest/architecture/core_concepts/templates.html#parameters[Openshift documentation] for more information.
+
+|=======================================================================
+|Variable name |Image Environment Variable |Description |Example value
+$parametertable
+|=======================================================================
+
+== Objects
+
+The CLI supports various object types. A list of these object types as well as their abbreviations
+can be found in the https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#object-types[Openshift documentation].
+
+=== Services
+
+A service is an abstraction which defines a logical set of pods and a policy by which to access them. Refer to the
+https://cloud.google.com/container-engine/docs/services/[container-engine documentation] for more information.
+
+|=============
+|Service        |Port  | Description
+$servicetable
+|=============
+
+=== Routes
+
+A route is a way to expose a service by giving it an externally-reachable hostname such as `www.example.com`. A defined route and the endpoints
+identified by its service can be consumed by a router to provide named connectivity from external clients to your applications. Each route consists
+of a route name, service selector, and (optionally) security configuration. Refer to the
+https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html[Openshift documentation] for more information.
+
+|=============
+| Service    | Security | Hostname
+$routetable
+|=============
+
+=== Build Configurations
+
+A `buildConfig` describes a single build definition and a set of triggers for when a new build should be created.
+A `buildConfig` is a REST object, which can be used in a POST to the API server to create a new instance. Refer to
+the https://docs.openshift.com/enterprise/3.0/dev_guide/builds.html#defining-a-buildconfig[Openshift documentation]
+for more information.
+
+|=============
+| STI image  | link | Build output | BuildTriggers and Settings
+$buildconfigtable
+|=============
+
+=== Deployment Configurations
+
+A deployment in OpenShift is a replication controller based on a user defined template called a deployment configuration. Deployments are created manually or in response to triggered events.
+Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/deployments.html#creating-a-deployment-configuration[Openshift documentation] for more information.
+
+==== Triggers
+
+A trigger drives the creation of new deployments in response to events, both inside and outside OpenShift. Refer to the
+https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-developer-guide#triggers[Openshift documentation] for more information.
+
+|============
+|Deployment | Triggers
+$triggertable
+|============
+
+==== Replicas
+
+A replication controller ensures that a specified number of pod "replicas" are running at any one time.
+If there are too many, the replication controller kills some pods. If there are too few, it starts more.
+Refer to the https://cloud.google.com/container-engine/docs/replicationcontrollers/[container-engine documentation]
+for more information.
+
+|============
+|Deployment | Replicas
+$replicatable
+|============
+
+==== Pod Template
+
+===== Service Accounts
+
+Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
+https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
+information.
+
+|============
+|Deployment | Service Account
+$serviceacctable
+|============
+
+===== Image
+
+|============
+|Deployment | Image
+$imagetable
+|============
+
+===== Readiness Probe
+
+$readinesstable
+
+===== Exposed Ports
+
+|=============
+|Deployments | Name  | Port  | Protocol
+$portstable
+|=============
+
+===== Image Environment Variables
+
+|=======================================================================
+|Deployment |Variable name |Description |Example value
+$envtable
+|=======================================================================
+
+=====  Volumes
+
+|=============
+|Deployment |Name  | mountPath | Purpose | readOnly 
+$volumestable
+|=============
+
+=== External Dependencies
+
+==== Volume Claims
+
+A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
+by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
+Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
+more information.
+
+|=============
+|Name | Access Mode
+$persistenttable
+|=============
+
+==== Secrets 
+
+This template requires https://github.com/jboss-openshift/application-templates/blob/master/secrets/$templateabbrev-app-secrets.json[$templateabbrev-app-secrets.json] to be installed for the application to run.

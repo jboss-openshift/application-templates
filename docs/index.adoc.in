@@ -1,0 +1,9 @@
+= Application Templates
+
+This project contains OpenShift v3 application templates which support applications based on JBoss Middleware products.
+Source can be found https://github.com/jboss-openshift/application-templates/tree/master[here].
+
+:icons: font
+:toc: macro
+
+toc::[levels=1]
