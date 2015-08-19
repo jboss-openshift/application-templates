@@ -1,0 +1,224 @@
+= jws-tomcat7-mysql-sti
+
+Application template for JWS MySQL applications built using STI.
+
+toc::[levels=2]
+
+== Parameters
+
+Templates allow you to define parameters which take on a value. That value is then substituted wherever the parameter is referenced.
+References can be defined in any text field in the objects list field. Refer to the
+https://docs.openshift.org/latest/architecture/core_concepts/templates.html#parameters[Openshift documentation] for more information.
+
+|=======================================================================
+|Variable name |Image Environment Variable |Description |Example value
+
+| `JWS_RELEASE`  |  --  |  `JWS Release version, e.g. 3.0, 2.1, etc.`  |  `3.0` 
+| `APPLICATION_NAME`  |  --  |  `The name for the application.`  |  `jws-app` 
+| `APPLICATION_HOSTNAME`  |  --  |  `Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>`  |  `secure-app.test.router.default.local` 
+| `GIT_URI`  |  --  |  `Git source URI for application`  |  ``https://github.com/jboss-openshift/openshift-examples.git` 
+| `GIT_REF`  |  --  |  `Git branch/tag reference`  |  `master` 
+| `GIT_CONTEXT_DIR`  |  --  |  `Path within Git project to build; empty for root project directory.`  |  `helloworld` 
+| `DB_JNDI`  |  `DB_JNDI`  |  `Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb`  |  `${DB_JNDI}` 
+| `DB_DATABASE`  |  `DB_DATABASE`  |  `Database name`  |  `root` 
+| `JWS_HTTPS_SECRET`  |  --  |  `The name of the secret containing the certificate files`  |  `jws-app-secret` 
+| `JWS_HTTPS_CERTIFICATE`  |  `JWS_HTTPS_CERTIFICATE_DIR`  |  `The name of the certificate file within the secret`  |  `server.crt` 
+| `JWS_HTTPS_CERTIFICATE_KEY`  |  `JWS_HTTPS_CERTIFICATE`  |  `The name of the certificate key file within the secret`  |  `server.key` 
+| `JWS_HTTPS_CERTIFICATE_PASSWORD`  |  `JWS_HTTPS_CERTIFICATE`  |  `The certificate password`  |  `${JWS_HTTPS_CERTIFICATE}` 
+| `DB_MIN_POOL_SIZE`  |  `DB_MIN_POOL_SIZE`  |  `Sets xa-pool/min-pool-size for the configured datasource.`  |  `${DB_MIN_POOL_SIZE}` 
+| `DB_MAX_POOL_SIZE`  |  `DB_MAX_POOL_SIZE`  |  `Sets xa-pool/max-pool-size for the configured datasource.`  |  `${DB_MAX_POOL_SIZE}` 
+| `DB_TX_ISOLATION`  |  `DB_TX_ISOLATION`  |  `Sets transaction-isolation for the configured datasource.`  |  `${DB_TX_ISOLATION}` 
+| `MYSQL_LOWER_CASE_TABLE_NAMES`  |  `MYSQL_LOWER_CASE_TABLE_NAMES`  |  `Sets how the table names are stored and compared.`  |  `${MYSQL_LOWER_CASE_TABLE_NAMES}` 
+| `MYSQL_MAX_CONNECTIONS`  |  `MYSQL_MAX_CONNECTIONS`  |  `The maximum permitted number of simultaneous client connections.`  |  `${MYSQL_MAX_CONNECTIONS}` 
+| `MYSQL_FT_MIN_WORD_LEN`  |  `MYSQL_FT_MIN_WORD_LEN`  |  `The minimum length of the word to be included in a FULLTEXT index.`  |  `${MYSQL_FT_MIN_WORD_LEN}` 
+| `MYSQL_FT_MAX_WORD_LEN`  |  `MYSQL_FT_MAX_WORD_LEN`  |  `The maximum length of the word to be included in a FULLTEXT index.`  |  `${MYSQL_FT_MAX_WORD_LEN}` 
+| `MYSQL_AIO`  |  `MYSQL_AIO`  |  `Controls the innodb_use_native_aio setting value if the native AIO is broken.`  |  `${MYSQL_AIO}` 
+| `DB_USERNAME`  |  `DB_USERNAME`  |  `Database user name`  |  `${DB_USERNAME}` 
+| `DB_PASSWORD`  |  `DB_PASSWORD`  |  `Database user password`  |  `${DB_PASSWORD}` 
+| `JWS_ADMIN_USERNAME`  |  `JWS_ADMIN_USERNAME`  |  `JWS Admin User`  |  `${JWS_ADMIN_USERNAME}` 
+| `JWS_ADMIN_PASSWORD`  |  `JWS_ADMIN_PASSWORD`  |  `JWS Admin Password`  |  `${JWS_ADMIN_PASSWORD}` 
+| `GITHUB_TRIGGER_SECRET`  |  --  |  `GitHub trigger secret`  |  `secret101` 
+| `GENERIC_TRIGGER_SECRET`  |  --  |  `Generic build trigger secret`  |  `secret101` 
+| `IMAGE_STREAM_NAMESPACE`  |  --  |  `Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.`  |  `openshift` 
+|=======================================================================
+
+== Objects
+
+The CLI supports various object types. A list of these object types as well as their abbreviations
+can be found in the https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#object-types[Openshift documentation].
+
+=== Services
+
+A service is an abstraction which defines a logical set of pods and a policy by which to access them. Refer to the
+https://cloud.google.com/container-engine/docs/services/[container-engine documentation] for more information.
+
+|=============
+|Service        |Port  | Description
+
+| `${APPLICATION_NAME}`  |  `8080`  |  `The web server's http port.` 
+| `secure-${APPLICATION_NAME}`  |  `8443`  |  `The web server's https port.` 
+| `${APPLICATION_NAME}-mysql`  |  `3306`  |  `The database server's port.` 
+|=============
+
+=== Routes
+
+A route is a way to expose a service by giving it an externally-reachable hostname such as `www.example.com`. A defined route and the endpoints
+identified by its service can be consumed by a router to provide named connectivity from external clients to your applications. Each route consists
+of a route name, service selector, and (optionally) security configuration. Refer to the
+https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html[Openshift documentation] for more information.
+
+|=============
+| Service    | Security | Hostname
+
+| `${APPLICATION_NAME}-http-route`  |  `none`  |  `${APPLICATION_HOSTNAME}` 
+| `${APPLICATION_NAME}-https-route`  |  `TLS passthrough`  |  `${APPLICATION_HOSTNAME}` 
+|=============
+
+=== Build Configurations
+
+A `buildConfig` describes a single build definition and a set of triggers for when a new build should be created.
+A `buildConfig` is a REST object, which can be used in a POST to the API server to create a new instance. Refer to
+the https://docs.openshift.com/enterprise/3.0/dev_guide/builds.html#defining-a-buildconfig[Openshift documentation]
+for more information.
+
+|=============
+| STI image  | link | Build output | BuildTriggers and Settings
+
+| `jboss-webserver3-tomcat7-openshift:${JWS_RELEASE}`  |  ` link:../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver/tomcat7-openshift`]`  |  `${APPLICATION_NAME}:latest`  |  `Generic, GitHub, ImageChange` 
+|=============
+
+=== Deployment Configurations
+
+A deployment in OpenShift is a replication controller based on a user defined template called a deployment configuration. Deployments are created manually or in response to triggered events.
+Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/deployments.html#creating-a-deployment-configuration[Openshift documentation] for more information.
+
+==== Triggers
+
+A trigger drives the creation of new deployments in response to events, both inside and outside OpenShift. Refer to the
+https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-developer-guide#triggers[Openshift documentation] for more information.
+
+|============
+|Deployment | Triggers
+
+| `${APPLICATION_NAME}`  |  `ImageChange` 
+| `${APPLICATION_NAME}-mysql`  |  `ImageChange` 
+|============
+
+==== Replicas
+
+A replication controller ensures that a specified number of pod "replicas" are running at any one time.
+If there are too many, the replication controller kills some pods. If there are too few, it starts more.
+Refer to the https://cloud.google.com/container-engine/docs/replicationcontrollers/[container-engine documentation]
+for more information.
+
+|============
+|Deployment | Replicas
+
+| `${APPLICATION_NAME}`  |  `1` 
+| `${APPLICATION_NAME}-mysql`  |  `1` 
+|============
+
+==== Pod Template
+
+===== Service Accounts
+
+Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
+https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
+information.
+
+|============
+|Deployment | Service Account
+
+| `${APPLICATION_NAME}`  |  `jws-service-account` 
+|============
+
+===== Image
+
+|============
+|Deployment | Image
+
+| `${APPLICATION_NAME}`  |  `${APPLICATION_NAME}` 
+| `${APPLICATION_NAME}-mysql`  |  `mysql` 
+|============
+
+===== Readiness Probe
+
+
+====== ${APPLICATION_NAME}
+----
+/bin/bash
+
+-c
+
+curl -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer&att=stateName' |grep -iq 'stateName *= *STARTED'
+----
+
+
+===== Exposed Ports
+
+|=============
+|Deployments | Name  | Port  | Protocol
+
+.2+| `${APPLICATION_NAME}`
+| `http`  |  `8080`  |  `TCP` 
+| `https`  |  `8443`  |  `TCP` 
+.1+| `${APPLICATION_NAME}-mysql`
+| --  |  `3306`  |  `TCP` 
+|=============
+
+===== Image Environment Variables
+
+|=======================================================================
+|Deployment |Variable name |Description |Example value
+
+.14+| `${APPLICATION_NAME}`
+| `DB_SERVICE_PREFIX_MAPPING`  |  --  |  `${APPLICATION_NAME}-mysql=DB` 
+| `DB_JNDI`  |  `Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb`  |  `${DB_JNDI}` 
+| `DB_USERNAME`  |  `Database user name`  |  `${DB_USERNAME}` 
+| `DB_PASSWORD`  |  `Database user password`  |  `${DB_PASSWORD}` 
+| `DB_DATABASE`  |  `Database name`  |  `${DB_DATABASE}` 
+| `DB_MIN_POOL_SIZE`  |  `Sets xa-pool/min-pool-size for the configured datasource.`  |  `${DB_MIN_POOL_SIZE}` 
+| `DB_MAX_POOL_SIZE`  |  `Sets xa-pool/max-pool-size for the configured datasource.`  |  `${DB_MAX_POOL_SIZE}` 
+| `DB_TX_ISOLATION`  |  `Sets transaction-isolation for the configured datasource.`  |  `${DB_TX_ISOLATION}` 
+| `JWS_HTTPS_CERTIFICATE_DIR`  |  `The name of the certificate file within the secret`  |  `/etc/jws-secret-volume` 
+| `JWS_HTTPS_CERTIFICATE`  |  `The name of the certificate file within the secret`  |  `${JWS_HTTPS_CERTIFICATE}` 
+| `JWS_HTTPS_CERTIFICATE_KEY`  |  `The name of the certificate file within the secret`  |  `${JWS_HTTPS_CERTIFICATE_KEY}` 
+| `JWS_HTTPS_CERTIFICATE_PASSWORD`  |  `The name of the certificate file within the secret`  |  `${JWS_HTTPS_CERTIFICATE_PASSWORD}` 
+| `JWS_ADMIN_USERNAME`  |  `JWS Admin User`  |  `${JWS_ADMIN_USERNAME}` 
+| `JWS_ADMIN_PASSWORD`  |  `JWS Admin Password`  |  `${JWS_ADMIN_PASSWORD}` 
+.8+| `${APPLICATION_NAME}-mysql`
+| `MYSQL_USER`  |  --  |  `${DB_USERNAME}` 
+| `MYSQL_PASSWORD`  |  --  |  `${DB_PASSWORD}` 
+| `MYSQL_DATABASE`  |  --  |  `${DB_DATABASE}` 
+| `MYSQL_LOWER_CASE_TABLE_NAMES`  |  `Sets how the table names are stored and compared.`  |  `${MYSQL_LOWER_CASE_TABLE_NAMES}` 
+| `MYSQL_MAX_CONNECTIONS`  |  `The maximum permitted number of simultaneous client connections.`  |  `${MYSQL_MAX_CONNECTIONS}` 
+| `MYSQL_FT_MIN_WORD_LEN`  |  `The minimum length of the word to be included in a FULLTEXT index.`  |  `${MYSQL_FT_MIN_WORD_LEN}` 
+| `MYSQL_FT_MAX_WORD_LEN`  |  `The maximum length of the word to be included in a FULLTEXT index.`  |  `${MYSQL_FT_MAX_WORD_LEN}` 
+| `MYSQL_AIO`  |  `Controls the innodb_use_native_aio setting value if the native AIO is broken.`  |  `${MYSQL_AIO}` 
+|=======================================================================
+
+=====  Volumes
+
+|=============
+|Deployment |Name  | mountPath | Purpose | readOnly 
+
+| `${APPLICATION_NAME}`  |  `jws-certificate-volume`  |  `/etc/jws-secret-volume`  |  `ssl certs`  |  `True` 
+|=============
+
+=== External Dependencies
+
+==== Volume Claims
+
+A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
+by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
+Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
+more information.
+
+|=============
+|Name | Access Mode
+
+|=============
+
+==== Secrets 
+
+This template requires https://github.com/jboss-openshift/application-templates/blob/master/secrets/jws-app-secrets.json[jws-app-secrets.json] to be installed for the application to run.

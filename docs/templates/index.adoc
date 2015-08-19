@@ -1,0 +1,46 @@
+= Application Templates
+
+This project contains OpenShift v3 application templates which support applications based on JBoss Middleware products.
+Source can be found https://github.com/jboss-openshift/application-templates/tree/master[here].
+
+:icons: font
+:toc: macro
+
+toc::[levels=1]
+
+== JBoss Web Server
+
+* link:./webserver/jws-tomcat7-basic-sti.adoc[jws-tomcat7-basic-sti]
+* link:./webserver/jws-tomcat7-https-sti.adoc[jws-tomcat7-https-sti]
+* link:./webserver/jws-tomcat7-mongodb-persistent-sti.adoc[jws-tomcat7-mongodb-persistent-sti]
+* link:./webserver/jws-tomcat7-mongodb-sti.adoc[jws-tomcat7-mongodb-sti]
+* link:./webserver/jws-tomcat7-mysql-persistent-sti.adoc[jws-tomcat7-mysql-persistent-sti]
+* link:./webserver/jws-tomcat7-mysql-sti.adoc[jws-tomcat7-mysql-sti]
+* link:./webserver/jws-tomcat7-postgresql-persistent-sti.adoc[jws-tomcat7-postgresql-persistent-sti]
+* link:./webserver/jws-tomcat7-postgresql-sti.adoc[jws-tomcat7-postgresql-sti]
+* link:./webserver/jws-tomcat8-basic-sti.adoc[jws-tomcat8-basic-sti]
+* link:./webserver/jws-tomcat8-https-sti.adoc[jws-tomcat8-https-sti]
+* link:./webserver/jws-tomcat8-mongodb-persistent-sti.adoc[jws-tomcat8-mongodb-persistent-sti]
+* link:./webserver/jws-tomcat8-mongodb-sti.adoc[jws-tomcat8-mongodb-sti]
+* link:./webserver/jws-tomcat8-mysql-persistent-sti.adoc[jws-tomcat8-mysql-persistent-sti]
+* link:./webserver/jws-tomcat8-mysql-sti.adoc[jws-tomcat8-mysql-sti]
+* link:./webserver/jws-tomcat8-postgresql-persistent-sti.adoc[jws-tomcat8-postgresql-persistent-sti]
+* link:./webserver/jws-tomcat8-postgresql-sti.adoc[jws-tomcat8-postgresql-sti]
+
+== JBoss A-MQ
+
+* link:./amq/amq6-persistent.adoc[amq6-persistent]
+* link:./amq/amq6.adoc[amq6]
+
+== JBoss EAP
+
+* link:./eap/eap6-amq-persistent-sti.adoc[eap6-amq-persistent-sti]
+* link:./eap/eap6-amq-sti.adoc[eap6-amq-sti]
+* link:./eap/eap6-basic-sti.adoc[eap6-basic-sti]
+* link:./eap/eap6-https-sti.adoc[eap6-https-sti]
+* link:./eap/eap6-mongodb-persistent-sti.adoc[eap6-mongodb-persistent-sti]
+* link:./eap/eap6-mongodb-sti.adoc[eap6-mongodb-sti]
+* link:./eap/eap6-mysql-persistent-sti.adoc[eap6-mysql-persistent-sti]
+* link:./eap/eap6-mysql-sti.adoc[eap6-mysql-sti]
+* link:./eap/eap6-postgresql-persistent-sti.adoc[eap6-postgresql-persistent-sti]
+* link:./eap/eap6-postgresql-sti.adoc[eap6-postgresql-sti]
