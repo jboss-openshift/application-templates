@@ -15,80 +15,95 @@
         {
             "description": "JWS Release version, e.g. 3.0, 2.1, etc.",
             "name": "JWS_RELEASE",
-            "value": "3.0"
+            "value": "3.0",
+            "required": "Yes"
         },
         {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
-            "value": "jws-app"
+            "value": "jws-app",
+            "required": "Yes"
         },
         {
             "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "name": "APPLICATION_HOSTNAME",
-            "value": ""
+            "value": "",
+            "required": "No"
         },
         {
             "description": "Git source URI for application",
-            "name": "GIT_URI"
+            "name": "GIT_URI",
+            "required": "Yes"
         },
         {
             "description": "Git branch/tag reference",
             "name": "GIT_REF",
-            "value": "master"
+            "value": "master",
+            "required": "No"
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "GIT_CONTEXT_DIR",
-            "value": ""
+            "value": "",
+            "required": "No"
         },
         {
             "description": "The name of the secret containing the certificate files",
             "name": "JWS_HTTPS_SECRET",
-            "value": "jws-app-secret"
+            "value": "jws-app-secret",
+            "required": "Yes"
         },
         {
             "description": "The name of the certificate file within the secret",
             "name": "JWS_HTTPS_CERTIFICATE",
-            "value": "server.crt"
+            "value": "server.crt",
+            "required": "No"
         },
         {
             "description": "The name of the certificate key file within the secret",
             "name": "JWS_HTTPS_CERTIFICATE_KEY",
-            "value": "server.key"
+            "value": "server.key",
+            "required": "No"
         },
         {
             "description": "The certificate password",
             "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
-            "value": ""
+            "value": "",
+            "required": "No"
         },
         {
             "description": "JWS Admin User",
             "name": "JWS_ADMIN_USERNAME",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "JWS Admin Password",
             "name": "JWS_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "GitHub trigger secret",
             "name": "GITHUB_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "Generic build trigger secret",
             "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
-            "value": "openshift"
+            "value": "openshift",
+            "required": "Yes"
         }
     ],
     "objects": [

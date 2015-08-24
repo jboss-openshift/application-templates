@@ -15,65 +15,77 @@
         {
             "description": "EAP Release version, e.g. 6.4, etc.",
             "name": "EAP_RELEASE",
-            "value": "6.4"
+            "value": "6.4",
+            "required": "Yes"
         },
         {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
-            "value": "eap-app"
+            "value": "eap-app",
+            "required": "Yes"
         },
         {
             "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "name": "APPLICATION_HOSTNAME",
-            "value": ""
+            "value": "",
+            "required": "No"
         },
         {
             "description": "Git source URI for application",
             "name": "GIT_URI",
-            "value": "https://github.com/jboss-developer/jboss-eap-quickstarts"
+            "value": "https://github.com/jboss-developer/jboss-eap-quickstarts",
+            "required": "Yes"
         },
         {
             "description": "Git branch/tag reference",
             "name": "GIT_REF",
-            "value": "6.4.x"
+            "value": "6.4.x",
+            "required": "No"
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "GIT_CONTEXT_DIR",
-            "value": "kitchensink"
+            "value": "kitchensink",
+            "required": "No"
         },
         {
             "description": "Queue names",
             "name": "HORNETQ_QUEUES",
-            "value": ""
+            "value": "",
+            "required": "No"
         },
         {
             "description": "Topic names",
             "name": "HORNETQ_TOPICS",
-            "value": ""
+            "value": "",
+            "required": "No"
         },
         {
             "description": "HornetQ cluster admin password",
             "name": "HORNETQ_CLUSTER_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "No"
         },
         {
             "description": "GitHub trigger secret",
             "name": "GITHUB_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "Generic build trigger secret",
             "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
-            "value": "openshift"
+            "value": "openshift",
+            "required": "Yes"
         }
     ],
     "objects": [
