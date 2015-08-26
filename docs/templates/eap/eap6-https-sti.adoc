@@ -46,7 +46,6 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 
 | `${APPLICATION_NAME}`  |  `8080`  |  `The web server's http port.` 
 | `secure-${APPLICATION_NAME}`  |  `8443`  |  `The web server's https port.` 
-| `${APPLICATION_NAME}-ping`  |  `8888`  |  `Ping service for clustered applications.` 
 |=============
 
 === Routes
@@ -157,8 +156,8 @@ information.
 |Deployment |Variable name |Description |Example value
 
 .9+| `${APPLICATION_NAME}`
-| `OPENSHIFT_DNS_PING_SERVICE_NAME`  |  --  |  `${APPLICATION_NAME}-ping` 
-| `OPENSHIFT_DNS_PING_SERVICE_PORT`  |  --  |  `8888` 
+| `OPENSHIFT_KUBE_PING_LABELS`  |  Used to define the Kubernetes labels for selecting pods that are part of the same cluster for JGroups openshift.KUBE_PING. Required; provided in supported templates as `application=${APPLICATION_NAME}` |  `application=${APPLICATION_NAME}` 
+| `OPENSHIFT_KUBE_PING_NAMESPACE`  |  Used to define the Kubernetes namespace for selecting pods that are part of the same cluster for JGroups openshift.KUBE_PING. Required; provided dynamically in supported templates as `"valueFrom": { "fieldRef": { "fieldPath": "metadata.namespace" } }`  |  `myproject` 
 | `EAP_HTTPS_KEYSTORE_DIR`  |  `The name of the keystore file within the secret`  |  `/etc/eap-secret-volume` 
 | `EAP_HTTPS_KEYSTORE`  |  `The name of the keystore file within the secret`  |  `${EAP_HTTPS_KEYSTORE}` 
 | `EAP_HTTPS_NAME`  |  `The name associated with the server certificate`  |  `${EAP_HTTPS_NAME}` 
@@ -193,3 +192,31 @@ more information.
 ==== Secrets 
 
 This template requires https://github.com/jboss-openshift/application-templates/blob/master/secrets/eap-app-secrets.json[eap-app-secrets.json] to be installed for the application to run.
+
+[[clustering]]
+==== Clustering
+
+Clustering in OpenShift EAP is achieved through one of two discovery mechanisms:
+Kubernetes or DNS. This is done by configuring the JGroups protocol stack in
+standalone-openshift.xml with either the `<openshift.KUBE_PING/>` or `<openshift.DNS_PING/>`
+elements. Out of the box, `KUBE_PING` is the supported protocol and what is
+pre-configured in OpenShift EAP.
+
+For `KUBE_PING` to work, however, two steps must be taken:
+
+. The `OPENSHIFT_KUBE_PING_LABELS` and `OPENSHIFT_KUBE_PING_NAMESPACE` environment
+variables must be set (see table above).
+. Authorization must be granted to the service account the pod is running under
+to be allowed to access Kubernetes' REST api. This is done on the command line.
+
+.Policy commands
+====
+Using the default service account in the myproject namespace:
+....
+oc policy add-role-to-user view system:serviceaccount:myproject:default -n myproject
+....
+Using the eap-service-account in the myproject namespace:
+....
+oc policy add-role-to-user view system:serviceaccount:myproject:eap-service-account -n myproject
+....
+====
