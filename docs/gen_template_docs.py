@@ -118,7 +118,7 @@ def createParameterTable(data):
       environment = [item for sublist in deploy for item in sublist]
       envVar = getVariableInfo(environment, param["name"], "name")
       value = param["value"] if param.get("value") else getVariableInfo(environment, param["name"], "value")
-      columns = [param["name"], envVar, param["description"], value]
+      columns = [param["name"], envVar, param["description"], value, param["required"]]
       text += buildRow(columns)
    return text
 

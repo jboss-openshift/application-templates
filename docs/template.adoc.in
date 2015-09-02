@@ -11,7 +11,7 @@ References can be defined in any text field in the objects list field. Refer to 
 https://docs.openshift.org/latest/architecture/core_concepts/templates.html#parameters[Openshift documentation] for more information.
 
 |=======================================================================
-|Variable name |Image Environment Variable |Description |Example value
+|Variable name |Image Environment Variable |Description |Example value |Required
 $parametertable
 |=======================================================================
 

@@ -15,127 +15,152 @@
         {
             "description": "JWS Release version, e.g. 3.0, 2.1, etc.",
             "name": "JWS_RELEASE",
-            "value": "3.0"
+            "value": "3.0",
+            "required": "Yes"
         },
         {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
-            "value": "jws-app"
+            "value": "jws-app",
+            "required": "Yes"
         },
         {
             "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "name": "APPLICATION_HOSTNAME",
-            "value": ""
+            "value": "",
+            "required": "No"
         },
         {
             "description": "Git source URI for application",
-            "name": "GIT_URI"
+            "name": "GIT_URI",
+            "required": "Yes"
         },
         {
             "description": "Git branch/tag reference",
             "name": "GIT_REF",
-            "value": "master"
+            "value": "master",
+            "required": "No"
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "GIT_CONTEXT_DIR",
-            "value": ""
+            "value": "",
+            "required": "No"
         },
         {
             "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb",
             "name": "DB_JNDI",
-            "value": ""
+            "value": "",
+            "required": "No"
         },
         {
             "description": "Database name",
             "name": "DB_DATABASE",
-            "value": "root"
+            "value": "root",
+            "required": "Yes"
         },
         {
             "description": "Size of persistent storage for database volume.",
             "name": "VOLUME_CAPACITY",
-            "value": "512Mi"
+            "value": "512Mi",
+            "required": "Yes"
         },
         {
             "description": "The name of the secret containing the certificate files",
             "name": "JWS_HTTPS_SECRET",
-            "value": "jws-app-secret"
+            "value": "jws-app-secret",
+            "required": "No"
         },
         {
             "description": "The name of the certificate file within the secret",
             "name": "JWS_HTTPS_CERTIFICATE",
-            "value": "server.crt"
+            "value": "server.crt",
+            "required": "No"
         },
         {
             "description": "The name of the certificate key file within the secret",
             "name": "JWS_HTTPS_CERTIFICATE_KEY",
-            "value": "server.key"
+            "value": "server.key",
+            "required": "No"
         },
         {
             "description": "The certificate password",
             "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
-            "value": ""
+            "value": "",
+            "required": "No"
         },
         {
             "description": "Sets xa-pool/min-pool-size for the configured datasource.",
-            "name": "DB_MIN_POOL_SIZE"
+            "name": "DB_MIN_POOL_SIZE",
+            "required": "No"
         },
         {
             "description": "Sets xa-pool/max-pool-size for the configured datasource.",
-            "name": "DB_MAX_POOL_SIZE"
+            "name": "DB_MAX_POOL_SIZE",
+            "required": "No"
         },
         {
             "description": "Sets transaction-isolation for the configured datasource.",
-            "name": "DB_TX_ISOLATION"
+            "name": "DB_TX_ISOLATION",
+            "required": "No"
         },
         {
             "description": "The maximum number of client connections allowed. This also sets the maximum number of prepared transactions.",
-            "name": "POSTGRESQL_MAX_CONNECTIONS"
+            "name": "POSTGRESQL_MAX_CONNECTIONS",
+            "required": "No"
         },
         {
             "description": "Configures how much memory is dedicated to PostgreSQL for caching data.",
-            "name": "POSTGRESQL_SHARED_BUFFERS"
+            "name": "POSTGRESQL_SHARED_BUFFERS",
+            "required": "No"
         },
         {
             "description": "Database user name",
             "name": "DB_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "Database user password",
             "name": "DB_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "JWS Admin User",
             "name": "JWS_ADMIN_USERNAME",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "JWS Admin Password",
             "name": "JWS_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "GitHub trigger secret",
             "name": "GITHUB_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "Generic build trigger secret",
             "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": "Yes"
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
-            "value": "openshift"
+            "value": "openshift",
+            "required": "Yes"
         }
     ],
     "objects": [
