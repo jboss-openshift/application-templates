@@ -26,7 +26,7 @@ JBoss Middleware products.  This will need to be
 installed in the common `openshift` namespace (`oc create -f jboss-images-streams.json -n openshift`) before using any of the templates in these folders.  You will also need to install (into the `openshift` namespace) the database image streams supplied by OpenShift to use any of the templates that integrate with MySQL, PostgreSQL or MongoDB.
 
 ##HTTPS configuration
-The majority of templates contain configuration that requires the creation of resources within your project to support HTTPS, specifically a service account and a secret that can be included into the pod as a volume.  The secrets directory contains a numner of examples that can be installed into your project to allow you to test the A-MQ, EAP and JWS templates, you should replace the contents of these with data that is more appropriate for your deployments.
+The majority of templates contain configuration that requires the creation of resources within your project to support HTTPS, specifically a service account and a secret that can be included into the pod as a volume.  The secrets directory contains a number of examples that can be installed into your project to allow you to test the A-MQ, EAP and JWS templates, you should replace the contents of these with data that is more appropriate for your deployments.
 
 To install the service accounts and secrets into your project:
 ```
