@@ -191,8 +191,8 @@ curl -s -L -u ${AMQ_ADMIN_USERNAME}:${AMQ_ADMIN_PASSWORD} 'http://localhost:8161
 | `MQ_PROTOCOL`  |  `Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP`  |  `tcp` 
 | `MQ_QUEUES`  |  `Queue names`  |  `${MQ_QUEUES}` 
 | `MQ_TOPICS`  |  `Topic names`  |  `${MQ_TOPICS}` 
-| `OPENSHIFT_KUBE_PING_LABELS`  |  Used to define the Kubernetes labels for selecting pods that are part of the same cluster for JGroups openshift.KUBE_PING. Required; provided in supported templates as `application=${APPLICATION_NAME}` |  `application=${APPLICATION_NAME}` 
-| `OPENSHIFT_KUBE_PING_NAMESPACE`  |  Used to define the Kubernetes namespace for selecting pods that are part of the same cluster for JGroups openshift.KUBE_PING. Required; provided dynamically in supported templates as `"valueFrom": { "fieldRef": { "fieldPath": "metadata.namespace" } }`  |  `myproject` 
+| `OPENSHIFT_KUBE_PING_NAMESPACE` | Used to define the Kubernetes namespace for selecting pods that are part of the same cluster for JGroups openshift.`KUBE_PING`. Required for multi-node clustering; provided dynamically in supported templates as `"valueFrom": { "fieldRef": { "fieldPath": "metadata.namespace" } }` | `myproject`
+| `OPENSHIFT_KUBE_PING_LABELS` | Used to define the Kubernetes labels for selecting pods that are part of the same cluster for JGroups openshift.`KUBE_PING`. Recommended; provided in supported templates as `application=${APPLICATION_NAME}` | `application=eap-app`
 | `EAP_HTTPS_KEYSTORE_DIR`  |  `The name of the keystore file within the secret`  |  `/etc/eap-secret-volume` 
 | `EAP_HTTPS_KEYSTORE`  |  `The name of the keystore file within the secret`  |  `${EAP_HTTPS_KEYSTORE}` 
 | `EAP_HTTPS_NAME`  |  `The name associated with the server certificate`  |  `${EAP_HTTPS_NAME}` 
@@ -244,12 +244,14 @@ standalone-openshift.xml with either the `<openshift.KUBE_PING/>` or `<openshift
 elements. Out of the box, `KUBE_PING` is the supported protocol and what is
 pre-configured in OpenShift EAP.
 
-For `KUBE_PING` to work, however, two steps must be taken:
+For `KUBE_PING` to work, however, the following steps must be taken:
 
-. The `OPENSHIFT_KUBE_PING_LABELS` and `OPENSHIFT_KUBE_PING_NAMESPACE` environment
-variables must be set (see table above).
-. Authorization must be granted to the service account the pod is running under
-to be allowed to access Kubernetes' REST api. This is done on the command line.
+. The `OPENSHIFT_KUBE_PING_NAMESPACE` environment variable must be set (see table above).
+If not set, the server will act as if it is a single-node cluster (a "cluster of one").
+. The `OPENSHIFT_KUBE_PING_LABELS` environment variables should be set (see table above).
+If not set, pods outside of your application (albeit in your namespace) will try to join.
+. Authorization must be granted to the service account the pod is running under to be
+allowed to access Kubernetes' REST api. This is done on the command line.
 
 .Policy commands
 ====
