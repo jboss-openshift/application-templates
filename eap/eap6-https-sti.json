@@ -164,9 +164,9 @@
         {
             "kind": "Route",
             "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-http-route",
+            "id": "${APPLICATION_NAME}-http",
             "metadata": {
-                "name": "${APPLICATION_NAME}-http-route",
+                "name": "${APPLICATION_NAME}",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
@@ -184,9 +184,9 @@
         {
             "kind": "Route",
             "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-https-route",
+            "id": "${APPLICATION_NAME}-https",
             "metadata": {
-                "name": "${APPLICATION_NAME}-https-route",
+                "name": "secure-${APPLICATION_NAME}",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
