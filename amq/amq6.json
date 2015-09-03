@@ -375,7 +375,7 @@
                                     },
                                     {
                                         "name": "AMQ_TRANSPORTS",
-                                        "value": "${MQ_TRANSPORTS}"
+                                        "value": "${MQ_PROTOCOL}"
                                     },
                                     {
                                         "name": "AMQ_QUEUES",
