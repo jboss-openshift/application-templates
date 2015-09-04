@@ -85,7 +85,31 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-amq-62"
+                "name": "jboss-jdg6-openshift",
+                "annotations": {
+                    "openshift.io/image.insecureRepository": "true"
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "ce-openshift-rhel-master.lab.eng.brq.redhat.com:5000/dpalmer/jdg-openshift",
+                "tags": [
+                    {
+                        "name": "6.4",
+                        "annotations": {
+                            "description": "JBoss JDG 6 STI images.",
+                            "iconClass": "icon-jboss",
+                            "supports":"jdg:6.4,java",
+                            "version": "6.4"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "jboss-amq-6"
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-amq-6/amq62-openshift",
