@@ -160,6 +160,30 @@
             "spec": {
                 "ports": [
                     {
+                        "port": 8883,
+                        "targetPort": 8883
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-mqtt-ssl",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The broker's mqtt ssl port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
                         "port": 61613,
                         "targetPort": 61613
                     }
