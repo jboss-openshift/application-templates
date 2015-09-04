@@ -93,10 +93,25 @@
             "value": ""
         },
         {
+            "description": "SSL trust store password",
+            "name": "AMQ_TRUSTSTORE_PASSWORD",
+            "value": ""
+        },
+        {
             "description": "SSL key store filename",
             "name": "AMQ_KEYSTORE",
             "value": "broker.ks",
             "required": "Yes"
+        },
+        {
+            "description": "SSL key store password",
+            "name": "AMQ_KEYSTORE_PASSWORD",
+            "value": ""
+        },
+        {
+            "description": "The A-MQ storage usage limit",
+            "name": "AMQ_STORAGE_USAGE_LIMIT",
+            "value": "100 gb"
         },
         {
             "description": "SSL key store password",
