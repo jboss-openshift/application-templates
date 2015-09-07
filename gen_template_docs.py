@@ -12,6 +12,7 @@
 import json
 import os
 import sys
+import re
 from ptemplate.template import Template
 
 GIT_REPO = "https://github.com/jboss-openshift/application-templates.git"
@@ -25,7 +26,7 @@ LINKS =  {"jboss-eap6-openshift:${EAP_RELEASE}":                "../../eap/eap-o
           "jboss-webserver3-tomcat8-openshift:${JWS_RELEASE}":  "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver/tomcat8-openshift`]"};
 
 PARAMETER_VALUES = {"APPLICATION_HOSTNAME": "secure-app.test.router.default.local", \
-                   "GIT_URI": "`https://github.com/jboss-openshift/openshift-examples.git", \
+                   "GIT_URI": "https://github.com/jboss-openshift/openshift-examples.git", \
                    "GIT_REF": "master", \
                    "GIT_CONTEXT_DIR": "helloworld", \
                    "GITHUB_TRIGGER_SECRET": "secret101", \
@@ -110,8 +111,20 @@ def createTemplate(data, directory, template_file):
 
     return templater.render(tdata)
 
+def possibly_fix_width(text):
+    """Heuristic to possibly mark-up text as monospaced if it looks like
+       a URL, or an environment variable name, etc."""
+
+    if text in ['', '--']:
+        return text
+
+    if text[0] in "$/" or "}" == text[-1] or re.match(r'^[A-Z_\${}:-]+$', text):
+        return '`%s`' % text
+
+    return text
+
 def buildRow(columns):
-   return ("\n|" + " | ".join([" `" + col + "` " for col in columns])).replace("`--`", "--")
+   return "\n|" + " | ".join(map(possibly_fix_width, columns))
 
 def getVolumePurpose(name):
    name = name.split("-")
