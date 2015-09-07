@@ -76,8 +76,8 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-| `${APPLICATION_NAME}-http-route`  |  `none`  |  `${APPLICATION_HOSTNAME}` 
-| `${APPLICATION_NAME}-https-route`  |  `TLS passthrough`  |  `${APPLICATION_HOSTNAME}` 
+| `${APPLICATION_NAME}-http`  |  `none`  |  `${APPLICATION_HOSTNAME}` 
+| `${APPLICATION_NAME}-https`  |  `TLS passthrough`  |  `${APPLICATION_HOSTNAME}` 
 |=============
 
 
@@ -218,7 +218,7 @@ information.
 .7+| `${APPLICATION_NAME}-amq`
 | `AMQ_USER`  |  `Broker user name`  |  `${MQ_USERNAME}` 
 | `AMQ_PASSWORD`  |  `Broker user password`  |  `${MQ_PASSWORD}` 
-| `AMQ_TRANSPORTS`  |  --  |  `${MQ_TRANSPORTS}` 
+| `AMQ_TRANSPORTS`  |  --  |  `${MQ_PROTOCOL}` 
 | `AMQ_QUEUES`  |  `Queue names`  |  `${MQ_QUEUES}` 
 | `AMQ_TOPICS`  |  `Topic names`  |  `${MQ_TOPICS}` 
 | `AMQ_ADMIN_USERNAME`  |  `ActiveMQ Admin User`  |  `${AMQ_ADMIN_USERNAME}` 

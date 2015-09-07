@@ -64,7 +64,7 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-| `${APPLICATION_NAME}-http-route`  |  `none`  |  `${APPLICATION_HOSTNAME}` 
+| `${APPLICATION_NAME}-http`  |  `none`  |  `${APPLICATION_HOSTNAME}` 
 |=============
 
 

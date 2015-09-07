@@ -31,7 +31,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 | `AMQ_ADMIN_PASSWORD`  |  `AMQ_ADMIN_PASSWORD`  |  `ActiveMQ Admin Password`  |  `${AMQ_ADMIN_PASSWORD}`  |  `Yes` 
 | `AMQ_SECRET`  |  --  |  `Name of a secret containing SSL related files`  |  `amq-app-secret`  |  `Yes` 
 | `AMQ_TRUSTSTORE`  |  `AMQ_TRUSTSTORE`  |  `SSL trust store filename`  |  `broker.ts`  |  `Yes` 
+| `AMQ_TRUSTSTORE_PASSWORD`  |  `AMQ_TRUSTSTORE`  |  `SSL trust store password`  |  `${AMQ_TRUSTSTORE}`  |  `?` 
 | `AMQ_KEYSTORE`  |  `AMQ_KEYSTORE_TRUSTSTORE_DIR`  |  `SSL key store filename`  |  `broker.ks`  |  `Yes` 
+| `AMQ_KEYSTORE_PASSWORD`  |  `AMQ_KEYSTORE`  |  `SSL key store password`  |  `${AMQ_KEYSTORE}`  |  `?` 
+| `AMQ_STORAGE_USAGE_LIMIT`  |  `AMQ_STORAGE_USAGE_LIMIT`  |  `The A-MQ storage usage limit`  |  `100 gb`  |  `?` 
 | `IMAGE_STREAM_NAMESPACE`  |  --  |  `Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.`  |  `openshift`  |  `Yes` 
 |=======================================================================
 
@@ -54,6 +57,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 | `${APPLICATION_NAME}-amq-amqp`  |  `5672`  |  `The broker's amqp port.` 
 | `${APPLICATION_NAME}-amq-amqp-ssl`  |  `5671`  |  `The broker's amqp ssl port.` 
 | `${APPLICATION_NAME}-amq-mqtt`  |  `1883`  |  `The broker's mqtt port.` 
+| `${APPLICATION_NAME}-amq-mqtt-ssl`  |  `8883`  |  `The broker's mqtt ssl port.` 
 | `${APPLICATION_NAME}-amq-stomp`  |  `61613`  |  `The broker's stomp port.` 
 | `${APPLICATION_NAME}-amq-stomp-ssl`  |  `61612`  |  `The broker's stomp ssl port.` 
 | `${APPLICATION_NAME}-amq-tcp`  |  `61616`  |  `The broker's tcp (openwire) port.` 
@@ -158,17 +162,20 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.10+| `${APPLICATION_NAME}-amq`
+.13+| `${APPLICATION_NAME}-amq`
 | `AMQ_USER`  |  `Broker user name`  |  `${MQ_USERNAME}` 
 | `AMQ_PASSWORD`  |  `Broker user password`  |  `${MQ_PASSWORD}` 
-| `AMQ_TRANSPORTS`  |  --  |  `${MQ_TRANSPORTS}` 
+| `AMQ_TRANSPORTS`  |  --  |  `${MQ_PROTOCOL}` 
 | `AMQ_QUEUES`  |  `Queue names`  |  `${MQ_QUEUES}` 
 | `AMQ_TOPICS`  |  `Topic names`  |  `${MQ_TOPICS}` 
 | `AMQ_ADMIN_USERNAME`  |  `ActiveMQ Admin User`  |  `${AMQ_ADMIN_USERNAME}` 
 | `AMQ_ADMIN_PASSWORD`  |  `ActiveMQ Admin Password`  |  `${AMQ_ADMIN_PASSWORD}` 
 | `AMQ_KEYSTORE_TRUSTSTORE_DIR`  |  `SSL key store filename`  |  `/etc/amq-secret-volume` 
 | `AMQ_TRUSTSTORE`  |  `SSL trust store filename`  |  `${AMQ_TRUSTSTORE}` 
+| `AMQ_TRUSTSTORE_PASSWORD`  |  `SSL trust store filename`  |  `${AMQ_TRUSTSTORE_PASSWORD}` 
 | `AMQ_KEYSTORE`  |  `SSL key store filename`  |  `${AMQ_KEYSTORE}` 
+| `AMQ_KEYSTORE_PASSWORD`  |  `SSL key store filename`  |  `${AMQ_KEYSTORE_PASSWORD}` 
+| `AMQ_STORAGE_USAGE_LIMIT`  |  `The A-MQ storage usage limit`  |  `${AMQ_STORAGE_USAGE_LIMIT}` 
 |=======================================================================
 
 
