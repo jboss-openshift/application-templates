@@ -7,10 +7,10 @@ The templates in this folder are organized by JBoss Middleware product.  Each
 template is configured with the following basic parameters:
  * APPLICATION_NAME: the name of the application.  This is also used as the
    name of the docker image created by the build.
- * GIT_URI: the URI to the git project used for S2I templates.
- * GIT_REF: the git reference to use when pulling the project.
- * GIT_CONTEXT_DIR: the relative directory within the project to build (if other than the root directory)
- * APPLICATION_HOSTNAME: the hostname to register for the route (for templates
+ * SOURCE_REPOSITORY_URL: the URI to the git project used for S2I templates.
+ * SOURCE_REPOSITORY_REF: the git reference to use when pulling the project.
+ * CONTEXT_DIR: the relative directory within the project to build (if other than the root directory)
+ * APPLICATION_DOMAIN: the hostname to register for the route (for templates
    exposing services publicly, through the router).  If unset, the default, the hostnames will be of the form: `<service-name>.<project-name>.<default-domain-suffix>`, e.g. eap-app.myproject.v3.openshift.com
 
 In addition to these basic parameters, templates utilizing databases will have
@@ -46,7 +46,7 @@ After executing the above, you should be able to see the template after pressing
 Or, if you prefer the command line:
 ```
 $ oc create -n openshift -f jboss-image-streams.json
-$ oc process -n yourproject -f eap/eap6-basic-s2i.json -v APPLICATION_NAME=helloworld,GIT_URI=https://github.com/jboss-developer/jboss-eap-quickstarts,GIT_REF=6.4.x,GIT_CONTEXT_DIR=helloworld | oc create -n yourproject -f -
+$ oc process -n yourproject -f eap/eap6-basic-s2i.json -v APPLICATION_NAME=helloworld,SOURCE_REPOSITORY_URL=https://github.com/jboss-developer/jboss-eap-quickstarts,SOURCE_REPOSITORY_REF=6.4.x,CONTEXT_DIR=helloworld | oc create -n yourproject -f -
 ```
 
 You may also install the templates into the `openshift` namespace in order to make them

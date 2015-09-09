@@ -21,10 +21,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 
 | `JWS_RELEASE`  |  --  |  `JWS Release version, e.g. 3.0, 2.1, etc.`  |  `3.0`  |  `Yes` 
 | `APPLICATION_NAME`  |  --  |  `The name for the application.`  |  `jws-app`  |  `Yes` 
-| `APPLICATION_HOSTNAME`  |  --  |  `Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>`  |  `secure-app.test.router.default.local`  |  `No` 
-| `GIT_URI`  |  --  |  `Git source URI for application`  |  ``https://github.com/jboss-openshift/openshift-examples.git`  |  `Yes` 
-| `GIT_REF`  |  --  |  `Git branch/tag reference`  |  `master`  |  `No` 
-| `GIT_CONTEXT_DIR`  |  --  |  `Path within Git project to build; empty for root project directory.`  |  `helloworld`  |  `No` 
+| `APPLICATION_DOMAIN`  |  --  |  `Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>`  |  `secure-app.test.router.default.local`  |  `No` 
+| `SOURCE_REPOSITORY_URL`  |  --  |  `Git source URI for application`  |  ``https://github.com/jboss-openshift/openshift-examples.git`  |  `Yes` 
+| `SOURCE_REPOSITORY_REF`  |  --  |  `Git branch/tag reference`  |  `master`  |  `No` 
+| `CONTEXT_DIR`  |  --  |  `Path within Git project to build; empty for root project directory.`  |  `helloworld`  |  `No` 
 | `DB_JNDI`  |  `DB_JNDI`  |  `Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb`  |  `${DB_JNDI}`  |  `No` 
 | `DB_DATABASE`  |  `DB_DATABASE`  |  `Database name`  |  `root`  |  `Yes` 
 | `JWS_HTTPS_SECRET`  |  --  |  `The name of the secret containing the certificate files`  |  `jws-app-secret`  |  `Yes` 
@@ -43,8 +43,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 | `DB_PASSWORD`  |  `DB_PASSWORD`  |  `Database user password`  |  `${DB_PASSWORD}`  |  `Yes` 
 | `JWS_ADMIN_USERNAME`  |  `JWS_ADMIN_USERNAME`  |  `JWS Admin User`  |  `${JWS_ADMIN_USERNAME}`  |  `Yes` 
 | `JWS_ADMIN_PASSWORD`  |  `JWS_ADMIN_PASSWORD`  |  `JWS Admin Password`  |  `${JWS_ADMIN_PASSWORD}`  |  `Yes` 
-| `GITHUB_TRIGGER_SECRET`  |  --  |  `GitHub trigger secret`  |  `secret101`  |  `Yes` 
-| `GENERIC_TRIGGER_SECRET`  |  --  |  `Generic build trigger secret`  |  `secret101`  |  `Yes` 
+| `GITHUB_WEBHOOK_SECRET`  |  --  |  `GitHub trigger secret`  |  `secret101`  |  `Yes` 
+| `GENERIC_WEBHOOK_SECRET`  |  --  |  `Generic build trigger secret`  |  `secret101`  |  `Yes` 
 | `IMAGE_STREAM_NAMESPACE`  |  --  |  `Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.`  |  `openshift`  |  `Yes` 
 |=======================================================================
 
@@ -81,8 +81,8 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-| `${APPLICATION_NAME}-http`  |  `none`  |  `${APPLICATION_HOSTNAME}` 
-| `${APPLICATION_NAME}-https`  |  `TLS passthrough`  |  `${APPLICATION_HOSTNAME}` 
+| `${APPLICATION_NAME}-http`  |  `none`  |  `${APPLICATION_DOMAIN}` 
+| `${APPLICATION_NAME}-https`  |  `TLS passthrough`  |  `${APPLICATION_DOMAIN}` 
 |=============
 
 

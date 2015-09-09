@@ -22,10 +22,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 | `EAP_RELEASE`  |  --  |  `EAP Release version, e.g. 6.4, etc.`  |  `6.4`  |  `Yes` 
 | `AMQ_RELEASE`  |  --  |  `ActiveMQ Release version, e.g. 6.2, etc.`  |  `6.2`  |  `Yes` 
 | `APPLICATION_NAME`  |  --  |  `The name for the application.`  |  `eap-app`  |  `Yes` 
-| `APPLICATION_HOSTNAME`  |  --  |  `Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>`  |  `secure-app.test.router.default.local`  |  `No` 
-| `GIT_URI`  |  --  |  `Git source URI for application`  |  ``https://github.com/jboss-openshift/openshift-examples.git`  |  `Yes` 
-| `GIT_REF`  |  --  |  `Git branch/tag reference`  |  `master`  |  `No` 
-| `GIT_CONTEXT_DIR`  |  --  |  `Path within Git project to build; empty for root project directory.`  |  `helloworld`  |  `No` 
+| `APPLICATION_DOMAIN`  |  --  |  `Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>`  |  `secure-app.test.router.default.local`  |  `No` 
+| `SOURCE_REPOSITORY_URL`  |  --  |  `Git source URI for application`  |  ``https://github.com/jboss-openshift/openshift-examples.git`  |  `Yes` 
+| `SOURCE_REPOSITORY_REF`  |  --  |  `Git branch/tag reference`  |  `master`  |  `No` 
+| `CONTEXT_DIR`  |  --  |  `Path within Git project to build; empty for root project directory.`  |  `helloworld`  |  `No` 
 | `VOLUME_CAPACITY`  |  --  |  `Size of persistent storage for database volume.`  |  `512Mi`  |  `Yes` 
 | `MQ_JNDI`  |  `MQ_JNDI`  |  `JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory`  |  `java:/ConnectionFactory`  |  `No` 
 | `MQ_PROTOCOL`  |  `MQ_PROTOCOL`  |  `Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP`  |  `openwire`  |  `No` 
@@ -39,8 +39,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 | `MQ_PASSWORD`  |  `MQ_PASSWORD`  |  `Broker user password`  |  `${MQ_PASSWORD}`  |  `No` 
 | `AMQ_ADMIN_USERNAME`  |  `AMQ_ADMIN_USERNAME`  |  `ActiveMQ Admin User`  |  `${AMQ_ADMIN_USERNAME}`  |  `Yes` 
 | `AMQ_ADMIN_PASSWORD`  |  `AMQ_ADMIN_PASSWORD`  |  `ActiveMQ Admin Password`  |  `${AMQ_ADMIN_PASSWORD}`  |  `Yes` 
-| `GITHUB_TRIGGER_SECRET`  |  --  |  `GitHub trigger secret`  |  `secret101`  |  `Yes` 
-| `GENERIC_TRIGGER_SECRET`  |  --  |  `Generic build trigger secret`  |  `secret101`  |  `Yes` 
+| `GITHUB_WEBHOOK_SECRET`  |  --  |  `GitHub trigger secret`  |  `secret101`  |  `Yes` 
+| `GENERIC_WEBHOOK_SECRET`  |  --  |  `Generic build trigger secret`  |  `secret101`  |  `Yes` 
 | `IMAGE_STREAM_NAMESPACE`  |  --  |  `Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.`  |  `openshift`  |  `Yes` 
 |=======================================================================
 
@@ -77,8 +77,8 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-| `${APPLICATION_NAME}-http`  |  `none`  |  `${APPLICATION_HOSTNAME}` 
-| `${APPLICATION_NAME}-https`  |  `TLS passthrough`  |  `${APPLICATION_HOSTNAME}` 
+| `${APPLICATION_NAME}-http`  |  `none`  |  `${APPLICATION_DOMAIN}` 
+| `${APPLICATION_NAME}-https`  |  `TLS passthrough`  |  `${APPLICATION_DOMAIN}` 
 |=============
 
 

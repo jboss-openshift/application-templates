@@ -26,25 +26,25 @@
         },
         {
             "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
-            "name": "APPLICATION_HOSTNAME",
+            "name": "APPLICATION_DOMAIN",
             "value": "",
             "required": false
         },
         {
             "description": "Git source URI for application",
-            "name": "GIT_URI",
+            "name": "SOURCE_REPOSITORY_URL",
             "value": "https://github.com/jboss-developer/jboss-eap-quickstarts",
             "required": true
         },
         {
             "description": "Git branch/tag reference",
-            "name": "GIT_REF",
+            "name": "SOURCE_REPOSITORY_REF",
             "value": "6.4.x",
             "required": false
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
-            "name": "GIT_CONTEXT_DIR",
+            "name": "CONTEXT_DIR",
             "value": "kitchensink",
             "required": false
         },
@@ -93,14 +93,14 @@
         },
         {
             "description": "GitHub trigger secret",
-            "name": "GITHUB_TRIGGER_SECRET",
+            "name": "GITHUB_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
         },
         {
             "description": "Generic build trigger secret",
-            "name": "GENERIC_TRIGGER_SECRET",
+            "name": "GENERIC_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
@@ -175,7 +175,7 @@
                 }
             },
             "spec": {
-                "host": "${APPLICATION_HOSTNAME}",
+                "host": "${APPLICATION_DOMAIN}",
                 "to": {
                     "name": "${APPLICATION_NAME}"
                 }
@@ -195,7 +195,7 @@
                 }
             },
             "spec": {
-                "host": "${APPLICATION_HOSTNAME}",
+                "host": "${APPLICATION_DOMAIN}",
                 "to": {
                     "name": "secure-${APPLICATION_NAME}"
                 },
@@ -227,10 +227,10 @@
                 "source": {
                     "type": "Git",
                     "git": {
-                        "uri": "${GIT_URI}",
-                        "ref": "${GIT_REF}"
+                        "uri": "${SOURCE_REPOSITORY_URL}",
+                        "ref": "${SOURCE_REPOSITORY_REF}"
                     },
-                    "contextDir": "${GIT_CONTEXT_DIR}"
+                    "contextDir": "${CONTEXT_DIR}"
                 },
                 "strategy": {
                     "type": "Source",
@@ -253,13 +253,13 @@
                     {
                         "type": "GitHub",
                         "github": {
-                            "secret": "${GITHUB_TRIGGER_SECRET}"
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
                         }
                     },
                     {
                         "type": "Generic",
                         "generic": {
-                            "secret": "${GENERIC_TRIGGER_SECRET}"
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
                         }
                     },
                     {
