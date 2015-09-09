@@ -16,138 +16,138 @@
             "description": "EAP Release version, e.g. 6.4, etc.",
             "name": "EAP_RELEASE",
             "value": "6.4",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "ActiveMQ Release version, e.g. 6.2, etc.",
             "name": "AMQ_RELEASE",
             "value": "6.2",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "eap-app",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "name": "APPLICATION_HOSTNAME",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Git source URI for application",
             "name": "GIT_URI",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Git branch/tag reference",
             "name": "GIT_REF",
             "value": "master",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "GIT_CONTEXT_DIR",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory",
             "name": "MQ_JNDI",
             "value": "java:/ConnectionFactory",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP",
             "name": "MQ_PROTOCOL",
             "value": "openwire",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Queue names",
             "name": "MQ_QUEUES",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Topic names",
             "name": "MQ_TOPICS",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The name of the secret containing the keystore file",
             "name": "EAP_HTTPS_SECRET",
             "value": "eap-app-secret",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The name of the keystore file within the secret",
             "name": "EAP_HTTPS_KEYSTORE",
             "value": "keystore.jks",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The name associated with the server certificate",
             "name": "EAP_HTTPS_NAME",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The password for the keystore and certificate",
             "name": "EAP_HTTPS_PASSWORD",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Broker user name",
             "name": "MQ_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Broker user password",
             "name": "MQ_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "No"
+            "required": false
         },
         {
             "description": "ActiveMQ Admin User",
             "name": "AMQ_ADMIN_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "ActiveMQ Admin Password",
             "name": "AMQ_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "GitHub trigger secret",
             "name": "GITHUB_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Generic build trigger secret",
             "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
-            "required": "Yes"
+            "required": true
         }
     ],
     "objects": [

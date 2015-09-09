@@ -16,160 +16,160 @@
             "description": "JWS Release version, e.g. 3.0, 2.1, etc.",
             "name": "JWS_RELEASE",
             "value": "3.0",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "jws-app",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "name": "APPLICATION_HOSTNAME",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Git source URI for application",
             "name": "GIT_URI",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Git branch/tag reference",
             "name": "GIT_REF",
             "value": "master",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "GIT_CONTEXT_DIR",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb",
             "name": "DB_JNDI",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Database name",
             "name": "DB_DATABASE",
             "value": "root",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "The name of the secret containing the certificate files",
             "name": "JWS_HTTPS_SECRET",
             "value": "jws-app-secret",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "The name of the certificate file within the secret",
             "name": "JWS_HTTPS_CERTIFICATE",
             "value": "server.crt",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The name of the certificate key file within the secret",
             "name": "JWS_HTTPS_CERTIFICATE_KEY",
             "value": "server.key",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The certificate password",
             "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Sets xa-pool/min-pool-size for the configured datasource.",
             "name": "DB_MIN_POOL_SIZE",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Sets xa-pool/max-pool-size for the configured datasource.",
             "name": "DB_MAX_POOL_SIZE",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Sets transaction-isolation for the configured datasource.",
             "name": "DB_TX_ISOLATION",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Sets how the table names are stored and compared.",
             "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The maximum permitted number of simultaneous client connections.",
             "name": "MYSQL_MAX_CONNECTIONS",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The minimum length of the word to be included in a FULLTEXT index.",
             "name": "MYSQL_FT_MIN_WORD_LEN",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The maximum length of the word to be included in a FULLTEXT index.",
             "name": "MYSQL_FT_MAX_WORD_LEN",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Controls the innodb_use_native_aio setting value if the native AIO is broken.",
             "name": "MYSQL_AIO",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Database user name",
             "name": "DB_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Database user password",
             "name": "DB_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "JWS Admin User",
             "name": "JWS_ADMIN_USERNAME",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "JWS Admin Password",
             "name": "JWS_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "GitHub trigger secret",
             "name": "GITHUB_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Generic build trigger secret",
             "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
-            "required": "Yes"
+            "required": true
         }
     ],
     "objects": [

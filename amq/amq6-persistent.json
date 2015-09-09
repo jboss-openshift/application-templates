@@ -15,77 +15,77 @@
             "description": "ActiveMQ Release version, e.g. 6.2, etc.",
             "name": "AMQ_RELEASE",
             "value": "6.2",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "broker",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP",
             "name": "MQ_PROTOCOL",
             "value": "openwire",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Queue names",
             "name": "MQ_QUEUES",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Topic names",
             "name": "MQ_TOPICS",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Size of persistent storage for database volume.",
             "name": "VOLUME_CAPACITY",
             "value": "512Mi",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Broker user name",
             "name": "MQ_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Broker user password",
             "name": "MQ_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "No"
+            "required": false
         },
         {
             "description": "ActiveMQ Admin User",
             "name": "AMQ_ADMIN_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "ActiveMQ Admin Password",
             "name": "AMQ_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Name of a secret containing SSL related files",
             "name": "AMQ_SECRET",
             "value": "amq-app-secret",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "SSL trust store filename",
             "name": "AMQ_TRUSTSTORE",
             "value": "broker.ts",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "SSL trust store password",
@@ -96,7 +96,7 @@
             "description": "SSL key store filename",
             "name": "AMQ_KEYSTORE",
             "value": "broker.ks",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "SSL key store password",
@@ -112,7 +112,7 @@
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
-            "required": "Yes"
+            "required": true
         }
     ],
     "objects": [

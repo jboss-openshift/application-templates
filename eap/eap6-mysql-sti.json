@@ -16,165 +16,165 @@
             "description": "EAP Release version, e.g. 6.4, etc.",
             "name": "EAP_RELEASE",
             "value": "6.4",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "eap-app",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "name": "APPLICATION_HOSTNAME",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Git source URI for application",
             "name": "GIT_URI",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Git branch/tag reference",
             "name": "GIT_REF",
             "value": "master",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "GIT_CONTEXT_DIR",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql",
             "name": "DB_JNDI",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Database name",
             "name": "DB_DATABASE",
             "value": "root",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Queue names",
             "name": "HORNETQ_QUEUES",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Topic names",
             "name": "HORNETQ_TOPICS",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The name of the secret containing the keystore file",
             "name": "EAP_HTTPS_SECRET",
             "value": "eap-app-secret",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The name of the keystore file within the secret",
             "name": "EAP_HTTPS_KEYSTORE",
             "value": "keystore.jks",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The name associated with the server certificate",
             "name": "EAP_HTTPS_NAME",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The password for the keystore and certificate",
             "name": "EAP_HTTPS_PASSWORD",
             "value": "",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Sets xa-pool/min-pool-size for the configured datasource.",
             "name": "DB_MIN_POOL_SIZE",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Sets xa-pool/max-pool-size for the configured datasource.",
             "name": "DB_MAX_POOL_SIZE",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Sets transaction-isolation for the configured datasource.",
             "name": "DB_TX_ISOLATION",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Sets how the table names are stored and compared.",
             "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The maximum permitted number of simultaneous client connections.",
             "name": "MYSQL_MAX_CONNECTIONS",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The minimum length of the word to be included in a FULLTEXT index.",
             "name": "MYSQL_FT_MIN_WORD_LEN",
-            "required": "No"
+            "required": false
         },
         {
             "description": "The maximum length of the word to be included in a FULLTEXT index.",
             "name": "MYSQL_FT_MAX_WORD_LEN",
-            "required": "No"
+            "required": false
         },
         {
             "description": "Controls the innodb_use_native_aio setting value if the native AIO is broken.",
             "name": "MYSQL_AIO",
-            "required": "No"
+            "required": false
         },
         {
             "description": "HornetQ cluster admin password",
             "name": "HORNETQ_CLUSTER_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Database user name",
             "name": "DB_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Database user password",
             "name": "DB_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "GitHub trigger secret",
             "name": "GITHUB_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Generic build trigger secret",
             "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": "Yes"
+            "required": true
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
-            "required": "Yes"
+            "required": true
         }
     ],
     "objects": [
