@@ -20,7 +20,7 @@
                     {
                         "name": "3.0",
                         "annotations": {
-                            "description": "JBoss Web Server v3 Tomcat 7 STI images.",
+                            "description": "JBoss Web Server v3 Tomcat 7 S2I images.",
                             "iconClass": "icon-jboss",
                             "tags": "java",
                             "supports":"tomcat7:3.0,java",
@@ -42,7 +42,7 @@
                     {
                         "name": "3.0",
                         "annotations": {
-                            "description": "JBoss Web Server v3 Tomcat 8 STI images.",
+                            "description": "JBoss Web Server v3 Tomcat 8 S2I images.",
                             "iconClass": "icon-jboss",
                             "tags": "java",
                             "supports":"tomcat8:3.0,java",
@@ -64,7 +64,7 @@
                     {
                         "name": "6.4",
                         "annotations": {
-                            "description": "JBoss EAP 6 STI images.",
+                            "description": "JBoss EAP 6 S2I images.",
                             "iconClass": "icon-jboss",
                             "tags": "javaee",
                             "supports":"eap:6.4,jee,java",

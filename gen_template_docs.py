@@ -172,8 +172,8 @@ def createObjectTable(data, tableKind):
          else:
             columns = [obj["id"], "none", obj["spec"]["host"]]
       elif obj["kind"] ==  'BuildConfig' and tableKind == 'BuildConfig':
-         sti = obj["spec"]["strategy"]["sourceStrategy"]["from"]["name"]
-         columns = [sti," link:" + LINKS[sti], obj["spec"]["output"]["to"]["name"], ", ".join({x["type"] for x in obj["spec"]["triggers"] }) ]
+         s2i = obj["spec"]["strategy"]["sourceStrategy"]["from"]["name"]
+         columns = [s2i," link:" + LINKS[s2i], obj["spec"]["output"]["to"]["name"], ", ".join({x["type"] for x in obj["spec"]["triggers"] }) ]
       elif obj["kind"] ==  'PersistentVolumeClaim' and tableKind == 'PersistentVolumeClaim':
          columns = [obj["metadata"]["name"], obj["spec"]["accessModes"][0]]
       if(obj["kind"] == tableKind):

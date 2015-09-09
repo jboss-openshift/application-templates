@@ -7,7 +7,7 @@ The templates in this folder are organized by JBoss Middleware product.  Each
 template is configured with the following basic parameters:
  * APPLICATION_NAME: the name of the application.  This is also used as the
    name of the docker image created by the build.
- * GIT_URI: the URI to the git project used for STI templates.
+ * GIT_URI: the URI to the git project used for S2I templates.
  * GIT_REF: the git reference to use when pulling the project.
  * GIT_CONTEXT_DIR: the relative directory within the project to build (if other than the root directory)
  * APPLICATION_HOSTNAME: the hostname to register for the route (for templates
@@ -33,20 +33,20 @@ To install the service accounts and secrets into your project:
 $ oc create -n myproject -f secrets
 ```
 
-The following templates can be used without creating a service account or a secret: eap/eap6-basic-sti.json, webserver/jws-tomcat7-basic-sti.json and webserver/jws-tomcat8-basic-sti.json.
+The following templates can be used without creating a service account or a secret: eap/eap6-basic-s2i.json, webserver/jws-tomcat7-basic-s2i.json and webserver/jws-tomcat8-basic-s2i.json.
 
 ##Example
 The easiest way to use the templates is to install them in your project, then use the _Create+_ button in the OpenShift console to create your application.  The console will prompt you for the values for all of the parameters used by the template.  To set this up for a particular template:
 ```
 $ oc create -n openshift -f jboss-image-streams.json
-$ oc create -n myproject -f webserver/jws-tomcat7-basic-sti.json
+$ oc create -n myproject -f webserver/jws-tomcat7-basic-s2i.json
 ```
 After executing the above, you should be able to see the template after pressing _Create+_ in your project.
 
 Or, if you prefer the command line:
 ```
 $ oc create -n openshift -f jboss-image-streams.json
-$ oc process -n yourproject -f eap/eap6-basic-sti.json -v APPLICATION_NAME=helloworld,GIT_URI=https://github.com/jboss-developer/jboss-eap-quickstarts,GIT_REF=6.4.x,GIT_CONTEXT_DIR=helloworld | oc create -n yourproject -f -
+$ oc process -n yourproject -f eap/eap6-basic-s2i.json -v APPLICATION_NAME=helloworld,GIT_URI=https://github.com/jboss-developer/jboss-eap-quickstarts,GIT_REF=6.4.x,GIT_CONTEXT_DIR=helloworld | oc create -n yourproject -f -
 ```
 
 You may also install the templates into the `openshift` namespace in order to make them
