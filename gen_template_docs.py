@@ -244,12 +244,12 @@ fullname = {
     "webserver": "JBoss Web Server"
 }
 
-def generate_index():
-    """Generates an index page for the template documentation."""
-    with open('docs/index.adoc','w') as fh:
+def generate_readme():
+    """Generates a README page for the template documentation."""
+    with open('docs/README.adoc','w') as fh:
         fh.write(autogen_warning)
         # page header
-        fh.write(open('./index.adoc.in').read())
+        fh.write(open('./README.adoc.in').read())
 
         for directory in set(os.listdir('.')) - set(ignore_dirs):
             if not os.path.isdir(directory):
@@ -263,4 +263,4 @@ def generate_index():
 if __name__ == "__main__":
     # expects to be run from the root of the repository
     generate_templates()
-    generate_index()
+    generate_readme()
