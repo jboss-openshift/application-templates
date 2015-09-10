@@ -360,6 +360,9 @@
                     {
                         "type": "ImageChange",
                         "imageChange": {}
+                    },
+                    {
+                        "type": "ConfigChange"
                     }
                 ]
             }
