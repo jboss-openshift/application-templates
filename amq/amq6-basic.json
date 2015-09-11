@@ -3,12 +3,12 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "description": "Application template for ActiveMQ brokers using persistent storage."
+            "description": "Application template for ActiveMQ brokers."
         },
-        "name": "amq6-persistent"
+        "name": "amq6-basic"
     },
     "labels": {
-        "template": "amq6-persistent"
+        "template": "amq6-basic"
     },
     "parameters": [
         {
@@ -40,12 +40,6 @@
             "name": "MQ_TOPICS",
             "value": "",
             "required": false
-        },
-        {
-            "description": "Size of persistent storage for database volume.",
-            "name": "VOLUME_CAPACITY",
-            "value": "512Mi",
-            "required": true
         },
         {
             "description": "Broker user name",
@@ -231,12 +225,6 @@
                                 "name": "${APPLICATION_NAME}-amq",
                                 "image": "jboss-amq-6",
                                 "imagePullPolicy": "Always",
-                                "volumeMounts": [
-                                    {
-                                        "mountPath": "/opt/amq/data/kahadb",
-                                        "name": "${APPLICATION_NAME}-amq-pvol"
-                                    }
-                                ],
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [
@@ -298,40 +286,16 @@
                                         "value": "${AMQ_ADMIN_PASSWORD}"
                                     },
                                     {
+                                        "name": "AMQ_MESH_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-amq-tcp"
+                                    },
+                                    {
                                         "name": "AMQ_STORAGE_USAGE_LIMIT",
                                         "value": "${AMQ_STORAGE_USAGE_LIMIT}"
                                     }
                                 ]
                             }
-                        ],
-                        "volumes": [
-                            {
-                                "name": "${APPLICATION_NAME}-amq-pvol",
-                                "persistentVolumeClaim": {
-                                    "claimName": "${APPLICATION_NAME}-amq-claim"
-                                }
-                            }
                         ]
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "PersistentVolumeClaim",
-            "metadata": {
-                "name": "${APPLICATION_NAME}-amq-claim",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                }
-            },
-            "spec": {
-                "accessModes": [
-                    "ReadWriteOnce"
-                ],
-                "resources": {
-                    "requests": {
-                        "storage": "${VOLUME_CAPACITY}"
                     }
                 }
             }
