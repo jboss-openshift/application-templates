@@ -22,8 +22,10 @@
                         "annotations": {
                             "description": "JBoss Web Server v3 Tomcat 7 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "java",
-                            "supports":"tomcat7:3.0,java",
+                            "tags": "builder,tomcat,tomcat7,java,jboss,xpaas",
+                            "supports":"tomcat7:3.0,tomcat:7,java:8,xpaas:1.1",
+                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                            "sampleContextDir": "tomcat-websocket-chat",
                             "version": "3.0"
                         }
                     }
@@ -44,8 +46,10 @@
                         "annotations": {
                             "description": "JBoss Web Server v3 Tomcat 8 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "java",
-                            "supports":"tomcat8:3.0,java",
+                            "tags": "builder,tomcat,tomcat8,java,jboss,xpaas",
+                            "supports":"tomcat8:3.0,tomcat:8,java:8,xpaas:1.1",
+                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                            "sampleContextDir": "tomcat-websocket-chat",
                             "version": "3.0"
                         }
                     }
@@ -66,8 +70,11 @@
                         "annotations": {
                             "description": "JBoss EAP 6 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "javaee",
-                            "supports":"eap:6.4,jee,java",
+                            "tags": "builder,eap,javaee,java,jboss,xpaas",
+                            "supports":"eap:6.4,javaee:6,java:8,xpaas:1.1",
+                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "6.4.x",
                             "version": "6.4"
                         }
                     }
@@ -86,10 +93,10 @@
                     {
                         "name": "6.2",
                         "annotations": {
-                            "description": "JBoss ActiveMQ 6 broker image.",
+                            "description": "JBoss A-MQ 6 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "javaee",
-                            "supports":"amq:6.2,jee,java",
+                            "tags": "messaging,amq,jboss,xpaas",
+                            "supports":"amq:6.2,messaging,xpaas:1.1",
                             "version": "6.2"
                         }
                     }

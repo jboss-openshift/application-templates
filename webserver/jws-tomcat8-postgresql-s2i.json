@@ -4,12 +4,15 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-tomcat",
-            "description": "Application template for JWS PostgreSQL applications built using S2I."
+            "description": "Application template for JWS PostgreSQL applications built using S2I.",
+            "tags": "tomcat,tomcat8,postgresql,java,database,jboss,xpaas",
+            "version": "1.1.0"
         },
         "name": "jws-tomcat8-postgresql-s2i"
     },
     "labels": {
-        "template": "jws-tomcat8-postgresql-s2i"
+        "template": "jws-tomcat8-postgresql-s2i",
+        "xpaas": "1.1.0"
     },
     "parameters": [
         {

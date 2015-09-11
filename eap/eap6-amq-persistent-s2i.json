@@ -4,12 +4,15 @@
     "metadata": {
         "annotations": {
             "description": "Application template for EAP 6 A-MQ applications with persistent storage built using S2I.",
-            "iconClass": "icon-jboss"
+            "iconClass": "icon-jboss",
+            "tags": "eap,amq,javaee,java,messaging,jboss,xpaas",
+            "version": "1.1.0"
         },
         "name": "eap6-amq-persistent-s2i"
     },
     "labels": {
-        "template": "eap6-amq-persistent-s2i"
+        "template": "eap6-amq-persistent-s2i",
+        "xpaas": "1.1.0"
     },
     "parameters": [
         {
@@ -19,7 +22,7 @@
             "required": true
         },
         {
-            "description": "ActiveMQ Release version, e.g. 6.2, etc.",
+            "description": "A-MQ Release version, e.g. 6.2, etc.",
             "name": "AMQ_RELEASE",
             "value": "6.2",
             "required": true
@@ -122,14 +125,14 @@
             "required": false
         },
         {
-            "description": "ActiveMQ Admin User",
+            "description": "A-MQ Admin User",
             "name": "AMQ_ADMIN_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
             "required": true
         },
         {
-            "description": "ActiveMQ Admin Password",
+            "description": "A-MQ Admin Password",
             "name": "AMQ_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",

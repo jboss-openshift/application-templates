@@ -4,12 +4,15 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-tomcat",
-            "description": "Application template for JWS applications built using S2I."
+            "description": "Application template for JWS applications built using S2I.",
+            "tags": "tomcat,tomcat7,java,jboss,xpaas",
+            "version": "1.1.0"
         },
         "name": "jws-tomcat7-https-s2i"
     },
     "labels": {
-        "template": "jws-tomcat7-https-s2i"
+        "template": "jws-tomcat7-https-s2i",
+        "xpaas": "1.1.0"
     },
     "parameters": [
         {

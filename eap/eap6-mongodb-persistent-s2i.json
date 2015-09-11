@@ -4,12 +4,15 @@
     "metadata": {
         "annotations": {
             "description": "Application template for EAP 6 MongDB applications with persistent storage built using S2I.",
-            "iconClass": "icon-jboss"
+            "iconClass": "icon-jboss",
+            "tags": "eap,mongodb,javaee,java,database,jboss,xpaas",
+            "version": "1.1.0"
         },
         "name": "eap6-mongodb-persistent-s2i"
     },
     "labels": {
-        "template": "eap6-mongodb-persistent-s2i"
+        "template": "eap6-mongodb-persistent-s2i",
+        "xpaas": "1.1.0"
     },
     "parameters": [
         {
