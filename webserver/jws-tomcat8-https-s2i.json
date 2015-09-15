@@ -33,6 +33,7 @@
         {
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts.git",
             "required": true
         },
         {
@@ -44,7 +45,7 @@
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "",
+            "value": "tomcat-websocket-chat",
             "required": false
         },
         {
