@@ -45,7 +45,7 @@
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "kitchensink-mongodb",
+            "value": "todolist/todolist-mongodb",
             "required": false
         },
         {

@@ -45,13 +45,13 @@
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "kitchensink-managed-ds",
+            "value": "todolist/todolist-jdbc",
             "required": false
         },
         {
             "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql",
             "name": "DB_JNDI",
-            "value": "java:jboss/datasources/KitchensinkQuickstartDS",
+            "value": "java:jboss/datasources/TodoListDS",
             "required": false
         },
         {
