@@ -33,6 +33,7 @@
         {
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
             "required": true
         },
         {
@@ -44,13 +45,13 @@
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "",
+            "value": "todolist/todolist-jdbc",
             "required": false
         },
         {
             "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql",
             "name": "DB_JNDI",
-            "value": "",
+            "value": "java:jboss/datasources/TodoListDS",
             "required": false
         },
         {
