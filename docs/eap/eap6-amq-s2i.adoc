@@ -19,28 +19,28 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-| `EAP_RELEASE`  |  --  |  `EAP Release version, e.g. 6.4, etc.`  |  `6.4`  |  `Yes` 
-| `AMQ_RELEASE`  |  --  |  `ActiveMQ Release version, e.g. 6.2, etc.`  |  `6.2`  |  `Yes` 
-| `APPLICATION_NAME`  |  --  |  `The name for the application.`  |  `eap-app`  |  `Yes` 
-| `APPLICATION_DOMAIN`  |  --  |  `Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>`  |  `secure-app.test.router.default.local`  |  `No` 
-| `SOURCE_REPOSITORY_URL`  |  --  |  `Git source URI for application`  |  ``https://github.com/jboss-openshift/openshift-examples.git`  |  `Yes` 
-| `SOURCE_REPOSITORY_REF`  |  --  |  `Git branch/tag reference`  |  `master`  |  `No` 
-| `CONTEXT_DIR`  |  --  |  `Path within Git project to build; empty for root project directory.`  |  `helloworld`  |  `No` 
-| `MQ_JNDI`  |  `MQ_JNDI`  |  `JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory`  |  `java:/ConnectionFactory`  |  `No` 
-| `MQ_PROTOCOL`  |  `MQ_PROTOCOL`  |  `Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP`  |  `openwire`  |  `No` 
-| `MQ_QUEUES`  |  `MQ_QUEUES`  |  `Queue names`  |  `${MQ_QUEUES}`  |  `No` 
-| `MQ_TOPICS`  |  `MQ_TOPICS`  |  `Topic names`  |  `${MQ_TOPICS}`  |  `No` 
-| `EAP_HTTPS_SECRET`  |  --  |  `The name of the secret containing the keystore file`  |  `eap-app-secret`  |  `No` 
-| `EAP_HTTPS_KEYSTORE`  |  `EAP_HTTPS_KEYSTORE_DIR`  |  `The name of the keystore file within the secret`  |  `keystore.jks`  |  `No` 
-| `EAP_HTTPS_NAME`  |  `EAP_HTTPS_NAME`  |  `The name associated with the server certificate`  |  `${EAP_HTTPS_NAME}`  |  `No` 
-| `EAP_HTTPS_PASSWORD`  |  `EAP_HTTPS_PASSWORD`  |  `The password for the keystore and certificate`  |  `${EAP_HTTPS_PASSWORD}`  |  `No` 
-| `MQ_USERNAME`  |  `MQ_USERNAME`  |  `Broker user name`  |  `${MQ_USERNAME}`  |  `No` 
-| `MQ_PASSWORD`  |  `MQ_PASSWORD`  |  `Broker user password`  |  `${MQ_PASSWORD}`  |  `No` 
-| `AMQ_ADMIN_USERNAME`  |  `AMQ_ADMIN_USERNAME`  |  `ActiveMQ Admin User`  |  `${AMQ_ADMIN_USERNAME}`  |  `Yes` 
-| `AMQ_ADMIN_PASSWORD`  |  `AMQ_ADMIN_PASSWORD`  |  `ActiveMQ Admin Password`  |  `${AMQ_ADMIN_PASSWORD}`  |  `Yes` 
-| `GITHUB_WEBHOOK_SECRET`  |  --  |  `GitHub trigger secret`  |  `secret101`  |  `Yes` 
-| `GENERIC_WEBHOOK_SECRET`  |  --  |  `Generic build trigger secret`  |  `secret101`  |  `Yes` 
-| `IMAGE_STREAM_NAMESPACE`  |  --  |  `Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.`  |  `openshift`  |  `Yes` 
+|`EAP_RELEASE` | -- | EAP Release version, e.g. 6.4, etc. | 6.4 | True
+|`AMQ_RELEASE` | -- | A-MQ Release version, e.g. 6.2, etc. | 6.2 | True
+|`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
+|`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-examples.git | True
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | master | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld | False
+|`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | java:/ConnectionFactory | False
+|`MQ_PROTOCOL` | `MQ_PROTOCOL` | Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP | openwire | False
+|`MQ_QUEUES` | `MQ_QUEUES` | Queue names | `${MQ_QUEUES}` | False
+|`MQ_TOPICS` | `MQ_TOPICS` | Topic names | `${MQ_TOPICS}` | False
+|`EAP_HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap-app-secret | False
+|`EAP_HTTPS_KEYSTORE` | `EAP_HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
+|`EAP_HTTPS_NAME` | `EAP_HTTPS_NAME` | The name associated with the server certificate | `${EAP_HTTPS_NAME}` | False
+|`EAP_HTTPS_PASSWORD` | `EAP_HTTPS_PASSWORD` | The password for the keystore and certificate | `${EAP_HTTPS_PASSWORD}` | False
+|`MQ_USERNAME` | `MQ_USERNAME` | Broker user name | `${MQ_USERNAME}` | False
+|`MQ_PASSWORD` | `MQ_PASSWORD` | Broker user password | `${MQ_PASSWORD}` | False
+|`AMQ_ADMIN_USERNAME` | `AMQ_ADMIN_USERNAME` | A-MQ Admin User | `${AMQ_ADMIN_USERNAME}` | True
+|`AMQ_ADMIN_PASSWORD` | `AMQ_ADMIN_PASSWORD` | A-MQ Admin Password | `${AMQ_ADMIN_PASSWORD}` | True
+|`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
+|`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
+|`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |=======================================================================
 
 
@@ -59,9 +59,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |=============
 |Service        |Port  | Description
 
-| `${APPLICATION_NAME}`  |  `8080`  |  `The web server's http port.` 
-| `secure-${APPLICATION_NAME}`  |  `8443`  |  `The web server's https port.` 
-| `${APPLICATION_NAME}-amq-tcp`  |  `61616`  |  `The broker's tcp (openwire) port.` 
+|`${APPLICATION_NAME}` | 8080 | The web server's http port.
+|`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
+|`${APPLICATION_NAME}-amq-tcp` | 61616 | The broker's tcp (openwire) port.
 |=============
 
 
@@ -76,8 +76,8 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-| `${APPLICATION_NAME}-http`  |  `none`  |  `${APPLICATION_DOMAIN}` 
-| `${APPLICATION_NAME}-https`  |  `TLS passthrough`  |  `${APPLICATION_DOMAIN}` 
+|`${APPLICATION_NAME}-http` | none | `${APPLICATION_DOMAIN}`
+|`${APPLICATION_NAME}-https` | TLS passthrough | `${APPLICATION_DOMAIN}`
 |=============
 
 
@@ -92,7 +92,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-| `jboss-eap6-openshift:${EAP_RELEASE}`  |  ` link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap-openshift`]`  |  `${APPLICATION_NAME}:latest`  |  `Generic, GitHub, ImageChange` 
+|`jboss-eap6-openshift:${EAP_RELEASE}` |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ConfigChange, GitHub, ImageChange
 |=============
 
 
@@ -110,8 +110,8 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |============
 |Deployment | Triggers
 
-| `${APPLICATION_NAME}`  |  `ImageChange` 
-| `${APPLICATION_NAME}-amq`  |  `ImageChange` 
+|`${APPLICATION_NAME}` | ImageChange
+|`${APPLICATION_NAME}-amq` | ImageChange
 |============
 
 
@@ -126,8 +126,8 @@ for more information.
 |============
 |Deployment | Replicas
 
-| `${APPLICATION_NAME}`  |  `1` 
-| `${APPLICATION_NAME}-amq`  |  `1` 
+|`${APPLICATION_NAME}` | 1
+|`${APPLICATION_NAME}-amq` | 1
 |============
 
 
@@ -143,7 +143,7 @@ information.
 |============
 |Deployment | Service Account
 
-| `${APPLICATION_NAME}`  |  `eap-service-account` 
+|`${APPLICATION_NAME}` | eap-service-account
 |============
 
 
@@ -153,8 +153,8 @@ information.
 |============
 |Deployment | Image
 
-| `${APPLICATION_NAME}`  |  `${APPLICATION_NAME}` 
-| `${APPLICATION_NAME}-amq`  |  `jboss-amq-6` 
+|`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
+|`${APPLICATION_NAME}-amq` | jboss-amq-6
 |============
 
 
@@ -181,17 +181,17 @@ information.
 |Deployments | Name  | Port  | Protocol
 
 .3+| `${APPLICATION_NAME}`
-| `http`  |  `8080`  |  `TCP` 
-| `https`  |  `8443`  |  `TCP` 
-| `ping`  |  `8888`  |  `TCP` 
+|http | 8080 | `TCP`
+|https | 8443 | `TCP`
+|ping | 8888 | `TCP`
 .7+| `${APPLICATION_NAME}-amq`
-| `amqp`  |  `5672`  |  `TCP` 
-| `amqp-ssl`  |  `5671`  |  `TCP` 
-| `mqtt`  |  `1883`  |  `TCP` 
-| `stomp`  |  `61613`  |  `TCP` 
-| `stomp-ssl`  |  `61612`  |  `TCP` 
-| `tcp`  |  `61616`  |  `TCP` 
-| `tcp-ssl`  |  `61617`  |  `TCP` 
+|amqp | 5672 | `TCP`
+|amqp-ssl | 5671 | `TCP`
+|mqtt | 1883 | `TCP`
+|stomp | 61613 | `TCP`
+|stomp-ssl | 61612 | `TCP`
+|tcp | 61616 | `TCP`
+|tcp-ssl | 61617 | `TCP`
 |=============
 
 
@@ -202,27 +202,27 @@ information.
 |Deployment |Variable name |Description |Example value
 
 .13+| `${APPLICATION_NAME}`
-| `MQ_SERVICE_PREFIX_MAPPING`  |  --  |  `${APPLICATION_NAME}-amq=MQ` 
-| `MQ_JNDI`  |  `JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory`  |  `${MQ_JNDI}` 
-| `MQ_USERNAME`  |  `Broker user name`  |  `${MQ_USERNAME}` 
-| `MQ_PASSWORD`  |  `Broker user password`  |  `${MQ_PASSWORD}` 
-| `MQ_PROTOCOL`  |  `Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP`  |  `tcp` 
-| `MQ_QUEUES`  |  `Queue names`  |  `${MQ_QUEUES}` 
-| `MQ_TOPICS`  |  `Topic names`  |  `${MQ_TOPICS}` 
-| `OPENSHIFT_KUBE_PING_LABELS`  |  --  |  `application=${APPLICATION_NAME}` 
-| `OPENSHIFT_KUBE_PING_NAMESPACE`  |  --  |  -- 
-| `EAP_HTTPS_KEYSTORE_DIR`  |  `The name of the keystore file within the secret`  |  `/etc/eap-secret-volume` 
-| `EAP_HTTPS_KEYSTORE`  |  `The name of the keystore file within the secret`  |  `${EAP_HTTPS_KEYSTORE}` 
-| `EAP_HTTPS_NAME`  |  `The name associated with the server certificate`  |  `${EAP_HTTPS_NAME}` 
-| `EAP_HTTPS_PASSWORD`  |  `The password for the keystore and certificate`  |  `${EAP_HTTPS_PASSWORD}` 
+|`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq=MQ`
+|`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | `${MQ_JNDI}`
+|`MQ_USERNAME` | Broker user name | `${MQ_USERNAME}`
+|`MQ_PASSWORD` | Broker user password | `${MQ_PASSWORD}`
+|`MQ_PROTOCOL` | Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP | tcp
+|`MQ_QUEUES` | Queue names | `${MQ_QUEUES}`
+|`MQ_TOPICS` | Topic names | `${MQ_TOPICS}`
+|`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
+|`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
+|`EAP_HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
+|`EAP_HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${EAP_HTTPS_KEYSTORE}`
+|`EAP_HTTPS_NAME` | The name associated with the server certificate | `${EAP_HTTPS_NAME}`
+|`EAP_HTTPS_PASSWORD` | The password for the keystore and certificate | `${EAP_HTTPS_PASSWORD}`
 .7+| `${APPLICATION_NAME}-amq`
-| `AMQ_USER`  |  `Broker user name`  |  `${MQ_USERNAME}` 
-| `AMQ_PASSWORD`  |  `Broker user password`  |  `${MQ_PASSWORD}` 
-| `AMQ_TRANSPORTS`  |  --  |  `${MQ_PROTOCOL}` 
-| `AMQ_QUEUES`  |  `Queue names`  |  `${MQ_QUEUES}` 
-| `AMQ_TOPICS`  |  `Topic names`  |  `${MQ_TOPICS}` 
-| `AMQ_ADMIN_USERNAME`  |  `ActiveMQ Admin User`  |  `${AMQ_ADMIN_USERNAME}` 
-| `AMQ_ADMIN_PASSWORD`  |  `ActiveMQ Admin Password`  |  `${AMQ_ADMIN_PASSWORD}` 
+|`AMQ_USER` | Broker user name | `${MQ_USERNAME}`
+|`AMQ_PASSWORD` | Broker user password | `${MQ_PASSWORD}`
+|`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
+|`AMQ_QUEUES` | Queue names | `${MQ_QUEUES}`
+|`AMQ_TOPICS` | Topic names | `${MQ_TOPICS}`
+|`AMQ_ADMIN_USERNAME` | A-MQ Admin User | `${AMQ_ADMIN_USERNAME}`
+|`AMQ_ADMIN_PASSWORD` | A-MQ Admin Password | `${AMQ_ADMIN_PASSWORD}`
 |=======================================================================
 
 
@@ -232,7 +232,7 @@ information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-| `${APPLICATION_NAME}`  |  `eap-keystore-volume`  |  `/etc/eap-secret-volume`  |  `ssl certs`  |  `True` 
+|`${APPLICATION_NAME}` | eap-keystore-volume | `/etc/eap-secret-volume` | ssl certs | True
 |=============
 
 

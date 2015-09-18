@@ -41,8 +41,10 @@ toc::[levels=1]
 
 == JBoss A-MQ
 
+* link:./amq/amq6-basic.adoc[amq6-basic]
+* link:./amq/amq6-persistent-ssl.adoc[amq6-persistent-ssl]
 * link:./amq/amq6-persistent.adoc[amq6-persistent]
-* link:./amq/amq6.adoc[amq6]
+* link:./amq/amq6-ssl.adoc[amq6-ssl]
 
 == JBoss EAP
 

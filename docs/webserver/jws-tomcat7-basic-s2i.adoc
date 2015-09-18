@@ -19,17 +19,17 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-| `JWS_RELEASE`  |  --  |  `JWS Release version, e.g. 3.0, 2.1, etc.`  |  `3.0`  |  `Yes` 
-| `APPLICATION_NAME`  |  --  |  `The name for the application.`  |  `jws-app`  |  `Yes` 
-| `APPLICATION_DOMAIN`  |  --  |  `Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>`  |  `secure-app.test.router.default.local`  |  `No` 
-| `SOURCE_REPOSITORY_URL`  |  --  |  `Git source URI for application`  |  ``https://github.com/jboss-openshift/openshift-examples.git`  |  `Yes` 
-| `SOURCE_REPOSITORY_REF`  |  --  |  `Git branch/tag reference`  |  `master`  |  `No` 
-| `CONTEXT_DIR`  |  --  |  `Path within Git project to build; empty for root project directory.`  |  `helloworld`  |  `No` 
-| `JWS_ADMIN_USERNAME`  |  `JWS_ADMIN_USERNAME`  |  `JWS Admin User`  |  `${JWS_ADMIN_USERNAME}`  |  `Yes` 
-| `JWS_ADMIN_PASSWORD`  |  `JWS_ADMIN_PASSWORD`  |  `JWS Admin Password`  |  `${JWS_ADMIN_PASSWORD}`  |  `Yes` 
-| `GITHUB_WEBHOOK_SECRET`  |  --  |  `GitHub trigger secret`  |  `secret101`  |  `Yes` 
-| `GENERIC_WEBHOOK_SECRET`  |  --  |  `Generic build trigger secret`  |  `secret101`  |  `Yes` 
-| `IMAGE_STREAM_NAMESPACE`  |  --  |  `Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.`  |  `openshift`  |  `Yes` 
+|`JWS_RELEASE` | -- | JWS Release version, e.g. 3.0, 2.1, etc. | 3.0 | True
+|`APPLICATION_NAME` | -- | The name for the application. | jws-app | True
+|`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts.git | True
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | master | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | tomcat-websocket-chat | False
+|`JWS_ADMIN_USERNAME` | `JWS_ADMIN_USERNAME` | JWS Admin User | `${JWS_ADMIN_USERNAME}` | True
+|`JWS_ADMIN_PASSWORD` | `JWS_ADMIN_PASSWORD` | JWS Admin Password | `${JWS_ADMIN_PASSWORD}` | True
+|`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
+|`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
+|`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |=======================================================================
 
 
@@ -48,7 +48,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |=============
 |Service        |Port  | Description
 
-| `${APPLICATION_NAME}`  |  `8080`  |  `The web server's http port.` 
+|`${APPLICATION_NAME}` | 8080 | The web server's http port.
 |=============
 
 
@@ -63,7 +63,7 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-| `${APPLICATION_NAME}-http`  |  `none`  |  `${APPLICATION_DOMAIN}` 
+|`${APPLICATION_NAME}-http` | none | `${APPLICATION_DOMAIN}`
 |=============
 
 
@@ -78,7 +78,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-| `jboss-webserver3-tomcat7-openshift:${JWS_RELEASE}`  |  ` link:../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver/tomcat7-openshift`]`  |  `${APPLICATION_NAME}:latest`  |  `Generic, GitHub, ImageChange` 
+|`jboss-webserver3-tomcat7-openshift:${JWS_RELEASE}` |  link:../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver/tomcat7-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ConfigChange, GitHub, ImageChange
 |=============
 
 
@@ -96,7 +96,7 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |============
 |Deployment | Triggers
 
-| `${APPLICATION_NAME}`  |  `ImageChange` 
+|`${APPLICATION_NAME}` | ImageChange
 |============
 
 
@@ -111,7 +111,7 @@ for more information.
 |============
 |Deployment | Replicas
 
-| `${APPLICATION_NAME}`  |  `1` 
+|`${APPLICATION_NAME}` | 1
 |============
 
 
@@ -136,7 +136,7 @@ information.
 |============
 |Deployment | Image
 
-| `${APPLICATION_NAME}`  |  `${APPLICATION_NAME}` 
+|`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
 |============
 
 
@@ -158,7 +158,7 @@ information.
 |Deployments | Name  | Port  | Protocol
 
 .1+| `${APPLICATION_NAME}`
-| `http`  |  `8080`  |  `TCP` 
+|http | 8080 | `TCP`
 |=============
 
 
@@ -169,8 +169,8 @@ information.
 |Deployment |Variable name |Description |Example value
 
 .2+| `${APPLICATION_NAME}`
-| `JWS_ADMIN_USERNAME`  |  `JWS Admin User`  |  `${JWS_ADMIN_USERNAME}` 
-| `JWS_ADMIN_PASSWORD`  |  `JWS Admin Password`  |  `${JWS_ADMIN_PASSWORD}` 
+|`JWS_ADMIN_USERNAME` | JWS Admin User | `${JWS_ADMIN_USERNAME}`
+|`JWS_ADMIN_PASSWORD` | JWS Admin Password | `${JWS_ADMIN_PASSWORD}`
 |=======================================================================
 
 

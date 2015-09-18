@@ -19,33 +19,33 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-| `JWS_RELEASE`  |  --  |  `JWS Release version, e.g. 3.0, 2.1, etc.`  |  `3.0`  |  `Yes` 
-| `APPLICATION_NAME`  |  --  |  `The name for the application.`  |  `jws-app`  |  `Yes` 
-| `APPLICATION_DOMAIN`  |  --  |  `Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>`  |  `secure-app.test.router.default.local`  |  `No` 
-| `SOURCE_REPOSITORY_URL`  |  --  |  `Git source URI for application`  |  ``https://github.com/jboss-openshift/openshift-examples.git`  |  `Yes` 
-| `SOURCE_REPOSITORY_REF`  |  --  |  `Git branch/tag reference`  |  `master`  |  `No` 
-| `CONTEXT_DIR`  |  --  |  `Path within Git project to build; empty for root project directory.`  |  `helloworld`  |  `No` 
-| `DB_JNDI`  |  `DB_JNDI`  |  `Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb`  |  `${DB_JNDI}`  |  `No` 
-| `DB_DATABASE`  |  `DB_DATABASE`  |  `Database name`  |  `root`  |  `Yes` 
-| `VOLUME_CAPACITY`  |  --  |  `Size of persistent storage for database volume.`  |  `512Mi`  |  `Yes` 
-| `JWS_HTTPS_SECRET`  |  --  |  `The name of the secret containing the certificate files`  |  `jws-app-secret`  |  `Yes` 
-| `JWS_HTTPS_CERTIFICATE`  |  `JWS_HTTPS_CERTIFICATE_DIR`  |  `The name of the certificate file within the secret`  |  `server.crt`  |  `No` 
-| `JWS_HTTPS_CERTIFICATE_KEY`  |  `JWS_HTTPS_CERTIFICATE`  |  `The name of the certificate key file within the secret`  |  `server.key`  |  `No` 
-| `JWS_HTTPS_CERTIFICATE_PASSWORD`  |  `JWS_HTTPS_CERTIFICATE`  |  `The certificate password`  |  `${JWS_HTTPS_CERTIFICATE}`  |  `No` 
-| `DB_MIN_POOL_SIZE`  |  `DB_MIN_POOL_SIZE`  |  `Sets xa-pool/min-pool-size for the configured datasource.`  |  `${DB_MIN_POOL_SIZE}`  |  `No` 
-| `DB_MAX_POOL_SIZE`  |  `DB_MAX_POOL_SIZE`  |  `Sets xa-pool/max-pool-size for the configured datasource.`  |  `${DB_MAX_POOL_SIZE}`  |  `No` 
-| `DB_TX_ISOLATION`  |  `DB_TX_ISOLATION`  |  `Sets transaction-isolation for the configured datasource.`  |  `${DB_TX_ISOLATION}`  |  `No` 
-| `MONGODB_NOPREALLOC`  |  `MONGODB_NOPREALLOC`  |  `Disable data file preallocation.`  |  `${MONGODB_NOPREALLOC}`  |  `No` 
-| `MONGODB_SMALLFILES`  |  `MONGODB_SMALLFILES`  |  `Set MongoDB to use a smaller default data file size.`  |  `${MONGODB_SMALLFILES}`  |  `No` 
-| `MONGODB_QUIET`  |  `MONGODB_QUIET`  |  `Runs MongoDB in a quiet mode that attempts to limit the amount of output.`  |  `${MONGODB_QUIET}`  |  `No` 
-| `DB_USERNAME`  |  `DB_USERNAME`  |  `Database user name`  |  `${DB_USERNAME}`  |  `Yes` 
-| `DB_PASSWORD`  |  `DB_PASSWORD`  |  `Database user password`  |  `${DB_PASSWORD}`  |  `Yes` 
-| `DB_ADMIN_PASSWORD`  |  `DB_ADMIN_PASSWORD`  |  `Database admin password`  |  `${DB_ADMIN_PASSWORD}`  |  `Yes` 
-| `JWS_ADMIN_USERNAME`  |  `JWS_ADMIN_USERNAME`  |  `JWS Admin User`  |  `${JWS_ADMIN_USERNAME}`  |  `Yes` 
-| `JWS_ADMIN_PASSWORD`  |  `JWS_ADMIN_PASSWORD`  |  `JWS Admin Password`  |  `${JWS_ADMIN_PASSWORD}`  |  `Yes` 
-| `GITHUB_WEBHOOK_SECRET`  |  --  |  `GitHub trigger secret`  |  `secret101`  |  `Yes` 
-| `GENERIC_WEBHOOK_SECRET`  |  --  |  `Generic build trigger secret`  |  `secret101`  |  `Yes` 
-| `IMAGE_STREAM_NAMESPACE`  |  --  |  `Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.`  |  `openshift`  |  `Yes` 
+|`JWS_RELEASE` | -- | JWS Release version, e.g. 3.0, 2.1, etc. | 3.0 | True
+|`APPLICATION_NAME` | -- | The name for the application. | jws-app | True
+|`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | master | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-mongodb | False
+|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb | `${DB_JNDI}` | False
+|`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
+|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
+|`JWS_HTTPS_SECRET` | -- | The name of the secret containing the certificate files | jws-app-secret | True
+|`JWS_HTTPS_CERTIFICATE` | `JWS_HTTPS_CERTIFICATE_DIR` | The name of the certificate file within the secret | server.crt | False
+|`JWS_HTTPS_CERTIFICATE_KEY` | `JWS_HTTPS_CERTIFICATE` | The name of the certificate key file within the secret | server.key | False
+|`JWS_HTTPS_CERTIFICATE_PASSWORD` | `JWS_HTTPS_CERTIFICATE` | The certificate password | `${JWS_HTTPS_CERTIFICATE}` | False
+|`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
+|`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
+|`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
+|`MONGODB_NOPREALLOC` | `MONGODB_NOPREALLOC` | Disable data file preallocation. | `${MONGODB_NOPREALLOC}` | False
+|`MONGODB_SMALLFILES` | `MONGODB_SMALLFILES` | Set MongoDB to use a smaller default data file size. | `${MONGODB_SMALLFILES}` | False
+|`MONGODB_QUIET` | `MONGODB_QUIET` | Runs MongoDB in a quiet mode that attempts to limit the amount of output. | `${MONGODB_QUIET}` | False
+|`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
+|`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
+|`DB_ADMIN_PASSWORD` | `DB_ADMIN_PASSWORD` | Database admin password | `${DB_ADMIN_PASSWORD}` | True
+|`JWS_ADMIN_USERNAME` | `JWS_ADMIN_USERNAME` | JWS Admin User | `${JWS_ADMIN_USERNAME}` | True
+|`JWS_ADMIN_PASSWORD` | `JWS_ADMIN_PASSWORD` | JWS Admin Password | `${JWS_ADMIN_PASSWORD}` | True
+|`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
+|`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
+|`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |=======================================================================
 
 
@@ -64,9 +64,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |=============
 |Service        |Port  | Description
 
-| `${APPLICATION_NAME}`  |  `8080`  |  `The web server's http port.` 
-| `secure-${APPLICATION_NAME}`  |  `8443`  |  `The web server's https port.` 
-| `${APPLICATION_NAME}-mongodb`  |  `27017`  |  `The database server's port.` 
+|`${APPLICATION_NAME}` | 8080 | The web server's http port.
+|`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
+|`${APPLICATION_NAME}-mongodb` | 27017 | The database server's port.
 |=============
 
 
@@ -81,8 +81,8 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-| `${APPLICATION_NAME}-http`  |  `none`  |  `${APPLICATION_DOMAIN}` 
-| `${APPLICATION_NAME}-https`  |  `TLS passthrough`  |  `${APPLICATION_DOMAIN}` 
+|`${APPLICATION_NAME}-http` | none | `${APPLICATION_DOMAIN}`
+|`${APPLICATION_NAME}-https` | TLS passthrough | `${APPLICATION_DOMAIN}`
 |=============
 
 
@@ -97,7 +97,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-| `jboss-webserver3-tomcat7-openshift:${JWS_RELEASE}`  |  ` link:../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver/tomcat7-openshift`]`  |  `${APPLICATION_NAME}:latest`  |  `Generic, GitHub, ImageChange` 
+|`jboss-webserver3-tomcat7-openshift:${JWS_RELEASE}` |  link:../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver/tomcat7-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ConfigChange, GitHub, ImageChange
 |=============
 
 
@@ -115,8 +115,8 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |============
 |Deployment | Triggers
 
-| `${APPLICATION_NAME}`  |  `ImageChange` 
-| `${APPLICATION_NAME}-mongodb`  |  `ImageChange` 
+|`${APPLICATION_NAME}` | ImageChange
+|`${APPLICATION_NAME}-mongodb` | ImageChange
 |============
 
 
@@ -131,8 +131,8 @@ for more information.
 |============
 |Deployment | Replicas
 
-| `${APPLICATION_NAME}`  |  `1` 
-| `${APPLICATION_NAME}-mongodb`  |  `1` 
+|`${APPLICATION_NAME}` | 1
+|`${APPLICATION_NAME}-mongodb` | 1
 |============
 
 
@@ -148,7 +148,7 @@ information.
 |============
 |Deployment | Service Account
 
-| `${APPLICATION_NAME}`  |  `jws-service-account` 
+|`${APPLICATION_NAME}` | jws-service-account
 |============
 
 
@@ -158,8 +158,8 @@ information.
 |============
 |Deployment | Image
 
-| `${APPLICATION_NAME}`  |  `${APPLICATION_NAME}` 
-| `${APPLICATION_NAME}-mongodb`  |  `mongodb` 
+|`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
+|`${APPLICATION_NAME}-mongodb` | mongodb
 |============
 
 
@@ -181,10 +181,10 @@ information.
 |Deployments | Name  | Port  | Protocol
 
 .2+| `${APPLICATION_NAME}`
-| `http`  |  `8080`  |  `TCP` 
-| `https`  |  `8443`  |  `TCP` 
+|http | 8080 | `TCP`
+|https | 8443 | `TCP`
 .1+| `${APPLICATION_NAME}-mongodb`
-| --  |  `27017`  |  `TCP` 
+|-- | 27017 | `TCP`
 |=============
 
 
@@ -195,29 +195,29 @@ information.
 |Deployment |Variable name |Description |Example value
 
 .15+| `${APPLICATION_NAME}`
-| `DB_SERVICE_PREFIX_MAPPING`  |  --  |  `${APPLICATION_NAME}-mongodb=DB` 
-| `DB_JNDI`  |  `Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb`  |  `${DB_JNDI}` 
-| `DB_USERNAME`  |  `Database user name`  |  `${DB_USERNAME}` 
-| `DB_PASSWORD`  |  `Database user password`  |  `${DB_PASSWORD}` 
-| `DB_DATABASE`  |  `Database name`  |  `${DB_DATABASE}` 
-| `DB_ADMIN_PASSWORD`  |  `Database admin password`  |  `${DB_ADMIN_PASSWORD}` 
-| `DB_MIN_POOL_SIZE`  |  `Sets xa-pool/min-pool-size for the configured datasource.`  |  `${DB_MIN_POOL_SIZE}` 
-| `DB_MAX_POOL_SIZE`  |  `Sets xa-pool/max-pool-size for the configured datasource.`  |  `${DB_MAX_POOL_SIZE}` 
-| `DB_TX_ISOLATION`  |  `Sets transaction-isolation for the configured datasource.`  |  `${DB_TX_ISOLATION}` 
-| `JWS_HTTPS_CERTIFICATE_DIR`  |  `The name of the certificate file within the secret`  |  `/etc/jws-secret-volume` 
-| `JWS_HTTPS_CERTIFICATE`  |  `The name of the certificate file within the secret`  |  `${JWS_HTTPS_CERTIFICATE}` 
-| `JWS_HTTPS_CERTIFICATE_KEY`  |  `The name of the certificate file within the secret`  |  `${JWS_HTTPS_CERTIFICATE_KEY}` 
-| `JWS_HTTPS_CERTIFICATE_PASSWORD`  |  `The name of the certificate file within the secret`  |  `${JWS_HTTPS_CERTIFICATE_PASSWORD}` 
-| `JWS_ADMIN_USERNAME`  |  `JWS Admin User`  |  `${JWS_ADMIN_USERNAME}` 
-| `JWS_ADMIN_PASSWORD`  |  `JWS Admin Password`  |  `${JWS_ADMIN_PASSWORD}` 
+|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mongodb=DB`
+|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb | `${DB_JNDI}`
+|`DB_USERNAME` | Database user name | `${DB_USERNAME}`
+|`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
+|`DB_DATABASE` | Database name | `${DB_DATABASE}`
+|`DB_ADMIN_PASSWORD` | Database admin password | `${DB_ADMIN_PASSWORD}`
+|`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
+|`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
+|`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
+|`JWS_HTTPS_CERTIFICATE_DIR` | The name of the certificate file within the secret | `/etc/jws-secret-volume`
+|`JWS_HTTPS_CERTIFICATE` | The name of the certificate file within the secret | `${JWS_HTTPS_CERTIFICATE}`
+|`JWS_HTTPS_CERTIFICATE_KEY` | The name of the certificate file within the secret | `${JWS_HTTPS_CERTIFICATE_KEY}`
+|`JWS_HTTPS_CERTIFICATE_PASSWORD` | The name of the certificate file within the secret | `${JWS_HTTPS_CERTIFICATE_PASSWORD}`
+|`JWS_ADMIN_USERNAME` | JWS Admin User | `${JWS_ADMIN_USERNAME}`
+|`JWS_ADMIN_PASSWORD` | JWS Admin Password | `${JWS_ADMIN_PASSWORD}`
 .7+| `${APPLICATION_NAME}-mongodb`
-| `MONGODB_USER`  |  --  |  `${DB_USERNAME}` 
-| `MONGODB_PASSWORD`  |  `Database user password`  |  `${DB_PASSWORD}` 
-| `MONGODB_DATABASE`  |  `Database name`  |  `${DB_DATABASE}` 
-| `MONGODB_ADMIN_PASSWORD`  |  `Database admin password`  |  `${DB_ADMIN_PASSWORD}` 
-| `MONGODB_NOPREALLOC`  |  `Disable data file preallocation.`  |  `${MONGODB_NOPREALLOC}` 
-| `MONGODB_SMALLFILES`  |  `Set MongoDB to use a smaller default data file size.`  |  `${MONGODB_SMALLFILES}` 
-| `MONGODB_QUIET`  |  `Runs MongoDB in a quiet mode that attempts to limit the amount of output.`  |  `${MONGODB_QUIET}` 
+|`MONGODB_USER` | -- | `${DB_USERNAME}`
+|`MONGODB_PASSWORD` | Database user password | `${DB_PASSWORD}`
+|`MONGODB_DATABASE` | Database name | `${DB_DATABASE}`
+|`MONGODB_ADMIN_PASSWORD` | Database admin password | `${DB_ADMIN_PASSWORD}`
+|`MONGODB_NOPREALLOC` | Disable data file preallocation. | `${MONGODB_NOPREALLOC}`
+|`MONGODB_SMALLFILES` | Set MongoDB to use a smaller default data file size. | `${MONGODB_SMALLFILES}`
+|`MONGODB_QUIET` | Runs MongoDB in a quiet mode that attempts to limit the amount of output. | `${MONGODB_QUIET}`
 |=======================================================================
 
 
@@ -227,8 +227,8 @@ information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-| `${APPLICATION_NAME}`  |  `jws-certificate-volume`  |  `/etc/jws-secret-volume`  |  `ssl certs`  |  `True` 
-| `${APPLICATION_NAME}-mongodb`  |  `${APPLICATION_NAME}-mongodb-pvol`  |  `/var/lib/mongodb/data`  |  `mongodb`  |  `false` 
+|`${APPLICATION_NAME}` | jws-certificate-volume | `/etc/jws-secret-volume` | ssl certs | True
+|`${APPLICATION_NAME}-mongodb` | `${APPLICATION_NAME}-mongodb-pvol` | `/var/lib/mongodb/data` | mongodb | false
 |=============
 
 
@@ -245,7 +245,7 @@ more information.
 |=============
 |Name | Access Mode
 
-| `${APPLICATION_NAME}-mongodb-claim`  |  `ReadWriteOnce` 
+|`${APPLICATION_NAME}-mongodb-claim` | ReadWriteOnce
 |=============
 
 

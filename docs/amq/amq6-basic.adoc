@@ -4,10 +4,10 @@
     generator or the input template (./*.in)
 ////
 
-= amq6-persistent
+= amq6-basic
 :toc:
 
-Application template for A-MQ brokers using persistent storage.
+Application template for JBoss A-MQ brokers.
 
 
 == Parameters
@@ -24,11 +24,11 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`MQ_PROTOCOL` | -- | Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP | openwire | False
 |`MQ_QUEUES` | `AMQ_QUEUES` | Queue names | `${MQ_QUEUES}` | False
 |`MQ_TOPICS` | `AMQ_TOPICS` | Topic names | `${MQ_TOPICS}` | False
-|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
 |`MQ_USERNAME` | `AMQ_USER` | Broker user name | `${MQ_USERNAME}` | False
 |`MQ_PASSWORD` | `AMQ_PASSWORD` | Broker user password | `${MQ_PASSWORD}` | False
 |`AMQ_ADMIN_USERNAME` | `AMQ_ADMIN_USERNAME` | A-MQ Admin User | `${AMQ_ADMIN_USERNAME}` | True
 |`AMQ_ADMIN_PASSWORD` | `AMQ_ADMIN_PASSWORD` | A-MQ Admin Password | `${AMQ_ADMIN_PASSWORD}` | True
+|`AMQ_MESH_DISCOVERY_TYPE` | `AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | kube | ?
 |`AMQ_STORAGE_USAGE_LIMIT` | `AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | 100 gb | ?
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |=======================================================================
@@ -149,7 +149,7 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.8+| `${APPLICATION_NAME}-amq`
+.11+| `${APPLICATION_NAME}-amq`
 |`AMQ_USER` | Broker user name | `${MQ_USERNAME}`
 |`AMQ_PASSWORD` | Broker user password | `${MQ_PASSWORD}`
 |`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
@@ -157,6 +157,9 @@ information.
 |`AMQ_TOPICS` | Topic names | `${MQ_TOPICS}`
 |`AMQ_ADMIN_USERNAME` | A-MQ Admin User | `${AMQ_ADMIN_USERNAME}`
 |`AMQ_ADMIN_PASSWORD` | A-MQ Admin Password | `${AMQ_ADMIN_PASSWORD}`
+|`AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | `${AMQ_MESH_DISCOVERY_TYPE}`
+|`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-tcp`
+|`AMQ_MESH_SERVICE_NAMESPACE` | -- | --
 |`AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | `${AMQ_STORAGE_USAGE_LIMIT}`
 |=======================================================================
 
@@ -167,25 +170,10 @@ information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-|`${APPLICATION_NAME}-amq` | `${APPLICATION_NAME}-amq-pvol` | `/opt/amq/data/kahadb` | kahadb | false
 |=============
 
 
 === External Dependencies
-
-
-==== Volume Claims
-
-A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
-by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
-Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
-more information.
-
-|=============
-|Name | Access Mode
-
-|`${APPLICATION_NAME}-amq-claim` | ReadWriteOnce
-|=============
 
 
 
