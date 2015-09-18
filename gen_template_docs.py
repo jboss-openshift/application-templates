@@ -118,13 +118,17 @@ def possibly_fix_width(text):
     if text in ['', '--']:
         return text
 
+    # stringify the arguments
+    if type(text) not in [type('string'), type(u'Unicode')]:
+        text = "%r" % text
+
     if text[0] in "$/" or "}" == text[-1] or re.match(r'^[A-Z_\${}:-]+$', text):
         return '`%s`' % text
 
     return text
 
 def buildRow(columns):
-   return "\n|" + " | ".join(map(possibly_fix_width, columns))
+    return "\n|" + " | ".join(map(possibly_fix_width, columns))
 
 def getVolumePurpose(name):
    name = name.split("-")
