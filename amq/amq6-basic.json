@@ -16,12 +16,6 @@
     },
     "parameters": [
         {
-            "description": "A-MQ Release version, e.g. 6.2, etc.",
-            "name": "AMQ_RELEASE",
-            "value": "6.2",
-            "required": true
-        },
-        {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "broker",
@@ -211,7 +205,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-amq-6:${AMQ_RELEASE}"
+                                "name": "jboss-amq-62:1.1"
                             }
                         }
                     }

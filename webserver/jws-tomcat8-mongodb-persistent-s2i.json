@@ -16,12 +16,6 @@
     },
     "parameters": [
         {
-            "description": "JWS Release version, e.g. 3.0, 2.1, etc.",
-            "name": "JWS_RELEASE",
-            "value": "3.0",
-            "required": true
-        },
-        {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "jws-app",
@@ -330,7 +324,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-webserver3-tomcat8-openshift:${JWS_RELEASE}"
+                            "name": "jboss-webserver30-tomcat8-openshift:1.1"
                         }
                     }
                 },

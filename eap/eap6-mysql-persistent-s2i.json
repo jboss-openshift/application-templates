@@ -16,12 +16,6 @@
     },
     "parameters": [
         {
-            "description": "EAP Release version, e.g. 6.4, etc.",
-            "name": "EAP_RELEASE",
-            "value": "6.4",
-            "required": true
-        },
-        {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "eap-app",
@@ -338,7 +332,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap6-openshift:${EAP_RELEASE}"
+                            "name": "jboss-eap64-openshift:1.1"
                         }
                     }
                 },
