@@ -19,7 +19,6 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`AMQ_RELEASE` | -- | A-MQ Release version, e.g. 6.2, etc. | 6.2 | True
 |`APPLICATION_NAME` | -- | The name for the application. | broker | True
 |`MQ_PROTOCOL` | -- | Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP | openwire | False
 |`MQ_QUEUES` | `AMQ_QUEUES` | Queue names | `${MQ_QUEUES}` | False

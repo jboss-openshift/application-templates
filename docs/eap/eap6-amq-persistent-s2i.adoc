@@ -19,8 +19,6 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`EAP_RELEASE` | -- | EAP Release version, e.g. 6.4, etc. | 6.4 | True
-|`AMQ_RELEASE` | -- | A-MQ Release version, e.g. 6.2, etc. | 6.2 | True
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
 |`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-examples.git | True
@@ -93,7 +91,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|`jboss-eap6-openshift:${EAP_RELEASE}` |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ConfigChange, GitHub, ImageChange
+|jboss-eap64-openshift:1.1 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ConfigChange, GitHub, ImageChange
 |=============
 
 
