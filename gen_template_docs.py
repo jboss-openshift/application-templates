@@ -63,6 +63,7 @@ def generate_templates():
                 template_doc = TEMPLATE_DOCS + directory + "/" + data["labels"]["template"] + ".adoc"
 
                 with open(template_doc, "w") as text_file:
+                    print "Generating %s..." % template_doc
                     text_file.write(autogen_warning)
                     text_file.write(createTemplate(data, directory, template))
 
