@@ -21,9 +21,9 @@ TEMPLATE_DOCS = "docs/"
 APPLICATION_DIRECTORIES = ("amq","eap","webserver")
 ignore_dirs = ['docs', '.git']
 
-LINKS =  {"jboss-eap6-openshift:${EAP_RELEASE}":                "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap-openshift`]", \
-          "jboss-webserver3-tomcat7-openshift:${JWS_RELEASE}":  "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver/tomcat7-openshift`]", \
-          "jboss-webserver3-tomcat8-openshift:${JWS_RELEASE}":  "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver/tomcat8-openshift`]"};
+LINKS =  {"jboss-eap64-openshift:1.1":               "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap-openshift`]", \
+          "jboss-webserver30-tomcat7-openshift:1.1": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver/tomcat7-openshift`]", \
+          "jboss-webserver30-tomcat8-openshift:1.1": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver/tomcat8-openshift`]"};
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
                    "SOURCE_REPOSITORY_URL": "https://github.com/jboss-openshift/openshift-examples.git", \
