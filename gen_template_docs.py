@@ -19,7 +19,7 @@ GIT_REPO = "https://github.com/jboss-openshift/application-templates.git"
 REPO_NAME = "application-templates/"
 TEMPLATE_DOCS = "docs/"
 APPLICATION_DIRECTORIES = ("amq","eap","webserver")
-ignore_dirs = ['docs', '.git']
+template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', ]
 
 LINKS =  {"jboss-eap64-openshift:1.1":               "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap-openshift`]", \
           "jboss-webserver30-tomcat7-openshift:1.1": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver/tomcat7-openshift`]", \
@@ -41,33 +41,34 @@ autogen_warning="""////
 """
 
 def generate_templates():
-    for directory in set(os.listdir('.')) - set(ignore_dirs):
+    for directory in template_dirs:
         if not os.path.isdir(directory):
             continue
-
-        if not os.path.exists(TEMPLATE_DOCS + directory):
-           os.makedirs(TEMPLATE_DOCS + directory)
-
         for template in os.listdir(directory):
-            # skip editor temp files
-            if template[-4:] == '.swp':
+            if template[-5:] != '.json':
                 continue
-            with open(directory + "/" + template) as data_file:
-                data = json.load(data_file)
+            generate_template(os.path.join(directory, template))
 
-                if not 'labels' in data or not "template" in data["labels"]:
-                    sys.stderr.write("no template label for template %s, can't generate documentation\n"%\
-                        (directory + "/" + template))
-                    continue
+def generate_template(path):
+    with open(path) as data_file:
+        data = json.load(data_file)
 
-                template_doc = TEMPLATE_DOCS + directory + "/" + data["labels"]["template"] + ".adoc"
+    if not 'labels' in data or not "template" in data["labels"]:
+        sys.stderr.write("no template label for template %s, can't generate documentation\n"%path)
+        return
 
-                with open(template_doc, "w") as text_file:
-                    print "Generating %s..." % template_doc
-                    text_file.write(autogen_warning)
-                    text_file.write(createTemplate(data, directory, template))
+    outfile = TEMPLATE_DOCS + re.sub('\.json$', '', path) + '.adoc'
 
-def createTemplate(data, directory, template_file):
+    outdir = os.path.dirname(outfile)
+    if not os.path.exists(outdir):
+       os.makedirs(outdir)
+
+    with open(outfile, "w") as text_file:
+        print "Generating %s..." % outfile
+        text_file.write(autogen_warning)
+        text_file.write(createTemplate(data, path))
+
+def createTemplate(data, path):
     templater = Template()
     templater.template = open('./template.adoc.in').read()
 
@@ -103,11 +104,11 @@ def createTemplate(data, directory, template_file):
             tdata['objects'][0][kind] = [{ "table": createDeployConfigTable(data, kind) }]
 
         # the 'secrets' section is not relevant to the secrets templates
-        if "secrets" != directory:
+        if not re.match('^secrets', path):
             tdata['objects'][0]['secrets'] = [{ "templateabbrev": data['labels']['template'][0:3] }]
 
         # currently the clustering section applies only to EAP templates
-        if "eap" == directory:
+        if re.match('^eap', path):
             tdata['objects'][0]['clustering'] = [{}]
 
     return templater.render(tdata)
@@ -256,16 +257,25 @@ def generate_readme():
         # page header
         fh.write(open('./README.adoc.in').read())
 
-        for directory in set(os.listdir('.')) - set(ignore_dirs):
+        for directory in template_dirs:
             if not os.path.isdir(directory):
                 continue
             # section header
             fh.write('\n== %s\n\n' % fullname.get(directory, directory))
             # links
-            for template in [ os.path.splitext(x)[0] for x in  os.listdir(directory) ]:
+            for template in [ os.path.splitext(x)[0] for x in os.listdir(directory) ]:
                 fh.write("* link:./%s/%s.adoc[%s]\n" % (directory, template, template))
 
+# expects to be run from the root of the repository
 if __name__ == "__main__":
-    # expects to be run from the root of the repository
-    generate_templates()
-    generate_readme()
+
+    # the user may specify a particular template to parse,
+    if 1 < len(sys.argv):
+        sys.argv.pop(0)
+        for t in sys.argv:
+            generate_template(t)
+
+    # otherwise we'll look for them all (and do an index)
+    else:
+        generate_templates()
+        generate_readme()
