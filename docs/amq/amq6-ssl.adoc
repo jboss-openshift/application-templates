@@ -9,6 +9,64 @@
 
 Application template for A-MQ brokers.
 
+For SSL to work, you have to have keystore and truststore files. If you don't have them already, you can generate them using _keytool_ application which is part of Java distribution. Assuming that JAVA_HOME points to your Java distribution, open a working directory and run the commands from the command line.
+
+1. Prepare variables
+
+  BROKER_KEYSTORE_PASSWORD=<password for broker keystore>
+  BROKER_TRUSTSTORE_PASSWORD=<password for broker truststore>
+  CLIENT_KEYSTORE_PASSWORD=<password for client keystore>
+
+
+2. Create client keystore (optional - if you alredy have certificate for the client, proceed to step 4)
+
+  $JAVA_HOME/bin/keytool \
+	-genkey \
+	-keyalg RSA \
+	-alias amq-client \
+	-keystore amq-client.ks \
+	-storepass $CLIENT_KEYSTORE_PASSWORD \
+    -keypass $CLIENT_KEYSTORE_PASSWORD
+
+3. Create client certificate (optional - if you alredy have certificate for the client, proceed to step 4)
+
+  $JAVA_HOME/bin/keytool \
+	-export \
+	-alias amq-client \
+	-keystore amq-client.ks \
+    -storepass $CLIENT_KEYSTORE_PASSWORD \
+	-file amq-client.cert
+
+4. Create broker keystore
+
+  $JAVA_HOME/bin/keytool \
+	-genkey \
+	-keyalg RSA \
+	-alias amq-broker \
+	-keystore amq-broker.ks \
+	-storepass $BROKER_KEYSTORE_PASSWORD \
+    -keypass $BROKER_KEYSTORE_PASSWORD
+
+5. Create broker truststore from client certificate
+
+  $JAVA_HOME/bin/keytool \
+	-import \
+	-alias amq-broker \
+	-keystore amq-broker.ts \
+	-file amq-client.cert \
+	-storepass $BROKER_TRUSTSTORE_PASSWORD \
+    -trustcacerts \
+    -noprompt
+
+Now, you can use files `amq-broker.ks` and `amq-broker.ts` in OpenShift secret definition. Leave the files `amq-client.ks` and `amq-client.cert` be as they are not needed by the broker. Also, when creating A-MQ application, set the template parameters as: +
+
+AMQ_KEYSTORE=amq-broker.ks +
+AMQ_KEYSTORE_PASSWORD=<password for broker keystore> +
+AMQ_TRUSTSTORE=amq-broker.ts +
+AMQ_TRUSTSTORE_PASSWORD=<password for broker truststore> +
+
+
+
 
 == Parameters
 
