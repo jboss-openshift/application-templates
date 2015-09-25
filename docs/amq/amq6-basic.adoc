@@ -6,8 +6,12 @@
 
 = amq6-basic
 :toc:
+:toc-placement!:
+:toclevels: 5
 
 Application template for JBoss A-MQ brokers.
+
+toc::[]
 
 
 == Parameters

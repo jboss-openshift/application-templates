@@ -6,8 +6,12 @@
 
 = eap6-mongodb-s2i
 :toc:
+:toc-placement!:
+:toclevels: 5
 
 Application template for EAP 6 MongDB applications built using S2I.
+
+toc::[]
 
 
 == Parameters

@@ -6,8 +6,12 @@
 
 = amq6-ssl
 :toc:
+:toc-placement!:
+:toclevels: 5
 
 Application template for A-MQ brokers.
+
+toc::[]
 
 For SSL to work, you have to have keystore and truststore files. If you don't have them already, you can generate them using _keytool_ application which is part of Java distribution. Assuming that JAVA_HOME points to your Java distribution, open a working directory and run the commands from the command line.
 
@@ -64,7 +68,6 @@ AMQ_KEYSTORE=amq-broker.ks +
 AMQ_KEYSTORE_PASSWORD=<password for broker keystore> +
 AMQ_TRUSTSTORE=amq-broker.ts +
 AMQ_TRUSTSTORE_PASSWORD=<password for broker truststore> +
-
 
 
 
