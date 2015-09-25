@@ -20,6 +20,7 @@ REPO_NAME = "application-templates/"
 TEMPLATE_DOCS = "docs/"
 APPLICATION_DIRECTORIES = ("amq","eap","webserver")
 ignore_dirs = ['docs', '.git']
+amq_ssl_desc = None
 
 LINKS =  {"jboss-eap64-openshift:1.1":               "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap-openshift`]", \
           "jboss-webserver30-tomcat7-openshift:1.1": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver/tomcat7-openshift`]", \
@@ -76,6 +77,14 @@ def createTemplate(data, directory, template_file):
     # Fill in the template description, if supplied
     if 'annotations' in data['metadata'] and 'description' in data['metadata']['annotations']:
         tdata['description'] = data['metadata']['annotations']['description']
+
+    # special case: AMQ SSL templates have additional description
+    global amq_ssl_desc
+    if re.match('amq',template_file) and re.match('.*ssl\.json$', template_file):
+        if not amq_ssl_desc:
+            with open('amq-ssl.adoc.in','r') as tmp:
+                amq_ssl_desc = tmp.read()
+        tdata['description'] += "\n\n" + amq_ssl_desc
 
     # Fill in template parameters table, if there are any
     if ("parameters" in data and "objects" in data) and len(data["parameters"]) > 0:
