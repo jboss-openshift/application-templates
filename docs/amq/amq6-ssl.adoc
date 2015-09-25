@@ -6,8 +6,12 @@
 
 = amq6-ssl
 :toc:
+:toc-placement!:
+:toclevels: 5
 
 Application template for A-MQ brokers.
+
+toc::[]
 
 
 == Parameters
