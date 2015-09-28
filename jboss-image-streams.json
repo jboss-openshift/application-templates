@@ -85,6 +85,31 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
+                "name": "jboss-decisionserver62-openshift"
+            },
+            "spec": {
+                "dockerImageRepository": "registry.access.redhat.com/jboss-decisionserver-6/decisionserver62-openshift",
+                "tags": [
+                    {
+                        "name": "1.2",
+                        "annotations": {
+                            "description": "Decision Server 6.2 S2I images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "builder,decisionserver,java,xpaas",
+                            "supports":"decisionserver:6.2,java:8,xpaas:1.2",
+                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                            "sampleContextDir": "decisionserver/hellorules",
+                            "sampleRef": "master",
+                            "version": "1.2"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
                 "name": "jboss-amq-62"
             },
             "spec": {
