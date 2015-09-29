@@ -51,19 +51,19 @@
             "required": false
         },
         {
-            "description": "Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP",
+            "description": "Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP.",
             "name": "MQ_PROTOCOL",
             "value": "openwire",
             "required": false
         },
         {
-            "description": "Queue names",
+            "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP.",
             "name": "MQ_QUEUES",
             "value": "",
             "required": false
         },
         {
-            "description": "Topic names",
+            "description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP.",
             "name": "MQ_TOPICS",
             "value": "",
             "required": false
@@ -93,28 +93,28 @@
             "required": false
         },
         {
-            "description": "Broker user name",
+            "description": "User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
             "name": "MQ_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
             "required": false
         },
         {
-            "description": "Broker user password",
+            "description": "Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
             "name": "MQ_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": false
         },
         {
-            "description": "A-MQ Admin User",
+            "description": "User name for broker admin. If left empty, it will be generated.",
             "name": "AMQ_ADMIN_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
             "required": true
         },
         {
-            "description": "A-MQ Admin Password",
+            "description": "Password for broker admin. If left empty, it will be generated.",
             "name": "AMQ_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
@@ -162,7 +162,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's http port."
+                    "description": "The web server's HTTP port."
                 }
             }
         },
@@ -186,7 +186,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's https port."
+                    "description": "The web server's HTTPS port."
                 }
             }
         },
@@ -210,7 +210,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The broker's tcp (openwire) port."
+                    "description": "The broker's OpenWire port."
                 }
             }
         },
@@ -224,7 +224,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Route for application's http service."
+                    "description": "Route for application's HTTP service."
                 }
             },
             "spec": {
@@ -244,7 +244,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Route for application's https service."
+                    "description": "Route for application's HTTPS service."
                 }
             },
             "spec": {
