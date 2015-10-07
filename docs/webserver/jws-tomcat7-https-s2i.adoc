@@ -6,8 +6,12 @@
 
 = jws-tomcat7-https-s2i
 :toc:
+:toc-placement!:
+:toclevels: 5
 
 Application template for JWS applications built using S2I.
+
+toc::[]
 
 
 == Parameters
