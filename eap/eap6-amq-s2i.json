@@ -30,6 +30,7 @@
         {
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts.git",
             "required": true
         },
         {
@@ -41,7 +42,7 @@
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "",
+            "value": "helloworld-mdb",
             "required": false
         },
         {
@@ -59,13 +60,13 @@
         {
             "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP.",
             "name": "MQ_QUEUES",
-            "value": "",
+            "value": "HELLOWORLDMDBQueue",
             "required": false
         },
         {
             "description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP.",
             "name": "MQ_TOPICS",
-            "value": "",
+            "value": "HELLOWORLDMDBTopic",
             "required": false
         },
         {
