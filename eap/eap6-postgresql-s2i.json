@@ -370,6 +370,9 @@
                                 "name": "${APPLICATION_NAME}"
                             }
                         }
+                    },
+                    {
+                        "type": "ConfigChange"
                     }
                 ],
                 "replicas": 1,
@@ -543,6 +546,9 @@
                                 "name": "postgresql:latest"
                             }
                         }
+                    },
+                    {
+                        "type": "ConfigChange"
                     }
                 ],
                 "replicas": 1,
