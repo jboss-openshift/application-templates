@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for JBoss A-MQ brokers.
+Application template for JBoss A-MQ brokers. These can be deployed as standalone or in a mesh. This template doesn't feature SSL support.
 
 toc::[]
 
@@ -24,15 +24,15 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`APPLICATION_NAME` | -- | The name for the application. | broker | True
-|`MQ_PROTOCOL` | -- | Protocol to configure.  Only openwire is supported by EAP.  amqp, amqp+ssl, mqtt, stomp, stomp+ssl, and ssl are not supported by EAP | openwire | False
-|`MQ_QUEUES` | `AMQ_QUEUES` | Queue names | `${MQ_QUEUES}` | False
-|`MQ_TOPICS` | `AMQ_TOPICS` | Topic names | `${MQ_TOPICS}` | False
-|`MQ_USERNAME` | `AMQ_USER` | Broker user name | `${MQ_USERNAME}` | False
-|`MQ_PASSWORD` | `AMQ_PASSWORD` | Broker user password | `${MQ_PASSWORD}` | False
-|`AMQ_ADMIN_USERNAME` | `AMQ_ADMIN_USERNAME` | A-MQ Admin User | `${AMQ_ADMIN_USERNAME}` | True
-|`AMQ_ADMIN_PASSWORD` | `AMQ_ADMIN_PASSWORD` | A-MQ Admin Password | `${AMQ_ADMIN_PASSWORD}` | True
-|`AMQ_MESH_DISCOVERY_TYPE` | `AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | kube | ?
-|`AMQ_STORAGE_USAGE_LIMIT` | `AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | 100 gb | ?
+|`MQ_PROTOCOL` | -- | Protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. | openwire | False
+|`MQ_QUEUES` | `AMQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. If left empty, queues will be still created dynamically. | `${MQ_QUEUES}` | False
+|`MQ_TOPICS` | `AMQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. If left empty, topics will be still created dynamically. | `${MQ_TOPICS}` | False
+|`MQ_USERNAME` | `AMQ_USER` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}` | False
+|`MQ_PASSWORD` | `AMQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}` | False
+|`AMQ_ADMIN_USERNAME` | `AMQ_ADMIN_USERNAME` | User name for admin user. If left empty, it will be generated. | `${AMQ_ADMIN_USERNAME}` | True
+|`AMQ_ADMIN_PASSWORD` | `AMQ_ADMIN_PASSWORD` | Password for admin user. If left empty, it will be generated. | `${AMQ_ADMIN_PASSWORD}` | True
+|`AMQ_MESH_DISCOVERY_TYPE` | `AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | kube | False
+|`AMQ_STORAGE_USAGE_LIMIT` | `AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | 100 gb | False
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |=======================================================================
 
@@ -52,10 +52,10 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |=============
 |Service        |Port  | Description
 
-|`${APPLICATION_NAME}-amq-amqp` | 5672 | The broker's amqp port.
-|`${APPLICATION_NAME}-amq-mqtt` | 1883 | The broker's mqtt port.
-|`${APPLICATION_NAME}-amq-stomp` | 61613 | The broker's stomp port.
-|`${APPLICATION_NAME}-amq-tcp` | 61616 | The broker's tcp (openwire) port.
+|`${APPLICATION_NAME}-amq-amqp` | 5672 | The broker's AMQP port.
+|`${APPLICATION_NAME}-amq-mqtt` | 1883 | The broker's MQTT port.
+|`${APPLICATION_NAME}-amq-stomp` | 61613 | The broker's STOMP port.
+|`${APPLICATION_NAME}-amq-tcp` | 61616 | The broker's OpenWire port.
 |=============
 
 
@@ -153,13 +153,13 @@ information.
 |Deployment |Variable name |Description |Example value
 
 .11+| `${APPLICATION_NAME}-amq`
-|`AMQ_USER` | Broker user name | `${MQ_USERNAME}`
-|`AMQ_PASSWORD` | Broker user password | `${MQ_PASSWORD}`
+|`AMQ_USER` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
+|`AMQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
 |`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
-|`AMQ_QUEUES` | Queue names | `${MQ_QUEUES}`
-|`AMQ_TOPICS` | Topic names | `${MQ_TOPICS}`
-|`AMQ_ADMIN_USERNAME` | A-MQ Admin User | `${AMQ_ADMIN_USERNAME}`
-|`AMQ_ADMIN_PASSWORD` | A-MQ Admin Password | `${AMQ_ADMIN_PASSWORD}`
+|`AMQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. If left empty, queues will be still created dynamically. | `${MQ_QUEUES}`
+|`AMQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. If left empty, topics will be still created dynamically. | `${MQ_TOPICS}`
+|`AMQ_ADMIN_USERNAME` | User name for admin user. If left empty, it will be generated. | `${AMQ_ADMIN_USERNAME}`
+|`AMQ_ADMIN_PASSWORD` | Password for admin user. If left empty, it will be generated. | `${AMQ_ADMIN_PASSWORD}`
 |`AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | `${AMQ_MESH_DISCOVERY_TYPE}`
 |`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-tcp`
 |`AMQ_MESH_SERVICE_NAMESPACE` | -- | --

@@ -14,6 +14,26 @@ Source can be found https://github.com/jboss-openshift/application-templates/tre
 
 toc::[levels=1]
 
+== JBoss A-MQ
+
+* link:./amq/amq6-basic.adoc[amq6-basic]
+* link:./amq/amq6-persistent-ssl.adoc[amq6-persistent-ssl]
+* link:./amq/amq6-persistent.adoc[amq6-persistent]
+* link:./amq/amq6-ssl.adoc[amq6-ssl]
+
+== JBoss EAP
+
+* link:./eap/eap6-amq-persistent-s2i.adoc[eap6-amq-persistent-s2i]
+* link:./eap/eap6-amq-s2i.adoc[eap6-amq-s2i]
+* link:./eap/eap6-basic-s2i.adoc[eap6-basic-s2i]
+* link:./eap/eap6-https-s2i.adoc[eap6-https-s2i]
+* link:./eap/eap6-mongodb-persistent-s2i.adoc[eap6-mongodb-persistent-s2i]
+* link:./eap/eap6-mongodb-s2i.adoc[eap6-mongodb-s2i]
+* link:./eap/eap6-mysql-persistent-s2i.adoc[eap6-mysql-persistent-s2i]
+* link:./eap/eap6-mysql-s2i.adoc[eap6-mysql-s2i]
+* link:./eap/eap6-postgresql-persistent-s2i.adoc[eap6-postgresql-persistent-s2i]
+* link:./eap/eap6-postgresql-s2i.adoc[eap6-postgresql-s2i]
+
 == secrets
 
 * link:./secrets/amq-app-secret.adoc[amq-app-secret]
@@ -38,23 +58,3 @@ toc::[levels=1]
 * link:./webserver/jws-tomcat8-mysql-s2i.adoc[jws-tomcat8-mysql-s2i]
 * link:./webserver/jws-tomcat8-postgresql-persistent-s2i.adoc[jws-tomcat8-postgresql-persistent-s2i]
 * link:./webserver/jws-tomcat8-postgresql-s2i.adoc[jws-tomcat8-postgresql-s2i]
-
-== JBoss A-MQ
-
-* link:./amq/amq6-basic.adoc[amq6-basic]
-* link:./amq/amq6-persistent-ssl.adoc[amq6-persistent-ssl]
-* link:./amq/amq6-persistent.adoc[amq6-persistent]
-* link:./amq/amq6-ssl.adoc[amq6-ssl]
-
-== JBoss EAP
-
-* link:./eap/eap6-amq-persistent-s2i.adoc[eap6-amq-persistent-s2i]
-* link:./eap/eap6-amq-s2i.adoc[eap6-amq-s2i]
-* link:./eap/eap6-basic-s2i.adoc[eap6-basic-s2i]
-* link:./eap/eap6-https-s2i.adoc[eap6-https-s2i]
-* link:./eap/eap6-mongodb-persistent-s2i.adoc[eap6-mongodb-persistent-s2i]
-* link:./eap/eap6-mongodb-s2i.adoc[eap6-mongodb-s2i]
-* link:./eap/eap6-mysql-persistent-s2i.adoc[eap6-mysql-persistent-s2i]
-* link:./eap/eap6-mysql-s2i.adoc[eap6-mysql-s2i]
-* link:./eap/eap6-postgresql-persistent-s2i.adoc[eap6-postgresql-persistent-s2i]
-* link:./eap/eap6-postgresql-s2i.adoc[eap6-postgresql-s2i]

@@ -26,7 +26,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`APPLICATION_NAME` | -- | The name for the application. | jws-app | True
 |`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | master | False
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.1 | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-mongodb | False
 |`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb | `${DB_JNDI}` | False
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
