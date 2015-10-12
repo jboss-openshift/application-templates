@@ -81,7 +81,7 @@ def createTemplate(data, path):
 
     # special case: AMQ SSL templates have additional description
     global amq_ssl_desc
-    if re.match('amq',template_file) and re.match('.*ssl\.json$', template_file):
+    if re.match('amq', path) and re.match('.*ssl\.json$', path):
         if not amq_ssl_desc:
             with open('amq-ssl.adoc.in','r') as tmp:
                 amq_ssl_desc = tmp.read()
