@@ -224,6 +224,7 @@
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
+                        "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
@@ -253,6 +254,9 @@
                     {
                         "type": "ImageChange",
                         "imageChange": {}
+                    },
+                    {
+                        "type": "ConfigChange"
                     }
                 ]
             }
@@ -283,6 +287,9 @@
                                 "name": "${APPLICATION_NAME}"
                             }
                         }
+                    },
+                    {
+                        "type": "ConfigChange"
                     }
                 ],
                 "replicas": 1,
