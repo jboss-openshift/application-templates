@@ -315,7 +315,7 @@
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "/opt/jdg/bin/readinessProbe.sh"
+                                            "/opt/datagrid/bin/readinessProbe.sh"
                                         ]
                                     }
                                 },
