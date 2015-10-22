@@ -85,21 +85,21 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-jdg6-openshift",
+                "name": "jboss-datagrid65-openshift",
                 "annotations": {
                     "openshift.io/image.insecureRepository": "true"
                 }
             },
             "spec": {
-                "dockerImageRepository": "ce-openshift-rhel-master.lab.eng.brq.redhat.com:5000/dpalmer/jdg-openshift",
+                "dockerImageRepository": "registry.access.redhat.com/jboss-datagrid-6/datagrid65-openshift",
                 "tags": [
                     {
-                        "name": "6.4",
+                        "name": "1.2",
                         "annotations": {
                             "description": "JBoss JDG 6 STI images.",
                             "iconClass": "icon-jboss",
                             "supports":"jdg:6.4,java",
-                            "version": "6.4"
+                            "version": "1.2"
                         }
                     }
                 ]
