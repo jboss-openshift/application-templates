@@ -237,6 +237,7 @@
                         }
                     },
                     "spec": {
+                        "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
