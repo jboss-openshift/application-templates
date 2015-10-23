@@ -402,6 +402,7 @@
                     },
                     "spec": {
                         "serviceAccount": "jws-service-account",
+                        "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
@@ -556,6 +557,7 @@
                         }
                     },
                     "spec": {
+                        "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-mongodb",
