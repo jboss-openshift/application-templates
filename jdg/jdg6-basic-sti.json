@@ -4,12 +4,12 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-jboss",
-            "description": "Application template for JDG 6 applications built using STI."
+            "description": "Application template for JDG 6 applications built using S2I."
         },
-        "name": "jdg6-basic-sti"
+        "name": "jdg6-basic-s2i"
     },
     "labels": {
-        "template": "jdg6-basic-sti"
+        "template": "jdg6-basic-s2i"
     },
     "parameters": [
         {
