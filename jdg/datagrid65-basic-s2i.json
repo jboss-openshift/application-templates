@@ -4,13 +4,13 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-jboss",
-            "description": "Application template for JDG 6 applications built using S2I.",
+            "description": "Application template for JDG 6.5 applications built using S2I.",
             "version": "1.2.0"
         },
-        "name": "jdg6-basic-s2i"
+        "name": "datagrid65-basic-s2i"
     },
     "labels": {
-        "template": "jdg6-basic-s2i",
+        "template": "datagrid65-basic-s2i",
         "xpaas": "1.2.0"
     },
     "parameters": [
