@@ -6,13 +6,13 @@
             "description": "Application template for EAP 6 A-MQ applications built using S2I.",
             "iconClass": "icon-jboss",
             "tags": "eap,amq,javaee,java,messaging,jboss,xpaas",
-            "version": "1.1.0"
+            "version": "1.2.0"
         },
         "name": "eap6-amq-s2i"
     },
     "labels": {
         "template": "eap6-amq-s2i",
-        "xpaas": "1.1.0"
+        "xpaas": "1.2.0"
     },
     "parameters": [
         {
@@ -293,7 +293,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap64-openshift:1.1"
+                            "name": "jboss-eap64-openshift:1.2"
                         }
                     }
                 },
@@ -506,7 +506,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-amq-62:1.1"
+                                "name": "jboss-amq-62:1.2"
                             }
                         }
                     },

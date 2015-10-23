@@ -6,13 +6,13 @@
             "iconClass": "icon-jboss",
             "description": "Application template for EAP 6 applications built using S2I.",
             "tags": "eap,javaee,java,jboss,xpaas",
-            "version": "1.1.0"
+            "version": "1.2.0"
         },
         "name": "eap6-https-s2i"
     },
     "labels": {
         "template": "eap6-https-s2i",
-        "xpaas": "1.1.0"
+        "xpaas": "1.2.0"
     },
     "parameters": [
         {
@@ -236,7 +236,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap64-openshift:1.1"
+                            "name": "jboss-eap64-openshift:1.2"
                         }
                     }
                 },
