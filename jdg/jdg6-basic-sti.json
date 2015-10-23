@@ -17,44 +17,52 @@
         {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
-            "value": "jdg-app"
+            "value": "jdg-app",
+            "required": true
         },
         {
             "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "name": "APPLICATION_HOSTNAME",
-            "value": ""
+            "value": "",
+            "required": false
         },
         {
             "description": "Git source URI for application",
             "name": "GIT_URI",
-            "value": "https://github.com/jboss-developer/jboss-jdg-quickstarts"
+            "value": "https://github.com/jboss-developer/jboss-jdg-quickstarts",
+            "required": true
         },
         {
             "description": "Git branch/tag reference",
             "name": "GIT_REF",
-            "value": "jdg-6.4.x"
+            "value": "jdg-6.4.x",
+            "required": false
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "GIT_CONTEXT_DIR",
-            "value": "helloworld-jdg"
+            "value": "helloworld-jdg",
+            "required": false
         },
         {
             "description": "Github trigger secret",
             "name": "GITHUB_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": true
         },
         {
             "description": "Generic build trigger secret",
             "name": "GENERIC_TRIGGER_SECRET",
             "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression"
+            "generate": "expression",
+            "required": true
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
-            "value": "openshift"
+            "value": "openshift",
+            "required": true
         }
     ],
     "objects": [
