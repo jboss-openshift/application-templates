@@ -13,11 +13,6 @@
     },
     "parameters": [
         {
-            "description": "JDG Release version, e.g. 6.4, etc.",
-            "name": "JDG_RELEASE",
-            "value": "1.2"
-        },
-        {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "jdg-app"
@@ -228,7 +223,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-datagrid65-openshift:${JDG_RELEASE}"
+                            "name": "jboss-datagrid65-openshift:1.2"
                         }
                     }
                 },
