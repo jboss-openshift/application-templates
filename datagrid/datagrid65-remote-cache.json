@@ -1,0 +1,595 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "annotations": {
+            "iconClass": "icon-jboss",
+            "description": "Application template for JDG 6.5 applications.",
+            "tags": "datagrid,jboss,xpaas",
+            "version": "1.2.0"
+        },
+        "name": "datagrid65-remote-cache"
+    },
+    "labels": {
+        "template": "datagrid65-remote-cache",
+        "xpaas": "1.2.0"
+    },
+    "parameters": [
+        {
+            "description": "The name for the application.",
+            "name": "APPLICATION_NAME",
+            "value": "datagrid-app",
+            "required": true
+        },
+        {
+            "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
+            "name": "APPLICATION_DOMAIN",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name of the secret containing the keystore file",
+            "name": "JDG_HTTPS_SECRET",
+            "value": "datagrid-app-secret",
+            "required": true
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "name": "JDG_HTTPS_KEYSTORE",
+            "value": "keystore.jks",
+            "required": false
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "name": "JDG_HTTPS_NAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "name": "JDG_HTTPS_PASSWORD",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Remote store name",
+            "name": "REMOTE_STORE_NAME",
+            "value": "",
+            "required": true
+        },
+        {
+            "description": "Remote store shared",
+            "name": "REMOTE_STORE_SHARED",
+            "value": "false",
+            "required": false
+        },
+        {
+            "description": "Remote store preload",
+            "name": "REMOTE_STORE_PRELOAD",
+            "value": "false",
+            "required": false
+        },
+        {
+            "description": "Remote store passivation",
+            "name": "REMOTE_STORE_PASSIVATION",
+            "value": "false",
+            "required": false
+        },
+        {
+            "description": "Remote store fetch state",
+            "name": "REMOTE_STORE_FETCH_STATE",
+            "value": "true",
+            "required": false
+        },
+        {
+            "description": "Remote store purge",
+            "name": "REMOTE_STORE_PURGE",
+            "value": "false",
+            "required": false
+        },
+        {
+            "description": "Remote store singleton",
+            "name": "REMOTE_STORE_SINGLETON",
+            "value": "true",
+            "required": false
+        },
+        {
+            "description": "Remote store read only",
+            "name": "REMOTE_STORE_READ_ONLY",
+            "value": "false",
+            "required": false
+        },
+        {
+            "description": "Remote store cache",
+            "name": "REMOTE_STORE_CACHE",
+            "value": "default",
+            "required": false
+        },
+        {
+            "description": "Remote store socket timeout",
+            "name": "REMOTE_STORE_SOCKET_TIMEOUT",
+            "value": "60000",
+            "required": false
+        },
+        {
+            "description": "Remote store TCP no delay",
+            "name": "REMOTE_STORE_TCP_NO_DELAY",
+            "value": "true",
+            "required": false
+        },
+        {
+            "description": "Remote store Hot Rod wrapping",
+            "name": "REMOTE_STORE_HOTROD_WRAPPING",
+            "value": "false",
+            "required": false
+        },
+        {
+            "description": "Remote store raw values",
+            "name": "REMOTE_STORE_RAW_VALUES",
+            "value": "false",
+            "required": false
+        },
+        {
+            "description": "Remote server outbound socket binding",
+            "name": "REMOTE_SERVER_OUTBOUND_SOCKET_BINDINGS",
+            "value": "remotestorehotrodserver",
+            "required": false
+        },
+        {
+            "description": "Remote write behind flush lock timeout",
+            "name": "REMOTE_WRITE_BEHIND_FLUSH_LOCK_TIMEOUT",
+            "value": "1",
+            "required": false
+        },
+        {
+            "description": "Remote write behind modification queue size",
+            "name": "REMOTE_WRITE_BEHIND_MODIFICATION_QUEUE_SIZE",
+            "value": "1024",
+            "required": false
+        },
+        {
+            "description": "Remote write behind shutdown timeout",
+            "name": "REMOTE_WRITE_BEHIND_SHUTDOWN_TIMEOUT",
+            "value": "25000",
+            "required": false
+        },
+        {
+            "description": "Remote write behind thread pool size",
+            "name": "REMOTE_WRITE_BEHIND_THREAD_POOL_SIZE",
+            "value": "1",
+            "required": false
+        },
+        {
+            "description": "Remote store properties",
+            "name": "REMOTE_STORE_PROPERTIES",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Remote Hot Rod destination host",
+            "name": "REMOTE_HOTROD_DESTINATION_HOST",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Remote Hot Rod destination port",
+            "name": "REMOTE_HOTROD_DESTINATION_PORT",
+            "value": "11222",
+            "required": false
+        },
+        {
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "name": "IMAGE_STREAM_NAMESPACE",
+            "value": "openshift",
+            "required": true
+        }
+    ],
+    "objects": [
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The web server's HTTP port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 8443,
+                        "targetPort": 8443
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "metadata": {
+                "name": "secure-${APPLICATION_NAME}",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The web server's HTTPS port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 11211,
+                        "targetPort": 11211
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-memcached",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Memcached service for clustered applications."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 11222,
+                        "targetPort": 11222
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-hotrod",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Hot Rod service for clustered applications."
+                }
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-http",
+            "metadata": {
+                "name": "${APPLICATION_NAME}",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Route for application's HTTP service."
+                }
+            },
+            "spec": {
+                "host": "${APPLICATION_DOMAIN}",
+                "to": {
+                    "name": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-https",
+            "metadata": {
+                "name": "secure-${APPLICATION_NAME}",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Route for application's HTTPS service."
+                }
+            },
+            "spec": {
+                "host": "${APPLICATION_DOMAIN}",
+                "to": {
+                    "name": "secure-${APPLICATION_NAME}"
+                },
+                "tls": {
+                    "termination": "passthrough"
+                }
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-memcached",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-memcached",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Route for application's memcached service."
+                }
+            },
+            "spec": {
+                "host": "${APPLICATION_DOMAIN}",
+                "to": {
+                    "name": "${APPLICATION_NAME}-memcached"
+                }
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-hotrod",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-hotrod",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Route for application's hotrod service."
+                }
+            },
+            "spec": {
+                "host": "${APPLICATION_DOMAIN}",
+                "to": {
+                    "name": "${APPLICATION_NAME}-hotrod"
+                }
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "name": "jboss-datagrid65-openshift:1.2"
+                            }
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                },
+                "template": {
+                    "metadata": {
+                        "name": "${APPLICATION_NAME}",
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}",
+                            "application": "${APPLICATION_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "serviceAccount": "datagrid-service-account",
+                        "containers": [
+                            {
+                                "name": "${APPLICATION_NAME}",
+                                "image": "jboss-datagrid65-openshift",
+                                "imagePullPolicy": "Always",
+                                "volumeMounts": [
+                                    {
+                                        "name": "datagrid-keystore-volume",
+                                        "mountPath": "/etc/datagrid-secret-volume",
+                                        "readOnly": true
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/datagrid/bin/readinessProbe.sh"
+                                        ]
+                                    }
+                                },
+                                "ports": [
+                                    {
+                                        "name": "http",
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "https",
+                                        "containerPort": 8443,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "ping",
+                                        "containerPort": 8888,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "memcached",
+                                        "containerPort": 11211,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "hotrod",
+                                        "containerPort": 11222,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "JDG_HTTPS_KEYSTORE_DIR",
+                                        "value": "/etc/datagrid-secret-volume"
+                                    },
+                                    {
+                                        "name": "JDG_HTTPS_KEYSTORE",
+                                        "value": "${JDG_HTTPS_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "JDG_HTTPS_NAME",
+                                        "value": "${JDG_HTTPS_NAME}"
+                                    },
+                                    {
+                                        "name": "JDG_HTTPS_PASSWORD",
+                                        "value": "${JDG_HTTPS_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "CACHE_NAMES",
+                                        "value": "default"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_NAME",
+                                        "value": "${REMOTE_STORE_NAME}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_SHARED",
+                                        "value": "${REMOTE_STORE_SHARED}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_PRELOAD",
+                                        "value": "${REMOTE_STORE_PRELOAD}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_PASSIVATION",
+                                        "value": "${REMOTE_STORE_PASSIVATION}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_FETCH_STATE",
+                                        "value": "${REMOTE_STORE_FETCH_STATE}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_PURGE",
+                                        "value": "${REMOTE_STORE_PURGE}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_SINGLETON",
+                                        "value": "${REMOTE_STORE_SINGLETON}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_READ_ONLY",
+                                        "value": "${REMOTE_STORE_READ_ONLY}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_CACHE",
+                                        "value": "${REMOTE_STORE_CACHE}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_SOCKET_TIMEOUT",
+                                        "value": "${REMOTE_STORE_SOCKET_TIMEOUT}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_TCP_NO_DELAY",
+                                        "value": "${REMOTE_STORE_TCP_NO_DELAY}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_HOTROD_WRAPPING",
+                                        "value": "${REMOTE_STORE_HOTROD_WRAPPING}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_RAW_VALUES",
+                                        "value": "${REMOTE_STORE_RAW_VALUES}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_SERVER_OUTBOUND_SOCKET_BINDINGS",
+                                        "value": "${REMOTE_SERVER_OUTBOUND_SOCKET_BINDINGS}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_WRITE_BEHIND_FLUSH_LOCK_TIMEOUT",
+                                        "value": "${REMOTE_WRITE_BEHIND_FLUSH_LOCK_TIMEOUT}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_WRITE_BEHIND_MODIFICATION_QUEUE_SIZE",
+                                        "value": "${REMOTE_WRITE_BEHIND_MODIFICATION_QUEUE_SIZE}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_WRITE_BEHIND_SHUTDOWN_TIMEOUT",
+                                        "value": "${REMOTE_WRITE_BEHIND_SHUTDOWN_TIMEOUT}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_WRITE_BEHIND_THREAD_POOL_SIZE",
+                                        "value": "${REMOTE_WRITE_BEHIND_THREAD_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "default_REMOTE_STORE_PROPERTIES",
+                                        "value": "${REMOTE_STORE_PROPERTIES}"
+                                    },
+                                    {
+                                        "name": "OUTBOUND_SOCKET_BINDING_NAMES",
+                                        "value": "remotestorehotrodserver"
+                                    },
+                                    {
+                                        "name": "remotestorehotrodserver_REMOTE_DESTINATION_HOST",
+                                        "value": "${REMOTE_HOTROD_DESTINATION_HOST}"
+                                    },
+                                    {
+                                        "name": "remotestorehotrodserver_REMOTE_DESTINATION_PORT",
+                                        "value": "${REMOTE_HOTROD_DESTINATION_PORT}"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_KUBE_PING_LABELS",
+                                        "value": "application=${APPLICATION_NAME}"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_KUBE_PING_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "datagrid-keystore-volume",
+                                "secret": {
+                                    "secretName": "${JDG_HTTPS_SECRET}"
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}
