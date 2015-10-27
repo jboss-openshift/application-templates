@@ -4,7 +4,7 @@
     generator or the input template (./*.in)
 ////
 
-= eap6-basic-s2i
+= eap64-basic-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5

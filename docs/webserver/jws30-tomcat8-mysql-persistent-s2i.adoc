@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= jws-tomcat8-postgresql-persistent-s2i
+= jws30-tomcat8-mysql-persistent-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-Application template for JWS PostgreSQL applications with persistent storage built using S2I.
+Application template for JWS MySQL applications with persistent storage built using S2I.
 
 toc::[]
 
@@ -38,8 +38,11 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
 |`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
 |`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
-|`POSTGRESQL_MAX_CONNECTIONS` | `POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}` | False
-|`POSTGRESQL_SHARED_BUFFERS` | `POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}` | False
+|`MYSQL_LOWER_CASE_TABLE_NAMES` | `MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}` | False
+|`MYSQL_MAX_CONNECTIONS` | `MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}` | False
+|`MYSQL_FT_MIN_WORD_LEN` | `MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}` | False
+|`MYSQL_FT_MAX_WORD_LEN` | `MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}` | False
+|`MYSQL_AIO` | `MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}` | False
 |`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
 |`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
 |`JWS_ADMIN_USERNAME` | `JWS_ADMIN_USERNAME` | JWS Admin User | `${JWS_ADMIN_USERNAME}` | True
@@ -67,7 +70,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 
 |`${APPLICATION_NAME}` | 8080 | The web server's http port.
 |`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
-|`${APPLICATION_NAME}-postgresql` | 5432 | The database server's port.
+|`${APPLICATION_NAME}-mysql` | 3306 | The database server's port.
 |=============
 
 
@@ -117,7 +120,7 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |Deployment | Triggers
 
 |`${APPLICATION_NAME}` | ImageChange
-|`${APPLICATION_NAME}-postgresql` | ImageChange
+|`${APPLICATION_NAME}-mysql` | ImageChange
 |============
 
 
@@ -133,7 +136,7 @@ for more information.
 |Deployment | Replicas
 
 |`${APPLICATION_NAME}` | 1
-|`${APPLICATION_NAME}-postgresql` | 1
+|`${APPLICATION_NAME}-mysql` | 1
 |============
 
 
@@ -160,7 +163,7 @@ information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
-|`${APPLICATION_NAME}-postgresql` | postgresql
+|`${APPLICATION_NAME}-mysql` | mysql
 |============
 
 
@@ -184,8 +187,8 @@ information.
 .2+| `${APPLICATION_NAME}`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
-.1+| `${APPLICATION_NAME}-postgresql`
-|-- | 5432 | `TCP`
+.1+| `${APPLICATION_NAME}-mysql`
+|-- | 3306 | `TCP`
 |=============
 
 
@@ -196,7 +199,7 @@ information.
 |Deployment |Variable name |Description |Example value
 
 .14+| `${APPLICATION_NAME}`
-|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
+|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
 |`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb | `${DB_JNDI}`
 |`DB_USERNAME` | Database user name | `${DB_USERNAME}`
 |`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
@@ -210,12 +213,15 @@ information.
 |`JWS_HTTPS_CERTIFICATE_PASSWORD` | The name of the certificate file within the secret | `${JWS_HTTPS_CERTIFICATE_PASSWORD}`
 |`JWS_ADMIN_USERNAME` | JWS Admin User | `${JWS_ADMIN_USERNAME}`
 |`JWS_ADMIN_PASSWORD` | JWS Admin Password | `${JWS_ADMIN_PASSWORD}`
-.5+| `${APPLICATION_NAME}-postgresql`
-|`POSTGRESQL_USER` | -- | `${DB_USERNAME}`
-|`POSTGRESQL_PASSWORD` | -- | `${DB_PASSWORD}`
-|`POSTGRESQL_DATABASE` | -- | `${DB_DATABASE}`
-|`POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}`
-|`POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}`
+.8+| `${APPLICATION_NAME}-mysql`
+|`MYSQL_USER` | -- | `${DB_USERNAME}`
+|`MYSQL_PASSWORD` | -- | `${DB_PASSWORD}`
+|`MYSQL_DATABASE` | -- | `${DB_DATABASE}`
+|`MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}`
+|`MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}`
+|`MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}`
+|`MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}`
+|`MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}`
 |=======================================================================
 
 
@@ -226,7 +232,7 @@ information.
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
 |`${APPLICATION_NAME}` | jws-certificate-volume | `/etc/jws-secret-volume` | ssl certs | True
-|`${APPLICATION_NAME}-postgresql` | `${APPLICATION_NAME}-postgresql-pvol` | `/var/lib/pgsql/data` | postgresql | false
+|`${APPLICATION_NAME}-mysql` | `${APPLICATION_NAME}-mysql-pvol` | `/var/lib/mysql/data` | mysql | false
 |=============
 
 
@@ -243,7 +249,7 @@ more information.
 |=============
 |Name | Access Mode
 
-|`${APPLICATION_NAME}-postgresql-claim` | ReadWriteOnce
+|`${APPLICATION_NAME}-mysql-claim` | ReadWriteOnce
 |=============
 
 

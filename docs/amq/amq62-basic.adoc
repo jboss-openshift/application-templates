@@ -4,7 +4,7 @@
     generator or the input template (./*.in)
 ////
 
-= amq6-basic
+= amq62-basic
 :toc:
 :toc-placement!:
 :toclevels: 5
@@ -117,7 +117,7 @@ information.
 |============
 |Deployment | Image
 
-|`${APPLICATION_NAME}-amq` | jboss-amq-6
+|`${APPLICATION_NAME}-amq` | jboss-amq-62
 |============
 
 

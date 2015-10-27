@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= jws-tomcat7-mongodb-persistent-s2i
+= jws30-tomcat7-mysql-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-Application template for JWS MongoDB applications with persistent storage built using S2I.
+Application template for JWS MySQL applications built using S2I.
 
 toc::[]
 
@@ -27,10 +27,9 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.1 | False
-|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-mongodb | False
-|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb | `${DB_JNDI}` | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-jdbc | False
+|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb | java:jboss/datasources/TodoListDS | False
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
-|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
 |`JWS_HTTPS_SECRET` | -- | The name of the secret containing the certificate files | jws-app-secret | True
 |`JWS_HTTPS_CERTIFICATE` | `JWS_HTTPS_CERTIFICATE_DIR` | The name of the certificate file within the secret | server.crt | False
 |`JWS_HTTPS_CERTIFICATE_KEY` | `JWS_HTTPS_CERTIFICATE` | The name of the certificate key file within the secret | server.key | False
@@ -38,12 +37,13 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
 |`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
 |`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
-|`MONGODB_NOPREALLOC` | `MONGODB_NOPREALLOC` | Disable data file preallocation. | `${MONGODB_NOPREALLOC}` | False
-|`MONGODB_SMALLFILES` | `MONGODB_SMALLFILES` | Set MongoDB to use a smaller default data file size. | `${MONGODB_SMALLFILES}` | False
-|`MONGODB_QUIET` | `MONGODB_QUIET` | Runs MongoDB in a quiet mode that attempts to limit the amount of output. | `${MONGODB_QUIET}` | False
+|`MYSQL_LOWER_CASE_TABLE_NAMES` | `MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}` | False
+|`MYSQL_MAX_CONNECTIONS` | `MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}` | False
+|`MYSQL_FT_MIN_WORD_LEN` | `MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}` | False
+|`MYSQL_FT_MAX_WORD_LEN` | `MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}` | False
+|`MYSQL_AIO` | `MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}` | False
 |`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
 |`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
-|`DB_ADMIN_PASSWORD` | `DB_ADMIN_PASSWORD` | Database admin password | `${DB_ADMIN_PASSWORD}` | True
 |`JWS_ADMIN_USERNAME` | `JWS_ADMIN_USERNAME` | JWS Admin User | `${JWS_ADMIN_USERNAME}` | True
 |`JWS_ADMIN_PASSWORD` | `JWS_ADMIN_PASSWORD` | JWS Admin Password | `${JWS_ADMIN_PASSWORD}` | True
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
@@ -69,7 +69,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 
 |`${APPLICATION_NAME}` | 8080 | The web server's http port.
 |`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
-|`${APPLICATION_NAME}-mongodb` | 27017 | The database server's port.
+|`${APPLICATION_NAME}-mysql` | 3306 | The database server's port.
 |=============
 
 
@@ -119,7 +119,7 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |Deployment | Triggers
 
 |`${APPLICATION_NAME}` | ImageChange
-|`${APPLICATION_NAME}-mongodb` | ImageChange
+|`${APPLICATION_NAME}-mysql` | ImageChange
 |============
 
 
@@ -135,7 +135,7 @@ for more information.
 |Deployment | Replicas
 
 |`${APPLICATION_NAME}` | 1
-|`${APPLICATION_NAME}-mongodb` | 1
+|`${APPLICATION_NAME}-mysql` | 1
 |============
 
 
@@ -162,7 +162,7 @@ information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
-|`${APPLICATION_NAME}-mongodb` | mongodb
+|`${APPLICATION_NAME}-mysql` | mysql
 |============
 
 
@@ -186,8 +186,8 @@ information.
 .2+| `${APPLICATION_NAME}`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
-.1+| `${APPLICATION_NAME}-mongodb`
-|-- | 27017 | `TCP`
+.1+| `${APPLICATION_NAME}-mysql`
+|-- | 3306 | `TCP`
 |=============
 
 
@@ -197,13 +197,12 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.15+| `${APPLICATION_NAME}`
-|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mongodb=DB`
+.14+| `${APPLICATION_NAME}`
+|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
 |`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb | `${DB_JNDI}`
 |`DB_USERNAME` | Database user name | `${DB_USERNAME}`
 |`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
 |`DB_DATABASE` | Database name | `${DB_DATABASE}`
-|`DB_ADMIN_PASSWORD` | Database admin password | `${DB_ADMIN_PASSWORD}`
 |`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
 |`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
 |`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
@@ -213,14 +212,15 @@ information.
 |`JWS_HTTPS_CERTIFICATE_PASSWORD` | The name of the certificate file within the secret | `${JWS_HTTPS_CERTIFICATE_PASSWORD}`
 |`JWS_ADMIN_USERNAME` | JWS Admin User | `${JWS_ADMIN_USERNAME}`
 |`JWS_ADMIN_PASSWORD` | JWS Admin Password | `${JWS_ADMIN_PASSWORD}`
-.7+| `${APPLICATION_NAME}-mongodb`
-|`MONGODB_USER` | -- | `${DB_USERNAME}`
-|`MONGODB_PASSWORD` | Database user password | `${DB_PASSWORD}`
-|`MONGODB_DATABASE` | Database name | `${DB_DATABASE}`
-|`MONGODB_ADMIN_PASSWORD` | Database admin password | `${DB_ADMIN_PASSWORD}`
-|`MONGODB_NOPREALLOC` | Disable data file preallocation. | `${MONGODB_NOPREALLOC}`
-|`MONGODB_SMALLFILES` | Set MongoDB to use a smaller default data file size. | `${MONGODB_SMALLFILES}`
-|`MONGODB_QUIET` | Runs MongoDB in a quiet mode that attempts to limit the amount of output. | `${MONGODB_QUIET}`
+.8+| `${APPLICATION_NAME}-mysql`
+|`MYSQL_USER` | -- | `${DB_USERNAME}`
+|`MYSQL_PASSWORD` | -- | `${DB_PASSWORD}`
+|`MYSQL_DATABASE` | -- | `${DB_DATABASE}`
+|`MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}`
+|`MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}`
+|`MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}`
+|`MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}`
+|`MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}`
 |=======================================================================
 
 
@@ -231,25 +231,10 @@ information.
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
 |`${APPLICATION_NAME}` | jws-certificate-volume | `/etc/jws-secret-volume` | ssl certs | True
-|`${APPLICATION_NAME}-mongodb` | `${APPLICATION_NAME}-mongodb-pvol` | `/var/lib/mongodb/data` | mongodb | false
 |=============
 
 
 === External Dependencies
-
-
-==== Volume Claims
-
-A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
-by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
-Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
-more information.
-
-|=============
-|Name | Access Mode
-
-|`${APPLICATION_NAME}-mongodb-claim` | ReadWriteOnce
-|=============
 
 
 

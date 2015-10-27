@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= eap6-amq-s2i
+= eap64-mysql-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-Application template for EAP 6 A-MQ applications built using S2I.
+Application template for EAP 6 MySQL applications built using S2I.
 
 toc::[]
 
@@ -25,21 +25,28 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
 |`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
-|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts.git | True
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.1 | False
-|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld-mdb | False
-|`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | java:/ConnectionFactory | False
-|`MQ_PROTOCOL` | `MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | openwire | False
-|`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | HELLOWORLDMDBQueue | False
-|`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | HELLOWORLDMDBTopic | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-jdbc | False
+|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | java:jboss/datasources/TodoListDS | False
+|`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
+|`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
+|`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
 |`EAP_HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap-app-secret | False
 |`EAP_HTTPS_KEYSTORE` | `EAP_HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`EAP_HTTPS_NAME` | `EAP_HTTPS_NAME` | The name associated with the server certificate | `${EAP_HTTPS_NAME}` | False
 |`EAP_HTTPS_PASSWORD` | `EAP_HTTPS_PASSWORD` | The password for the keystore and certificate | `${EAP_HTTPS_PASSWORD}` | False
-|`MQ_USERNAME` | `MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}` | False
-|`MQ_PASSWORD` | `MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}` | False
-|`AMQ_ADMIN_USERNAME` | `AMQ_ADMIN_USERNAME` | User name for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_USERNAME}` | True
-|`AMQ_ADMIN_PASSWORD` | `AMQ_ADMIN_PASSWORD` | Password for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_PASSWORD}` | True
+|`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
+|`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
+|`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
+|`MYSQL_LOWER_CASE_TABLE_NAMES` | `MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}` | False
+|`MYSQL_MAX_CONNECTIONS` | `MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}` | False
+|`MYSQL_FT_MIN_WORD_LEN` | `MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}` | False
+|`MYSQL_FT_MAX_WORD_LEN` | `MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}` | False
+|`MYSQL_AIO` | `MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}` | False
+|`HORNETQ_CLUSTER_PASSWORD` | `HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}` | True
+|`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
+|`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
@@ -61,9 +68,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |=============
 |Service        |Port  | Description
 
-|`${APPLICATION_NAME}` | 8080 | The web server's HTTP port.
-|`secure-${APPLICATION_NAME}` | 8443 | The web server's HTTPS port.
-|`${APPLICATION_NAME}-amq-tcp` | 61616 | The broker's OpenWire port.
+|`${APPLICATION_NAME}` | 8080 | The web server's http port.
+|`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
+|`${APPLICATION_NAME}-mysql` | 3306 | The database server's port.
 |=============
 
 
@@ -113,7 +120,7 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |Deployment | Triggers
 
 |`${APPLICATION_NAME}` | ImageChange
-|`${APPLICATION_NAME}-amq` | ImageChange
+|`${APPLICATION_NAME}-mysql` | ImageChange
 |============
 
 
@@ -129,7 +136,7 @@ for more information.
 |Deployment | Replicas
 
 |`${APPLICATION_NAME}` | 1
-|`${APPLICATION_NAME}-amq` | 1
+|`${APPLICATION_NAME}-mysql` | 1
 |============
 
 
@@ -156,7 +163,7 @@ information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
-|`${APPLICATION_NAME}-amq` | jboss-amq-6
+|`${APPLICATION_NAME}-mysql` | mysql
 |============
 
 
@@ -167,11 +174,6 @@ information.
 .${APPLICATION_NAME}
 ----
 /bin/bash -c /opt/eap/bin/readinessProbe.sh
-----
-
-.${APPLICATION_NAME}-amq
-----
-/bin/bash -c curl -s -L -u ${AMQ_ADMIN_USERNAME}:${AMQ_ADMIN_PASSWORD} 'http://localhost:8161/hawtio/jolokia/read/org.apache.activemq:type=Broker,brokerName=*,service=Health/CurrentStatus' | grep -q '"CurrentStatus" *: *"Good"'
 ----
 
 
@@ -186,14 +188,8 @@ information.
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
-.7+| `${APPLICATION_NAME}-amq`
-|amqp | 5672 | `TCP`
-|amqp-ssl | 5671 | `TCP`
-|mqtt | 1883 | `TCP`
-|stomp | 61613 | `TCP`
-|stomp-ssl | 61612 | `TCP`
-|tcp | 61616 | `TCP`
-|tcp-ssl | 61617 | `TCP`
+.1+| `${APPLICATION_NAME}-mysql`
+|-- | 3306 | `TCP`
 |=============
 
 
@@ -203,28 +199,34 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.13+| `${APPLICATION_NAME}`
-|`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq=MQ`
-|`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | `${MQ_JNDI}`
-|`MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
-|`MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
-|`MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | tcp
-|`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_QUEUES}`
-|`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}`
+.18+| `${APPLICATION_NAME}`
+|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
+|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | `${DB_JNDI}`
+|`DB_USERNAME` | Database user name | `${DB_USERNAME}`
+|`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
+|`DB_DATABASE` | Database name | `${DB_DATABASE}`
+|`TX_DATABASE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
+|`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
+|`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
+|`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
 |`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
 |`EAP_HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
 |`EAP_HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${EAP_HTTPS_KEYSTORE}`
 |`EAP_HTTPS_NAME` | The name associated with the server certificate | `${EAP_HTTPS_NAME}`
 |`EAP_HTTPS_PASSWORD` | The password for the keystore and certificate | `${EAP_HTTPS_PASSWORD}`
-.7+| `${APPLICATION_NAME}-amq`
-|`AMQ_USER` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
-|`AMQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
-|`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
-|`AMQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_QUEUES}`
-|`AMQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}`
-|`AMQ_ADMIN_USERNAME` | User name for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_USERNAME}`
-|`AMQ_ADMIN_PASSWORD` | Password for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_PASSWORD}`
+|`HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}`
+|`HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}`
+|`HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}`
+.8+| `${APPLICATION_NAME}-mysql`
+|`MYSQL_USER` | -- | `${DB_USERNAME}`
+|`MYSQL_PASSWORD` | -- | `${DB_PASSWORD}`
+|`MYSQL_DATABASE` | -- | `${DB_DATABASE}`
+|`MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}`
+|`MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}`
+|`MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}`
+|`MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}`
+|`MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}`
 |=======================================================================
 
 
