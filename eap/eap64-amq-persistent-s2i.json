@@ -3,22 +3,22 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass": "icon-tomcat",
-            "description": "Application template for JWS MySQL applications with persistent storage built using S2I.",
-            "tags": "tomcat,tomcat7,mysql,java,database,jboss,xpaas",
+            "description": "Application template for EAP 6 A-MQ applications with persistent storage built using S2I.",
+            "iconClass": "icon-jboss",
+            "tags": "eap,amq,javaee,java,messaging,jboss,xpaas",
             "version": "1.1.0"
         },
-        "name": "jws-tomcat7-mysql-persistent-s2i"
+        "name": "eap64-amq-persistent-s2i"
     },
     "labels": {
-        "template": "jws-tomcat7-mysql-persistent-s2i",
+        "template": "eap64-amq-persistent-s2i",
         "xpaas": "1.1.0"
     },
     "parameters": [
         {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
-            "value": "jws-app",
+            "value": "eap-app",
             "required": true
         },
         {
@@ -30,7 +30,7 @@
         {
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts.git",
             "required": true
         },
         {
@@ -42,20 +42,8 @@
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "todolist/todolist-jdbc",
+            "value": "helloworld-mdb",
             "required": false
-        },
-        {
-            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb",
-            "name": "DB_JNDI",
-            "value": "java:jboss/datasources/TodoListDS",
-            "required": false
-        },
-        {
-            "description": "Database name",
-            "name": "DB_DATABASE",
-            "value": "root",
-            "required": true
         },
         {
             "description": "Size of persistent storage for database volume.",
@@ -64,93 +52,77 @@
             "required": true
         },
         {
-            "description": "The name of the secret containing the certificate files",
-            "name": "JWS_HTTPS_SECRET",
-            "value": "jws-app-secret",
-            "required": true
-        },
-        {
-            "description": "The name of the certificate file within the secret",
-            "name": "JWS_HTTPS_CERTIFICATE",
-            "value": "server.crt",
+            "description": "JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory",
+            "name": "MQ_JNDI",
+            "value": "java:/ConnectionFactory",
             "required": false
         },
         {
-            "description": "The name of the certificate key file within the secret",
-            "name": "JWS_HTTPS_CERTIFICATE_KEY",
-            "value": "server.key",
+            "description": "Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP.",
+            "name": "MQ_PROTOCOL",
+            "value": "openwire",
             "required": false
         },
         {
-            "description": "The certificate password",
-            "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
+            "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP.",
+            "name": "MQ_QUEUES",
+            "value": "HELLOWORLDMDBQueue",
+            "required": false
+        },
+        {
+            "description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP.",
+            "name": "MQ_TOPICS",
+            "value": "HELLOWORLDMDBTopic",
+            "required": false
+        },
+        {
+            "description": "The name of the secret containing the keystore file",
+            "name": "EAP_HTTPS_SECRET",
+            "value": "eap-app-secret",
+            "required": false
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "name": "EAP_HTTPS_KEYSTORE",
+            "value": "keystore.jks",
+            "required": false
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "name": "EAP_HTTPS_NAME",
             "value": "",
             "required": false
         },
         {
-            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
-            "name": "DB_MIN_POOL_SIZE",
+            "description": "The password for the keystore and certificate",
+            "name": "EAP_HTTPS_PASSWORD",
+            "value": "",
             "required": false
         },
         {
-            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
-            "name": "DB_MAX_POOL_SIZE",
+            "description": "User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
+            "name": "MQ_USERNAME",
+            "from": "user[a-zA-Z0-9]{3}",
+            "generate": "expression",
             "required": false
         },
         {
-            "description": "Sets transaction-isolation for the configured datasource.",
-            "name": "DB_TX_ISOLATION",
+            "description": "Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
+            "name": "MQ_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
             "required": false
         },
         {
-            "description": "Sets how the table names are stored and compared.",
-            "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
-            "required": false
-        },
-        {
-            "description": "The maximum permitted number of simultaneous client connections.",
-            "name": "MYSQL_MAX_CONNECTIONS",
-            "required": false
-        },
-        {
-            "description": "The minimum length of the word to be included in a FULLTEXT index.",
-            "name": "MYSQL_FT_MIN_WORD_LEN",
-            "required": false
-        },
-        {
-            "description": "The maximum length of the word to be included in a FULLTEXT index.",
-            "name": "MYSQL_FT_MAX_WORD_LEN",
-            "required": false
-        },
-        {
-            "description": "Controls the innodb_use_native_aio setting value if the native AIO is broken.",
-            "name": "MYSQL_AIO",
-            "required": false
-        },
-        {
-            "description": "Database user name",
-            "name": "DB_USERNAME",
+            "description": "User name for broker admin. If left empty, it will be generated.",
+            "name": "AMQ_ADMIN_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
             "required": true
         },
         {
-            "description": "Database user password",
-            "name": "DB_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "description": "JWS Admin User",
-            "name": "JWS_ADMIN_USERNAME",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "description": "JWS Admin Password",
-            "name": "JWS_ADMIN_PASSWORD",
+            "description": "Password for broker admin. If left empty, it will be generated.",
+            "name": "AMQ_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
@@ -197,7 +169,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's http port."
+                    "description": "The web server's HTTP port."
                 }
             }
         },
@@ -221,7 +193,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's https port."
+                    "description": "The web server's HTTPS port."
                 }
             }
         },
@@ -231,21 +203,21 @@
             "spec": {
                 "ports": [
                     {
-                        "port": 3306,
-                        "targetPort": 3306
+                        "port": 61616,
+                        "targetPort": 61616
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
                 }
             },
             "metadata": {
-                "name": "${APPLICATION_NAME}-mysql",
+                "name": "${APPLICATION_NAME}-amq-tcp",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The database server's port."
+                    "description": "The broker's OpenWire port."
                 }
             }
         },
@@ -259,7 +231,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Route for application's http service."
+                    "description": "Route for application's HTTP service."
                 }
             },
             "spec": {
@@ -279,7 +251,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Route for application's https service."
+                    "description": "Route for application's HTTPS service."
                 }
             },
             "spec": {
@@ -327,7 +299,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-webserver30-tomcat7-openshift:1.1"
+                            "name": "jboss-eap64-openshift:1.1"
                         }
                     }
                 },
@@ -404,29 +376,29 @@
                         }
                     },
                     "spec": {
-                        "serviceAccount": "jws-service-account",
+                        "serviceAccount": "eap-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
+                                "volumeMounts": [
+                                    {
+                                        "name": "eap-keystore-volume",
+                                        "mountPath": "/etc/eap-secret-volume",
+                                        "readOnly": true
+                                    }
+                                ],
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "curl -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer&att=stateName' |grep -iq 'stateName *= *STARTED'"
+                                            "/opt/eap/bin/readinessProbe.sh"
                                         ]
                                     }
                                 },
-                                "volumeMounts": [
-                                    {
-                                        "name": "jws-certificate-volume",
-                                        "mountPath": "/etc/jws-secret-volume",
-                                        "readOnly": true
-                                    }
-                                ],
                                 "ports": [
                                     {
                                         "name": "http",
@@ -437,73 +409,78 @@
                                         "name": "https",
                                         "containerPort": 8443,
                                         "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "ping",
+                                        "containerPort": 8888,
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
                                     {
-                                        "name": "DB_SERVICE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-mysql=DB"
+                                        "name": "MQ_SERVICE_PREFIX_MAPPING",
+                                        "value": "${APPLICATION_NAME}-amq=MQ"
                                     },
                                     {
-                                        "name": "DB_JNDI",
-                                        "value": "${DB_JNDI}"
+                                        "name": "MQ_JNDI",
+                                        "value": "${MQ_JNDI}"
                                     },
                                     {
-                                        "name": "DB_USERNAME",
-                                        "value": "${DB_USERNAME}"
+                                        "name": "MQ_USERNAME",
+                                        "value": "${MQ_USERNAME}"
                                     },
                                     {
-                                        "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "name": "MQ_PASSWORD",
+                                        "value": "${MQ_PASSWORD}"
                                     },
                                     {
-                                        "name": "DB_DATABASE",
-                                        "value": "${DB_DATABASE}"
+                                        "name": "MQ_PROTOCOL",
+                                        "value": "tcp"
                                     },
                                     {
-                                        "name": "DB_MIN_POOL_SIZE",
-                                        "value": "${DB_MIN_POOL_SIZE}"
+                                        "name": "MQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
                                     },
                                     {
-                                        "name": "DB_MAX_POOL_SIZE",
-                                        "value": "${DB_MAX_POOL_SIZE}"
+                                        "name": "MQ_TOPICS",
+                                        "value": "${MQ_TOPICS}"
                                     },
                                     {
-                                        "name": "DB_TX_ISOLATION",
-                                        "value": "${DB_TX_ISOLATION}"
+                                        "name": "OPENSHIFT_KUBE_PING_LABELS",
+                                        "value": "application=${APPLICATION_NAME}"
                                     },
                                     {
-                                        "name": "JWS_HTTPS_CERTIFICATE_DIR",
-                                        "value": "/etc/jws-secret-volume"
+                                        "name": "OPENSHIFT_KUBE_PING_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
                                     },
                                     {
-                                        "name": "JWS_HTTPS_CERTIFICATE",
-                                        "value": "${JWS_HTTPS_CERTIFICATE}"
+                                        "name": "EAP_HTTPS_KEYSTORE_DIR",
+                                        "value": "/etc/eap-secret-volume"
                                     },
                                     {
-                                        "name": "JWS_HTTPS_CERTIFICATE_KEY",
-                                        "value": "${JWS_HTTPS_CERTIFICATE_KEY}"
+                                        "name": "EAP_HTTPS_KEYSTORE",
+                                        "value": "${EAP_HTTPS_KEYSTORE}"
                                     },
                                     {
-                                        "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
-                                        "value": "${JWS_HTTPS_CERTIFICATE_PASSWORD}"
+                                        "name": "EAP_HTTPS_NAME",
+                                        "value": "${EAP_HTTPS_NAME}"
                                     },
                                     {
-                                        "name": "JWS_ADMIN_USERNAME",
-                                        "value": "${JWS_ADMIN_USERNAME}"
-                                    },
-                                    {
-                                        "name": "JWS_ADMIN_PASSWORD",
-                                        "value": "${JWS_ADMIN_PASSWORD}"
+                                        "name": "EAP_HTTPS_PASSWORD",
+                                        "value": "${EAP_HTTPS_PASSWORD}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
                             {
-                                "name": "jws-certificate-volume",
+                                "name": "eap-keystore-volume",
                                 "secret": {
-                                    "secretName": "${JWS_HTTPS_SECRET}"
+                                    "secretName": "${EAP_HTTPS_SECRET}"
                                 }
                             }
                         ]
@@ -515,7 +492,7 @@
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
-                "name": "${APPLICATION_NAME}-mysql",
+                "name": "${APPLICATION_NAME}-amq",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 }
@@ -530,12 +507,12 @@
                         "imageChangeParams": {
                             "automatic": true,
                             "containerNames": [
-                                "${APPLICATION_NAME}-mysql"
+                                "${APPLICATION_NAME}-amq"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "mysql:latest"
+                                "name": "jboss-amq-62:1.1"
                             }
                         }
                     },
@@ -545,13 +522,13 @@
                 ],
                 "replicas": 1,
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
                 },
                 "template": {
                     "metadata": {
-                        "name": "${APPLICATION_NAME}-mysql",
+                        "name": "${APPLICATION_NAME}-amq",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-mysql",
+                            "deploymentConfig": "${APPLICATION_NAME}-amq",
                             "application": "${APPLICATION_NAME}"
                         }
                     },
@@ -559,61 +536,98 @@
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
-                                "name": "${APPLICATION_NAME}-mysql",
-                                "image": "mysql",
+                                "name": "${APPLICATION_NAME}-amq",
+                                "image": "jboss-amq-62",
+                                "imagePullPolicy": "Always",
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "curl -s -L -u ${AMQ_ADMIN_USERNAME}:${AMQ_ADMIN_PASSWORD} 'http://localhost:8161/hawtio/jolokia/read/org.apache.activemq:type=Broker,brokerName=*,service=Health/CurrentStatus' | grep -q '\"CurrentStatus\" *: *\"Good\"'"
+                                        ]
+                                    }
+                                },
                                 "ports": [
                                     {
-                                        "containerPort": 3306,
+                                        "name": "amqp",
+                                        "containerPort": 5672,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "amqp-ssl",
+                                        "containerPort": 5671,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "mqtt",
+                                        "containerPort": 1883,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "stomp",
+                                        "containerPort": 61613,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "stomp-ssl",
+                                        "containerPort": 61612,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "tcp",
+                                        "containerPort": 61616,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "tcp-ssl",
+                                        "containerPort": 61617,
                                         "protocol": "TCP"
                                     }
                                 ],
                                 "volumeMounts": [
                                     {
-                                        "mountPath": "/var/lib/mysql/data",
-                                        "name": "${APPLICATION_NAME}-mysql-pvol"
+                                        "mountPath": "/opt/amq/data/kahadb",
+                                        "name": "${APPLICATION_NAME}-amq-pvol"
                                     }
                                 ],
                                 "env": [
                                     {
-                                        "name": "MYSQL_USER",
-                                        "value": "${DB_USERNAME}"
+                                        "name": "AMQ_USER",
+                                        "value": "${MQ_USERNAME}"
                                     },
                                     {
-                                        "name": "MYSQL_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "name": "AMQ_PASSWORD",
+                                        "value": "${MQ_PASSWORD}"
                                     },
                                     {
-                                        "name": "MYSQL_DATABASE",
-                                        "value": "${DB_DATABASE}"
+                                        "name": "AMQ_TRANSPORTS",
+                                        "value": "${MQ_PROTOCOL}"
                                     },
                                     {
-                                        "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
-                                        "value": "${MYSQL_LOWER_CASE_TABLE_NAMES}"
+                                        "name": "AMQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
                                     },
                                     {
-                                        "name": "MYSQL_MAX_CONNECTIONS",
-                                        "value": "${MYSQL_MAX_CONNECTIONS}"
+                                        "name": "AMQ_TOPICS",
+                                        "value": "${MQ_TOPICS}"
                                     },
                                     {
-                                        "name": "MYSQL_FT_MIN_WORD_LEN",
-                                        "value": "${MYSQL_FT_MIN_WORD_LEN}"
+                                        "name": "AMQ_ADMIN_USERNAME",
+                                        "value": "${AMQ_ADMIN_USERNAME}"
                                     },
                                     {
-                                        "name": "MYSQL_FT_MAX_WORD_LEN",
-                                        "value": "${MYSQL_FT_MAX_WORD_LEN}"
-                                    },
-                                    {
-                                        "name": "MYSQL_AIO",
-                                        "value": "${MYSQL_AIO}"
+                                        "name": "AMQ_ADMIN_PASSWORD",
+                                        "value": "${AMQ_ADMIN_PASSWORD}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
                             {
-                                "name": "${APPLICATION_NAME}-mysql-pvol",
+                                "name": "${APPLICATION_NAME}-amq-pvol",
                                 "persistentVolumeClaim": {
-                                    "claimName": "${APPLICATION_NAME}-mysql-claim"
+                                    "claimName": "${APPLICATION_NAME}-amq-claim"
                                 }
                             }
                         ]
@@ -625,7 +639,7 @@
             "apiVersion": "v1",
             "kind": "PersistentVolumeClaim",
             "metadata": {
-                "name": "${APPLICATION_NAME}-mysql-claim",
+                "name": "${APPLICATION_NAME}-amq-claim",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 }

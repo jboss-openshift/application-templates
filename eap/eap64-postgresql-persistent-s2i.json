@@ -8,10 +8,10 @@
             "tags": "eap,postgresql,javaee,java,database,jboss,xpaas",
             "version": "1.1.0"
         },
-        "name": "eap6-postgresql-persistent-s2i"
+        "name": "eap64-postgresql-persistent-s2i"
     },
     "labels": {
-        "template": "eap6-postgresql-persistent-s2i",
+        "template": "eap64-postgresql-persistent-s2i",
         "xpaas": "1.1.0"
     },
     "parameters": [

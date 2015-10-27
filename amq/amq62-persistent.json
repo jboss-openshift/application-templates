@@ -8,10 +8,10 @@
             "tags": "messaging,amq,jboss,xpaas",
             "version": "1.1.0"
         },
-        "name": "amq6-persistent"
+        "name": "amq62-persistent"
     },
     "labels": {
-        "template": "amq6-persistent",
+        "template": "amq62-persistent",
         "xpaas": "1.1.0"
     },
     "parameters": [
@@ -232,7 +232,7 @@
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-amq",
-                                "image": "jboss-amq-6",
+                                "image": "jboss-amq-62",
                                 "imagePullPolicy": "Always",
                                 "volumeMounts": [
                                     {

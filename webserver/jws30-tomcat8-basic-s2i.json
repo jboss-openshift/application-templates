@@ -8,10 +8,10 @@
             "tags": "tomcat,tomcat8,java,jboss,xpaas",
             "version": "1.1.0"
         },
-        "name": "jws-tomcat8-basic-s2i"
+        "name": "jws30-tomcat8-basic-s2i"
     },
     "labels": {
-        "template": "jws-tomcat8-basic-s2i",
+        "template": "jws30-tomcat8-basic-s2i",
         "xpaas": "1.1.0"
     },
     "parameters": [

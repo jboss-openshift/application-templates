@@ -4,14 +4,14 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-tomcat",
-            "description": "Application template for JWS MySQL applications with persistent storage built using S2I.",
-            "tags": "tomcat,tomcat8,mysql,java,database,jboss,xpaas",
+            "description": "Application template for JWS MySQL applications built using S2I.",
+            "tags": "tomcat,tomcat7,mysql,java,database,jboss,xpaas",
             "version": "1.1.0"
         },
-        "name": "jws-tomcat8-mysql-persistent-s2i"
+        "name": "jws30-tomcat7-mysql-s2i"
     },
     "labels": {
-        "template": "jws-tomcat8-mysql-persistent-s2i",
+        "template": "jws30-tomcat7-mysql-s2i",
         "xpaas": "1.1.0"
     },
     "parameters": [
@@ -55,12 +55,6 @@
             "description": "Database name",
             "name": "DB_DATABASE",
             "value": "root",
-            "required": true
-        },
-        {
-            "description": "Size of persistent storage for database volume.",
-            "name": "VOLUME_CAPACITY",
-            "value": "512Mi",
             "required": true
         },
         {
@@ -327,7 +321,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-webserver30-tomcat8-openshift:1.1"
+                            "name": "jboss-webserver30-tomcat7-openshift:1.1"
                         }
                     }
                 },
@@ -567,12 +561,6 @@
                                         "protocol": "TCP"
                                     }
                                 ],
-                                "volumeMounts": [
-                                    {
-                                        "mountPath": "/var/lib/mysql/data",
-                                        "name": "${APPLICATION_NAME}-mysql-pvol"
-                                    }
-                                ],
                                 "env": [
                                     {
                                         "name": "MYSQL_USER",
@@ -608,35 +596,7 @@
                                     }
                                 ]
                             }
-                        ],
-                        "volumes": [
-                            {
-                                "name": "${APPLICATION_NAME}-mysql-pvol",
-                                "persistentVolumeClaim": {
-                                    "claimName": "${APPLICATION_NAME}-mysql-claim"
-                                }
-                            }
                         ]
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "PersistentVolumeClaim",
-            "metadata": {
-                "name": "${APPLICATION_NAME}-mysql-claim",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                }
-            },
-            "spec": {
-                "accessModes": [
-                    "ReadWriteOnce"
-                ],
-                "resources": {
-                    "requests": {
-                        "storage": "${VOLUME_CAPACITY}"
                     }
                 }
             }

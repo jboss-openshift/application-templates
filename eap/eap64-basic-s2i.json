@@ -8,10 +8,10 @@
             "tags": "eap,javaee,java,jboss,xpaas",
             "version": "1.1.0"
         },
-        "name": "eap6-basic-s2i"
+        "name": "eap64-basic-s2i"
     },
     "labels": {
-        "template": "eap6-basic-s2i",
+        "template": "eap64-basic-s2i",
         "xpaas": "1.1.0"
     },
     "parameters": [

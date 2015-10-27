@@ -8,10 +8,10 @@
             "tags": "tomcat,tomcat7,java,jboss,xpaas",
             "version": "1.1.0"
         },
-        "name": "jws-tomcat7-https-s2i"
+        "name": "jws30-tomcat7-basic-s2i"
     },
     "labels": {
-        "template": "jws-tomcat7-https-s2i",
+        "template": "jws30-tomcat7-basic-s2i",
         "xpaas": "1.1.0"
     },
     "parameters": [
@@ -43,30 +43,6 @@
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
             "value": "tomcat-websocket-chat",
-            "required": false
-        },
-        {
-            "description": "The name of the secret containing the certificate files",
-            "name": "JWS_HTTPS_SECRET",
-            "value": "jws-app-secret",
-            "required": true
-        },
-        {
-            "description": "The name of the certificate file within the secret",
-            "name": "JWS_HTTPS_CERTIFICATE",
-            "value": "server.crt",
-            "required": false
-        },
-        {
-            "description": "The name of the certificate key file within the secret",
-            "name": "JWS_HTTPS_CERTIFICATE_KEY",
-            "value": "server.key",
-            "required": false
-        },
-        {
-            "description": "The certificate password",
-            "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
-            "value": "",
             "required": false
         },
         {
@@ -130,30 +106,6 @@
             }
         },
         {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 8443,
-                        "targetPort": 8443
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            },
-            "metadata": {
-                "name": "secure-${APPLICATION_NAME}",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "The web server's https port."
-                }
-            }
-        },
-        {
             "kind": "Route",
             "apiVersion": "v1",
             "id": "${APPLICATION_NAME}-http",
@@ -170,29 +122,6 @@
                 "host": "${APPLICATION_DOMAIN}",
                 "to": {
                     "name": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-https",
-            "metadata": {
-                "name": "secure-${APPLICATION_NAME}",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Route for application's https service."
-                }
-            },
-            "spec": {
-                "host": "${APPLICATION_DOMAIN}",
-                "to": {
-                    "name": "secure-${APPLICATION_NAME}"
-                },
-                "tls": {
-                    "termination": "passthrough"
                 }
             }
         },
@@ -308,7 +237,6 @@
                         }
                     },
                     "spec": {
-                        "serviceAccount": "jws-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
@@ -324,42 +252,14 @@
                                         ]
                                     }
                                 },
-                                "volumeMounts": [
-                                    {
-                                        "name": "jws-certificate-volume",
-                                        "mountPath": "/etc/jws-secret-volume",
-                                        "readOnly": true
-                                    }
-                                ],
                                 "ports": [
                                     {
                                         "name": "http",
                                         "containerPort": 8080,
                                         "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "https",
-                                        "containerPort": 8443,
-                                        "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
-                                    {
-                                        "name": "JWS_HTTPS_CERTIFICATE_DIR",
-                                        "value": "/etc/jws-secret-volume"
-                                    },
-                                    {
-                                        "name": "JWS_HTTPS_CERTIFICATE",
-                                        "value": "${JWS_HTTPS_CERTIFICATE}"
-                                    },
-                                    {
-                                        "name": "JWS_HTTPS_CERTIFICATE_KEY",
-                                        "value": "${JWS_HTTPS_CERTIFICATE_KEY}"
-                                    },
-                                    {
-                                        "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
-                                        "value": "${JWS_HTTPS_CERTIFICATE_PASSWORD}"
-                                    },
                                     {
                                         "name": "JWS_ADMIN_USERNAME",
                                         "value": "${JWS_ADMIN_USERNAME}"
@@ -369,14 +269,6 @@
                                         "value": "${JWS_ADMIN_PASSWORD}"
                                     }
                                 ]
-                            }
-                        ],
-                        "volumes": [
-                            {
-                                "name": "jws-certificate-volume",
-                                "secret": {
-                                    "secretName": "${JWS_HTTPS_SECRET}"
-                                }
                             }
                         ]
                     }
