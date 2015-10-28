@@ -285,7 +285,6 @@
             "value": "",
             "required": false
         },
-
         {
             "description": "",
             "name": "ENCRYPTION_SECURITY_REALM",
@@ -298,7 +297,6 @@
             "value": "",
             "required": false
         },
-
         {
             "description": "The cache container used by the memcached connector (defaults to 'clustered')",
             "name": "MEMCACHED_CACHE_CONTAINER",
@@ -353,7 +351,6 @@
             "value": "",
             "required": false
         },
-
         {
             "description": "The virtual server used by the REST connector (defaults to 'default-host')",
             "name": "REST_VIRTUAL_SERVER",
@@ -393,6 +390,30 @@
         {
             "description": "",
             "name": "REST_EXTENDED_HEADERS",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name of the secret containing the keystore file",
+            "name": "JDG_JGROUPS_ENCRYPT_SECRET",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "name": "JDG_JGROUPS_ENCRYPT_KEYSTORE",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "name": "JDG_JGROUPS_ENCRYPT_NAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "name": "JDG_JGROUPS_ENCRYPT_PASSWORD",
             "value": "",
             "required": false
         }
@@ -848,7 +869,6 @@
                                         "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
                                         "value": "${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}"
                                     },
-
                                     {
                                         "name": "MEMCACHED_CACHE_CONTAINER",
                                         "value": "${MEMCACHED_CACHE_CONTAINER}"
@@ -885,7 +905,6 @@
                                         "name": "MEMCACHED_RECEIVE_BUFFER_SIZE",
                                         "value": "${MEMCACHED_RECEIVE_BUFFER_SIZE}"
                                     },
-
                                     {
                                         "name": "REST_VIRTUAL_SERVER",
                                         "value": "${REST_VIRTUAL_SERVER}"
@@ -913,6 +932,22 @@
                                     {
                                         "name": "REST_EXTENDED_HEADERS",
                                         "value": "${REST_EXTENDED_HEADERS}"
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_SECRET",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_SECRET}"
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_KEYSTORE",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_NAME",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_NAME}"
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_PASSWORD",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_PASSWORD}"
                                     }
                                 ]
                             }
