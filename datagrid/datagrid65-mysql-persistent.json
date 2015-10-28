@@ -130,6 +130,7 @@
             "required": true
         },
         {
+<<<<<<< HEAD
             "description": "Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest')",
             "name": "INFINISPAN_CONNECTORS",
             "value": "hotrod,memcached,rest",
@@ -402,7 +403,7 @@
         {
             "description": "The method used to retrieve credentials for the REST endpoint (defaults to 'BASIC')",
             "name": "REST_AUTH_METHOD",
-            "value": "",
+             "value": "",
             "required": false
         },
         {
@@ -414,6 +415,30 @@
         {
             "description": "",
             "name": "REST_EXTENDED_HEADERS",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name of the secret containing the keystore file",
+            "name": "JDG_JGROUPS_ENCRYPT_SECRET",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "name": "JDG_JGROUPS_ENCRYPT_KEYSTORE",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "name": "JDG_JGROUPS_ENCRYPT_NAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "name": "JDG_JGROUPS_ENCRYPT_PASSWORD",
             "value": "",
             "required": false
         }
@@ -931,6 +956,22 @@
                                     {
                                         "name": "REST_EXTENDED_HEADERS",
                                         "value": "${REST_EXTENDED_HEADERS}"
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_SECRET",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_SECRET}"
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_KEYSTORE",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_NAME",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_NAME}"
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_PASSWORD",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_PASSWORD}"
                                     }
                                 ]
                             }
