@@ -32,6 +32,30 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
+        },
+        {
+            "description": "The name of the secret containing the keystore file",
+            "name": "JDG_JGROUPS_ENCRYPT_SECRET",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "name": "JDG_JGROUPS_ENCRYPT_KEYSTORE",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "name": "JDG_JGROUPS_ENCRYPT_NAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "name": "JDG_JGROUPS_ENCRYPT_PASSWORD",
+            "value": "",
+            "required": false
         }
     ],
     "objects": [
@@ -214,6 +238,13 @@
                                 "name": "${APPLICATION_NAME}",
                                 "image": "jboss-datagrid65-openshift",
                                 "imagePullPolicy": "Always",
+                                "volumeMounts": [
+                                    {
+                                        "name": "datagrid-jgroups-encrypt-keystore-volume",
+                                        "mountPath": "/etc/datagrid-jgroups-encrypt-secret-volume",
+                                        "readOnly": true
+                                    }
+                                ],
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [
@@ -257,8 +288,32 @@
                                                 "fieldPath": "metadata.namespace"
                                             }
                                         }
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_SECRET",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_SECRET}"
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_KEYSTORE",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_NAME",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_NAME}"
+                                    },
+                                    {
+                                        "name": "JDG_JGROUPS_ENCRYPT_PASSWORD",
+                                        "value": "${JDG_JGROUPS_ENCRYPT_PASSWORD}"
                                     }
                                 ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "datagrid-jgroups-encrypt-keystore-volume",
+                                "secret": {
+                                    "secretName": "${JDG_JGROUPS_ENCRYPT_SECRET}"
+                                }
                             }
                         ]
                     }
