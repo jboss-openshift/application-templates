@@ -18,13 +18,14 @@ from ptemplate.template import Template
 GIT_REPO = "https://github.com/jboss-openshift/application-templates.git"
 REPO_NAME = "application-templates/"
 TEMPLATE_DOCS = "docs/"
-APPLICATION_DIRECTORIES = ("amq","eap","webserver")
-template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', ]
+APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","datagrid")
+template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'datagrid']
 amq_ssl_desc = None
 
-LINKS =  {"jboss-eap64-openshift:1.1":               "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap-openshift`]", \
-          "jboss-webserver30-tomcat7-openshift:1.1": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver/tomcat7-openshift`]", \
-          "jboss-webserver30-tomcat8-openshift:1.1": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver/tomcat8-openshift`]"};
+LINKS =  {"jboss-eap64-openshift:1.2":               "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]", \
+          "jboss-webserver30-tomcat7-openshift:1.2": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver-3/webserver30-tomcat7-openshift`]", \
+          "jboss-webserver30-tomcat8-openshift:1.2": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver30-tomcat8-openshift`]",
+          "jboss-decisionserver62-openshift:1.2": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`]"};
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
                    "SOURCE_REPOSITORY_URL": "https://github.com/jboss-openshift/openshift-examples.git", \
@@ -256,7 +257,9 @@ def createContainerTable(data, table):
 fullname = {
     "amq":       "JBoss A-MQ",
     "eap":       "JBoss EAP",
-    "webserver": "JBoss Web Server"
+    "webserver": "JBoss Web Server",
+    "decisionserver": "JBoss BRMS Realtime Decision Server",
+    "datagrid": "JBoss Data Grid"
 }
 
 def generate_readme():
