@@ -378,7 +378,7 @@
         {
             "description": "The method used to retrieve credentials for the REST endpoint (defaults to 'BASIC')",
             "name": "REST_AUTH_METHOD",
-            "value": "",
+             "value": "",
             "required": false
         },
         {
