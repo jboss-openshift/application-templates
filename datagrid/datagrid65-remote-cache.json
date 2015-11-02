@@ -184,7 +184,6 @@
             "required": true
         },
         {
-<<<<<<< HEAD
             "description": "Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest')",
             "name": "INFINISPAN_CONNECTORS",
             "value": "hotrod,memcached,rest",
