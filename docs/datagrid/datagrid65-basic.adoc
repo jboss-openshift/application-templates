@@ -26,6 +26,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`APPLICATION_NAME` | -- | The name for the application. | datagrid-app | True
 |`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
+|`JDG_JGROUPS_ENCRYPT_SECRET` | -- | The name of the secret containing the keystore file. | jdg-jgroups-encrypt-secret | False
+|`JDG_JGROUPS_ENCRYPT_KEYSTORE` | -- | "The name of the keystore file within the secret. | keystore.jks | False
+|`JDG_JGROUPS_ENCRYPT_NAME` | -- | The name associated with the server certificate. | jboss | False
+|`JDG_JGROUPS_ENCRYPT_PASSWORD` | -- | The password for the keystore and certificate. | mykeystorepass | False
 |=======================================================================
 
 
