@@ -487,26 +487,6 @@
             }
         },
         {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-memcached",
-            "metadata": {
-                "name": "${APPLICATION_NAME}-memcached",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Route for application's memcached service."
-                }
-            },
-            "spec": {
-                "host": "${APPLICATION_DOMAIN}",
-                "to": {
-                    "name": "${APPLICATION_NAME}-memcached"
-                }
-            }
-        },
-        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
