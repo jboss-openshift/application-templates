@@ -56,6 +56,294 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
+        },
+        {
+            "description": "Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest')",
+            "name": "INFINISPAN_CONNECTORS",
+            "value": "hotrod,memcached,rest",
+            "required": false
+        },
+
+        {
+            "description": "The cache container used by the Hot Rod connector (defaults to 'clustered')",
+            "name": "HOTROD_CACHE_CONTAINER",
+            "value": "clustered",
+            "required": true
+        },
+        {
+            "description": "The socket binding port used by the Hot Rod connector (defaults to 'hotrod')",
+            "name": "HOTROD_SOCKET_BINDING",
+            "value": "hotrod",
+            "required": true
+        },
+        {
+            "description": "",
+            "name": "HOTROD_NAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The number of worker threads available for the Hot Rod connector (defaults to 160)",
+            "name": "HOTROD_WORKER_THREADS",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The time (in milliseconds) the connector can remain idle before the connection times out (defaults to -1 - no timeout)",
+            "name": "HOTROD_IDLE_TIMEOUT",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Whether TCP packets will be delayed and sent out in batches (defaults to true)",
+            "name": "HOTROD_TCP_NODELAY",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The size of the send buffer for the Hot Rod connector (defaults to size of the TCP stack buffer)",
+            "name": "HOTROD_SEND_BUFFER_SIZE",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The size of the receive buffer for the Hot Rod connector (defaults to size of the TCP stack buffer)",
+            "name": "HOTROD_RECEIVE_BUFFER_SIZE",
+            "value": "",
+            "required": false
+        },
+
+        {
+            "description": "",
+            "name": "TOPOLOGY_CACHE_SUFFIX",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The time (in milliseconds) after which the operation attempting to obtain a lock times out (defaults to 10 seconds)",
+            "name": "TOPOLOGY_LOCK_TIMEOUT",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The time (in milliseconds) after which the replication operation times out (defaults to 10 seconds)",
+            "name": "TOPOLOGY_REPLICATION_TIMEOUT",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The hostname sent by the Hot Rod server to clients listed in the topology information (defaults to the host address)",
+            "name": "TOPOLOGY_EXTERNAL_HOST",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The port sent by the Hot Rod server to clients listed in the topology information (defaults to the configured port)",
+            "name": "TOPOLOGY_EXTERNAL_PORT",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Whether the Hot Rod connector will carry out retrieval operations lazily (defaults to true)",
+            "name": "TOPOLOGY_LAZY_RETRIEVAL",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Whether the initial state retrieval happens immediately at startup; applies only when TOPOLOGY_LAZY_RETRIEVAL is set to false (defaults to true)",
+            "name": "TOPOLOGY_AWAIT_INITIAL_TRANSFER",
+            "value": "",
+            "required": false
+        },
+
+        {
+            "description": "",
+            "name": "AUTHENTICATION_SECURITY_REALM",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_SERVER_NAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_SECURITY_CONTEXT_NAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_MECHANISMS",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_QOP",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_STRENGTH",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_POLICY_FORWARD_SECRECY",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_POLICY_NO_ACTIVE",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_POLICY_NO_ANONYMOUS",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_POLICY_NO_DICTIONARY",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_POLICY_NO_PLAIN_TEXT",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_POLICY_PASS_CREDENTIALS",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "SASL_PROPERTIES",
+            "value": "",
+            "required": false
+        },
+
+        {
+            "description": "",
+            "name": "ENCRYPTION_SECURITY_REALM",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
+            "value": "",
+            "required": false
+        },
+
+        {
+            "description": "The cache container used by the memcached connector (defaults to 'clustered')",
+            "name": "MEMCACHED_CACHE_CONTAINER",
+            "value": "clustered",
+            "required": true
+        },
+        {
+            "description": "The name of the cache to expose through this memcached connector (defaults to 'default')",
+            "name": "MEMCACHED_CACHE",
+            "value": "default",
+            "required": false
+        },
+        {
+            "description": "The socked binding port used by the memcached connector (defaults to 'memcached')",
+            "name": "MEMCACHED_SOCKET_BINDING",
+            "value": "memcached",
+            "required": true
+        },
+        {
+            "description": "The name of this memcached connector (defaults to 'memcached')",
+            "name": "MEMCACHED_NAME",
+            "value": "memcached",
+            "required": false
+        },
+        {
+            "description": "The number of worker threads available for the memcached connector (defaults to 160)",
+            "name": "MEMCACHED_WORKER_THREADS",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The time (in milliseconds) the connector can remain idle before the connection times out (defaults to -1 - no timeout)",
+            "name": "MEMCACHED_IDLE_TIMEOUT",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Whether TCP packets will be delayed and sent out in batches (defaults to true)",
+            "name": "MEMCACHED_TCP_NODELAY",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The size of the send buffer for the memcached connector (defaults to the size of the TCP stack buffer)",
+            "name": "MEMCACHED_SEND_BUFFER_SIZE",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The size of the receive buffer for the memcached connector (defaults to the size of the TCP stack buffer)",
+            "name": "MEMCACHED_RECEIVE_BUFFER_SIZE",
+            "value": "",
+            "required": false
+        },
+
+        {
+            "description": "The virtual server used by the REST connector (defaults to 'default-host')",
+            "name": "REST_VIRTUAL_SERVER",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The cache container used by the REST connector (defaults to 'clustered')",
+            "name": "REST_CACHE_CONTAINER",
+            "value": "clustered",
+            "required": true
+        },
+        {
+            "description": "The context path for the REST connector (defaults to '')",
+            "name": "REST_CONTEXT_PATH",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint",
+            "name": "REST_SECURITY_DOMAIN",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The method used to retrieve credentials for the REST endpoint (defaults to 'BASIC')",
+            "name": "REST_AUTH_METHOD",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Whether authentication is required only for WRITE operations or for READ operations as well (defaults to 'READ_WRITE')",
+            "name": "REST_SECURITY_MODE",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "",
+            "name": "REST_EXTENDED_HEADERS",
+            "value": "",
+            "required": false
         }
     ],
     "objects": [
@@ -219,26 +507,6 @@
             }
         },
         {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-hotrod",
-            "metadata": {
-                "name": "${APPLICATION_NAME}-hotrod",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Route for application's hotrod service."
-                }
-            },
-            "spec": {
-                "host": "${APPLICATION_DOMAIN}",
-                "to": {
-                    "name": "${APPLICATION_NAME}-hotrod"
-                }
-            }
-        },
-        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -362,6 +630,196 @@
                                                 "fieldPath": "metadata.namespace"
                                             }
                                         }
+                                    },
+                                    {
+                                        "name": "INFINISPAN_CONNECTORS",
+                                        "value": "${INFINISPAN_CONNECTORS}"
+                                    },
+                                    {
+                                        "name": "HOTROD_CACHE_CONTAINER",
+                                        "value": "${HOTROD_CACHE_CONTAINER}"
+                                    },
+                                    {
+                                        "name": "HOTROD_SOCKET_BINDING",
+                                        "value": "${HOTROD_SOCKET_BINDING}"
+                                    },
+                                    {
+                                        "name": "HOTROD_NAME",
+                                        "value": "${HOTROD_NAME}"
+                                    },
+                                    {
+                                        "name": "HOTROD_WORKER_THREADS",
+                                        "value": "${HOTROD_WORKER_THREADS}"
+                                    },
+                                    {
+                                        "name": "HOTROD_IDLE_TIMEOUT",
+                                        "value": "${HOTROD_IDLE_TIMEOUT}"
+                                    },
+                                    {
+                                        "name": "HOTROD_TCP_NODELAY",
+                                        "value": "${HOTROD_TCP_NODELAY}"
+                                    },
+                                    {
+                                        "name": "HOTROD_SEND_BUFFER_SIZE",
+                                        "value": "${HOTROD_SEND_BUFFER_SIZE}"
+                                    },
+                                    {
+                                        "name": "HOTROD_RECEIVE_BUFFER_SIZE",
+                                        "value": "${HOTROD_RECEIVE_BUFFER_SIZE}"
+                                    },
+                                    {
+                                        "name": "TOPOLOGY_CACHE_SUFFIX",
+                                        "value": "${TOPOLOGY_CACHE_SUFFIX}"
+                                    },
+                                    {
+                                        "name": "TOPOLOGY_LOCK_TIMEOUT",
+                                        "value": "${TOPOLOGY_LOCK_TIMEOUT}"
+                                    },
+                                    {
+                                        "name": "TOPOLOGY_REPLICATION_TIMEOUT",
+                                        "value": "${TOPOLOGY_REPLICATION_TIMEOUT}"
+                                    },
+                                    {
+                                        "name": "TOPOLOGY_EXTERNAL_HOST",
+                                        "value": "${TOPOLOGY_EXTERNAL_HOST}"
+                                    },
+                                    {
+                                        "name": "TOPOLOGY_EXTERNAL_PORT",
+                                        "value": "${TOPOLOGY_EXTERNAL_PORT}"
+                                    },
+                                    {
+                                        "name": "TOPOLOGY_LAZY_RETRIEVAL",
+                                        "value": "${TOPOLOGY_LAZY_RETRIEVAL}"
+                                    },
+                                    {
+                                        "name": "TOPOLOGY_AWAIT_INITIAL_TRANSFER",
+                                        "value": "${TOPOLOGY_AWAIT_INITIAL_TRANSFER}"
+                                    },
+                                    {
+                                        "name": "AUTHENTICATION_SECURITY_REALM",
+                                        "value": "${AUTHENTICATION_SECURITY_REALM}"
+                                    },
+                                    {
+                                        "name": "SASL_SERVER_NAME",
+                                        "value": "${SASL_SERVER_NAME}"
+                                    },
+                                    {
+                                        "name": "SASL_SECURITY_CONTEXT_NAME",
+                                        "value": "${SASL_SECURITY_CONTEXT_NAME}"
+                                    },
+                                    {
+                                        "name": "SASL_MECHANISMS",
+                                        "value": "${SASL_MECHANISMS}"
+                                    },
+                                    {
+                                        "name": "SASL_QOP",
+                                        "value": "${SASL_QOP}"
+                                    },
+                                    {
+                                        "name": "SASL_STRENGTH",
+                                        "value": "${SASL_STRENGTH}"
+                                    },
+                                    {
+                                        "name": "SASL_POLICY_FORWARD_SECRECY",
+                                        "value": "${SASL_POLICY_FORWARD_SECRECY}"
+                                    },
+                                    {
+                                        "name": "SASL_POLICY_NO_ACTIVE",
+                                        "value": "${SASL_POLICY_NO_ACTIVE}"
+                                    },
+                                    {
+                                        "name": "SASL_POLICY_NO_ANONYMOUS",
+                                        "value": "${SASL_POLICY_NO_ANONYMOUS}"
+                                    },
+                                    {
+                                        "name": "SASL_POLICY_NO_DICTIONARY",
+                                        "value": "${SASL_POLICY_NO_DICTIONARY}"
+                                    },
+                                    {
+                                        "name": "SASL_POLICY_NO_PLAIN_TEXT",
+                                        "value": "${SASL_POLICY_NO_PLAIN_TEXT}"
+                                    },
+                                    {
+                                        "name": "SASL_POLICY_PASS_CREDENTIALS",
+                                        "value": "${SASL_POLICY_PASS_CREDENTIALS}"
+                                    },
+                                    {
+                                        "name": "SASL_PROPERTIES",
+                                        "value": "${SASL_PROPERTIES}"
+                                    },
+                                    {
+                                        "name": "ENCRYPTION_SECURITY_REALM",
+                                        "value": "${ENCRYPTION_SECURITY_REALM}"
+                                    },
+                                    {
+                                        "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
+                                        "value": "${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}"
+                                    },
+
+                                    {
+                                        "name": "MEMCACHED_CACHE_CONTAINER",
+                                        "value": "${MEMCACHED_CACHE_CONTAINER}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_CACHE",
+                                        "value": "${MEMCACHED_CACHE}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_SOCKET_BINDING",
+                                        "value": "${MEMCACHED_SOCKET_BINDING}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_NAME",
+                                        "value": "${MEMCACHED_NAME}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_WORKER_THREADS",
+                                        "value": "${MEMCACHED_WORKER_THREADS}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_IDLE_TIMEOUT",
+                                        "value": "${MEMCACHED_IDLE_TIMEOUT}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_TCP_NODELAY",
+                                        "value": "${MEMCACHED_TCP_NODELAY}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_SEND_BUFFER_SIZE",
+                                        "value": "${MEMCACHED_SEND_BUFFER_SIZE}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_RECEIVE_BUFFER_SIZE",
+                                        "value": "${MEMCACHED_RECEIVE_BUFFER_SIZE}"
+                                    },
+
+                                    {
+                                        "name": "REST_VIRTUAL_SERVER",
+                                        "value": "${REST_VIRTUAL_SERVER}"
+                                    },
+                                    {
+                                        "name": "REST_CACHE_CONTAINER",
+                                        "value": "${REST_CACHE_CONTAINER}"
+                                    },
+                                    {
+                                        "name": "REST_CONTEXT_PATH",
+                                        "value": "${REST_CONTEXT_PATH}"
+                                    },
+                                    {
+                                        "name": "REST_SECURITY_DOMAIN",
+                                        "value": "${REST_SECURITY_DOMAIN}"
+                                    },
+                                    {
+                                        "name": "REST_AUTH_METHOD",
+                                        "value": "${REST_AUTH_METHOD}"
+                                    },
+                                    {
+                                        "name": "REST_SECURITY_MODE",
+                                        "value": "${REST_SECURITY_MODE}"
+                                    },
+                                    {
+                                        "name": "REST_EXTENDED_HEADERS",
+                                        "value": "${REST_EXTENDED_HEADERS}"
                                     }
                                 ]
                             }
