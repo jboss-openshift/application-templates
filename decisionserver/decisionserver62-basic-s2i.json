@@ -21,13 +21,13 @@
             "required": true
         },
         {
-            "description": "The user name to access the KIE Server REST interface.",
+            "description": "The user name to access the KIE Server REST or JMS interface.",
             "name": "KIE_SERVER_USER",
             "value": "kieserver",
             "required": false
         },
         {
-            "description": "The password to access the KIE Server REST interface.",
+            "description": "The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s).",
             "name": "KIE_SERVER_PASSWORD",
             "from": "[a-zA-Z]{6}[0-9]{1}!",
             "generate": "expression",
