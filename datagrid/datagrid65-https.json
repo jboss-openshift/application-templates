@@ -362,6 +362,13 @@
             "name": "JDG_JGROUPS_ENCRYPT_PASSWORD",
             "value": "",
             "required": false
+        },
+        {
+            "description": "JGroups cluster password",
+            "name": "JGROUPS_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
         }
     ],
     "objects": [
@@ -832,6 +839,10 @@
                                     {
                                         "name": "JDG_JGROUPS_ENCRYPT_PASSWORD",
                                         "value": "${JDG_JGROUPS_ENCRYPT_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "JGROUPS_CLUSTER_PASSWORD",
+                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     }
                                 ]
                             }
