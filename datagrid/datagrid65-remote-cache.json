@@ -680,6 +680,7 @@
                     },
                     "spec": {
                         "serviceAccount": "datagrid-service-account",
+                        "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
