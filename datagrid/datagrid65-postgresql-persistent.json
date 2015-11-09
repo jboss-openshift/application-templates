@@ -34,6 +34,18 @@
             "required": false
         },
         {
+            "description": "User name for JDG user.",
+            "name": "USERNAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Password for JDG user.",
+            "name": "PASSWORD",
+            "value": "",
+            "required": false
+        },
+        {
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
             "value": "datagrid-app-secret",
@@ -455,6 +467,14 @@
                                     }
                                 ],
                                 "env": [
+                                    {
+                                        "name": "USERNAME",
+                                        "value": "${USERNAME}"
+                                    },
+                                    {
+                                        "name": "PASSWORD",
+                                        "value": "${PASSWORD}"
+                                    },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
                                         "value": "/etc/datagrid-secret-volume"

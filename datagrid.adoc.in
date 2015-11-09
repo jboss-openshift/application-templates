@@ -1,0 +1,12 @@
+For simple authentication, set
+
+  USERNAME=<username>
+  PASSWORD=<password>
+
+This will enable user authentication with the datagrid. Provided username and password will be used to access the cache over both HTTPS and HotRod. With this case, the user will have all permissions configured.
+
+Restrictions for password:
+
+  at least 8 characters
+  at least 1 digit
+  at least 1 non-alphanumeric symbol
