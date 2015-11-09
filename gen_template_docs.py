@@ -88,6 +88,12 @@ def createTemplate(data, path):
                 amq_ssl_desc = tmp.read()
         tdata['description'] += "\n\n" + amq_ssl_desc
 
+    # special case: JDG templates have additional description
+    if re.match('datagrid', path):
+        with open('datagrid.adoc.in','r') as tmp:
+            datagrid_desc = tmp.read()
+            tdata['description'] += "\n\n" + datagrid_desc
+
     # Fill in template parameters table, if there are any
     if ("parameters" in data and "objects" in data) and len(data["parameters"]) > 0:
         tdata['parameters'] = [{ 'parametertable': createParameterTable(data) }]
