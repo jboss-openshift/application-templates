@@ -1025,6 +1025,9 @@
                                 "name": "mysql:latest"
                             }
                         }
+                    },
+                    {
+                        "type": "ConfigChange"
                     }
                 ],
                 "replicas": 1,

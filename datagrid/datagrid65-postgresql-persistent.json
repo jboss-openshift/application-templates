@@ -1015,6 +1015,9 @@
                                 "name": "postgresql:latest"
                             }
                         }
+                    },
+                    {
+                        "type": "ConfigChange"
                     }
                 ],
                 "replicas": 1,

@@ -664,6 +664,9 @@
                                 "name": "jboss-datagrid65-openshift:1.2"
                             }
                         }
+                    },
+                    {
+                        "type": "ConfigChange"
                     }
                 ],
                 "replicas": 1,
