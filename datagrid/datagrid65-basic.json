@@ -488,6 +488,15 @@
                                 "name": "${APPLICATION_NAME}",
                                 "image": "jboss-datagrid65-openshift",
                                 "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/datagrid/bin/livenessProbe.sh"
+                                        ]
+                                    }
+                                },
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [

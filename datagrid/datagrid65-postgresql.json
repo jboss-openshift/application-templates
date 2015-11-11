@@ -647,6 +647,15 @@
                                         "readOnly": true
                                     }
                                 ],
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/datagrid/bin/livenessProbe.sh"
+                                        ]
+                                    }
+                                },
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [
