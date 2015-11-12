@@ -18,7 +18,8 @@
         {
             "description": "The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
             "name": "KIE_CONTAINER_DEPLOYMENT",
-            "required": true
+            "value": "HelloRulesContainer=org.openshift.quickstarts:decisionserver-hellorules:1.0.0-SNAPSHOT",
+            "required": false
         },
         {
             "description": "The user name to access the KIE Server REST or JMS interface.",
@@ -114,13 +115,13 @@
         {
             "description": "The name associated with the server certificate",
             "name": "EAP_HTTPS_NAME",
-            "value": "",
+            "value": "jboss",
             "required": false
         },
         {
             "description": "The password for the keystore and certificate",
             "name": "EAP_HTTPS_PASSWORD",
-            "value": "",
+            "value": "mykeystorepass",
             "required": false
         },
         {
