@@ -264,15 +264,6 @@
                                         ]
                                     }
                                 },
-                                "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "/opt/eap/bin/livenessProbe.sh"
-                                        ]
-                                    }
-                                },
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [
