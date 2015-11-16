@@ -6,6 +6,7 @@
  * Encrypt JGroups communication (EAP based templates)
  * JMS physical names
  * Add Jolokia port to templates
+ * Renamed APPLICATION_DOMAIN to HOSTNAME_HTTP and HOSTNAME_HTTPS to correspond to http and https routes
 
 == Release 1.1.0
  * Added terminationGracePeriodSeconds to pod templates
