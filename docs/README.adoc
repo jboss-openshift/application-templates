@@ -74,3 +74,7 @@ toc::[levels=1]
 * link:./datagrid/datagrid65-mysql-persistent.adoc[datagrid65-mysql-persistent]
 * link:./datagrid/datagrid65-postgresql-persistent.adoc[datagrid65-postgresql-persistent]
 * link:./datagrid/datagrid65-mysql.adoc[datagrid65-mysql]
+
+= Release Notes
+
+include::./release-notes.adoc[]

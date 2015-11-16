@@ -1,0 +1,38 @@
+
+== Release 1.2.0
+ * Added support for JBoss Data Grid
+ * Added support for JBoss Decision Server
+ * Added liveness probe to EAP templates
+ * Encrypt JGroups communication (EAP based templates)
+ * JMS physical names
+ * Add Jolokia port to templates
+
+== Release 1.1.0
+ * Added terminationGracePeriodSeconds to pod templates
+ * Renamed templates:
+ ** Include product minor version in names (e.g. eap6-basic-s2i => eap64-basic-s2i)
+ ** Replaced sti with s2i
+ * Add ConfigChange trigger to DeploymentConfig in all templates
+ * Set appropriate defaults so all templates can be instantiated as-is
+ * Image names and tags have changed from product release to xPaaS release (e.g. jboss-eap-6/eap6-openshift:6.4 => jboss-eap-6/eap64-openshift:1.1)
+ * ImageStream names have changed to include minor version in names (e.g. jboss-eap6-openshift => jboss-eap64-openshift) 
+ * Use Kubernetes to locate cluster nodes instead of DNS (e.g. KUBE_PING vs DNS_PING in JGroups configuration)
+ * Add ConfigChange trigger to BuildConfig in all templates
+ * Add forcePull=true to BuildConfig in all templates
+ * Add required=true to all required parameters
+ * Fix inconsistency in A-MQ templates, MQ_PROTOCOL and AMQ_TRANSPORTS
+ * Modified route names to produce better default hostnames
+ * Updated source parameter names to be consistent with other OpenShift templates (e.g. GIT_URI => SOURCE_REPOSITORY_URL)
+ * Add missing mqtt+ssl port to A-MQ templates
+ * Add parameter to select ImageStream namespace, defaulting to "openshift"
+
+== Release 1.0.2
+ * Fix capitalization of GitHub trigger type
+
+== Release 1.0.1
+ * Shorten port names
+ * update deprecated items in BuildConfig
+
+== Release 1.0.0
+ * Initial release with support for JBoss EAP, JBoss Web Server, and JBoss A-MQ
+
