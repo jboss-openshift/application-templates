@@ -24,7 +24,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`APPLICATION_NAME` | -- | The name for the application. | jws-app | True
-|`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
+|`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
+|`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.1 | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-jdbc | False
@@ -84,8 +85,8 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-|`${APPLICATION_NAME}-http` | none | `${APPLICATION_DOMAIN}`
-|`${APPLICATION_NAME}-https` | TLS passthrough | `${APPLICATION_DOMAIN}`
+|`${APPLICATION_NAME}-http` | none | `${HOSTNAME_HTTP}`
+|`${APPLICATION_NAME}-https` | TLS passthrough | `${HOSTNAME_HTTPS}`
 |=============
 
 
@@ -183,7 +184,8 @@ information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.2+| `${APPLICATION_NAME}`
+.3+| `${APPLICATION_NAME}`
+|jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 .1+| `${APPLICATION_NAME}-mysql`

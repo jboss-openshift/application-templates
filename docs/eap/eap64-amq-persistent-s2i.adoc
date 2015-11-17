@@ -24,9 +24,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
-|`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
-|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts.git | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.1 | False
+|`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
+|`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts.git | True
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 6.4.x | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld-mdb | False
 |`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
 |`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | java:/ConnectionFactory | False
@@ -44,6 +45,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
+|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |=======================================================================
 
 
@@ -79,8 +81,8 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-|`${APPLICATION_NAME}-http` | none | `${APPLICATION_DOMAIN}`
-|`${APPLICATION_NAME}-https` | TLS passthrough | `${APPLICATION_DOMAIN}`
+|`${APPLICATION_NAME}-http` | none | `${HOSTNAME_HTTP}`
+|`${APPLICATION_NAME}-https` | TLS passthrough | `${HOSTNAME_HTTPS}`
 |=============
 
 
@@ -183,7 +185,8 @@ information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.3+| `${APPLICATION_NAME}`
+.4+| `${APPLICATION_NAME}`
+|jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
@@ -204,7 +207,7 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.13+| `${APPLICATION_NAME}`
+.14+| `${APPLICATION_NAME}`
 |`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq=MQ`
 |`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | `${MQ_JNDI}`
 |`MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
@@ -218,6 +221,7 @@ information.
 |`EAP_HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${EAP_HTTPS_KEYSTORE}`
 |`EAP_HTTPS_NAME` | The name associated with the server certificate | `${EAP_HTTPS_NAME}`
 |`EAP_HTTPS_PASSWORD` | The password for the keystore and certificate | `${EAP_HTTPS_PASSWORD}`
+|`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 .7+| `${APPLICATION_NAME}-amq`
 |`AMQ_USER` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
 |`AMQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`

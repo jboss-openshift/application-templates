@@ -23,11 +23,11 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | `${KIE_CONTAINER_DEPLOYMENT}` | True
-|`KIE_SERVER_USER` | `KIE_SERVER_USER` | The user name to access the KIE Server REST interface. | kieserver | False
-|`KIE_SERVER_PASSWORD` | `KIE_SERVER_PASSWORD` | The password to access the KIE Server REST interface. | `${KIE_SERVER_PASSWORD}` | False
+|`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | HelloRulesContainer=org.openshift.quickstarts:decisionserver-hellorules:1.0.0-SNAPSHOT | False
+|`KIE_SERVER_USER` | `KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | kieserver | False
+|`KIE_SERVER_PASSWORD` | `KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}` | False
 |`APPLICATION_NAME` | -- | The name for the application. | kie-app | True
-|`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
+|`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts.git | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | master | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | decisionserver/hellorules | False
@@ -70,7 +70,7 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-|`${APPLICATION_NAME}-http` | none | `${APPLICATION_DOMAIN}`
+|`${APPLICATION_NAME}-http` | none | `${HOSTNAME_HTTP}`
 |=============
 
 
@@ -164,7 +164,8 @@ information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.2+| `${APPLICATION_NAME}`
+.3+| `${APPLICATION_NAME}`
+|jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |ping | 8888 | `TCP`
 |=============
@@ -178,8 +179,8 @@ information.
 
 .6+| `${APPLICATION_NAME}`
 |`KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | `${KIE_CONTAINER_DEPLOYMENT}`
-|`KIE_SERVER_USER` | The user name to access the KIE Server REST interface. | `${KIE_SERVER_USER}`
-|`KIE_SERVER_PASSWORD` | The password to access the KIE Server REST interface. | `${KIE_SERVER_PASSWORD}`
+|`KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | `${KIE_SERVER_USER}`
+|`KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}`
 |`HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}`
 |`HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}`
 |`HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}`

@@ -24,7 +24,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
-|`APPLICATION_DOMAIN` | -- | Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | secure-app.test.router.default.local | False
+|`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
+|`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.1 | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-jdbc | False
@@ -50,6 +51,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
+|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |=======================================================================
 
 
@@ -85,8 +87,8 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-|`${APPLICATION_NAME}-http` | none | `${APPLICATION_DOMAIN}`
-|`${APPLICATION_NAME}-https` | TLS passthrough | `${APPLICATION_DOMAIN}`
+|`${APPLICATION_NAME}-http` | none | `${HOSTNAME_HTTP}`
+|`${APPLICATION_NAME}-https` | TLS passthrough | `${HOSTNAME_HTTPS}`
 |=============
 
 
@@ -184,7 +186,8 @@ information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.3+| `${APPLICATION_NAME}`
+.4+| `${APPLICATION_NAME}`
+|jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
@@ -199,7 +202,7 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.18+| `${APPLICATION_NAME}`
+.19+| `${APPLICATION_NAME}`
 |`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
 |`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | `${DB_JNDI}`
 |`DB_USERNAME` | Database user name | `${DB_USERNAME}`
@@ -218,6 +221,7 @@ information.
 |`HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}`
 |`HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}`
 |`HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}`
+|`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 .8+| `${APPLICATION_NAME}-mysql`
 |`MYSQL_USER` | -- | `${DB_USERNAME}`
 |`MYSQL_PASSWORD` | -- | `${DB_PASSWORD}`
