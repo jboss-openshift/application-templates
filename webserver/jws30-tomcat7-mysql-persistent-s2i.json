@@ -52,9 +52,9 @@
             "required": false
         },
         {
-            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb",
+            "description": "Database JNDI name used by application to resolve the datasource, e.g. jboss/datasources/mysqlDS",
             "name": "DB_JNDI",
-            "value": "java:jboss/datasources/TodoListDS",
+            "value": "jboss/datasources/defaultDS",
             "required": false
         },
         {
