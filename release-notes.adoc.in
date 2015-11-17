@@ -1,5 +1,12 @@
 
-== Release 1.2.0
+////
+  the source for the release notes part of this page is in the file
+  ./release-notes.adoc.in
+////
+
+== Release Notes
+
+=== Release 1.2.0
  * Added support for JBoss Data Grid
  * Added support for JBoss Decision Server
  * Added liveness probe to EAP templates
@@ -8,7 +15,7 @@
  * Add Jolokia port to templates
  * Renamed APPLICATION_DOMAIN to HOSTNAME_HTTP and HOSTNAME_HTTPS to correspond to http and https routes
 
-== Release 1.1.0
+=== Release 1.1.0
  * Added terminationGracePeriodSeconds to pod templates
  * Renamed templates:
  ** Include product minor version in names (e.g. eap6-basic-s2i => eap64-basic-s2i)
@@ -27,13 +34,13 @@
  * Add missing mqtt+ssl port to A-MQ templates
  * Add parameter to select ImageStream namespace, defaulting to "openshift"
 
-== Release 1.0.2
+=== Release 1.0.2
  * Fix capitalization of GitHub trigger type
 
-== Release 1.0.1
+=== Release 1.0.1
  * Shorten port names
  * update deprecated items in BuildConfig
 
-== Release 1.0.0
+=== Release 1.0.0
  * Initial release with support for JBoss EAP, JBoss Web Server, and JBoss A-MQ
 

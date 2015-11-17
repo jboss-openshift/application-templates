@@ -285,8 +285,7 @@ def generate_readme():
                 fh.write("* link:./%s/%s.adoc[%s]\n" % (directory, template, template))
 
         # release notes
-        fh.write('\n= Release Notes\n\n')
-        fh.write('include::./release-notes.adoc[]\n')
+        fh.write(open('./release-notes.adoc.in').read())
 
 # expects to be run from the root of the repository
 if __name__ == "__main__":
