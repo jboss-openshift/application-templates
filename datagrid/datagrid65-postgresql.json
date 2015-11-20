@@ -146,7 +146,12 @@
             "value": "hotrod,memcached,rest",
             "required": false
         },
-
+        {
+            "description": "Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configurd for each entry.",
+            "name": "CACHE_NAMES",
+            "value": "",
+            "required": false
+        },
         {
             "description": "The cache container used by the Hot Rod connector (defaults to 'clustered')",
             "name": "HOTROD_CACHE_CONTAINER",
@@ -813,6 +818,10 @@
                                     {
                                         "name": "INFINISPAN_CONNECTORS",
                                         "value": "${INFINISPAN_CONNECTORS}"
+                                    },
+                                    {
+                                        "name": "CACHE_NAMES",
+                                        "value": "${CACHE_NAMES}"
                                     },
                                     {
                                         "name": "HOTROD_CACHE_CONTAINER",
