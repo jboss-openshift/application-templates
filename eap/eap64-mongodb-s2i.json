@@ -578,6 +578,10 @@
                                         "value": "${JGROUPS_ENCRYPT_SECRET}"
                                     },
                                     {
+                                        "name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
+                                        "value": "/etc/jgroups-encrypt-secret-volume"
+                                    },
+                                    {
                                         "name": "JGROUPS_ENCRYPT_KEYSTORE",
                                         "value": "${JGROUPS_ENCRYPT_KEYSTORE}"
                                     },
