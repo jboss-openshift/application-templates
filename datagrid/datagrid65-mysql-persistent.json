@@ -34,32 +34,6 @@
             "required": false
         },
         {
-            "description": "Flag to enable/disable user authentication",
-            "name": "JDG_SIMPLE_AUTHENTICATION",
-            "value": "false",
-            "required": false
-        },
-        {
-            "description": "Security domain name for user authentication",
-            "name": "JDG_SECDOMAIN_NAME",
-            "value": "jdg-openshift",
-            "required": false
-        },
-        {
-            "description": "User name for JDG user. If left empty, it will be generated.",
-            "name": "JDG_USERNAME",
-            "from": "user[a-zA-Z0-9]{3}",
-            "generate": "expression",
-            "required": false
-        },
-        {
-            "description": "Password for JDG user. If left empty, it will be generated.",
-            "name": "JDG_PASSWORD",
-            "from": "[a-zA-Z0-9]{6}@[0-9]{1}",
-            "generate": "expression",
-            "required": false
-        },
-        {
             "description": "The name of the secret containing the keystore file",
             "name": "JDG_HTTPS_SECRET",
             "value": "datagrid-app-secret",
@@ -754,22 +728,6 @@
                                     }
                                 ],
                                 "env": [
-                                    {
-                                        "name": "JDG_SIMPLE_AUTHENTICATION",
-                                        "value": "${JDG_SIMPLE_AUTHENTICATION}"
-                                    },
-                                    {
-                                        "name": "JDG_USERNAME",
-                                        "value": "${JDG_USERNAME}"
-                                    },
-                                    {
-                                        "name": "JDG_PASSWORD",
-                                        "value": "${JDG_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "JDG_SECDOMAIN_NAME",
-                                        "value": "${JDG_SECDOMAIN_NAME}"
-                                    },
                                     {
                                         "name": "JDG_HTTPS_KEYSTORE_DIR",
                                         "value": "/etc/datagrid-secret-volume"
