@@ -29,26 +29,26 @@
         },
         {
             "description": "Flag to enable/disable simple user authentication",
-            "name": "JDG_SIMPLE_AUTHENTICATION",
+            "name": "SIMPLE_AUTHENTICATION",
             "value": "false",
             "required": false
         },
         {
             "description": "Security domain name for user authentication",
-            "name": "JDG_SECDOMAIN_NAME",
+            "name": "SECDOMAIN_NAME",
             "value": "jdg-openshift",
             "required": false
         },
         {
             "description": "User name for JDG user. If left empty, it will be generated.",
-            "name": "JDG_USERNAME",
+            "name": "USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
             "required": false
         },
         {
             "description": "Password for JDG user. If left empty, it will be generated.",
-            "name": "JDG_PASSWORD",
+            "name": "PASSWORD",
             "from": "[a-zA-Z0-9]{6}@[0-9]{1}",
             "generate": "expression",
             "required": false
@@ -312,20 +312,20 @@
                                 ],
                                 "env": [
                                     {
-                                        "name": "JDG_SIMPLE_AUTHENTICATION",
-                                        "value": "${JDG_SIMPLE_AUTHENTICATION}"
+                                        "name": "SIMPLE_AUTHENTICATION",
+                                        "value": "${SIMPLE_AUTHENTICATION}"
                                     },
                                     {
-                                        "name": "JDG_USERNAME",
-                                        "value": "${JDG_USERNAME}"
+                                        "name": "USERNAME",
+                                        "value": "${USERNAME}"
                                     },
                                     {
-                                        "name": "JDG_PASSWORD",
-                                        "value": "${JDG_PASSWORD}"
+                                        "name": "PASSWORD",
+                                        "value": "${PASSWORD}"
                                     },
                                     {
-                                        "name": "JDG_SECDOMAIN_NAME",
-                                        "value": "${JDG_SECDOMAIN_NAME}"
+                                        "name": "SECDOMAIN_NAME",
+                                        "value": "${SECDOMAIN_NAME}"
                                     },
                                     {
                                         "name": "OPENSHIFT_KUBE_PING_LABELS",
