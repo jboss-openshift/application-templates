@@ -64,30 +64,6 @@
             "required": false
         },
         {
-            "description": "The name of the secret containing the keystore file",
-            "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "",
-            "required": false
-        },
-        {
-            "description": "The name of the keystore file within the secret",
-            "name": "JGROUPS_ENCRYPT_KEYSTORE",
-            "value": "",
-            "required": false
-        },
-        {
-            "description": "The name associated with the server certificate",
-            "name": "JGROUPS_ENCRYPT_NAME",
-            "value": "",
-            "required": false
-        },
-        {
-            "description": "The password for the keystore and certificate",
-            "name": "JGROUPS_ENCRYPT_PASSWORD",
-            "value": "",
-            "required": false
-        },
-        {
             "description": "JGroups cluster password",
             "name": "JGROUPS_CLUSTER_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
@@ -320,22 +296,6 @@
                                     {
                                         "name": "REST_SECURITY_DOMAIN",
                                         "value": "${REST_SECURITY_DOMAIN}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_SECRET",
-                                        "value": "${JGROUPS_ENCRYPT_SECRET}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_KEYSTORE",
-                                        "value": "${JGROUPS_ENCRYPT_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_NAME",
-                                        "value": "${JGROUPS_ENCRYPT_NAME}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_PASSWORD",
-                                        "value": "${JGROUPS_ENCRYPT_PASSWORD}"
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
