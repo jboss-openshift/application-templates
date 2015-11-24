@@ -310,7 +310,7 @@
                                         "value": "${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}"
                                     },
                                     {
-                                        "name": “HOTROD_SERVICE_NAME”,
+                                        "name": "HOTROD_SERVICE_NAME",
                                         "value": "${APPLICATION_NAME}-hotrod"
                                     },
                                     {
