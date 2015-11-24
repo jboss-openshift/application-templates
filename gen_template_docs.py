@@ -115,7 +115,11 @@ def createTemplate(data, path):
 
         # the 'secrets' section is not relevant to the secrets templates
         if not re.match('^secrets', path):
-            tdata['objects'][0]['secrets'] = [{ "templateabbrev": data['labels']['template'][0:3] }]
+            specs = [d["spec"]["template"]["spec"] for d in data["objects"] if d["kind"] == "DeploymentConfig"]
+            serviceAccount = [spec["serviceAccount"] for spec in specs if spec.get("serviceAccount") is not None]
+            # our 'secrets' are always attached to a service account
+            if len(serviceAccount) > 0:
+                tdata['objects'][0]['secrets'] = [{ "templateabbrev": data['labels']['template'][0:3] }]
 
         # currently the clustering section applies only to EAP templates
         if re.match('^eap', path):
