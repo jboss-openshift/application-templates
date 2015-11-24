@@ -83,25 +83,25 @@
         },
         {
             "description": "The name of the secret containing the keystore file",
-            "name": "EAP_HTTPS_SECRET",
+            "name": "HTTPS_SECRET",
             "value": "eap-app-secret",
             "required": false
         },
         {
             "description": "The name of the keystore file within the secret",
-            "name": "EAP_HTTPS_KEYSTORE",
+            "name": "HTTPS_KEYSTORE",
             "value": "keystore.jks",
             "required": false
         },
         {
             "description": "The name associated with the server certificate",
-            "name": "EAP_HTTPS_NAME",
+            "name": "HTTPS_NAME",
             "value": "",
             "required": false
         },
         {
             "description": "The password for the keystore and certificate",
-            "name": "EAP_HTTPS_PASSWORD",
+            "name": "HTTPS_PASSWORD",
             "value": "",
             "required": false
         },
@@ -511,20 +511,20 @@
                                         }
                                     },
                                     {
-                                        "name": "EAP_HTTPS_KEYSTORE_DIR",
+                                        "name": "HTTPS_KEYSTORE_DIR",
                                         "value": "/etc/eap-secret-volume"
                                     },
                                     {
-                                        "name": "EAP_HTTPS_KEYSTORE",
-                                        "value": "${EAP_HTTPS_KEYSTORE}"
+                                        "name": "HTTPS_KEYSTORE",
+                                        "value": "${HTTPS_KEYSTORE}"
                                     },
                                     {
-                                        "name": "EAP_HTTPS_NAME",
-                                        "value": "${EAP_HTTPS_NAME}"
+                                        "name": "HTTPS_NAME",
+                                        "value": "${HTTPS_NAME}"
                                     },
                                     {
-                                        "name": "EAP_HTTPS_PASSWORD",
-                                        "value": "${EAP_HTTPS_PASSWORD}"
+                                        "name": "HTTPS_PASSWORD",
+                                        "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
                                         "name": "HORNETQ_CLUSTER_PASSWORD",
@@ -549,7 +549,7 @@
                             {
                                 "name": "eap-keystore-volume",
                                 "secret": {
-                                    "secretName": "${EAP_HTTPS_SECRET}"
+                                    "secretName": "${HTTPS_SECRET}"
                                 }
                             }
                         ]
