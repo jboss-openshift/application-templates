@@ -35,25 +35,25 @@
         },
         {
             "description": "The name of the secret containing the keystore file",
-            "name": "JDG_HTTPS_SECRET",
+            "name": "HTTPS_SECRET",
             "value": "datagrid-app-secret",
             "required": true
         },
         {
             "description": "The name of the keystore file within the secret",
-            "name": "JDG_HTTPS_KEYSTORE",
+            "name": "HTTPS_KEYSTORE",
             "value": "keystore.jks",
             "required": false
         },
         {
             "description": "The name associated with the server certificate",
-            "name": "JDG_HTTPS_NAME",
+            "name": "HTTPS_NAME",
             "value": "",
             "required": false
         },
         {
             "description": "The password for the keystore and certificate",
-            "name": "JDG_HTTPS_PASSWORD",
+            "name": "HTTPS_PASSWORD",
             "value": "",
             "required": false
         },
@@ -456,20 +456,20 @@
                                 ],
                                 "env": [
                                     {
-                                        "name": "JDG_HTTPS_KEYSTORE_DIR",
+                                        "name": "HTTPS_KEYSTORE_DIR",
                                         "value": "/etc/datagrid-secret-volume"
                                     },
                                     {
-                                        "name": "JDG_HTTPS_KEYSTORE",
-                                        "value": "${JDG_HTTPS_KEYSTORE}"
+                                        "name": "HTTPS_KEYSTORE",
+                                        "value": "${HTTPS_KEYSTORE}"
                                     },
                                     {
-                                        "name": "JDG_HTTPS_NAME",
-                                        "value": "${JDG_HTTPS_NAME}"
+                                        "name": "HTTPS_NAME",
+                                        "value": "${HTTPS_NAME}"
                                     },
                                     {
-                                        "name": "JDG_HTTPS_PASSWORD",
-                                        "value": "${JDG_HTTPS_PASSWORD}"
+                                        "name": "HTTPS_PASSWORD",
+                                        "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
                                         "name": "DB_SERVICE_PREFIX_MAPPING",
@@ -570,7 +570,7 @@
                             {
                                 "name": "datagrid-keystore-volume",
                                 "secret": {
-                                    "secretName": "${JDG_HTTPS_SECRET}"
+                                    "secretName": "${HTTPS_SECRET}"
                                 }
                             }
                         ]

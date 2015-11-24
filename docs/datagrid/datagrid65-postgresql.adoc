@@ -13,9 +13,9 @@ Application template for JDG 6.5 and PostgreSQL applications built using.
 
 For simple authentication, set
 
-  JDG_SIMPLE_AUTHENTICATION=true
-  JDG_USERNAME=<username>
-  JDG_PASSWORD=<password>
+  SIMPLE_AUTHENTICATION=true
+  USERNAME=<username>
+  PASSWORD=<password>
 
 This will enable user authentication with the datagrid. Provided username and password will be used to access the cache over both HTTPS and HotRod. With this case, the user will have all permissions configured.
 
@@ -41,14 +41,14 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`APPLICATION_NAME` | -- | The name for the application. | datagrid-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
-|`JDG_SIMPLE_AUTHENTICATION` | `JDG_SIMPLE_AUTHENTICATION` | Flag to enable/disable user authentication | false | False
-|`JDG_SECDOMAIN_NAME` | `JDG_SECDOMAIN_NAME` | Security domain name for user authentication | jdg-openshift | False
-|`JDG_USERNAME` | `JDG_USERNAME` | User name for JDG user. If left empty, it will be generated. | `${JDG_USERNAME}` | False
-|`JDG_PASSWORD` | `JDG_PASSWORD` | Password for JDG user. If left empty, it will be generated. | `${JDG_PASSWORD}` | False
-|`JDG_HTTPS_SECRET` | -- | The name of the secret containing the keystore file | datagrid-app-secret | True
-|`JDG_HTTPS_KEYSTORE` | `JDG_HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
-|`JDG_HTTPS_NAME` | `JDG_HTTPS_NAME` | The name associated with the server certificate | `${JDG_HTTPS_NAME}` | False
-|`JDG_HTTPS_PASSWORD` | `JDG_HTTPS_PASSWORD` | The password for the keystore and certificate | `${JDG_HTTPS_PASSWORD}` | False
+|`SIMPLE_AUTHENTICATION` | `SIMPLE_AUTHENTICATION` | Flag to enable/disable user authentication | false | False
+|`SECDOMAIN_NAME` | `SECDOMAIN_NAME` | Security domain name for user authentication | jdg-openshift | False
+|`USERNAME` | `USERNAME` | User name for JDG user. If left empty, it will be generated. | `${USERNAME}` | False
+|`PASSWORD` | `PASSWORD` | Password for JDG user. If left empty, it will be generated. | `${PASSWORD}` | False
+|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | datagrid-app-secret | True
+|`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
+|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}` | False
+|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}` | False
 |`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | java:jboss/datasources/postgresql | False
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
 |`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
@@ -106,10 +106,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`REST_AUTH_METHOD` | `REST_AUTH_METHOD` | The method used to retrieve credentials for the REST endpoint (defaults to 'BASIC') | `${REST_AUTH_METHOD}` | False
 |`REST_SECURITY_MODE` | `REST_SECURITY_MODE` | Whether authentication is required only for WRITE operations or for READ operations as well (defaults to 'READ_WRITE') | `${REST_SECURITY_MODE}` | False
 |`REST_EXTENDED_HEADERS` | `REST_EXTENDED_HEADERS` |  | `${REST_EXTENDED_HEADERS}` | False
-|`JDG_JGROUPS_ENCRYPT_SECRET` | `JDG_JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JDG_JGROUPS_ENCRYPT_SECRET}` | False
-|`JDG_JGROUPS_ENCRYPT_KEYSTORE` | `JDG_JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JDG_JGROUPS_ENCRYPT_KEYSTORE}` | False
-|`JDG_JGROUPS_ENCRYPT_NAME` | `JDG_JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JDG_JGROUPS_ENCRYPT_NAME}` | False
-|`JDG_JGROUPS_ENCRYPT_PASSWORD` | `JDG_JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JDG_JGROUPS_ENCRYPT_PASSWORD}` | False
+|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}` | False
+|`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}` | False
+|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
+|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |=======================================================================
 
@@ -253,14 +253,14 @@ information.
 |Deployment |Variable name |Description |Example value
 
 .71+| `${APPLICATION_NAME}`
-|`JDG_SIMPLE_AUTHENTICATION` | Flag to enable/disable user authentication | `${JDG_SIMPLE_AUTHENTICATION}`
-|`JDG_USERNAME` | User name for JDG user. If left empty, it will be generated. | `${JDG_USERNAME}`
-|`JDG_PASSWORD` | Password for JDG user. If left empty, it will be generated. | `${JDG_PASSWORD}`
-|`JDG_SECDOMAIN_NAME` | Security domain name for user authentication | `${JDG_SECDOMAIN_NAME}`
-|`JDG_HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/datagrid-secret-volume`
-|`JDG_HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${JDG_HTTPS_KEYSTORE}`
-|`JDG_HTTPS_NAME` | The name associated with the server certificate | `${JDG_HTTPS_NAME}`
-|`JDG_HTTPS_PASSWORD` | The password for the keystore and certificate | `${JDG_HTTPS_PASSWORD}`
+|`SIMPLE_AUTHENTICATION` | Flag to enable/disable user authentication | `${SIMPLE_AUTHENTICATION}`
+|`USERNAME` | User name for JDG user. If left empty, it will be generated. | `${USERNAME}`
+|`PASSWORD` | Password for JDG user. If left empty, it will be generated. | `${PASSWORD}`
+|`SECDOMAIN_NAME` | Security domain name for user authentication | `${SECDOMAIN_NAME}`
+|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/datagrid-secret-volume`
+|`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
+|`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
+|`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
 |`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
 |`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | `${DB_JNDI}`
 |`DB_USERNAME` | Database user name | `${DB_USERNAME}`
@@ -319,10 +319,10 @@ information.
 |`REST_AUTH_METHOD` | The method used to retrieve credentials for the REST endpoint (defaults to 'BASIC') | `${REST_AUTH_METHOD}`
 |`REST_SECURITY_MODE` | Whether authentication is required only for WRITE operations or for READ operations as well (defaults to 'READ_WRITE') | `${REST_SECURITY_MODE}`
 |`REST_EXTENDED_HEADERS` |  | `${REST_EXTENDED_HEADERS}`
-|`JDG_JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JDG_JGROUPS_ENCRYPT_SECRET}`
-|`JDG_JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JDG_JGROUPS_ENCRYPT_KEYSTORE}`
-|`JDG_JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JDG_JGROUPS_ENCRYPT_NAME}`
-|`JDG_JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JDG_JGROUPS_ENCRYPT_PASSWORD}`
+|`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
+|`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
+|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
+|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 .5+| `${APPLICATION_NAME}-postgresql`
 |`POSTGRESQL_USER` | -- | `${DB_USERNAME}`

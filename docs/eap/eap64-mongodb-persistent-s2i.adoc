@@ -34,10 +34,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
 |`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
 |`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
-|`EAP_HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap-app-secret | False
-|`EAP_HTTPS_KEYSTORE` | `EAP_HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
-|`EAP_HTTPS_NAME` | `EAP_HTTPS_NAME` | The name associated with the server certificate | `${EAP_HTTPS_NAME}` | False
-|`EAP_HTTPS_PASSWORD` | `EAP_HTTPS_PASSWORD` | The password for the keystore and certificate | `${EAP_HTTPS_PASSWORD}` | False
+|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap-app-secret | False
+|`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
+|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}` | False
+|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}` | False
 |`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
 |`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
 |`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
@@ -214,10 +214,10 @@ information.
 |`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
 |`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
-|`EAP_HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
-|`EAP_HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${EAP_HTTPS_KEYSTORE}`
-|`EAP_HTTPS_NAME` | The name associated with the server certificate | `${EAP_HTTPS_NAME}`
-|`EAP_HTTPS_PASSWORD` | The password for the keystore and certificate | `${EAP_HTTPS_PASSWORD}`
+|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
+|`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
+|`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
+|`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
 |`HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}`
 |`HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}`
 |`HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}`

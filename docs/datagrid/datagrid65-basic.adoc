@@ -13,9 +13,9 @@ Application template for JDG 6.5 applications.
 
 For simple authentication, set
 
-  JDG_SIMPLE_AUTHENTICATION=true
-  JDG_USERNAME=<username>
-  JDG_PASSWORD=<password>
+  SIMPLE_AUTHENTICATION=true
+  USERNAME=<username>
+  PASSWORD=<password>
 
 This will enable user authentication with the datagrid. Provided username and password will be used to access the cache over both HTTPS and HotRod. With this case, the user will have all permissions configured.
 
@@ -40,10 +40,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 
 |`APPLICATION_NAME` | -- | The name for the application. | datagrid-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
-|`JDG_SIMPLE_AUTHENTICATION` | `JDG_SIMPLE_AUTHENTICATION` | Flag to enable/disable simple user authentication | false | False
-|`JDG_SECDOMAIN_NAME` | `JDG_SECDOMAIN_NAME` | Security domain name for user authentication | jdg-openshift | False
-|`JDG_USERNAME` | `JDG_USERNAME` | User name for JDG user. If left empty, it will be generated. | `${JDG_USERNAME}` | False
-|`JDG_PASSWORD` | `JDG_PASSWORD` | Password for JDG user. If left empty, it will be generated. | `${JDG_PASSWORD}` | False
+|`SIMPLE_AUTHENTICATION` | `SIMPLE_AUTHENTICATION` | Flag to enable/disable simple user authentication | false | False
+|`SECDOMAIN_NAME` | `SECDOMAIN_NAME` | Security domain name for user authentication | jdg-openshift | False
+|`USERNAME` | `USERNAME` | User name for JDG user. If left empty, it will be generated. | `${USERNAME}` | False
+|`PASSWORD` | `PASSWORD` | Password for JDG user. If left empty, it will be generated. | `${PASSWORD}` | False
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`INFINISPAN_CONNECTORS` | `INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | hotrod,memcached,rest | False
 |`HOTROD_CACHE_CONTAINER` | `HOTROD_CACHE_CONTAINER` | The cache container used by the Hot Rod connector (defaults to 'clustered') | clustered | True
@@ -92,10 +92,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`REST_AUTH_METHOD` | `REST_AUTH_METHOD` | The method used to retrieve credentials for the REST endpoint (defaults to 'BASIC') | `${REST_AUTH_METHOD}` | False
 |`REST_SECURITY_MODE` | `REST_SECURITY_MODE` | Whether authentication is required only for WRITE operations or for READ operations as well (defaults to 'READ_WRITE') | `${REST_SECURITY_MODE}` | False
 |`REST_EXTENDED_HEADERS` | `REST_EXTENDED_HEADERS` |  | `${REST_EXTENDED_HEADERS}` | False
-|`JDG_JGROUPS_ENCRYPT_SECRET` | `JDG_JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JDG_JGROUPS_ENCRYPT_SECRET}` | False
-|`JDG_JGROUPS_ENCRYPT_KEYSTORE` | `JDG_JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JDG_JGROUPS_ENCRYPT_KEYSTORE}` | False
-|`JDG_JGROUPS_ENCRYPT_NAME` | `JDG_JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JDG_JGROUPS_ENCRYPT_NAME}` | False
-|`JDG_JGROUPS_ENCRYPT_PASSWORD` | `JDG_JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JDG_JGROUPS_ENCRYPT_PASSWORD}` | False
+|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}` | False
+|`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}` | False
+|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
+|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |=======================================================================
 
@@ -229,10 +229,10 @@ information.
 |Deployment |Variable name |Description |Example value
 
 .58+| `${APPLICATION_NAME}`
-|`JDG_SIMPLE_AUTHENTICATION` | Flag to enable/disable simple user authentication | `${JDG_SIMPLE_AUTHENTICATION}`
-|`JDG_USERNAME` | User name for JDG user. If left empty, it will be generated. | `${JDG_USERNAME}`
-|`JDG_PASSWORD` | Password for JDG user. If left empty, it will be generated. | `${JDG_PASSWORD}`
-|`JDG_SECDOMAIN_NAME` | Security domain name for user authentication | `${JDG_SECDOMAIN_NAME}`
+|`SIMPLE_AUTHENTICATION` | Flag to enable/disable simple user authentication | `${SIMPLE_AUTHENTICATION}`
+|`USERNAME` | User name for JDG user. If left empty, it will be generated. | `${USERNAME}`
+|`PASSWORD` | Password for JDG user. If left empty, it will be generated. | `${PASSWORD}`
+|`SECDOMAIN_NAME` | Security domain name for user authentication | `${SECDOMAIN_NAME}`
 |`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
 |`INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | `${INFINISPAN_CONNECTORS}`
@@ -282,10 +282,10 @@ information.
 |`REST_AUTH_METHOD` | The method used to retrieve credentials for the REST endpoint (defaults to 'BASIC') | `${REST_AUTH_METHOD}`
 |`REST_SECURITY_MODE` | Whether authentication is required only for WRITE operations or for READ operations as well (defaults to 'READ_WRITE') | `${REST_SECURITY_MODE}`
 |`REST_EXTENDED_HEADERS` |  | `${REST_EXTENDED_HEADERS}`
-|`JDG_JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JDG_JGROUPS_ENCRYPT_SECRET}`
-|`JDG_JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JDG_JGROUPS_ENCRYPT_KEYSTORE}`
-|`JDG_JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JDG_JGROUPS_ENCRYPT_NAME}`
-|`JDG_JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JDG_JGROUPS_ENCRYPT_PASSWORD}`
+|`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
+|`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
+|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
+|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 |=======================================================================
 
