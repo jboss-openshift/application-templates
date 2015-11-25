@@ -603,7 +603,7 @@
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "curl -s -L -u ${AMQ_ADMIN_USERNAME}:${AMQ_ADMIN_PASSWORD} 'http://localhost:8161/hawtio/jolokia/read/org.apache.activemq:type=Broker,brokerName=*,service=Health/CurrentStatus' | grep -q '\"CurrentStatus\" *: *\"Good\"'"
+                                            "/opt/amq/bin/readinessProbe.sh"
                                         ]
                                     }
                                 },
