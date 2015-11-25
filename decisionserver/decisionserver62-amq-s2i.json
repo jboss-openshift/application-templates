@@ -109,7 +109,7 @@
         {
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
-            "value": "eap-app-secret",
+            "value": "decisionserver-app-secret",
             "required": false
         },
         {
@@ -413,7 +413,7 @@
                         }
                     },
                     "spec": {
-                        "serviceAccount": "eap-service-account",
+                        "serviceAccount": "decisionserver-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
@@ -422,8 +422,8 @@
                                 "imagePullPolicy": "Always",
                                 "volumeMounts": [
                                     {
-                                        "name": "eap-keystore-volume",
-                                        "mountPath": "/etc/eap-secret-volume",
+                                        "name": "decisionserver-keystore-volume",
+                                        "mountPath": "/etc/decisionserver-secret-volume",
                                         "readOnly": true
                                     }
                                 ],
@@ -518,7 +518,7 @@
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/eap-secret-volume"
+                                        "value": "/etc/decisionserver-secret-volume"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE",
@@ -537,7 +537,7 @@
                         ],
                         "volumes": [
                             {
-                                "name": "eap-keystore-volume",
+                                "name": "decisionserver-keystore-volume",
                                 "secret": {
                                     "secretName": "${HTTPS_SECRET}"
                                 }
