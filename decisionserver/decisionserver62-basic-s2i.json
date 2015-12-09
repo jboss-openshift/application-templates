@@ -55,7 +55,7 @@
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "master",
+            "value": "1.2",
             "required": false
         },
         {

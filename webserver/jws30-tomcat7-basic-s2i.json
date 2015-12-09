@@ -36,7 +36,7 @@
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "1.1",
+            "value": "1.2",
             "required": false
         },
         {
