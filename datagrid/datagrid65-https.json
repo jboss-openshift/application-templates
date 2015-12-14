@@ -216,7 +216,7 @@
             "spec": {
                 "ports": [
                     {
-                        "port": 11222,
+                        "port": 11333,
                         "targetPort": 11333
                     }
                 ],
