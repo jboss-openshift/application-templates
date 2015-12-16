@@ -679,12 +679,6 @@
                                         "protocol": "TCP"
                                     }
                                 ],
-                                "volumeMounts": [
-                                    {
-                                        "mountPath": "/var/lib/mysql/data",
-                                        "name": "${APPLICATION_NAME}-mysql-pvol"
-                                    }
-                                ],
                                 "env": [
                                     {
                                         "name": "MYSQL_USER",
