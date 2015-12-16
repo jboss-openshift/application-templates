@@ -380,8 +380,9 @@
                                 "${APPLICATION_NAME}"
                             ],
                             "from": {
-                                "kind": "ImageStream",
-                                "name": "${APPLICATION_NAME}"
+                                "kind": "ImageStreamTag",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "name": "jboss-datagrid65-openshift:1.2"
                             }
                         }
                     },
