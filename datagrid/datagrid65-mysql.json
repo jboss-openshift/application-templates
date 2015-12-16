@@ -543,6 +543,22 @@
                                         "value": "${DB_TX_ISOLATION}"
                                     },
                                     {
+                                        "name": "DEFAULT_JDBC_STORE_TYPE",
+                                        "value": "string"
+                                    },
+                                    {
+                                        "name": "DEFAULT_JDBC_STORE_DATASOURCE",
+                                        "value": "${DB_JNDI}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_JDBC_STORE_TYPE",
+                                        "value": "string"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_JDBC_STORE_DATASOURCE",
+                                        "value": "${DB_JNDI}"
+                                    },
+                                    {
                                         "name": "OPENSHIFT_KUBE_PING_LABELS",
                                         "value": "application=${APPLICATION_NAME}"
                                     },
