@@ -117,6 +117,12 @@ def createTemplate(data, path):
         for kind in ['triggers', 'replicas', 'volumes', 'serviceAccount']:
             if 0 >= len([obj for obj in data["objects"] if obj["kind"] == "DeploymentConfig"]):
                 continue
+
+            if kind in ['volumes', 'serviceAccount']:
+                specs = [d["spec"]["template"]["spec"] for d in data["objects"] if d["kind"] == "DeploymentConfig"]
+                matches = [spec[kind] for spec in specs if spec.get(kind) is not None]
+                if len(matches) <= 0:
+                    continue
             tdata['objects'][0][kind] = [{ "table": createDeployConfigTable(data, kind) }]
 
         # the 'secrets' section is not relevant to the secrets templates
@@ -124,6 +130,7 @@ def createTemplate(data, path):
             specs = [d["spec"]["template"]["spec"] for d in data["objects"] if d["kind"] == "DeploymentConfig"]
             serviceAccount = [spec["serviceAccount"] for spec in specs if spec.get("serviceAccount") is not None]
             # our 'secrets' are always attached to a service account
+            # only include the secrets section if we have defined serviceAccount(s)
             if len(serviceAccount) > 0:
                 tdata['objects'][0]['secrets'] = [{ "templateabbrev": data['labels']['template'][0:3] }]
 
