@@ -13,7 +13,6 @@ Application template for JDG 6.5 applications.
 
 For simple authentication, set
 
-  SIMPLE_AUTHENTICATION=true
   USERNAME=<username>
   PASSWORD=<password>
 
@@ -40,63 +39,15 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 
 |`APPLICATION_NAME` | -- | The name for the application. | datagrid-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
-|`SIMPLE_AUTHENTICATION` | `SIMPLE_AUTHENTICATION` | Flag to enable/disable simple user authentication | false | False
-|`SECDOMAIN_NAME` | `SECDOMAIN_NAME` | Security domain name for user authentication | jdg-openshift | False
-|`USERNAME` | `USERNAME` | User name for JDG user. If left empty, it will be generated. | `${USERNAME}` | False
-|`PASSWORD` | `PASSWORD` | Password for JDG user. If left empty, it will be generated. | `${PASSWORD}` | False
+|`USERNAME` | `USERNAME` | User name for JDG user. | `${USERNAME}` | False
+|`PASSWORD` | `PASSWORD` | Password for JDG user. | `${PASSWORD}` | False
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`INFINISPAN_CONNECTORS` | `INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | hotrod,memcached,rest | False
-|`HOTROD_CACHE_CONTAINER` | `HOTROD_CACHE_CONTAINER` | The cache container used by the Hot Rod connector (defaults to 'clustered') | clustered | True
-|`HOTROD_SOCKET_BINDING` | `HOTROD_SOCKET_BINDING` | The socket binding port used by the Hot Rod connector (defaults to 'hotrod') | hotrod | True
-|`HOTROD_NAME` | `HOTROD_NAME` |  | `${HOTROD_NAME}` | False
-|`HOTROD_WORKER_THREADS` | `HOTROD_WORKER_THREADS` | The number of worker threads available for the Hot Rod connector (defaults to 160) | `${HOTROD_WORKER_THREADS}` | False
-|`HOTROD_IDLE_TIMEOUT` | `HOTROD_IDLE_TIMEOUT` | The time (in milliseconds) the connector can remain idle before the connection times out (defaults to -1 - no timeout) | `${HOTROD_IDLE_TIMEOUT}` | False
-|`HOTROD_TCP_NODELAY` | `HOTROD_TCP_NODELAY` | Whether TCP packets will be delayed and sent out in batches (defaults to true) | `${HOTROD_TCP_NODELAY}` | False
-|`HOTROD_SEND_BUFFER_SIZE` | `HOTROD_SEND_BUFFER_SIZE` | The size of the send buffer for the Hot Rod connector (defaults to size of the TCP stack buffer) | `${HOTROD_SEND_BUFFER_SIZE}` | False
-|`HOTROD_RECEIVE_BUFFER_SIZE` | `HOTROD_RECEIVE_BUFFER_SIZE` | The size of the receive buffer for the Hot Rod connector (defaults to size of the TCP stack buffer) | `${HOTROD_RECEIVE_BUFFER_SIZE}` | False
-|`TOPOLOGY_CACHE_SUFFIX` | `TOPOLOGY_CACHE_SUFFIX` |  | `${TOPOLOGY_CACHE_SUFFIX}` | False
-|`TOPOLOGY_LOCK_TIMEOUT` | `TOPOLOGY_LOCK_TIMEOUT` | The time (in milliseconds) after which the operation attempting to obtain a lock times out (defaults to 10 seconds) | `${TOPOLOGY_LOCK_TIMEOUT}` | False
-|`TOPOLOGY_REPLICATION_TIMEOUT` | `TOPOLOGY_REPLICATION_TIMEOUT` | The time (in milliseconds) after which the replication operation times out (defaults to 10 seconds) | `${TOPOLOGY_REPLICATION_TIMEOUT}` | False
-|`TOPOLOGY_EXTERNAL_HOST` | `TOPOLOGY_EXTERNAL_HOST` | The hostname sent by the Hot Rod server to clients listed in the topology information (defaults to the host address) | `${TOPOLOGY_EXTERNAL_HOST}` | False
-|`TOPOLOGY_EXTERNAL_PORT` | `TOPOLOGY_EXTERNAL_PORT` | The port sent by the Hot Rod server to clients listed in the topology information (defaults to the configured port) | `${TOPOLOGY_EXTERNAL_PORT}` | False
-|`TOPOLOGY_LAZY_RETRIEVAL` | `TOPOLOGY_LAZY_RETRIEVAL` | Whether the Hot Rod connector will carry out retrieval operations lazily (defaults to true) | `${TOPOLOGY_LAZY_RETRIEVAL}` | False
-|`TOPOLOGY_AWAIT_INITIAL_TRANSFER` | `TOPOLOGY_AWAIT_INITIAL_TRANSFER` | Whether the initial state retrieval happens immediately at startup; applies only when TOPOLOGY_LAZY_RETRIEVAL is set to false (defaults to true) | `${TOPOLOGY_AWAIT_INITIAL_TRANSFER}` | False
-|`AUTHENTICATION_SECURITY_REALM` | `AUTHENTICATION_SECURITY_REALM` |  | `${AUTHENTICATION_SECURITY_REALM}` | False
-|`SASL_SERVER_NAME` | `SASL_SERVER_NAME` |  | `${SASL_SERVER_NAME}` | False
-|`SASL_SECURITY_CONTEXT_NAME` | `SASL_SECURITY_CONTEXT_NAME` |  | `${SASL_SECURITY_CONTEXT_NAME}` | False
-|`SASL_MECHANISMS` | `SASL_MECHANISMS` |  | `${SASL_MECHANISMS}` | False
-|`SASL_QOP` | `SASL_QOP` |  | `${SASL_QOP}` | False
-|`SASL_STRENGTH` | `SASL_STRENGTH` |  | `${SASL_STRENGTH}` | False
-|`SASL_POLICY_FORWARD_SECRECY` | `SASL_POLICY_FORWARD_SECRECY` |  | `${SASL_POLICY_FORWARD_SECRECY}` | False
-|`SASL_POLICY_NO_ACTIVE` | `SASL_POLICY_NO_ACTIVE` |  | `${SASL_POLICY_NO_ACTIVE}` | False
-|`SASL_POLICY_NO_ANONYMOUS` | `SASL_POLICY_NO_ANONYMOUS` |  | `${SASL_POLICY_NO_ANONYMOUS}` | False
-|`SASL_POLICY_NO_DICTIONARY` | `SASL_POLICY_NO_DICTIONARY` |  | `${SASL_POLICY_NO_DICTIONARY}` | False
-|`SASL_POLICY_NO_PLAIN_TEXT` | `SASL_POLICY_NO_PLAIN_TEXT` |  | `${SASL_POLICY_NO_PLAIN_TEXT}` | False
-|`SASL_POLICY_PASS_CREDENTIALS` | `SASL_POLICY_PASS_CREDENTIALS` |  | `${SASL_POLICY_PASS_CREDENTIALS}` | False
-|`SASL_PROPERTIES` | `SASL_PROPERTIES` |  | `${SASL_PROPERTIES}` | False
-|`ENCRYPTION_SECURITY_REALM` | `ENCRYPTION_SECURITY_REALM` |  | `${ENCRYPTION_SECURITY_REALM}` | False
+|`CACHE_NAMES` | `CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${CACHE_NAMES}` | False
 |`ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH` | `ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH` |  | `${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}` | False
-|`MEMCACHED_CACHE_CONTAINER` | `MEMCACHED_CACHE_CONTAINER` | The cache container used by the memcached connector (defaults to 'clustered') | clustered | True
-|`MEMCACHED_CACHE` | `MEMCACHED_CACHE_CONTAINER` | The name of the cache to expose through this memcached connector (defaults to 'default') | default | False
-|`MEMCACHED_SOCKET_BINDING` | `MEMCACHED_SOCKET_BINDING` | The socked binding port used by the memcached connector (defaults to 'memcached') | memcached | True
-|`MEMCACHED_NAME` | `MEMCACHED_NAME` | The name of this memcached connector (defaults to 'memcached') | memcached | False
-|`MEMCACHED_WORKER_THREADS` | `MEMCACHED_WORKER_THREADS` | The number of worker threads available for the memcached connector (defaults to 160) | `${MEMCACHED_WORKER_THREADS}` | False
-|`MEMCACHED_IDLE_TIMEOUT` | `MEMCACHED_IDLE_TIMEOUT` | The time (in milliseconds) the connector can remain idle before the connection times out (defaults to -1 - no timeout) | `${MEMCACHED_IDLE_TIMEOUT}` | False
-|`MEMCACHED_TCP_NODELAY` | `MEMCACHED_TCP_NODELAY` | Whether TCP packets will be delayed and sent out in batches (defaults to true) | `${MEMCACHED_TCP_NODELAY}` | False
-|`MEMCACHED_SEND_BUFFER_SIZE` | `MEMCACHED_SEND_BUFFER_SIZE` | The size of the send buffer for the memcached connector (defaults to the size of the TCP stack buffer) | `${MEMCACHED_SEND_BUFFER_SIZE}` | False
-|`MEMCACHED_RECEIVE_BUFFER_SIZE` | `MEMCACHED_RECEIVE_BUFFER_SIZE` | The size of the receive buffer for the memcached connector (defaults to the size of the TCP stack buffer) | `${MEMCACHED_RECEIVE_BUFFER_SIZE}` | False
-|`REST_VIRTUAL_SERVER` | `REST_VIRTUAL_SERVER` | The virtual server used by the REST connector (defaults to 'default-host') | `${REST_VIRTUAL_SERVER}` | False
-|`REST_CACHE_CONTAINER` | `REST_CACHE_CONTAINER` | The cache container used by the REST connector (defaults to 'clustered') | clustered | True
-|`REST_CONTEXT_PATH` | `REST_CONTEXT_PATH` | The context path for the REST connector (defaults to '') | `${REST_CONTEXT_PATH}` | False
+|`MEMCACHED_CACHE` | `MEMCACHED_CACHE` | The name of the cache to expose through this memcached connector (defaults to 'default') | default | False
 |`REST_SECURITY_DOMAIN` | `REST_SECURITY_DOMAIN` | The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint | `${REST_SECURITY_DOMAIN}` | False
-|`REST_AUTH_METHOD` | `REST_AUTH_METHOD` | The method used to retrieve credentials for the REST endpoint (defaults to 'BASIC') | `${REST_AUTH_METHOD}` | False
-|`REST_SECURITY_MODE` | `REST_SECURITY_MODE` | Whether authentication is required only for WRITE operations or for READ operations as well (defaults to 'READ_WRITE') | `${REST_SECURITY_MODE}` | False
-|`REST_EXTENDED_HEADERS` | `REST_EXTENDED_HEADERS` |  | `${REST_EXTENDED_HEADERS}` | False
-|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}` | False
-|`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}` | False
-|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
-|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}` | False
-|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
+|`JGROUPS_CLUSTER_PASSWORD` | `PASSWORD` | JGroups cluster password | `${PASSWORD}` | True
 |=======================================================================
 
 
@@ -117,7 +68,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 
 |`${APPLICATION_NAME}` | 8080 | The web server's HTTP port.
 |`${APPLICATION_NAME}-memcached` | 11211 | Memcached service for clustered applications.
-|`${APPLICATION_NAME}-hotrod` | 11222 | Hot Rod service for clustered applications.
+|`${APPLICATION_NAME}-hotrod` | 11333 | Hot Rod service for clustered applications.
 |=============
 
 
@@ -228,65 +179,18 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.58+| `${APPLICATION_NAME}`
-|`SIMPLE_AUTHENTICATION` | Flag to enable/disable simple user authentication | `${SIMPLE_AUTHENTICATION}`
-|`USERNAME` | User name for JDG user. If left empty, it will be generated. | `${USERNAME}`
-|`PASSWORD` | Password for JDG user. If left empty, it will be generated. | `${PASSWORD}`
-|`SECDOMAIN_NAME` | Security domain name for user authentication | `${SECDOMAIN_NAME}`
+.11+| `${APPLICATION_NAME}`
+|`USERNAME` | User name for JDG user. | `${USERNAME}`
+|`PASSWORD` | Password for JDG user. | `${PASSWORD}`
 |`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
 |`INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | `${INFINISPAN_CONNECTORS}`
-|`HOTROD_CACHE_CONTAINER` | The cache container used by the Hot Rod connector (defaults to 'clustered') | `${HOTROD_CACHE_CONTAINER}`
-|`HOTROD_SOCKET_BINDING` | The socket binding port used by the Hot Rod connector (defaults to 'hotrod') | `${HOTROD_SOCKET_BINDING}`
-|`HOTROD_NAME` |  | `${HOTROD_NAME}`
-|`HOTROD_WORKER_THREADS` | The number of worker threads available for the Hot Rod connector (defaults to 160) | `${HOTROD_WORKER_THREADS}`
-|`HOTROD_IDLE_TIMEOUT` | The time (in milliseconds) the connector can remain idle before the connection times out (defaults to -1 - no timeout) | `${HOTROD_IDLE_TIMEOUT}`
-|`HOTROD_TCP_NODELAY` | Whether TCP packets will be delayed and sent out in batches (defaults to true) | `${HOTROD_TCP_NODELAY}`
-|`HOTROD_SEND_BUFFER_SIZE` | The size of the send buffer for the Hot Rod connector (defaults to size of the TCP stack buffer) | `${HOTROD_SEND_BUFFER_SIZE}`
-|`HOTROD_RECEIVE_BUFFER_SIZE` | The size of the receive buffer for the Hot Rod connector (defaults to size of the TCP stack buffer) | `${HOTROD_RECEIVE_BUFFER_SIZE}`
-|`TOPOLOGY_CACHE_SUFFIX` |  | `${TOPOLOGY_CACHE_SUFFIX}`
-|`TOPOLOGY_LOCK_TIMEOUT` | The time (in milliseconds) after which the operation attempting to obtain a lock times out (defaults to 10 seconds) | `${TOPOLOGY_LOCK_TIMEOUT}`
-|`TOPOLOGY_REPLICATION_TIMEOUT` | The time (in milliseconds) after which the replication operation times out (defaults to 10 seconds) | `${TOPOLOGY_REPLICATION_TIMEOUT}`
-|`TOPOLOGY_EXTERNAL_HOST` | The hostname sent by the Hot Rod server to clients listed in the topology information (defaults to the host address) | `${TOPOLOGY_EXTERNAL_HOST}`
-|`TOPOLOGY_EXTERNAL_PORT` | The port sent by the Hot Rod server to clients listed in the topology information (defaults to the configured port) | `${TOPOLOGY_EXTERNAL_PORT}`
-|`TOPOLOGY_LAZY_RETRIEVAL` | Whether the Hot Rod connector will carry out retrieval operations lazily (defaults to true) | `${TOPOLOGY_LAZY_RETRIEVAL}`
-|`TOPOLOGY_AWAIT_INITIAL_TRANSFER` | Whether the initial state retrieval happens immediately at startup; applies only when TOPOLOGY_LAZY_RETRIEVAL is set to false (defaults to true) | `${TOPOLOGY_AWAIT_INITIAL_TRANSFER}`
-|`AUTHENTICATION_SECURITY_REALM` |  | `${AUTHENTICATION_SECURITY_REALM}`
-|`SASL_SERVER_NAME` |  | `${SASL_SERVER_NAME}`
-|`SASL_SECURITY_CONTEXT_NAME` |  | `${SASL_SECURITY_CONTEXT_NAME}`
-|`SASL_MECHANISMS` |  | `${SASL_MECHANISMS}`
-|`SASL_QOP` |  | `${SASL_QOP}`
-|`SASL_STRENGTH` |  | `${SASL_STRENGTH}`
-|`SASL_POLICY_FORWARD_SECRECY` |  | `${SASL_POLICY_FORWARD_SECRECY}`
-|`SASL_POLICY_NO_ACTIVE` |  | `${SASL_POLICY_NO_ACTIVE}`
-|`SASL_POLICY_NO_ANONYMOUS` |  | `${SASL_POLICY_NO_ANONYMOUS}`
-|`SASL_POLICY_NO_DICTIONARY` |  | `${SASL_POLICY_NO_DICTIONARY}`
-|`SASL_POLICY_NO_PLAIN_TEXT` |  | `${SASL_POLICY_NO_PLAIN_TEXT}`
-|`SASL_POLICY_PASS_CREDENTIALS` |  | `${SASL_POLICY_PASS_CREDENTIALS}`
-|`SASL_PROPERTIES` |  | `${SASL_PROPERTIES}`
-|`ENCRYPTION_SECURITY_REALM` |  | `${ENCRYPTION_SECURITY_REALM}`
+|`CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${CACHE_NAMES}`
 |`ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH` |  | `${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}`
-|`MEMCACHED_CACHE_CONTAINER` | The cache container used by the memcached connector (defaults to 'clustered') | `${MEMCACHED_CACHE_CONTAINER}`
-|`MEMCACHED_CACHE` | The cache container used by the memcached connector (defaults to 'clustered') | `${MEMCACHED_CACHE}`
-|`MEMCACHED_SOCKET_BINDING` | The socked binding port used by the memcached connector (defaults to 'memcached') | `${MEMCACHED_SOCKET_BINDING}`
-|`MEMCACHED_NAME` | The name of this memcached connector (defaults to 'memcached') | `${MEMCACHED_NAME}`
-|`MEMCACHED_WORKER_THREADS` | The number of worker threads available for the memcached connector (defaults to 160) | `${MEMCACHED_WORKER_THREADS}`
-|`MEMCACHED_IDLE_TIMEOUT` | The time (in milliseconds) the connector can remain idle before the connection times out (defaults to -1 - no timeout) | `${MEMCACHED_IDLE_TIMEOUT}`
-|`MEMCACHED_TCP_NODELAY` | Whether TCP packets will be delayed and sent out in batches (defaults to true) | `${MEMCACHED_TCP_NODELAY}`
-|`MEMCACHED_SEND_BUFFER_SIZE` | The size of the send buffer for the memcached connector (defaults to the size of the TCP stack buffer) | `${MEMCACHED_SEND_BUFFER_SIZE}`
-|`MEMCACHED_RECEIVE_BUFFER_SIZE` | The size of the receive buffer for the memcached connector (defaults to the size of the TCP stack buffer) | `${MEMCACHED_RECEIVE_BUFFER_SIZE}`
-|`REST_VIRTUAL_SERVER` | The virtual server used by the REST connector (defaults to 'default-host') | `${REST_VIRTUAL_SERVER}`
-|`REST_CACHE_CONTAINER` | The cache container used by the REST connector (defaults to 'clustered') | `${REST_CACHE_CONTAINER}`
-|`REST_CONTEXT_PATH` | The context path for the REST connector (defaults to '') | `${REST_CONTEXT_PATH}`
+|`HOTROD_SERVICE_NAME` | -- | `${APPLICATION_NAME}-hotrod`
+|`MEMCACHED_CACHE` | The name of the cache to expose through this memcached connector (defaults to 'default') | `${MEMCACHED_CACHE}`
 |`REST_SECURITY_DOMAIN` | The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint | `${REST_SECURITY_DOMAIN}`
-|`REST_AUTH_METHOD` | The method used to retrieve credentials for the REST endpoint (defaults to 'BASIC') | `${REST_AUTH_METHOD}`
-|`REST_SECURITY_MODE` | Whether authentication is required only for WRITE operations or for READ operations as well (defaults to 'READ_WRITE') | `${REST_SECURITY_MODE}`
-|`REST_EXTENDED_HEADERS` |  | `${REST_EXTENDED_HEADERS}`
-|`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
-|`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
-|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
-|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
-|`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
+|`JGROUPS_CLUSTER_PASSWORD` | Password for JDG user. | `${JGROUPS_CLUSTER_PASSWORD}`
 |=======================================================================
 
 
@@ -303,11 +207,6 @@ information.
 
 
 
-
-==== Secrets
-
-This template requires link:../secrets/dat-app-secret.adoc[dat-app-secret.json]
-to be installed for the application to run.
 
 
 

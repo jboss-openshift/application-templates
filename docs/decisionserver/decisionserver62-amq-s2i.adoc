@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= decisionserver62-https-s2i
+= decisionserver62-amq-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-Application template for BRMS Realtime Decision Server 6 HTTPS applications built using S2I.
+Application template for BRMS Realtime Decision Server 6 A-MQ applications built using S2I.
 
 toc::[]
 
@@ -24,23 +24,28 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | HelloRulesContainer=org.openshift.quickstarts:decisionserver-hellorules:1.2.0.Final | False
-|`KIE_SERVER_PROTOCOL` | `KIE_SERVER_PROTOCOL` | The protocol to access the KIE Server REST interface. | https | False
-|`KIE_SERVER_PORT` | `KIE_SERVER_PORT` | The port to access the KIE Server REST interface. | 8443 | False
 |`KIE_SERVER_USER` | `KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | kieserver | False
 |`KIE_SERVER_PASSWORD` | `KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}` | False
+|`KIE_SERVER_DOMAIN` | `KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | other | False
+|`KIE_SERVER_JMS_QUEUES_RESPONSE` | `KIE_SERVER_JMS_QUEUES_RESPONSE` | JNDI name of response queue for JMS. | queue/KIE.SERVER.RESPONSE | False
 |`APPLICATION_NAME` | -- | The name for the application. | kie-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts.git | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.2 | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | decisionserver/hellorules | False
-|`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
-|`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
-|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | decisionserver-app-secret | True
+|`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/JmsXA | java:/JmsXA | False
+|`MQ_PROTOCOL` | `MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | openwire | False
+|`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | KIE.SERVER.REQUEST,KIE.SERVER.RESPONSE | False
+|`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}` | False
+|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | decisionserver-app-secret | False
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | jboss | False
 |`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | mykeystorepass | False
-|`HORNETQ_CLUSTER_PASSWORD` | `HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}` | True
+|`MQ_USERNAME` | `MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}` | False
+|`MQ_PASSWORD` | `MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}` | False
+|`AMQ_ADMIN_USERNAME` | `AMQ_ADMIN_USERNAME` | User name for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_USERNAME}` | True
+|`AMQ_ADMIN_PASSWORD` | `AMQ_ADMIN_PASSWORD` | Password for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_PASSWORD}` | True
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
@@ -62,8 +67,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |=============
 |Service        |Port  | Description
 
-|`${APPLICATION_NAME}` | 8080 | The web server's http port.
-|`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
+|`${APPLICATION_NAME}` | 8080 | The web server's HTTP port.
+|`secure-${APPLICATION_NAME}` | 8443 | The web server's HTTPS port.
+|`${APPLICATION_NAME}-amq-tcp` | 61616 | The broker's OpenWire port.
 |=============
 
 
@@ -113,6 +119,7 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |Deployment | Triggers
 
 |`${APPLICATION_NAME}` | ImageChange
+|`${APPLICATION_NAME}-amq` | ImageChange
 |============
 
 
@@ -128,6 +135,7 @@ for more information.
 |Deployment | Replicas
 
 |`${APPLICATION_NAME}` | 1
+|`${APPLICATION_NAME}-amq` | 1
 |============
 
 
@@ -154,6 +162,7 @@ information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
+|`${APPLICATION_NAME}-amq` | jboss-amq-62
 |============
 
 
@@ -164,6 +173,11 @@ information.
 .${APPLICATION_NAME}
 ----
 /bin/bash -c /opt/eap/bin/readinessProbe.sh
+----
+
+.${APPLICATION_NAME}-amq
+----
+/bin/bash -c /opt/amq/bin/readinessProbe.sh
 ----
 
 
@@ -179,6 +193,14 @@ information.
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
+.7+| `${APPLICATION_NAME}-amq`
+|amqp | 5672 | `TCP`
+|amqp-ssl | 5671 | `TCP`
+|mqtt | 1883 | `TCP`
+|stomp | 61613 | `TCP`
+|stomp-ssl | 61612 | `TCP`
+|tcp | 61616 | `TCP`
+|tcp-ssl | 61617 | `TCP`
 |=============
 
 
@@ -188,19 +210,31 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.12+| `${APPLICATION_NAME}`
+.16+| `${APPLICATION_NAME}`
 |`KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | `${KIE_CONTAINER_DEPLOYMENT}`
-|`KIE_SERVER_PROTOCOL` | The protocol to access the KIE Server REST interface. | `${KIE_SERVER_PROTOCOL}`
-|`KIE_SERVER_PORT` | The port to access the KIE Server REST interface. | `${KIE_SERVER_PORT}`
 |`KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | `${KIE_SERVER_USER}`
 |`KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}`
+|`KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | `${KIE_SERVER_DOMAIN}`
+|`KIE_SERVER_JMS_QUEUES_RESPONSE` | JNDI name of response queue for JMS. | `${KIE_SERVER_JMS_QUEUES_RESPONSE}`
+|`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq=MQ`
+|`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/JmsXA | `${MQ_JNDI}`
+|`MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
+|`MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
+|`MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | tcp
+|`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_QUEUES}`
+|`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}`
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/decisionserver-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
 |`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
-|`HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}`
-|`HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}`
-|`HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}`
+.7+| `${APPLICATION_NAME}-amq`
+|`AMQ_USER` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
+|`AMQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
+|`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
+|`AMQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_QUEUES}`
+|`AMQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}`
+|`AMQ_ADMIN_USERNAME` | User name for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_USERNAME}`
+|`AMQ_ADMIN_PASSWORD` | Password for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_PASSWORD}`
 |=======================================================================
 
 

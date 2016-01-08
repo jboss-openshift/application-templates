@@ -27,9 +27,9 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.1 | False
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.2 | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-jdbc | False
-|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb | java:jboss/datasources/TodoListDS | False
+|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. jboss/datasources/postgresqlDS | jboss/datasources/defaultDS | False
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
 |`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
 |`JWS_HTTPS_SECRET` | -- | The name of the secret containing the certificate files | jws-app-secret | True
@@ -199,7 +199,7 @@ information.
 
 .14+| `${APPLICATION_NAME}`
 |`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
-|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb | `${DB_JNDI}`
+|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. jboss/datasources/postgresqlDS | `${DB_JNDI}`
 |`DB_USERNAME` | Database user name | `${DB_USERNAME}`
 |`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
 |`DB_DATABASE` | Database name | `${DB_DATABASE}`

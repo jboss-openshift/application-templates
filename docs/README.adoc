@@ -38,6 +38,7 @@ toc::[levels=1]
 
 * link:./secrets/amq-app-secret.adoc[amq-app-secret]
 * link:./secrets/datagrid-app-secret.adoc[datagrid-app-secret]
+* link:./secrets/decisionserver-app-secret.adoc[decisionserver-app-secret]
 * link:./secrets/eap-app-secret.adoc[eap-app-secret]
 * link:./secrets/jws-app-secret.adoc[jws-app-secret]
 
@@ -74,7 +75,6 @@ toc::[levels=1]
 * link:./datagrid/datagrid65-mysql.adoc[datagrid65-mysql]
 * link:./datagrid/datagrid65-postgresql-persistent.adoc[datagrid65-postgresql-persistent]
 * link:./datagrid/datagrid65-postgresql.adoc[datagrid65-postgresql]
-* link:./datagrid/datagrid65-remote-cache.adoc[datagrid65-remote-cache]
 
 ////
   the source for the release notes part of this page is in the file

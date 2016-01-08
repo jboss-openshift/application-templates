@@ -44,6 +44,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
+|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap-app-secret | False
+|`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False
+|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
+|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |=======================================================================
 
@@ -173,7 +177,7 @@ information.
 
 .${APPLICATION_NAME}-amq
 ----
-/bin/bash -c curl -s -L -u ${AMQ_ADMIN_USERNAME}:${AMQ_ADMIN_PASSWORD} 'http://localhost:8161/hawtio/jolokia/read/org.apache.activemq:type=Broker,brokerName=*,service=Health/CurrentStatus' | grep -q '"CurrentStatus" *: *"Good"'
+/bin/bash -c /opt/amq/bin/readinessProbe.sh
 ----
 
 
@@ -206,7 +210,7 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.14+| `${APPLICATION_NAME}`
+.19+| `${APPLICATION_NAME}`
 |`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq=MQ`
 |`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | `${MQ_JNDI}`
 |`MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
@@ -220,6 +224,11 @@ information.
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
 |`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
+|`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
+|`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
+|`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
+|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
+|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 .7+| `${APPLICATION_NAME}-amq`
 |`AMQ_USER` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`

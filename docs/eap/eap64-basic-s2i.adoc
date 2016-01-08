@@ -199,11 +199,6 @@ information.
 
 
 
-==== Secrets
-
-This template requires link:../secrets/eap-app-secret.adoc[eap-app-secret.json]
-to be installed for the application to run.
-
 
 
 [[clustering]]

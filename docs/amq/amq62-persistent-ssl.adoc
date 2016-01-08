@@ -88,8 +88,6 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
 |`MQ_USERNAME` | `AMQ_USER` | User name for standard broker user.  It is required for connecting to the broker.  If left empty, it will be generated. | `${MQ_USERNAME}` | False
 |`MQ_PASSWORD` | `AMQ_PASSWORD` | Password for standard broker user.  It is required for connecting to the broker.  If left empty, it will be generated. | `${MQ_PASSWORD}` | False
-|`AMQ_ADMIN_USERNAME` | `AMQ_ADMIN_USERNAME` | User name for admin user.  If left empty, it will be generated. | `${AMQ_ADMIN_USERNAME}` | True
-|`AMQ_ADMIN_PASSWORD` | `AMQ_ADMIN_PASSWORD` | Password for admin user.  If left empty, it will be generated. | `${AMQ_ADMIN_PASSWORD}` | True
 |`AMQ_SECRET` | -- | Name of a secret containing SSL related files | amq-app-secret | True
 |`AMQ_TRUSTSTORE` | `AMQ_TRUSTSTORE` | SSL trust store filename | broker.ts | True
 |`AMQ_TRUSTSTORE_PASSWORD` | `AMQ_TRUSTSTORE` | SSL trust store password | `${AMQ_TRUSTSTORE}` | True
@@ -195,7 +193,7 @@ information.
 
 .${APPLICATION_NAME}-amq
 ----
-/bin/bash -c curl -s -L -u ${AMQ_ADMIN_USERNAME}:${AMQ_ADMIN_PASSWORD} 'http://localhost:8161/hawtio/jolokia/read/org.apache.activemq:type=Broker,brokerName=*,service=Health/CurrentStatus' | grep -q '"CurrentStatus" *: *"Good"'
+/bin/bash -c /opt/amq/bin/readinessProbe.sh
 ----
 
 
@@ -206,7 +204,8 @@ information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.8+| `${APPLICATION_NAME}-amq`
+.9+| `${APPLICATION_NAME}-amq`
+|jolokia | 8778 | `TCP`
 |amqp | 5672 | `TCP`
 |amqp-ssl | 5671 | `TCP`
 |mqtt | 1883 | `TCP`
@@ -224,14 +223,12 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.13+| `${APPLICATION_NAME}-amq`
+.11+| `${APPLICATION_NAME}-amq`
 |`AMQ_USER` | User name for standard broker user.  It is required for connecting to the broker.  If left empty, it will be generated. | `${MQ_USERNAME}`
 |`AMQ_PASSWORD` | Password for standard broker user.  It is required for connecting to the broker.  If left empty, it will be generated. | `${MQ_PASSWORD}`
 |`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
 |`AMQ_QUEUES` | Queue names, separated by commas.  These queues will be automatically created when the broker starts.  If left empty, queues will be still created dynamically. | `${MQ_QUEUES}`
 |`AMQ_TOPICS` | Topic names, separated by commas.  These topics will be automatically created when the broker starts.  If left empty, topics will be still created dynamically. | `${MQ_TOPICS}`
-|`AMQ_ADMIN_USERNAME` | User name for admin user.  If left empty, it will be generated. | `${AMQ_ADMIN_USERNAME}`
-|`AMQ_ADMIN_PASSWORD` | Password for admin user.  If left empty, it will be generated. | `${AMQ_ADMIN_PASSWORD}`
 |`AMQ_KEYSTORE_TRUSTSTORE_DIR` | SSL key store filename | `/etc/amq-secret-volume`
 |`AMQ_TRUSTSTORE` | SSL trust store filename | `${AMQ_TRUSTSTORE}`
 |`AMQ_TRUSTSTORE_PASSWORD` | SSL trust store filename | `${AMQ_TRUSTSTORE_PASSWORD}`
