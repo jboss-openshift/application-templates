@@ -293,6 +293,10 @@
                                 ],
                                 "env": [
                                     {
+                                        "name": "DISABLE_SSL",
+                                        "value": "1"
+                                    },
+                                    {
                                         "name": "USERNAME",
                                         "value": "${USERNAME}"
                                     },
