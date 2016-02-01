@@ -1,0 +1,38 @@
+{
+    "kind": "List",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "jboss-image-streams",
+        "annotations": {
+            "description": "ImageStream definitions for JBoss Middleware products."
+        }
+    },
+    "items": [
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "redhat-sso70-openshift",
+                 "annotations": {
+                    "description": "Provides SSO",
+                    "openshift.io/image.insecureRepository": "true"
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "ose3x-master.example.com:5000/redhat-sso-7/sso70-openshift",
+                "tags": [
+                    {
+                        "name": "1.3",
+                        "annotations": {
+                            "description": "SSO",
+                            "iconClass": "icon-jboss",
+                            "tags": "sso,keycloak",
+                            "supports":"sso:7.0.0.Final",
+                            "version": "1.3"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
