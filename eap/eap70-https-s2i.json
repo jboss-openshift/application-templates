@@ -8,10 +8,10 @@
             "tags": "eap,javaee,java,jboss,xpaas",
             "version": "1.2.0"
         },
-        "name": "eap70-basic-s2i"
+        "name": "eap70-https-s2i"
     },
     "labels": {
-        "template": "eap70-basic-s2i",
+        "template": "eap70-https-s2i",
         "xpaas": "1.2.0"
     },
     "parameters": [
@@ -24,6 +24,12 @@
         {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTP",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
+            "name": "HOSTNAME_HTTPS",
             "value": "",
             "required": false
         },
@@ -58,6 +64,30 @@
             "required": false
         },
         {
+            "description": "The name of the secret containing the keystore file",
+            "name": "HTTPS_SECRET",
+            "value": "eap-app-secret",
+            "required": true
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "name": "HTTPS_KEYSTORE",
+            "value": "keystore.jks",
+            "required": false
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "name": "HTTPS_NAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "name": "HTTPS_PASSWORD",
+            "value": "",
+            "required": false
+        },
+        {
             "description": "HornetQ cluster admin password",
             "name": "HORNETQ_CLUSTER_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
@@ -83,6 +113,30 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
+        },
+        {
+            "description": "The name of the secret containing the keystore file",
+            "name": "JGROUPS_ENCRYPT_SECRET",
+            "value": "eap-app-secret",
+            "required": false
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "name": "JGROUPS_ENCRYPT_KEYSTORE",
+            "value": "jgroups.jceks",
+            "required": false
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "name": "JGROUPS_ENCRYPT_NAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "name": "JGROUPS_ENCRYPT_PASSWORD",
+            "value": "",
+            "required": false
         },
         {
             "description": "JGroups cluster password",
@@ -118,6 +172,30 @@
             }
         },
         {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 8443,
+                        "targetPort": 8443
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "metadata": {
+                "name": "secure-${APPLICATION_NAME}",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The web server's https port."
+                }
+            }
+        },
+        {
             "kind": "Route",
             "apiVersion": "v1",
             "id": "${APPLICATION_NAME}-http",
@@ -134,6 +212,29 @@
                 "host": "${HOSTNAME_HTTP}",
                 "to": {
                     "name": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-https",
+            "metadata": {
+                "name": "secure-${APPLICATION_NAME}",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Route for application's https service."
+                }
+            },
+            "spec": {
+                "host": "${HOSTNAME_HTTPS}",
+                "to": {
+                    "name": "secure-${APPLICATION_NAME}"
+                },
+                "tls": {
+                    "termination": "passthrough"
                 }
             }
         },
@@ -249,12 +350,25 @@
                         }
                     },
                     "spec": {
+                        "serviceAccount": "eap-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
+                                "volumeMounts": [
+                                    {
+                                        "name": "eap-keystore-volume",
+                                        "mountPath": "/etc/eap-secret-volume",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "name": "eap-jgroups-keystore-volume",
+                                        "mountPath": "/etc/jgroups-encrypt-secret-volume",
+                                        "readOnly": true
+                                    }
+                                ],
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
@@ -285,6 +399,11 @@
                                         "protocol": "TCP"
                                     },
                                     {
+                                        "name": "https",
+                                        "containerPort": 8443,
+                                        "protocol": "TCP"
+                                    },
+                                    {
                                         "name": "ping",
                                         "containerPort": 8888,
                                         "protocol": "TCP"
@@ -304,6 +423,22 @@
                                         }
                                     },
                                     {
+                                        "name": "HTTPS_KEYSTORE_DIR",
+                                        "value": "/etc/eap-secret-volume"
+                                    },
+                                    {
+                                        "name": "HTTPS_KEYSTORE",
+                                        "value": "${HTTPS_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "HTTPS_NAME",
+                                        "value": "${HTTPS_NAME}"
+                                    },
+                                    {
+                                        "name": "HTTPS_PASSWORD",
+                                        "value": "${HTTPS_PASSWORD}"
+                                    },
+                                    {
                                         "name": "HORNETQ_CLUSTER_PASSWORD",
                                         "value": "${HORNETQ_CLUSTER_PASSWORD}"
                                     },
@@ -316,10 +451,44 @@
                                         "value": "${HORNETQ_TOPICS}"
                                     },
                                     {
+                                        "name": "JGROUPS_ENCRYPT_SECRET",
+                                        "value": "${JGROUPS_ENCRYPT_SECRET}"
+                                    },
+                                    {
+                                        "name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
+                                        "value": "/etc/jgroups-encrypt-secret-volume"
+                                    },
+                                    {
+                                        "name": "JGROUPS_ENCRYPT_KEYSTORE",
+                                        "value": "${JGROUPS_ENCRYPT_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "JGROUPS_ENCRYPT_NAME",
+                                        "value": "${JGROUPS_ENCRYPT_NAME}"
+                                    },
+                                    {
+                                        "name": "JGROUPS_ENCRYPT_PASSWORD",
+                                        "value": "${JGROUPS_ENCRYPT_PASSWORD}"
+                                    },
+                                    {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     }
                                 ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "eap-keystore-volume",
+                                "secret": {
+                                    "secretName": "${HTTPS_SECRET}"
+                                }
+                            },
+                            {
+                                "name": "eap-jgroups-keystore-volume",
+                                "secret": {
+                                    "secretName": "${JGROUPS_ENCRYPT_SECRET}"
+                                }
                             }
                         ]
                     }
