@@ -21,34 +21,41 @@ Templates are configured with the following basic parameters:
  * HTTPS_PASSWORD: The password of the keystore to use to expose SSO/Keycloak over HTTPS (defaults to mykeystorepass)
 
 ##Username/Password
-admin/admin
-
+For SSO Server: admin/admin
+For SSO/Keycloak User created in SSO/Server in All-in-One: demouser/demopass
 
 ##SSO Example
 ```
-In "openshift" project/namespace:
-$ oc create -n myproject -f sso/sso-image-stream.json
-$ oc import-image redhat-sso70-openshift
 
-In user project/namespace:
+NOTE: These templates assume a user project/namespace of "demo". If using another project/namespace then the SSO_URI and APPLICATION_ROUTES ENVs need to be modified accordingly.
+
+Import image-stream(s) into  "openshift" project/namespace from a user with rights to the "openshift" project/namespace:
+$ oc create -n openshift -f sso/sso-image-stream.json
+$ oc import-image -n openshift redhat-sso70-openshift
+
+Create Secrets and SSO/Keycloak Server in user (e.g. "myproject") project/namespace:
 $ oc create -n myproject -f secrets/eap-app-secret.json
 $ oc create -n myproject -f secrets/sso-app-secret.json
-$ oc process -f sso/sso70-postgresql.json | oc create -f -
+$ oc process -f sso/sso70-postgresql.json | oc create -n myproject -f -
 ```
 After executing the above, you should be able to access the SSO/Keycloak server at http://sso-myproject.hostname/auth and https://secure-sso-myproject.hostname/auth
 
 ##All-in-One Example
 ```
-In "openshift" project/namespace:
-$ oc create -n myproject -f sso/sso-image-stream.json
-$ oc import-image redhat-sso70-openshift
-$ oc create -n myproject -f ssoeap/ssoeap-image-stream.json
-$ oc import-image jboss-ssoeap-openshift
 
-In user project/namespace:
+NOTE: These templates assume a user project/namespace of "demo". If using another project/namespace then the SSO_URI and APPLICATION_ROUTES ENVs need to be modified accordingly. 
+
+Import image-stream(s) into  "openshift" project/namespace from a user with rights to the "openshift" project/namespace:
+$ oc create -n openshift -f sso/sso-image-stream.json
+$ oc import-image -n openshift redhat-sso70-openshift
+$ oc create -n openshift -f ssoeap/ssoeap-image-stream.json
+$ oc import-image -n openshift jboss-ssoeap64-openshift
+
+Create Secrets, SSO/Keycloak Server, and SSO/Keycloak-enabled EAP in user (e.g. "myproject") project/namespace:
 $ oc create -n myproject -f secrets/eap-app-secret.json
 $ oc create -n myproject -f secrets/sso-app-secret.json
-$ oc process -f sso/sso70-postgresql-eap64.json | oc create -f -
+$ oc create -n myproject -f secrets/sso-demo-secret,json
+$ oc process -f sso/sso70-postgresql-eap64.json | oc create -n myproject -f -
 ```
-After executing the above, you should be able to access the SSO/Keycloak-enabled applications at http://helloworld-myproject.hostname/app-context and https://secure-helloworld-myproject.hostname/app-context
+After executing the above, you should be able to access the SSO/Keycloak-enabled applications at http://helloworld-myproject.hostname/app-context and https://secure-helloworld-myproject.hostname/app-context where app-context is app-jee, app-profile-jee, app-profile-jee-saml, or service depending on the example application. Note the app-html5 and app-profile-html5 example applications are not deployed or functional.
 
