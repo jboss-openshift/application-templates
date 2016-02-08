@@ -121,7 +121,7 @@
         {
             "description": "Queue names",
             "name": "HORNETQ_QUEUES",
-            "value": "KIE.EXECUTOR",
+            "value": "",
             "required": false
         },
         {
@@ -145,13 +145,13 @@
         {
             "description": "The name associated with the server certificate",
             "name": "HTTPS_NAME",
-            "value": "",
+            "value": "jboss",
             "required": false
         },
         {
             "description": "The password for the keystore and certificate",
             "name": "HTTPS_PASSWORD",
-            "value": "",
+            "value": "mykeystorepass",
             "required": false
         },
         {
