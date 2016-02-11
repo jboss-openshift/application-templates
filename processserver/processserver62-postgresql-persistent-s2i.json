@@ -502,11 +502,6 @@
                                         "name": "https",
                                         "containerPort": 8443,
                                         "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "ping",
-                                        "containerPort": 8888,
-                                        "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
