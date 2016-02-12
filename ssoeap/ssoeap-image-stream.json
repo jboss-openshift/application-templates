@@ -19,7 +19,7 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "ose3-master.example.com:5000/jboss-ssoeap-6/ssoeap64-openshift",
+                "dockerImageRepository": "docker-registry.usersys.redhat.com/jboss-ssoeap-6/ssoeap64-openshift",
                 "tags": [
                     {
                         "name": "1.3",
