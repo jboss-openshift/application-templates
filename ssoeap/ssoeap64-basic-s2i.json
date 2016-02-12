@@ -63,12 +63,6 @@
             "required": true
         },
         {
-            "description": "Size of persistent storage for database volume.",
-            "name": "VOLUME_CAPACITY",
-            "value": "512Mi",
-            "required": true
-        },
-        {
             "description": "Queue names",
             "name": "HORNETQ_QUEUES",
             "value": "",
