@@ -41,6 +41,7 @@ toc::[levels=1]
 * link:./secrets/decisionserver-app-secret.adoc[decisionserver-app-secret]
 * link:./secrets/eap-app-secret.adoc[eap-app-secret]
 * link:./secrets/jws-app-secret.adoc[jws-app-secret]
+* link:./secrets/procexecserver-app-secret.adoc[procexecserver-app-secret]
 
 == JBoss Web Server
 

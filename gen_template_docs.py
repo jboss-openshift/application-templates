@@ -25,7 +25,7 @@ amq_ssl_desc = None
 LINKS =  {"jboss-eap64-openshift:1.2":               "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]", \
           "jboss-webserver30-tomcat7-openshift:1.2": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver-3/webserver30-tomcat7-openshift`]", \
           "jboss-webserver30-tomcat8-openshift:1.2": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver30-tomcat8-openshift`]",
-          "jboss-decisionserver62-openshift:1.2": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`]"};
+          "jboss-decisionserver62-openshift:1.3": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`]"};
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
                    "SOURCE_REPOSITORY_URL": "https://github.com/jboss-openshift/openshift-examples.git", \

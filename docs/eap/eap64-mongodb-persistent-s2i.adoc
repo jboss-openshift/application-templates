@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for EAP 6 MongDB applications with persistent storage built using S2I.
+Application template for EAP 6 MongoDB applications with persistent storage built using S2I.
 
 toc::[]
 
