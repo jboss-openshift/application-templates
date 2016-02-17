@@ -143,12 +143,6 @@
             "required": false
         },
         {
-            "description": "Size of persistent storage for database volume.",
-            "name": "VOLUME_CAPACITY",
-            "value": "512Mi",
-            "required": true
-        },
-        {
             "description": "The name of the secret containing the keystore file",
             "name": "JGROUPS_ENCRYPT_SECRET",
             "value": "eap-app-secret",
@@ -163,13 +157,13 @@
         {
             "description": "The name associated with the server certificate",
             "name": "JGROUPS_ENCRYPT_NAME",
-            "value": "",
+            "value": "jboss",
             "required": false
         },
         {
             "description": "The password for the keystore and certificate",
             "name": "JGROUPS_ENCRYPT_PASSWORD",
-            "value": "",
+            "value": "mykeystorepass",
             "required": false
         },
         {
