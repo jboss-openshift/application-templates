@@ -574,10 +574,6 @@
                                         "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
-                                    },
-                                    {
                                         "name": "HORNETQ_QUEUES",
                                         "value": "${HORNETQ_QUEUES}"
                                     },
