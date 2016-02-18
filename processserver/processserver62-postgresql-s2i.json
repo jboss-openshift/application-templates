@@ -149,6 +149,20 @@
             "required": false
         },
         {
+            "description": "Database user name",
+            "name": "DB_USERNAME",
+            "from": "user[a-zA-Z0-9]{3}",
+            "generate": "expression",
+            "required": true
+        },
+        {
+            "description": "Database user password",
+            "name": "DB_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
+        },
+        {
             "description": "Sets xa-pool/min-pool-size for the configured datasource.",
             "name": "DB_MIN_POOL_SIZE",
             "required": false
@@ -176,20 +190,6 @@
         {
             "description": "HornetQ cluster admin password",
             "name": "HORNETQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "description": "Database user name",
-            "name": "DB_USERNAME",
-            "from": "user[a-zA-Z0-9]{3}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "description": "Database user password",
-            "name": "DB_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
