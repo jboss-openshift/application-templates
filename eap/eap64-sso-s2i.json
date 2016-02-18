@@ -173,13 +173,13 @@
         {
             "description": "The name associated with the server certificate",
             "name": "JGROUPS_ENCRYPT_NAME",
-            "value": "jboss",
+            "value": "",
             "required": false
         },
         {
             "description": "The password for the keystore and certificate",
             "name": "JGROUPS_ENCRYPT_PASSWORD",
-            "value": "mykeystorepass",
+            "value": "",
             "required": false
         },
         {
@@ -240,7 +240,7 @@
         {
             "description": "The name of the secret containing the keystore file",
             "name": "SSO_SAML_KEYSTORE_SECRET",
-            "value": "sso-app-secret",
+            "value": "eap-app-secret",
             "required": false
         },
         {
