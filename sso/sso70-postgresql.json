@@ -287,7 +287,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "server"
                 }
             },
             "spec": {
@@ -508,7 +509,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}-postgresql",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "database"
                 }
             },
             "spec": {

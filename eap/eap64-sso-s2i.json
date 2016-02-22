@@ -228,7 +228,7 @@
         {
             "description": "Artifacts",
             "name": "ARTIFACT_DIR",
-            "value": "app-jee/target;app-profile-jee/target;service-jaxrs/target;app-profile-jee-saml/target",
+            "value": "app-jee/target,app-profile-jee/target,service-jaxrs/target,app-profile-jee-saml/target",
             "required": false
         },
         {
