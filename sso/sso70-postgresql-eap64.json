@@ -475,7 +475,8 @@
             "metadata": {
                 "name": "sso",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+		    "component": "server"
                 }
             },
             "spec": {
@@ -510,7 +511,8 @@
                         "name": "sso",
                         "labels": {
                             "deploymentConfig": "sso",
-                            "application": "sso"
+                            "application": "sso",
+			    "component": "server"
                         }
                     },
                     "spec": {
@@ -676,7 +678,8 @@
             "metadata": {
                 "name": "sso-postgresql",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+		    "component": "database"
                 }
             },
             "spec": {
@@ -711,7 +714,8 @@
                         "name": "sso-postgresql",
                         "labels": {
                             "deploymentConfig": "sso-postgresql",
-                            "application": "sso"
+                            "application": "sso",
+			    "component": "database"
                         }
                     },
                     "spec": {
@@ -761,7 +765,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+		    "component": "eap"
                 }
             },
             "spec": {
@@ -792,7 +797,8 @@
                         "name": "${APPLICATION_NAME}",
                         "labels": {
                             "deploymentConfig": "${APPLICATION_NAME}",
-                            "application": "${APPLICATION_NAME}"
+                            "application": "${APPLICATION_NAME}",
+			    "component": "eap"
                         }
                     },
                     "spec": {
