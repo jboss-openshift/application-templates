@@ -113,13 +113,6 @@
             "required": false
         },
         {
-            "description": "HornetQ cluster admin password",
-            "name": "HORNETQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
             "description": "Database user name",
             "name": "DB_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
@@ -645,10 +638,6 @@
                                         "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
-                                    },
-                                    {
                                         "name": "HORNETQ_QUEUES",
                                         "value": "${HORNETQ_QUEUES}"
                                     },
@@ -894,10 +883,6 @@
                                     {
                                         "name": "EAP_HTTPS_PASSWORD",
                                         "value": "${HTTPS_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
                                     },
                                     {
                                         "name": "HORNETQ_QUEUES",
