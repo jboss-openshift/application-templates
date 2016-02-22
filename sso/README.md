@@ -6,6 +6,7 @@ Red Hat SSO/Keycloak
 Several templates are provided:
  * sso-image-stream.json: ImageStream for SSO/Keycloak
  * sso-demo.json: Secret containing full SSO/Keycloak configuration used for import. Required for the all-in-one template
+ * sso70-basic.json:  SSO/Keycloak template backed by internal H2 database
  * sso70-postgresql.json: SSO/Keycloak template backed by Postgresql
  * sso70-postgresql-persistent.json: SSO/Keycloak template backed by persistent Postgresql
  * sso70-mysql.json: SSO/Keycloak template backed by MySQL
