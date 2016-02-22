@@ -84,7 +84,7 @@
         {
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
-            "value": "eap-app-secret",
+            "value": "eap7-app-secret",
             "required": false
         },
         {
@@ -186,7 +186,7 @@
         {
             "description": "The name of the secret containing the keystore file",
             "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "eap-app-secret",
+            "value": "eap7-app-secret",
             "required": false
         },
         {
