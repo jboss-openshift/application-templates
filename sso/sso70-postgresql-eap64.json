@@ -202,7 +202,8 @@
             "metadata": {
                 "name": "sso",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "The web server's http port."
@@ -226,7 +227,8 @@
             "metadata": {
                 "name": "secure-sso",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "The web server's https port."
@@ -250,7 +252,8 @@
             "metadata": {
                 "name": "sso-postgresql",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+                    "component": "database"
                 },
                 "annotations": {
                     "description": "The database server's port."
@@ -274,7 +277,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "The web server's http port."
@@ -298,7 +302,8 @@
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "The web server's https port."
@@ -312,7 +317,8 @@
             "metadata": {
                 "name": "sso",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "Route for application's http service."
@@ -332,7 +338,8 @@
             "metadata": {
                 "name": "secure-sso",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "Route for application's https service."
@@ -355,7 +362,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "Route for application's http service."
@@ -375,7 +383,8 @@
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "Route for application's https service."
