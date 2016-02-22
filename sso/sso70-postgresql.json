@@ -183,7 +183,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "The web server's http port."
@@ -207,7 +208,8 @@
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "The web server's https port."
@@ -231,7 +233,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}-postgresql",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "database"
                 },
                 "annotations": {
                     "description": "The database server's port."
@@ -245,7 +248,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "Route for application's http service."
@@ -265,7 +269,8 @@
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "Route for application's https service."
@@ -323,7 +328,8 @@
                         "name": "${APPLICATION_NAME}",
                         "labels": {
                             "deploymentConfig": "${APPLICATION_NAME}",
-                            "application": "${APPLICATION_NAME}"
+                            "application": "${APPLICATION_NAME}",
+                            "component": "server"
                         }
                     },
                     "spec": {
@@ -545,7 +551,8 @@
                         "name": "${APPLICATION_NAME}-postgresql",
                         "labels": {
                             "deploymentConfig": "${APPLICATION_NAME}-postgresql",
-                            "application": "${APPLICATION_NAME}"
+                            "application": "${APPLICATION_NAME}",
+                            "component": "database"
                         }
                     },
                     "spec": {
