@@ -65,13 +65,13 @@
         },
         {
             "description": "Queue names",
-            "name": "HORNETQ_QUEUES",
+            "name": "MQ_QUEUES",
             "value": "",
             "required": false
         },
         {
             "description": "Topic names",
-            "name": "HORNETQ_TOPICS",
+            "name": "MQ_TOPICS",
             "value": "",
             "required": false
         },
@@ -125,8 +125,8 @@
             "required": false
         },
         {
-            "description": "HornetQ cluster admin password",
-            "name": "HORNETQ_CLUSTER_PASSWORD",
+            "description": "ActiveMQ cluster admin password",
+            "name": "MQ_CLUSTER_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
@@ -550,16 +550,16 @@
                                         "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                        "name": "MQ_CLUSTER_PASSWORD",
+                                        "value": "${MQ_CLUSTER_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_QUEUES",
-                                        "value": "${HORNETQ_QUEUES}"
+                                        "name": "MQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
                                     },
                                     {
-                                        "name": "HORNETQ_TOPICS",
-                                        "value": "${HORNETQ_TOPICS}"
+                                        "name": "MQ_TOPICS",
+                                        "value": "${MQ_TOPICS}"
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
