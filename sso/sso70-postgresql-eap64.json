@@ -34,6 +34,18 @@
             "required": false
         },
         {
+            "description": "Custom hostname for SSO http service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
+            "name": "SSO_HOSTNAME_HTTP",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Custom hostname for SSO https service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
+            "name": "SSO_HOSTNAME_HTTPS",
+            "value": "",
+            "required": false
+        },
+        {
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
             "value": "https://github.com/bdecoste/keycloak-examples",
@@ -145,7 +157,6 @@
             "generate": "expression",
             "required": true
         },
-        
         {
             "description": "Routes",
             "name": "APPLICATION_ROUTES",
@@ -318,7 +329,7 @@
                 }
             },
             "spec": {
-                "host": "${HOSTNAME_HTTP}",
+                "host": "${SSO_HOSTNAME_HTTP}",
                 "to": {
                     "name": "sso"
                 }
@@ -339,7 +350,7 @@
                 }
             },
             "spec": {
-                "host": "${HOSTNAME_HTTPS}",
+                "host": "${SSO_HOSTNAME_HTTPS}",
                 "to": {
                     "name": "secure-sso"
                 },
