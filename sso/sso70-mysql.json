@@ -157,13 +157,13 @@
         {
             "description": "The name associated with the server certificate",
             "name": "JGROUPS_ENCRYPT_NAME",
-            "value": "jboss",
+            "value": "",
             "required": false
         },
         {
             "description": "The password for the keystore and certificate",
             "name": "JGROUPS_ENCRYPT_PASSWORD",
-            "value": "mykeystorepass",
+            "value": "",
             "required": false
         },
         {
