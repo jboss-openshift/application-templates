@@ -41,7 +41,7 @@
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "master",
+            "value": "0.1-openshift",
             "required": false
         },
         {
