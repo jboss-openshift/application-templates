@@ -220,6 +220,12 @@
             "required": true
         },
         {
+            "description": "SSO Client Access Type",
+            "name": "SSO_BEARER_ONLY",
+            "value": "",
+            "required": false
+        },
+        {
             "description": "Routes",
             "name": "APPLICATION_ROUTES",
             "value": "http://helloworld-demo.cloudapps.example.com;https://secure-helloworld-demo.cloudapps.example.com",
@@ -228,7 +234,7 @@
         {
             "description": "Artifacts",
             "name": "ARTIFACT_DIR",
-            "value": "app-jee/target,app-profile-jee/target,service-jaxrs/target,app-profile-jee-saml/target",
+            "value": "app-jee/target,service-jaxrs/target,app-profile-jee/target,app-profile-jee-saml/target",
             "required": false
         },
         {
@@ -618,6 +624,10 @@
                                     {
                                         "name": "KEYCLOAK_PUBLIC_KEY",
                                         "value": "${SSO_PUBLIC_KEY}"
+                                    },
+                                    {
+                                        "name": "KEYCLOAK_BEARER_ONLY",
+                                        "value": "${SSO_BEARER_ONLY}"
                                     },
                                     {
                                         "name": "APPLICATION_ROUTES",

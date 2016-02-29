@@ -24,7 +24,9 @@ Once the SSO/Keycloak server has been instantiated (see sso/README) and configur
 
 * Create Realm (e.g demo)
 * Create Role that corresponds to JEE Role (e.g. user)
-* Create User with permanent password credential (e.g. demouser/demopass). Add Roles to User: JEE Role from #2 and all "realm-management" Roles
+* Create User with permanent password credential (e.g. mgmtuser/mgmtpass). Add all "realm-management" Roles. This User is used to automatically configure the SSO Clients in the SSO Server.
+* Create User with permanent password credential (e.g. demouser/demopass). Add Roles to User: JEE Role from #2. This User is used to authenticate access to user applications.
+ and all "realm-management" Roles
 
 ```
 Import image-stream(s) into  "openshift" project/namespace from a user with rights to the "openshift" project/namespace:
@@ -39,7 +41,7 @@ Create Secrets and SSO/Keycloak-enabled EAP in user (e.g. "myproject") project/n
 $ oc create -n myproject -f secrets/eap-app-secret.json
 $ oc create -n myproject -f secrets/sso-app-secret.json
 $ oc create -n myproject -f secrets/sso-demo-secret.json
-$ oc process -f ssoeap/ssoeap64-basic-s2i.json -v APPLICATION_NAME=helloworld,SOURCE_REPOSITORY_URL=https://github.com/keycloak/keycloak-examples,SOURCE_REPOSITORY_REF=master,CONTEXT_DIR=,SSO_URI=https://secure-sso-demo.hostname/auth,SSO_REALM=demo,SSO_USERNAME=demouser,SSO_PASSWORD=demopass,SSO_PUBLIC_KEY=XXX | oc create -n myproject -f -
+$ oc process -f ssoeap/ssoeap64-basic-s2i.json -v APPLICATION_NAME=helloworld,SOURCE_REPOSITORY_URL=https://github.com/keycloak/keycloak-examples,SOURCE_REPOSITORY_REF=master,CONTEXT_DIR=,SSO_URI=https://secure-sso-demo.hostname/auth,SSO_REALM=demo,SSO_USERNAME=mgmtuser,SSO_PASSWORD=mgmtpass,SSO_PUBLIC_KEY=XXX | oc create -n myproject -f -
 ```
 
 After executing the above, you should be able to access the SSO/Keycloak-enabled applications at http://helloworld-myproject.hostname/app-context and https://secure-helloworld-myproject.hostname/app-context where app-context is app-jee, app-profile-jee, app-profile-jee-saml, or service depending on the example application. Note the app-html5 and app-profile-html5 example applications are not deployed or functional.
