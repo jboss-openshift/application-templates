@@ -19,7 +19,7 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "registry.example.com:5000/jboss-eap-6/eap64-openshift",
+                "dockerImageRepository": "docker-registry.usersys.redhat.com/jboss-eap-6/eap64-openshift",
                 "tags": [
                     {
                         "name": "1.3",
