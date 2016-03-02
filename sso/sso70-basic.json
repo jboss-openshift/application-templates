@@ -290,7 +290,7 @@
                         }
                     },
                     "spec": {
-                        "serviceAccount": "sso-service-account",
+                        "serviceAccountName": "sso-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {

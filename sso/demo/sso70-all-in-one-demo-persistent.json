@@ -520,7 +520,7 @@
                         }
                     },
                     "spec": {
-                        "serviceAccount": "sso-service-account",
+                        "serviceAccountName": "sso-service-account",
                         "terminationGracePeriodSeconds": 30,
                         "containers": [
                             {
@@ -816,7 +816,7 @@
                         }
                     },
                     "spec": {
-                        "serviceAccount": "eap-service-account",
+                        "serviceAccountName": "eap-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "restartCount": 10,
                         "containers": [

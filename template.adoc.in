@@ -99,7 +99,7 @@ for more information.
 
 ==== Pod Template
 
-{#serviceAccount}
+{#serviceAccountName}
 ===== Service Accounts
 
 Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
