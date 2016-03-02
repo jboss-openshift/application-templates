@@ -455,7 +455,7 @@
                         }
                     },
                     "spec": {
-                        "serviceAccount": "processserver-service-account",
+                        "serviceAccountName": "processserver-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
