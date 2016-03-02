@@ -54,7 +54,7 @@
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "cloud-503",
+            "value": "master",
             "required": false
         },
         {
@@ -149,6 +149,12 @@
             "name": "HORNETQ_TOPICS",
             "value": "",
             "required": false
+        },
+        {
+            "name": "HORNETQ_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
         },
         {
             "description": "JGroups cluster password",
@@ -902,6 +908,10 @@
                                     {
                                         "name": "HORNETQ_TOPICS",
                                         "value": "${HORNETQ_TOPICS}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_CLUSTER_PASSWORD",
+                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",

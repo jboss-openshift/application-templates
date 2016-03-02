@@ -41,7 +41,7 @@
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "0.1-openshift",
+            "value": "0.3-openshift",
             "required": false
         },
         {
@@ -587,6 +587,10 @@
                                     {
                                         "name": "HORNETQ_TOPICS",
                                         "value": "${HORNETQ_TOPICS}"
+                                    },
+				    {
+                                        "name": "HORNETQ_CLUSTER_PASSWORD",
+                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
