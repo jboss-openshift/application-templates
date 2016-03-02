@@ -188,6 +188,13 @@
             "required": false
         },
         {
+            "description": "The SSO Client Secret for Confidential Access",
+            "name": "SSO_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
+        },
+        {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
@@ -956,6 +963,10 @@
                                     {
                                         "name": "SSO_SAML_KEYSTORE_PASSWORD",
                                         "value": "mykeystorepass"
+                                    },
+                                    {
+                                        "name": "KEYCLOAK_SECRET",
+                                        "value": "${SSO_SECRET}"
                                     }
                                 ]
                             }
