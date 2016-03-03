@@ -26,7 +26,6 @@ Once the SSO/Keycloak server has been instantiated (see sso/README) and configur
 * Create Role that corresponds to JEE Role (e.g. user)
 * Create User with permanent password credential (e.g. mgmtuser/mgmtpass). Add all "realm-management" Roles. This User is used to automatically configure the SSO Clients in the SSO Server.
 * Create User with permanent password credential (e.g. demouser/demopass). Add Roles to User: JEE Role from #2. This User is used to authenticate access to user applications.
- and all "realm-management" Roles
 
 ```
 Import image-stream(s) into  "openshift" project/namespace from a user with rights to the "openshift" project/namespace:
