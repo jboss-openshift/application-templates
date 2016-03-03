@@ -228,7 +228,7 @@
         {
             "description": "Routes",
             "name": "APPLICATION_ROUTES",
-            "value": "http://helloworld-demo.cloudapps.example.com;https://secure-helloworld-demo.cloudapps.example.com",
+            "value": "",
             "required": false
         },
         {
