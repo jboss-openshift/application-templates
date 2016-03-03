@@ -1,0 +1,38 @@
+{
+    "kind": "List",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "jboss-image-streams",
+        "annotations": {
+            "description": "ImageStream definitions for JBoss Middleware products."
+        }
+    },
+    "items": [
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "jboss-ssoeap64-openshift",
+                 "annotations": {
+                    "description": "Provides JBoss SSO EAP6  S2I images.",
+                    "openshift.io/image.insecureRepository": "true"
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "docker-registry.usersys.redhat.com/jboss-eap-6/eap64-openshift",
+                "tags": [
+                    {
+                        "name": "1.3",
+                        "annotations": {
+                            "description": "ssoeap",
+                            "iconClass": "icon-keycloak",
+                            "tags": "ssoeap",
+                            "supports":"ssoeap:6.4",
+                            "version": "1.3"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
