@@ -275,6 +275,12 @@
             "required": true
         },
         {
+            "description": "Enable CORS for SSO applications",
+            "name": "SSO_ENABLE_CORS",
+            "value": "false",
+            "required": false
+        },
+        {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
@@ -663,6 +669,10 @@
                                     {
                                         "name": "KEYCLOAK_SECRET",
                                         "value": "${SSO_SECRET}"
+                                    },
+                                    {
+                                        "name": "KEYCLOAK_ENABLE_CORS",
+                                        "value": "${SSO_ENABLE_CORS}"
                                     }
                                 ]
                             }
