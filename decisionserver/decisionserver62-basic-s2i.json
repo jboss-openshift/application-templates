@@ -18,7 +18,7 @@
         {
             "description": "The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
             "name": "KIE_CONTAINER_DEPLOYMENT",
-            "value": "HelloRulesContainer=org.openshift.quickstarts:decisionserver-hellorules:1.2.0-SNAPSHOT",
+            "value": "HelloRulesContainer=org.openshift.quickstarts:decisionserver-hellorules:1.2.0.Final",
             "required": false
         },
         {
@@ -55,7 +55,7 @@
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "master",
+            "value": "1.2",
             "required": false
         },
         {
