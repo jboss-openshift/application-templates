@@ -42,7 +42,7 @@
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "master",
+            "value": "0.4-openshift",
             "required": false
         },
         {
@@ -432,7 +432,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-ssoeap64-openshift:1.3"
+                            "name": "jboss-eap64-openshift:1.3"
                         },
                         "env": [
                             {
@@ -917,23 +917,23 @@
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
                                     {
-                                        "name": "KEYCLOAK_URI",
+                                        "name": "SSO_URI",
                                         "value": "${SSO_URI}"
                                     },
                                     {
-                                        "name": "KEYCLOAK_REALM",
+                                        "name": "SSO_REALM",
                                         "value": "demo"
                                     },
                                     {
-                                        "name": "KEYCLOAK_USERNAME",
+                                        "name": "SSO_USERNAME",
                                         "value": "demouser"
                                     },
                                     {
-                                        "name": "KEYCLOAK_PASSWORD",
+                                        "name": "SSO_PASSWORD",
                                         "value": "demopass"
                                     },
                                     {
-                                        "name": "KEYCLOAK_PUBLIC_KEY",
+                                        "name": "SSO_PUBLIC_KEY",
                                         "value": ""
                                     },
                                     {
