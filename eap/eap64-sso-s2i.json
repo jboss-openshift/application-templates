@@ -581,27 +581,27 @@
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
                                     {
-                                        "name": "KEYCLOAK_URI",
+                                        "name": "SSO_URI",
                                         "value": "${SSO_URI}"
                                     },
                                     {
-                                        "name": "KEYCLOAK_REALM",
+                                        "name": "SSO_REALM",
                                         "value": "${SSO_REALM}"
                                     },
                                     {
-                                        "name": "KEYCLOAK_USERNAME",
+                                        "name": "SSO_USERNAME",
                                         "value": "${SSO_USERNAME}"
                                     },
                                     {
-                                        "name": "KEYCLOAK_PASSWORD",
+                                        "name": "SSO_PASSWORD",
                                         "value": "${SSO_PASSWORD}"
                                     },
                                     {
-                                        "name": "KEYCLOAK_PUBLIC_KEY",
+                                        "name": "SSO_PUBLIC_KEY",
                                         "value": "${SSO_PUBLIC_KEY}"
                                     },
                                     {
-                                        "name": "KEYCLOAK_BEARER_ONLY",
+                                        "name": "SSO_BEARER_ONLY",
                                         "value": "${SSO_BEARER_ONLY}"
                                     },
                                     {
@@ -625,11 +625,11 @@
                                         "value": "${SSO_SAML_KEYSTORE_PASSWORD}"
                                     },
                                     {
-                                        "name": "KEYCLOAK_SECRET",
+                                        "name": "SSO_SECRET",
                                         "value": "${SSO_SECRET}"
                                     },
                                     {
-                                        "name": "KEYCLOAK_ENABLE_CORS",
+                                        "name": "SSO_ENABLE_CORS",
                                         "value": "${SSO_ENABLE_CORS}"
                                     }
                                 ]
