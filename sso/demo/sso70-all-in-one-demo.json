@@ -48,13 +48,13 @@
         {
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/bdecoste/keycloak-examples",
+            "value": "https://github.com/keycloak/keycloak-examples",
             "required": true
         },
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "master",
+            "value": "0.4-openshift",
             "required": false
         },
         {

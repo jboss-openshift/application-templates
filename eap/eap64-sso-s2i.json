@@ -42,7 +42,7 @@
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "0.3-openshift",
+            "value": "0.4-openshift",
             "required": false
         },
         {
@@ -170,7 +170,7 @@
             "required": false
         },
         {
-            "description": "SSO Public Key",
+            "description": "SSO Public Key. Public key is required in the template to avoid man-in-the-middle security vulnerability and recommended for all SSO image use",
             "name": "SSO_PUBLIC_KEY",
             "value": "",
             "required": true
