@@ -41,6 +41,8 @@ After executing the above, you should be able to access the SSO/Keycloak server 
 
 ##All-in-One Example
 
+NOTE: The all-in-one templates assume a project of "demo" and a domain of "cloudapps.example.com". If using other values you will need to modify SSO_URI accordingly
+ 
 Create Secrets, SSO/Keycloak Server, and SSO/Keycloak-enabled EAP in user (e.g. "myproject") project/namespace:
 
 ```
