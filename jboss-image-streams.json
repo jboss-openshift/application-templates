@@ -257,11 +257,11 @@
                             "tags": "sso,keycloak,redhat",
                             "supports":"sso:7.0,xpaas:1.3",
                             "version": "1.3"
+                        },
+                        "from": {
+                          "Kind": "DockerImage",
+                          "Name": "registry.access.redhat.com/redhat-sso-7-tech-preview/sso70-openshift/eap70-openshift:1.3"
                         }
-                    },
-                    "from": {
-                      "Kind": "DockerImage",
-                      "Name": "registry.access.redhat.com/redhat-sso-7-tech-preview/sso70-openshift/eap70-openshift:1.3"
                     }
                 ]
             }
