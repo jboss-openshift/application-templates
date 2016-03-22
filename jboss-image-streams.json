@@ -260,7 +260,7 @@
                         },
                         "from": {
                           "Kind": "DockerImage",
-                          "Name": "registry.access.redhat.com/redhat-sso-7-tech-preview/sso70-openshift/eap70-openshift:1.3"
+                          "Name": "registry.access.redhat.com/redhat-sso-7-tech-preview/sso70-openshift:1.3"
                         }
                     }
                 ]
