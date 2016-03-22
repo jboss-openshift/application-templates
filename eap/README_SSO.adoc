@@ -33,6 +33,11 @@ mykeystorepass)
 * `SSO_SAML_CERTIFICATE_NAME`: Alias for keys/certificate to use for
 SAML (default to jboss)
 
+Upon startup, the image reads the deployment WAR's `web.xml` and looks for the
+`auth-method key`. If it's "KEYCLOAK", Open ID Connect is enabled. If it's
+"KEYCLOAK-SAML", SAML client registration and adapter configuration is
+performed.
+
 [[example]]
 Example
 ~~~~~~~
