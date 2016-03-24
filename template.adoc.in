@@ -110,7 +110,7 @@ information.
 |Deployment | Service Account
 {table}
 |============
-{/serviceAccount}
+{/serviceAccountName}
 
 {#image}
 ===== Image
