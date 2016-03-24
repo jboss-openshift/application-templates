@@ -99,9 +99,9 @@ toc::[levels=1]
 === Release 1.3
 
  * New image definitions for:
-   * Red Hat SSO
-   * EAP 7 Beta
-   * Red Hat SSO support in EAP 6.4 and 7 beta
+   * Red Hat SSO 7.0 Tech Preview
+   * EAP 7.0 Beta
+   * Red Hat SSO support added to EAP 6.4 and 7.0 Beta images
  * Switch templates using deprecated key serviceAccount to serviceAccountName
 
 === Release 1.2.0
