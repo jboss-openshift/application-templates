@@ -148,13 +148,13 @@
         {
             "description": "SSO Location",
             "name": "SSO_URI",
-            "value": "",
+            "value": "https://secure-sso:8443/auth",
             "required": false
         },
         {
             "description": "SSO Realm",
             "name": "SSO_REALM",
-            "value": "",
+            "value": "demo",
             "required": false
         },
         {
@@ -170,10 +170,10 @@
             "required": false
         },
         {
-            "description": "SSO Public Key. Public key is required in the template to avoid man-in-the-middle security vulnerability and recommended for all SSO image use",
+            "description": "SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability",
             "name": "SSO_PUBLIC_KEY",
             "value": "",
-            "required": true
+            "required": false
         },
         {
             "description": "SSO Client Access Type",
