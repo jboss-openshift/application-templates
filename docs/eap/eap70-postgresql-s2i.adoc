@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= eap64-https-s2i
+= eap70-postgresql-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-Application template for EAP 6 applications built using S2I.
+Application template for EAP 7 PostgreSQL applications built using S2I.
 
 toc::[]
 
@@ -26,20 +26,29 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
-|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 6.4.x | False
-|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | kitchensink | False
-|`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
-|`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
-|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap-app-secret | True
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.3 | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-jdbc | False
+|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | java:jboss/datasources/TodoListDS | False
+|`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
+|`MQ_QUEUES` | `MQ_QUEUES` | Queue names | `${MQ_QUEUES}` | False
+|`MQ_TOPICS` | `MQ_TOPICS` | Topic names | `${MQ_TOPICS}` | False
+|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap7-app-secret | False
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}` | False
 |`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}` | False
-|`HORNETQ_CLUSTER_PASSWORD` | `HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}` | True
+|`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
+|`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
+|`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
+|`POSTGRESQL_MAX_CONNECTIONS` | `POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}` | False
+|`POSTGRESQL_SHARED_BUFFERS` | `POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}` | False
+|`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | ActiveMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
+|`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
+|`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
-|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap-app-secret | False
+|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap7-app-secret | False
 |`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False
 |`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
 |`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}` | False
@@ -64,6 +73,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 
 |`${APPLICATION_NAME}` | 8080 | The web server's http port.
 |`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
+|`${APPLICATION_NAME}-postgresql` | 5432 | The database server's port.
 |=============
 
 
@@ -94,7 +104,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap64-openshift:1.3 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ConfigChange, GitHub, ImageChange
+|jboss-eap70-openshift:1.3-Beta |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7-beta/eap70-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ConfigChange, GitHub, ImageChange
 |=============
 
 
@@ -113,6 +123,7 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |Deployment | Triggers
 
 |`${APPLICATION_NAME}` | ImageChange
+|`${APPLICATION_NAME}-postgresql` | ImageChange
 |============
 
 
@@ -128,6 +139,7 @@ for more information.
 |Deployment | Replicas
 
 |`${APPLICATION_NAME}` | 1
+|`${APPLICATION_NAME}-postgresql` | 1
 |============
 
 
@@ -143,7 +155,7 @@ information.
 |============
 |Deployment | Service Account
 
-|`${APPLICATION_NAME}` | eap-service-account
+|`${APPLICATION_NAME}` | eap7-service-account
 |============
 
 
@@ -154,6 +166,7 @@ information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
+|`${APPLICATION_NAME}-postgresql` | postgresql
 |============
 
 
@@ -179,6 +192,8 @@ information.
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
+.1+| `${APPLICATION_NAME}-postgresql`
+|-- | 5432 | `TCP`
 |=============
 
 
@@ -188,22 +203,37 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.15+| `${APPLICATION_NAME}`
+.24+| `${APPLICATION_NAME}`
+|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
+|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | `${DB_JNDI}`
+|`DB_USERNAME` | Database user name | `${DB_USERNAME}`
+|`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
+|`DB_DATABASE` | Database name | `${DB_DATABASE}`
+|`TX_DATABASE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
+|`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
+|`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
+|`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
 |`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
 |`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
-|`HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}`
-|`HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}`
-|`HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}`
+|`MQ_CLUSTER_PASSWORD` | ActiveMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
+|`MQ_QUEUES` | Queue names | `${MQ_QUEUES}`
+|`MQ_TOPICS` | Topic names | `${MQ_TOPICS}`
 |`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
 |`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
 |`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
 |`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
 |`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
+.5+| `${APPLICATION_NAME}-postgresql`
+|`POSTGRESQL_USER` | -- | `${DB_USERNAME}`
+|`POSTGRESQL_PASSWORD` | -- | `${DB_PASSWORD}`
+|`POSTGRESQL_DATABASE` | -- | `${DB_DATABASE}`
+|`POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}`
+|`POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}`
 |=======================================================================
 
 

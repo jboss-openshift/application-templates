@@ -33,6 +33,17 @@ toc::[levels=1]
 * link:./eap/eap64-mysql-s2i.adoc[eap64-mysql-s2i]
 * link:./eap/eap64-postgresql-persistent-s2i.adoc[eap64-postgresql-persistent-s2i]
 * link:./eap/eap64-postgresql-s2i.adoc[eap64-postgresql-s2i]
+* link:./eap/eap64-sso-s2i.adoc[eap64-sso-s2i]
+* link:./eap/eap70-basic-s2i.adoc[eap70-basic-s2i]
+* link:./eap/eap70-https-s2i.adoc[eap70-https-s2i]
+* link:./eap/eap70-mongodb-persistent-s2i.adoc[eap70-mongodb-persistent-s2i]
+* link:./eap/eap70-mongodb-s2i.adoc[eap70-mongodb-s2i]
+* link:./eap/eap70-mysql-persistent-s2i.adoc[eap70-mysql-persistent-s2i]
+* link:./eap/eap70-mysql-s2i.adoc[eap70-mysql-s2i]
+* link:./eap/eap70-postgresql-persistent-s2i.adoc[eap70-postgresql-persistent-s2i]
+* link:./eap/eap70-postgresql-s2i.adoc[eap70-postgresql-s2i]
+* link:./eap/README_SSO.adoc[README_SSO]
+* link:./eap/README_SSO.adoc[README_SSO]
 
 == secrets
 
@@ -40,8 +51,9 @@ toc::[levels=1]
 * link:./secrets/datagrid-app-secret.adoc[datagrid-app-secret]
 * link:./secrets/decisionserver-app-secret.adoc[decisionserver-app-secret]
 * link:./secrets/eap-app-secret.adoc[eap-app-secret]
+* link:./secrets/eap7-app-secret.adoc[eap7-app-secret]
 * link:./secrets/jws-app-secret.adoc[jws-app-secret]
-* link:./secrets/procexecserver-app-secret.adoc[procexecserver-app-secret]
+* link:./secrets/sso-app-secret.adoc[sso-app-secret]
 
 == JBoss Web Server
 
@@ -83,6 +95,14 @@ toc::[levels=1]
 ////
 
 == Release Notes
+
+=== Release 1.3
+
+ * New image definitions for:
+   * Red Hat SSO
+   * EAP 7 Beta
+   * Red Hat SSO support in EAP 6.4 and 7 beta
+ * Switch templates using deprecated key serviceAccount to serviceAccountName
 
 === Release 1.2.0
  * Added support for JBoss Data Grid

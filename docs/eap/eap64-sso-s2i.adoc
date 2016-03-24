@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= eap64-https-s2i
+= eap64-sso-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-Application template for EAP 6 applications built using S2I.
+Application template for EAP 6 applications built using S2I, enabled for SSO.
 
 toc::[]
 
@@ -26,24 +26,39 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
-|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 6.4.x | False
-|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | kitchensink | False
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/keycloak/keycloak-examples | True
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 0.4-openshift | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld | False
 |`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
 |`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
 |`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap-app-secret | True
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
-|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}` | False
-|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}` | False
+|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | jboss | False
+|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | mykeystorepass | False
 |`HORNETQ_CLUSTER_PASSWORD` | `HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}` | True
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap-app-secret | False
 |`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False
-|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
-|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}` | False
+|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | secret-key | False
+|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | password | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
+|`SSO_URI` | `SSO_URI` | SSO Location | `${SSO_URI}` | False
+|`SSO_REALM` | `SSO_REALM` | SSO Realm | `${SSO_REALM}` | False
+|`SSO_USERNAME` | `SSO_USERNAME` | SSO Username | `${SSO_USERNAME}` | False
+|`SSO_PASSWORD` | `SSO_PASSWORD` | SSO Password | `${SSO_PASSWORD}` | False
+|`SSO_PUBLIC_KEY` | `SSO_PUBLIC_KEY` | SSO Public Key. Public key is required in the template to avoid man-in-the-middle security vulnerability and recommended for all SSO image use | `${SSO_PUBLIC_KEY}` | True
+|`SSO_BEARER_ONLY` | `SSO_BEARER_ONLY` | SSO Client Access Type | `${SSO_BEARER_ONLY}` | False
+|`APPLICATION_ROUTES` | `APPLICATION_ROUTES` | Routes | `${APPLICATION_ROUTES}` | False
+|`ARTIFACT_DIR` | -- | Artifacts | app-jee/target,service-jaxrs/target,app-profile-jee/target,app-profile-jee-saml/target | False
+|`MAVEN_ARGS_APPEND` | -- | maven | -- | False
+|`SSO_SAML_KEYSTORE_SECRET` | `SSO_SAML_KEYSTORE_SECRET` | The name of the secret containing the keystore file | eap-app-secret | False
+|`SSO_SAML_KEYSTORE` | `SSO_SAML_KEYSTORE_SECRET` | The name of the keystore file within the secret | `/etc/sso-saml-secret-volume/keystore.jks` | False
+|`SSO_SAML_CERTIFICATE_NAME` | `SSO_SAML_CERTIFICATE_NAME` | The name associated with the server certificate | jboss | False
+|`SSO_SAML_KEYSTORE_PASSWORD` | `SSO_SAML_KEYSTORE` | The password for the keystore and certificate | mykeystorepass | False
+|`SSO_SECRET` | `SSO_SECRET` | The SSO Client Secret for Confidential Access | `${SSO_SECRET}` | True
+|`SSO_ENABLE_CORS` | `SSO_ENABLE_CORS` | Enable CORS for SSO applications | false | False
 |=======================================================================
 
 
@@ -188,7 +203,7 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.15+| `${APPLICATION_NAME}`
+.28+| `${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
@@ -204,6 +219,19 @@ information.
 |`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
 |`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
+|`SSO_URI` | SSO Location | `${SSO_URI}`
+|`SSO_REALM` | SSO Realm | `${SSO_REALM}`
+|`SSO_USERNAME` | SSO Username | `${SSO_USERNAME}`
+|`SSO_PASSWORD` | SSO Password | `${SSO_PASSWORD}`
+|`SSO_PUBLIC_KEY` | SSO Public Key. Public key is required in the template to avoid man-in-the-middle security vulnerability and recommended for all SSO image use | `${SSO_PUBLIC_KEY}`
+|`SSO_BEARER_ONLY` | SSO Client Access Type | `${SSO_BEARER_ONLY}`
+|`APPLICATION_ROUTES` | Routes | `${APPLICATION_ROUTES}`
+|`SSO_SAML_KEYSTORE_SECRET` | The name of the secret containing the keystore file | `${SSO_SAML_KEYSTORE_SECRET}`
+|`SSO_SAML_KEYSTORE` | The name of the secret containing the keystore file | `${SSO_SAML_KEYSTORE}`
+|`SSO_SAML_CERTIFICATE_NAME` | The name associated with the server certificate | `${SSO_SAML_CERTIFICATE_NAME}`
+|`SSO_SAML_KEYSTORE_PASSWORD` | The name of the keystore file within the secret | `${SSO_SAML_KEYSTORE_PASSWORD}`
+|`SSO_SECRET` | The SSO Client Secret for Confidential Access | `${SSO_SECRET}`
+|`SSO_ENABLE_CORS` | Enable CORS for SSO applications | `${SSO_ENABLE_CORS}`
 |=======================================================================
 
 
@@ -213,7 +241,7 @@ information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-|`${APPLICATION_NAME}` | eap-keystore-volume | `/etc/eap-secret-volume` | ssl certs | True
+|`${APPLICATION_NAME}` | sso-saml-keystore-volume | `/etc/sso-saml-secret-volume` | ssl certs | True
 |=============
 
 
