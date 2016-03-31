@@ -182,12 +182,6 @@
             "required": false
         },
         {
-            "description": "Routes",
-            "name": "APPLICATION_ROUTES",
-            "value": "",
-            "required": false
-        },
-        {
             "description": "Artifacts",
             "name": "ARTIFACT_DIR",
             "value": "app-jee/target,service-jaxrs/target,app-profile-jee/target,app-profile-jee-saml/target",
@@ -605,10 +599,6 @@
                                         "value": "${SSO_BEARER_ONLY}"
                                     },
                                     {
-                                        "name": "APPLICATION_ROUTES",
-                                        "value": "${APPLICATION_ROUTES}"
-                                    },
-                                    {
                                         "name": "SSO_SAML_KEYSTORE_SECRET",
                                         "value": "${SSO_SAML_KEYSTORE_SECRET}"
                                     },
@@ -631,6 +621,14 @@
                                     {
                                         "name": "SSO_ENABLE_CORS",
                                         "value": "${SSO_ENABLE_CORS}"
+                                    },
+				    {
+                                        "name": "HOSTNAME_HTTP",
+                                        "value": "${HOSTNAME_HTTP}"
+                                    },
+				    {
+                                        "name": "HOSTNAME_HTTPS",
+                                        "value": "${HOSTNAME_HTTPS}"
                                     }
                                 ]
                             }
