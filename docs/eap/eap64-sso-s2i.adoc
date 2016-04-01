@@ -44,11 +44,11 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | secret-key | False
 |`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | password | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
-|`SSO_URI` | `SSO_URI` | SSO Location | `${SSO_URI}` | False
-|`SSO_REALM` | `SSO_REALM` | SSO Realm | `${SSO_REALM}` | False
+|`SSO_URI` | `SSO_URI` | SSO Location | https://secure-sso:8443/auth | False
+|`SSO_REALM` | `SSO_REALM` | SSO Realm | demo | False
 |`SSO_USERNAME` | `SSO_USERNAME` | SSO Username | `${SSO_USERNAME}` | False
 |`SSO_PASSWORD` | `SSO_PASSWORD` | SSO Password | `${SSO_PASSWORD}` | False
-|`SSO_PUBLIC_KEY` | `SSO_PUBLIC_KEY` | SSO Public Key. Public key is required in the template to avoid man-in-the-middle security vulnerability and recommended for all SSO image use | `${SSO_PUBLIC_KEY}` | True
+|`SSO_PUBLIC_KEY` | `SSO_PUBLIC_KEY` | SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability | `${SSO_PUBLIC_KEY}` | False
 |`SSO_BEARER_ONLY` | `SSO_BEARER_ONLY` | SSO Client Access Type | `${SSO_BEARER_ONLY}` | False
 |`APPLICATION_ROUTES` | `APPLICATION_ROUTES` | Routes | `${APPLICATION_ROUTES}` | False
 |`ARTIFACT_DIR` | -- | Artifacts | app-jee/target,service-jaxrs/target,app-profile-jee/target,app-profile-jee-saml/target | False
@@ -109,7 +109,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap64-openshift:1.3 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ConfigChange, GitHub, ImageChange
+|jboss-eap64-openshift:1.3 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, ConfigChange, GitHub
 |=============
 
 
@@ -223,7 +223,7 @@ information.
 |`SSO_REALM` | SSO Realm | `${SSO_REALM}`
 |`SSO_USERNAME` | SSO Username | `${SSO_USERNAME}`
 |`SSO_PASSWORD` | SSO Password | `${SSO_PASSWORD}`
-|`SSO_PUBLIC_KEY` | SSO Public Key. Public key is required in the template to avoid man-in-the-middle security vulnerability and recommended for all SSO image use | `${SSO_PUBLIC_KEY}`
+|`SSO_PUBLIC_KEY` | SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability | `${SSO_PUBLIC_KEY}`
 |`SSO_BEARER_ONLY` | SSO Client Access Type | `${SSO_BEARER_ONLY}`
 |`APPLICATION_ROUTES` | Routes | `${APPLICATION_ROUTES}`
 |`SSO_SAML_KEYSTORE_SECRET` | The name of the secret containing the keystore file | `${SSO_SAML_KEYSTORE_SECRET}`
