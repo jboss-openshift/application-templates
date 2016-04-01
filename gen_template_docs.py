@@ -18,15 +18,17 @@ from ptemplate.template import Template
 GIT_REPO = "https://github.com/jboss-openshift/application-templates.git"
 REPO_NAME = "application-templates/"
 TEMPLATE_DOCS = "docs/"
-APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","datagrid")
-template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'datagrid']
+APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","datagrid","sso")
+template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'datagrid', 'sso']
 amq_ssl_desc = None
 
-LINKS =  {"jboss-eap64-openshift:1.3": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
+LINKS =  {"jboss-eap64-openshift:1.2": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
+          "jboss-eap64-openshift:1.3": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
           "jboss-webserver30-tomcat7-openshift:1.2": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver-3/webserver30-tomcat7-openshift`]",
           "jboss-webserver30-tomcat8-openshift:1.2": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver30-tomcat8-openshift`]",
           "jboss-decisionserver62-openshift:1.2": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`]",
           "jboss-eap70-openshift:1.3-Beta": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7-beta/eap70-openshift`]",
+          "redhat-sso70-openshift:1.3-TP": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7-tech-preview/sso70-openshift`]",
 }
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
@@ -68,7 +70,7 @@ def generate_template(path):
        os.makedirs(outdir)
 
     with open(outfile, "w") as text_file:
-        print "Generating %s..." % outfile
+        print ("Generating %s..." % outfile)
         text_file.write(autogen_warning)
         text_file.write(createTemplate(data, path))
 
@@ -95,6 +97,12 @@ def createTemplate(data, path):
         with open('datagrid.adoc.in','r') as tmp:
             datagrid_desc = tmp.read()
             tdata['description'] += "\n\n" + datagrid_desc
+
+    # special case: JDG templates have additional description
+    if re.match('sso', path):
+        with open('sso.adoc.in','r') as tmp:
+            sso_desc = tmp.read()
+            tdata['description'] += "\n\n" + sso_desc
 
     # Fill in template parameters table, if there are any
     if ("parameters" in data and "objects" in data) and len(data["parameters"]) > 0:
@@ -278,7 +286,8 @@ fullname = {
     "eap":       "JBoss EAP",
     "webserver": "JBoss Web Server",
     "decisionserver": "JBoss BRMS Realtime Decision Server",
-    "datagrid": "JBoss Data Grid"
+    "datagrid": "JBoss Data Grid",
+    "sso": "Red Hat SSO",
 }
 
 def generate_readme():
