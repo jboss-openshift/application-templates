@@ -235,6 +235,12 @@
             "name": "SSO_ENABLE_CORS",
             "value": "false",
             "required": false
+        },
+        {
+            "description": "SSO logout page for SAML applications",
+            "name": "SSO_SAML_LOGOUT_PAGE",
+            "value": "/",
+            "required": false
         }
    ],
     "objects": [
@@ -631,6 +637,10 @@
                                     {
                                         "name": "SSO_ENABLE_CORS",
                                         "value": "${SSO_ENABLE_CORS}"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_LOGOUT_PAGE",
+                                        "value": "${SSO_SAML_LOGOUT_PAGE}"
                                     }
                                 ]
                             }
