@@ -188,6 +188,56 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
+                "name": "jboss-decisionserver63-openshift"
+            },
+            "spec": {
+                "dockerImageRepository": "registry.access.redhat.com/jboss-decisionserver-6/decisionserver63-openshift",
+                "tags": [
+                    {
+                        "name": "1.3",
+                        "annotations": {
+                            "description": "Decision Server 6.3 S2I images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "builder,decisionserver,java,xpaas",
+                            "supports":"decisionserver:6.3,java:8,xpaas:1.3",
+                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                            "sampleContextDir": "decisionserver/hellorules",
+                            "sampleRef": "1.3",
+                            "version": "1.3"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "jboss-processserver63-openshift"
+            },
+            "spec": {
+                "dockerImageRepository": "registry.access.redhat.com/jboss-processserver-6/processserver63-openshift",
+                "tags": [
+                    {
+                        "name": "1.3",
+                        "annotations": {
+                            "description": "Process Server 6.3 S2I images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "builder,processserver,java,xpaas",
+                            "supports":"processserver:6.3,java:8,xpaas:1.3",
+                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                            "sampleContextDir": "processserver/library",
+                            "sampleRef": "1.3",
+                            "version": "1.3"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
                 "name": "jboss-datagrid65-openshift"
             },
             "spec": {
