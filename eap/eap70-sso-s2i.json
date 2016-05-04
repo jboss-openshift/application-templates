@@ -241,6 +241,12 @@
             "name": "SSO_SAML_LOGOUT_PAGE",
             "value": "/",
             "required": false
+        },
+        {
+            "description": "If true SSL communication between EAP and the SSO Server will be secure (i.e. certificate validation is enabled with curl)",
+            "name": "SSO_SECURE_SSL_CONNECTIONS",
+            "value": "false",
+            "required": false
         }
    ],
     "objects": [
@@ -641,6 +647,10 @@
                                     {
                                         "name": "SSO_SAML_LOGOUT_PAGE",
                                         "value": "${SSO_SAML_LOGOUT_PAGE}"
+                                    },
+                                    {
+                                        "name": "SSO_SECURE_SSL_CONNECTIONS",
+                                        "value": "${SSO_SECURE_SSL_CONNECTIONS}"
                                     }
                                 ]
                             }

@@ -196,6 +196,12 @@
             "required": true
         },
         {
+            "description": "File path for keycloak.json configuration to load on start",
+            "name": "SSO_IMPORT_FILE",
+            "value": "/opt/sso-demo/sso-demo.json",
+            "required": false
+        },
+        {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
@@ -674,6 +680,10 @@
                                     {
                                         "name": "HOSTNAME_HTTPS",
                                         "value": "${SSO_HOSTNAME_HTTPS}"
+                                    },
+                                    {
+                                        "name": "SSO_IMPORT_FILE",
+                                        "value": "${SSO_IMPORT_FILE}"
                                     }
                                 ]
                             }
