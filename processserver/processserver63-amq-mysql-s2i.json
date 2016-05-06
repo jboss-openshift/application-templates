@@ -22,6 +22,12 @@
             "required": false
         },
         {
+            "description": "Whether KIE Container alias ids will be redirected to generated deployment ids.",
+            "name": "KIE_CONTAINER_REDIRECT_ENABLED",
+            "value": "false",
+            "required": false
+        },
+        {
             "description": "The protocol to access the KIE Server REST interface.",
             "name": "KIE_SERVER_PROTOCOL",
             "value": "https",
@@ -444,6 +450,10 @@
                             {
                                 "name": "KIE_CONTAINER_DEPLOYMENT",
                                 "value": "${KIE_CONTAINER_DEPLOYMENT}"
+                            },
+                            {
+                                "name": "KIE_CONTAINER_REDIRECT_ENABLED",
+                                "value": "${KIE_CONTAINER_REDIRECT_ENABLED}"
                             }
                         ],
                         "forcePull": true,
@@ -580,6 +590,10 @@
                                     {
                                         "name": "KIE_CONTAINER_DEPLOYMENT",
                                         "value": "${KIE_CONTAINER_DEPLOYMENT}"
+                                    },
+                                    {
+                                        "name": "KIE_CONTAINER_REDIRECT_ENABLED",
+                                        "value": "${KIE_CONTAINER_REDIRECT_ENABLED}"
                                     },
                                     {
                                         "name": "KIE_SERVER_PROTOCOL",
