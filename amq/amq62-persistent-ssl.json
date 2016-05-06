@@ -22,6 +22,12 @@
             "required": true
         },
         {
+            "description": "Do we do the data dir split?",
+            "name": "AMQ_SPLIT",
+            "value": "false",
+            "required": false
+        },
+        {
             "description": "Protocols to configure, separated by commas.  Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`.  SSL variants of these protocols will be configured automaticaly.",
             "name": "MQ_PROTOCOL",
             "value": "openwire",
