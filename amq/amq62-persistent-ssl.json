@@ -23,7 +23,7 @@
         },
         {
             "description": "Do we do the data dir split?",
-            "name": "ACTIVEMQ_SPLIT",
+            "name": "AMQ_SPLIT",
             "value": "false",
             "required": false
         },
