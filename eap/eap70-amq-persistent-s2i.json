@@ -64,6 +64,12 @@
             "required": false
         },
         {
+            "description": "Split the data directory for each node in a mesh.",
+            "name": "AMQ_SPLIT",
+            "value": "false",
+            "required": false
+        },
+        {
             "description": "Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP.",
             "name": "MQ_PROTOCOL",
             "value": "openwire",
@@ -585,7 +591,10 @@
             },
             "spec": {
                 "strategy": {
-                    "type": "Recreate"
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "maxSurge": 0
+                    }
                 },
                 "triggers": [
                     {
@@ -702,6 +711,30 @@
                                     {
                                         "name": "AMQ_TOPICS",
                                         "value": "${MQ_TOPICS}"
+                                    },
+                                    {
+                                        "name": "AMQ_SPLIT",
+                                        "value": "${AMQ_SPLIT}"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_DISCOVERY_TYPE",
+                                        "value": "${AMQ_MESH_DISCOVERY_TYPE}"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-amq-tcp"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_SERVICE_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "AMQ_STORAGE_USAGE_LIMIT",
+                                        "value": "${AMQ_STORAGE_USAGE_LIMIT}"
                                     },
                                     {
                                         "name": "AMQ_ADMIN_USERNAME",
