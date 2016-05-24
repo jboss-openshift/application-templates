@@ -26,7 +26,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 7.0.x-develop | False
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 7.0.0.GA | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | kitchensink | False
 |`MQ_QUEUES` | `MQ_QUEUES` | Queue names | `${MQ_QUEUES}` | False
 |`MQ_TOPICS` | `MQ_TOPICS` | Topic names | `${MQ_TOPICS}` | False
