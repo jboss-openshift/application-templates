@@ -141,23 +141,6 @@
                 "dockerImageRepository": "registry.access.redhat.com/jboss-eap-7/eap70-openshift",
                 "tags": [
                     {
-                        "name": "1.3-Beta",
-                        "annotations": {
-                            "description": "JBoss EAP 7.0 Beta S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports":"eap:7.0,javaee:7,java:8,xpaas:1.3",
-                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
-                            "sampleContextDir": "kitchensink",
-                            "sampleRef": "7.0.0.GA",
-                            "version": "1.3"
-                        },
-                        "from": {
-                          "kind": "DockerImage",
-                          "name": "registry.access.redhat.com/jboss-eap-7-beta/eap70-openshift:1.3"
-                        }
-                    },
-                    {
                         "name": "1.3",
                         "annotations": {
                             "description": "JBoss EAP 7.0 Beta S2I images.",
