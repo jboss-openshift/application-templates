@@ -22,6 +22,8 @@ Templates are configured with the following basic parameters:
  * HTTPS_KEYSTORE: Name of the keystore to use to expose SSO/Keycloak over HTTPS (defaults to keystore.jks)
  * HTTPS_NAME: The alias of the keys/certificate to use to expose SSO/Keycloak over HTTPS (defaults to jboss)
  * HTTPS_PASSWORD: The password of the keystore to use to expose SSO/Keycloak over HTTPS (defaults to mykeystorepass)
+ * SSO_ADMIN_USERNAME: The username of the initial admin user in the Master Realm
+ * SSO_ADMIN__PASSWORD: The password of the initial admin user in the Master Realm
 
 ##Username/Password
 For SSO Server: admin/admin
@@ -40,6 +42,8 @@ $ oc process -f sso70-postgresql.json | oc create -n myproject -f -
 After executing the above, you should be able to access the SSO/Keycloak server at http://sso-myproject.hostname/auth and https://secure-sso-myproject.hostname/auth
 
 ##All-in-One Example
+
+NOTE: The all-in-one templates assume a domain of cloudapps.example.com. The templates will need to be modified (HOSTNAME_HTTP(S), SSO_HOSTNAME_HTTP(S), SSO_URI) when using another domain
 
 Create Secrets, SSO/Keycloak Server, and SSO/Keycloak-enabled EAP in user (e.g. "myproject") project/namespace:
 

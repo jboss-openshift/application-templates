@@ -3,15 +3,15 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "description": "Application template for SSO 7.0 PostgreSQL applications with persistent storage",
+            "description": "Application template for SSO 7.0 PostgreSQL with example EAP-based applications",
             "iconClass" : "icon-jboss",
             "tags" : "sso,keycloak,postrgresql,eap,java,database,jboss,xpaas",
             "version" : "1.3"
         },
-        "name": "sso70-all-in-one-demo-persistent"
+        "name": "sso70-all-in-one-demo"
     },
     "labels": {
-        "template": "sso70-all-in-one-demo-persistent",
+        "template": "sso70-all-in-one-demo",
         "xpaas" : "1.3.0"
     },
     "parameters": [
@@ -24,13 +24,25 @@
         {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTP",
-            "value": "",
+            "value": "helloworld.cloudapps.example.com",
             "required": false
         },
         {
             "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTPS",
-            "value": "",
+            "value": "secure-helloworld.cloudapps.example.com",
+            "required": false
+        },
+        {
+            "description": "Custom hostname for SSO http service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
+            "name": "SSO_HOSTNAME_HTTP",
+            "value": "sso.cloudapps.example.com",
+            "required": false
+        },
+        {
+            "description": "Custom hostname for SSO https service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
+            "name": "SSO_HOSTNAME_HTTPS",
+            "value": "secure-sso.cloudapps.example.com",
             "required": false
         },
         {
@@ -113,13 +125,6 @@
             "required": false
         },
         {
-            "description": "HornetQ cluster admin password",
-            "name": "HORNETQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
             "description": "Database user name",
             "name": "DB_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
@@ -146,9 +151,9 @@
             "required": false
         },
         {
-            "description": "Size of persistent storage for database volume.",
-            "name": "VOLUME_CAPACITY",
-            "value": "512Mi",
+            "name": "HORNETQ_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
             "required": true
         },
         {
@@ -158,17 +163,10 @@
             "generate": "expression",
             "required": true
         },
-        
-        {
-            "description": "Routes",
-            "name": "APPLICATION_ROUTES",
-            "value": "http://helloworld-demo.cloudapps.example.com;https://secure-helloworld-demo.cloudapps.example.com",
-            "required": false
-        },
         {
             "description": "Artifacts",
             "name": "ARTIFACT_DIR",
-            "value": "app-jee/target;app-profile-jee/target;service-jaxrs/target;app-profile-jee-saml/target",
+            "value": "app-jee/target,service-jaxrs/target,app-profile-jee/target,app-profile-jee-saml/target",
             "required": false
         },
         {
@@ -180,7 +178,20 @@
         {
             "description": "SSO Location",
             "name": "SSO_URI",
-            "value": "http://sso-demo.cloudapps.example.com/auth",
+            "value": "https://secure-sso.cloudapps.example.com/auth",
+            "required": false
+        },
+        {
+            "description": "The SSO Client Secret for Confidential Access",
+            "name": "SSO_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
+        },
+        {
+            "description": "File path for keycloak.json configuration to load on start",
+            "name": "SSO_IMPORT_FILE",
+            "value": "/opt/sso-demo/sso-demo.json",
             "required": false
         },
         {
@@ -208,7 +219,8 @@
             "metadata": {
                 "name": "sso",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "The web server's http port."
@@ -232,7 +244,8 @@
             "metadata": {
                 "name": "secure-sso",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "The web server's https port."
@@ -256,7 +269,8 @@
             "metadata": {
                 "name": "sso-postgresql",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+                    "component": "database"
                 },
                 "annotations": {
                     "description": "The database server's port."
@@ -280,7 +294,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "The web server's http port."
@@ -304,7 +319,8 @@
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "The web server's https port."
@@ -318,14 +334,15 @@
             "metadata": {
                 "name": "sso",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "Route for application's http service."
                 }
             },
             "spec": {
-                "host": "${HOSTNAME_HTTP}",
+                "host": "${SSO_HOSTNAME_HTTP}",
                 "to": {
                     "name": "sso"
                 }
@@ -338,14 +355,15 @@
             "metadata": {
                 "name": "secure-sso",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+                    "component": "server"
                 },
                 "annotations": {
                     "description": "Route for application's https service."
                 }
             },
             "spec": {
-                "host": "${HOSTNAME_HTTPS}",
+                "host": "${SSO_HOSTNAME_HTTPS}",
                 "to": {
                     "name": "secure-sso"
                 },
@@ -361,7 +379,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "Route for application's http service."
@@ -381,7 +400,8 @@
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "Route for application's https service."
@@ -481,7 +501,8 @@
             "metadata": {
                 "name": "sso",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+		    "component": "server"
                 }
             },
             "spec": {
@@ -499,7 +520,7 @@
                              "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "redhat-sso70-openshift:1.3-TP"
+                                "name": "redhat-sso70-openshift:1.3"
                             }
                         }
                     },
@@ -516,7 +537,8 @@
                         "name": "sso",
                         "labels": {
                             "deploymentConfig": "sso",
-                            "application": "sso"
+                            "application": "sso",
+			    "component": "server"
                         }
                     },
                     "spec": {
@@ -640,10 +662,6 @@
                                         "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
-                                    },
-                                    {
                                         "name": "HORNETQ_QUEUES",
                                         "value": "${HORNETQ_QUEUES}"
                                     },
@@ -654,6 +672,18 @@
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "HOSTNAME_HTTP",
+                                        "value": "${SSO_HOSTNAME_HTTP}"
+                                    },
+                                    {
+                                        "name": "HOSTNAME_HTTPS",
+                                        "value": "${SSO_HOSTNAME_HTTPS}"
+                                    },
+                                    {
+                                        "name": "SSO_IMPORT_FILE",
+                                        "value": "${SSO_IMPORT_FILE}"
                                     }
                                 ]
                             }
@@ -682,7 +712,8 @@
             "metadata": {
                 "name": "sso-postgresql",
                 "labels": {
-                    "application": "sso"
+                    "application": "sso",
+		    "component": "database"
                 }
             },
             "spec": {
@@ -717,7 +748,8 @@
                         "name": "sso-postgresql",
                         "labels": {
                             "deploymentConfig": "sso-postgresql",
-                            "application": "sso"
+                            "application": "sso",
+			    "component": "database"
                         }
                     },
                     "spec": {
@@ -731,12 +763,6 @@
                                     {
                                         "containerPort": 5432,
                                         "protocol": "TCP"
-                                    }
-                                ],
-                                "volumeMounts": [
-                                    {
-                                        "mountPath": "/var/lib/pgsql/data",
-                                        "name": "sso-postgresql-pvol"
                                     }
                                 ],
                                 "env": [
@@ -762,14 +788,6 @@
                                     }
                                 ]
                             }
-                        ],
-                        "volumes": [
-                            {
-                                "name": "sso-postgresql-pvol",
-                                "persistentVolumeClaim": {
-                                    "claimName": "sso-postgresql-claim"
-                                }
-                            }
                         ]
                     }
                 }
@@ -781,7 +799,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+		    "component": "eap"
                 }
             },
             "spec": {
@@ -812,7 +831,8 @@
                         "name": "${APPLICATION_NAME}",
                         "labels": {
                             "deploymentConfig": "${APPLICATION_NAME}",
-                            "application": "${APPLICATION_NAME}"
+                            "application": "${APPLICATION_NAME}",
+			    "component": "eap"
                         }
                     },
                     "spec": {
@@ -901,16 +921,16 @@
                                         "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
-                                    },
-                                    {
                                         "name": "HORNETQ_QUEUES",
                                         "value": "${HORNETQ_QUEUES}"
                                     },
                                     {
                                         "name": "HORNETQ_TOPICS",
                                         "value": "${HORNETQ_TOPICS}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_CLUSTER_PASSWORD",
+                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
@@ -937,10 +957,6 @@
                                         "value": ""
                                     },
                                     {
-                                        "name": "APPLICATION_ROUTES",
-                                        "value": "${APPLICATION_ROUTES}"
-                                    },
-                                    {
                                         "name": "SSO_SAML_KEYSTORE_SECRET",
                                         "value": "sso-app-secret"
                                     },
@@ -955,6 +971,18 @@
                                     {
                                         "name": "SSO_SAML_KEYSTORE_PASSWORD",
                                         "value": "mykeystorepass"
+                                    },
+                                    {
+                                        "name": "SSO_SECRET",
+                                        "value": "${SSO_SECRET}"
+                                    },
+                                    {
+                                        "name": "HOSTNAME_HTTP",
+                                        "value": "${HOSTNAME_HTTP}"
+                                    },
+                                    {
+                                        "name": "HOSTNAME_HTTPS",
+                                        "value": "${HOSTNAME_HTTPS}"
                                     }
                                 ]
                             }
@@ -973,26 +1001,6 @@
                                 }
                             }
                         ]
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "PersistentVolumeClaim",
-            "metadata": {
-                "name": "sso-postgresql-claim",
-                "labels": {
-                    "application": "sso"
-                }
-            },
-            "spec": {
-                "accessModes": [
-                    "ReadWriteOnce"
-                ],
-                "resources": {
-                    "requests": {
-                        "storage": "${VOLUME_CAPACITY}"
                     }
                 }
             }
