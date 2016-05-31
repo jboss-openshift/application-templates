@@ -43,7 +43,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`MONGODB_NOPREALLOC` | `MONGODB_NOPREALLOC` | Disable data file preallocation. | `${MONGODB_NOPREALLOC}` | False
 |`MONGODB_SMALLFILES` | `MONGODB_SMALLFILES` | Set MongoDB to use a smaller default data file size. | `${MONGODB_SMALLFILES}` | False
 |`MONGODB_QUIET` | `MONGODB_QUIET` | Runs MongoDB in a quiet mode that attempts to limit the amount of output. | `${MONGODB_QUIET}` | False
-|`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | ActiveMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
+|`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | A-MQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
 |`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
 |`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
 |`DB_ADMIN_PASSWORD` | `DB_ADMIN_PASSWORD` | Database admin password | `${DB_ADMIN_PASSWORD}` | True
@@ -106,7 +106,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap70-openshift:1.3-Beta |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7-beta/eap70-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, ConfigChange, GitHub
+|jboss-eap70-openshift:1.3 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, ImageChange, Generic, ConfigChange
 |=============
 
 
@@ -221,7 +221,7 @@ information.
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
 |`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
-|`MQ_CLUSTER_PASSWORD` | ActiveMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
+|`MQ_CLUSTER_PASSWORD` | A-MQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
 |`MQ_QUEUES` | Queue names | `${MQ_QUEUES}`
 |`MQ_TOPICS` | Topic names | `${MQ_TOPICS}`
 |`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`

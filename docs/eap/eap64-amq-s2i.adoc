@@ -100,7 +100,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap64-openshift:1.2 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, ConfigChange, GitHub
+|jboss-eap64-openshift:1.2 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, ImageChange, Generic, ConfigChange
 |=============
 
 
@@ -193,7 +193,8 @@ information.
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
-.7+| `${APPLICATION_NAME}-amq`
+.8+| `${APPLICATION_NAME}-amq`
+|jolokia | 8778 | `TCP`
 |amqp | 5672 | `TCP`
 |amqp-ssl | 5671 | `TCP`
 |mqtt | 1883 | `TCP`

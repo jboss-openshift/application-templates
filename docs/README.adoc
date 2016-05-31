@@ -38,9 +38,11 @@ toc::[levels=1]
 * link:./eap/eap64-mongodb-s2i.adoc[eap64-mongodb-s2i]
 * link:./eap/eap70-mysql-persistent-s2i.adoc[eap70-mysql-persistent-s2i]
 * link:./eap/eap70-postgresql-s2i.adoc[eap70-postgresql-s2i]
+* link:./eap/eap70-amq-persistent-s2i.adoc[eap70-amq-persistent-s2i]
 * link:./eap/eap64-sso-s2i.adoc[eap64-sso-s2i]
 * link:./eap/eap70-postgresql-persistent-s2i.adoc[eap70-postgresql-persistent-s2i]
 * link:./eap/eap64-amq-s2i.adoc[eap64-amq-s2i]
+* link:./eap/eap70-amq-s2i.adoc[eap70-amq-s2i]
 * link:./eap/eap64-postgresql-persistent-s2i.adoc[eap64-postgresql-persistent-s2i]
 * link:./eap/eap64-amq-persistent-s2i.adoc[eap64-amq-persistent-s2i]
 
@@ -104,7 +106,14 @@ toc::[levels=1]
 
 == Release Notes
 
-=== Release 1.3
+=== Release 1.3.1
+
+ * New image definitions for:
+   * EAP 7 GA
+   * A-MQ 6
+ * A-MQ persistent templates now support meshing.  Use AMQ_SPLIT=true to use separate storage directories for each pod in a cluster.
+
+=== Release 1.3.0
 
  * New image definitions for:
    * Red Hat SSO
