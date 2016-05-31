@@ -36,13 +36,13 @@
         {
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts.git",
             "required": true
         },
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "7.0.0.GA",
+            "value": "1.3",
             "required": false
         },
         {
