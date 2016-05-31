@@ -59,12 +59,6 @@
             "required": false
         },
         {
-            "description": "JNDI name of executor queue for JMS.",
-            "name": "KIE_SERVER_EXECUTOR_JMS_QUEUE",
-            "value": "queue/KIE.EXECUTOR",
-            "required": false
-        },
-        {
             "description": "Hibernate persistence dialect.",
             "name": "KIE_SERVER_PERSISTENCE_DIALECT",
             "value": "org.hibernate.dialect.PostgreSQL82Dialect",
@@ -536,10 +530,6 @@
                                     {
                                         "name": "KIE_SERVER_DOMAIN",
                                         "value": "${KIE_SERVER_DOMAIN}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_EXECUTOR_JMS_QUEUE",
-                                        "value": "${KIE_SERVER_EXECUTOR_JMS_QUEUE}"
                                     },
                                     {
                                         "name": "KIE_SERVER_PERSISTENCE_DIALECT",

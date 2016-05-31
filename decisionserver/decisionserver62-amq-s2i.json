@@ -41,6 +41,12 @@
             "required": false
         },
         {
+            "description": "JNDI name of request queue for JMS.",
+            "name": "KIE_SERVER_JMS_QUEUES_REQUEST",
+            "value": "queue/KIE.SERVER.REQUEST",
+            "required": false
+        },
+        {
             "description": "JNDI name of response queue for JMS.",
             "name": "KIE_SERVER_JMS_QUEUES_RESPONSE",
             "value": "queue/KIE.SERVER.RESPONSE",
@@ -480,6 +486,10 @@
                                         "value": "${KIE_SERVER_DOMAIN}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_JMS_QUEUES_REQUEST",
+                                        "value": "${KIE_SERVER_JMS_QUEUES_REQUEST}"
+                                    },
+                                    {
                                         "name": "KIE_SERVER_JMS_QUEUES_RESPONSE",
                                         "value": "${KIE_SERVER_JMS_QUEUES_RESPONSE}"
                                     },
@@ -656,14 +666,6 @@
                                     {
                                         "name": "AMQ_TRANSPORTS",
                                         "value": "${MQ_PROTOCOL}"
-                                    },
-                                    {
-                                        "name": "AMQ_QUEUES",
-                                        "value": "${MQ_QUEUES}"
-                                    },
-                                    {
-                                        "name": "AMQ_TOPICS",
-                                        "value": "${MQ_TOPICS}"
                                     },
                                     {
                                         "name": "AMQ_ADMIN_USERNAME",
