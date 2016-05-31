@@ -854,6 +854,11 @@
                                 },
                                 "ports": [
                                     {
+                                        "name": "jolokia",
+                                        "containerPort": 8778,
+                                        "protocol": "TCP"
+                                    },
+                                    {
                                         "name": "amqp",
                                         "containerPort": 5672,
                                         "protocol": "TCP"
