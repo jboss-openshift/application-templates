@@ -94,6 +94,12 @@
             "required": false
         },
         {
+            "description": "The type of the keystore file (JKS or JCEKS)",
+            "name": "HTTPS_KEYSTORE_TYPE",
+            "value": "",
+            "required": false
+        },
+        {
             "description": "The name associated with the server certificate",
             "name": "HTTPS_NAME",
             "value": "",
@@ -561,6 +567,10 @@
                                     {
                                         "name": "HTTPS_KEYSTORE",
                                         "value": "${HTTPS_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "HTTPS_KEYSTORE_TYPE",
+                                        "value": "${HTTPS_KEYSTORE_TYPE}"
                                     },
                                     {
                                         "name": "HTTPS_NAME",
