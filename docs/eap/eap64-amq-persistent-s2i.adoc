@@ -31,6 +31,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld-mdb | False
 |`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
 |`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | java:/ConnectionFactory | False
+|`AMQ_SPLIT` | `AMQ_SPLIT` | Split the data directory for each node in a mesh. | false | False
 |`MQ_PROTOCOL` | `MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | openwire | False
 |`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | HELLOWORLDMDBQueue | False
 |`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | HELLOWORLDMDBTopic | False
@@ -101,7 +102,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap64-openshift:1.2 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, ConfigChange, GitHub
+|jboss-eap64-openshift:1.2 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, ImageChange, Generic, ConfigChange
 |=============
 
 
@@ -194,7 +195,8 @@ information.
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
-.7+| `${APPLICATION_NAME}-amq`
+.8+| `${APPLICATION_NAME}-amq`
+|jolokia | 8778 | `TCP`
 |amqp | 5672 | `TCP`
 |amqp-ssl | 5671 | `TCP`
 |mqtt | 1883 | `TCP`
@@ -231,12 +233,17 @@ information.
 |`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
 |`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
-.7+| `${APPLICATION_NAME}-amq`
+.12+| `${APPLICATION_NAME}-amq`
 |`AMQ_USER` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
 |`AMQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
 |`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
 |`AMQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_QUEUES}`
 |`AMQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}`
+|`AMQ_SPLIT` | Split the data directory for each node in a mesh. | `${AMQ_SPLIT}`
+|`AMQ_MESH_DISCOVERY_TYPE` | -- | `${AMQ_MESH_DISCOVERY_TYPE}`
+|`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-tcp`
+|`AMQ_MESH_SERVICE_NAMESPACE` | -- | --
+|`AMQ_STORAGE_USAGE_LIMIT` | -- | `${AMQ_STORAGE_USAGE_LIMIT}`
 |`AMQ_ADMIN_USERNAME` | User name for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_USERNAME}`
 |`AMQ_ADMIN_PASSWORD` | Password for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_PASSWORD}`
 |=======================================================================
