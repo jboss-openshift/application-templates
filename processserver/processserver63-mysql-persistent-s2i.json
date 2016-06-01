@@ -16,18 +16,6 @@
     },
     "parameters": [
         {
-            "description": "The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
-            "name": "KIE_CONTAINER_DEPLOYMENT",
-            "value": "LibraryContainer=org.openshift.quickstarts:processserver-library:1.3.0.Final",
-            "required": false
-        },
-        {
-            "description": "Whether KIE Container alias ids will be redirected to generated deployment ids.",
-            "name": "KIE_CONTAINER_REDIRECT_ENABLED",
-            "value": "false",
-            "required": false
-        },
-        {
             "description": "The protocol to access the KIE Server REST interface.",
             "name": "KIE_SERVER_PROTOCOL",
             "value": "https",
@@ -384,14 +372,6 @@
                     "type": "Source",
                     "sourceStrategy": {
                         "env": [
-                            {
-                                "name": "KIE_CONTAINER_DEPLOYMENT",
-                                "value": "${KIE_CONTAINER_DEPLOYMENT}"
-                            },
-                            {
-                                "name": "KIE_CONTAINER_REDIRECT_ENABLED",
-                                "value": "${KIE_CONTAINER_REDIRECT_ENABLED}"
-                            }
                         ],
                         "forcePull": true,
                         "from": {
@@ -524,14 +504,6 @@
                                     }
                                 ],
                                 "env": [
-                                    {
-                                        "name": "KIE_CONTAINER_DEPLOYMENT",
-                                        "value": "${KIE_CONTAINER_DEPLOYMENT}"
-                                    },
-                                    {
-                                        "name": "KIE_CONTAINER_REDIRECT_ENABLED",
-                                        "value": "${KIE_CONTAINER_REDIRECT_ENABLED}"
-                                    },
                                     {
                                         "name": "KIE_SERVER_PROTOCOL",
                                         "value": "${KIE_SERVER_PROTOCOL}"
