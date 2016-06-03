@@ -3,53 +3,71 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "description": "Application template for SSO 7.0 PostgreSQL applications",
             "iconClass" : "icon-jboss",
-            "tags" : "sso,keycloak,postrgresql,java,database,jboss,xpaas",
-            "version" : "1.3"
+            "description": "Application template for EAP 6 applications built using S2I, enabled for SSO.",
+            "tags": "eap,javaee,java,jboss,xpaas,sso,keycloak",
+            "version": "1.3.0"
         },
-        "name": "sso70-postgresql"
+        "name": "eap70-sso-s2i"
     },
     "labels": {
-        "template": "sso70-postgresql",
-        "xpaas" : "1.3.0"
+        "template": "eap70-sso-s2i",
+        "xpaas": "1.3.0"
     },
     "parameters": [
         {
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
-            "value": "sso",
+            "value": "eap-app",
             "required": true
         },
         {
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
+            "description": "Hostname for http service route.  Required for SSO-enabled applications",
             "name": "HOSTNAME_HTTP",
             "value": "",
+            "required": true
+        },
+        {
+            "description": "Hostname for https service route.  Required for SSO-enabled applications",
+            "name": "HOSTNAME_HTTPS",
+            "value": "",
+            "required": true
+        },
+        {
+            "description": "Git source URI for application",
+            "name": "SOURCE_REPOSITORY_URL",
+            "value": "https://github.com/keycloak/keycloak-examples",
+            "required": true
+        },
+        {
+            "description": "Git branch/tag reference",
+            "name": "SOURCE_REPOSITORY_REF",
+            "value": "0.4-openshift",
             "required": false
         },
         {
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
-            "name": "HOSTNAME_HTTPS",
+            "description": "Path within Git project to build; empty for root project directory.",
+            "name": "CONTEXT_DIR",
             "value": "",
             "required": false
         },
         {
-            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql",
-            "name": "DB_JNDI",
-            "value": "java:jboss/datasources/KeycloakDS",
+            "description": "Queue names",
+            "name": "HORNETQ_QUEUES",
+            "value": "",
             "required": false
         },
         {
-            "description": "Database name",
-            "name": "DB_DATABASE",
-            "value": "root",
-            "required": true
+            "description": "Topic names",
+            "name": "HORNETQ_TOPICS",
+            "value": "",
+            "required": false
         },
         {
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
-            "value": "sso-app-secret",
-            "required": false
+            "value": "eap-app-secret",
+            "required": true
         },
         {
             "description": "The name of the keystore file within the secret",
@@ -70,48 +88,36 @@
             "required": false
         },
         {
-            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
-            "name": "DB_MIN_POOL_SIZE",
-	    "required": false
-        },
-        {
-            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
-            "name": "DB_MAX_POOL_SIZE",
-            "required": false
-        },
-        {
-            "description": "Sets transaction-isolation for the configured datasource.",
-            "name": "DB_TX_ISOLATION",
-            "required": false
-        },
-        {
-            "description": "The maximum number of client connections allowed. This also sets the maximum number of prepared transactions.",
-            "name": "POSTGRESQL_MAX_CONNECTIONS",
-            "required": false
-        },
-        {
-            "description": "Configures how much memory is dedicated to PostgreSQL for caching data.",
-            "name": "POSTGRESQL_SHARED_BUFFERS",
-            "required": false
-        },
-        {
-            "description": "Database user name",
-            "name": "DB_USERNAME",
-            "from": "user[a-zA-Z0-9]{3}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "description": "Database user password",
-            "name": "DB_PASSWORD",
+            "description": "HornetQ cluster admin password",
+            "name": "HORNETQ_CLUSTER_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
         },
         {
+            "description": "GitHub trigger secret",
+            "name": "GITHUB_WEBHOOK_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
+        },
+        {
+            "description": "Generic build trigger secret",
+            "name": "GENERIC_WEBHOOK_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
+        },
+        {
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "name": "IMAGE_STREAM_NAMESPACE",
+            "value": "openshift",
+            "required": true
+        },
+        {
             "description": "The name of the secret containing the keystore file",
             "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "sso-app-secret",
+            "value": "eap-app-secret",
             "required": false
         },
         {
@@ -140,42 +146,115 @@
             "required": true
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
-            "name": "IMAGE_STREAM_NAMESPACE",
-            "value": "openshift",
+            "description": "SSO Location",
+            "name": "SSO_URI",
+            "value": "",
             "required": true
         },
         {
-            "description": "SSO Server admin username",
-            "name": "SSO_ADMIN_USERNAME",
-            "value": "admin",
-            "required": false
-        },
-        {
-            "description": "SSO Server admin  password",
-            "name": "SSO_ADMIN_PASSWORD",
-            "value": "admin",
+            "description": "SSO Location",
+            "name": "SSO_SERVICE_URI",
+            "value": "https://secure-sso:8443/auth",
             "required": false
         },
         {
             "description": "SSO Realm",
             "name": "SSO_REALM",
             "value": "",
-            "required": false
+            "required": true
         },
         {
-            "description": "SSO service username",
-            "name": "SSO_SERVICE_USERNAME",
+            "description": "SSO Username",
+            "name": "SSO_USERNAME",
             "value": "",
             "required": false
         },
         {
-            "description": "SSO service password",
-            "name": "SSO_SERVICE_PASSWORD",
+            "description": "SSO Password",
+            "name": "SSO_PASSWORD",
             "value": "",
+            "required": false
+        },
+        {
+            "description": "SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability",
+            "name": "SSO_PUBLIC_KEY",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "SSO Client Access Type",
+            "name": "SSO_BEARER_ONLY",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Routes",
+            "name": "APPLICATION_ROUTES",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "Artifacts",
+            "name": "ARTIFACT_DIR",
+            "value": "app-jee/target,service-jaxrs/target,app-profile-jee/target,app-profile-jee-saml/target",
+            "required": false
+        },
+        {
+            "description": "maven",
+            "name": "MAVEN_ARGS_APPEND",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name of the secret containing the keystore file",
+            "name": "SSO_SAML_KEYSTORE_SECRET",
+            "value": "eap-app-secret",
+            "required": false
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "name": "SSO_SAML_KEYSTORE",
+            "value": "/etc/sso-saml-secret-volume/keystore.jks",
+            "required": false
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "name": "SSO_SAML_CERTIFICATE_NAME",
+            "value": "jboss",
+            "required": false
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "name": "SSO_SAML_KEYSTORE_PASSWORD",
+            "value": "mykeystorepass",
+            "required": false
+        },
+        {
+            "description": "The SSO Client Secret for Confidential Access",
+            "name": "SSO_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
+        },
+        {
+            "description": "Enable CORS for SSO applications",
+            "name": "SSO_ENABLE_CORS",
+            "value": "false",
+            "required": false
+        },
+        {
+            "description": "SSO logout page for SAML applications",
+            "name": "SSO_SAML_LOGOUT_PAGE",
+            "value": "/",
+            "required": false
+        },
+        {
+            "description": "If true SSL communication between EAP and the SSO Server will be secure (i.e. certificate validation is enabled with curl)",
+            "name": "SSO_SECURE_SSL_CONNECTIONS",
+            "value": "false",
             "required": false
         }
-    ],
+   ],
     "objects": [
         {
             "kind": "Service",
@@ -194,8 +273,7 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "server"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
                     "description": "The web server's http port."
@@ -219,36 +297,10 @@
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "server"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
                     "description": "The web server's https port."
-                }
-            }
-        },
-        {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 5432,
-                        "targetPort": 5432
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
-                }
-            },
-            "metadata": {
-                "name": "${APPLICATION_NAME}-postgresql",
-                "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "database"
-                },
-                "annotations": {
-                    "description": "The database server's port."
                 }
             }
         },
@@ -259,8 +311,7 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "server"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
                     "description": "Route for application's http service."
@@ -280,8 +331,7 @@
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "server"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
                     "description": "Route for application's https service."
@@ -298,13 +348,90 @@
             }
         },
         {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "source": {
+                    "type": "Git",
+                    "git": {
+                        "uri": "${SOURCE_REPOSITORY_URL}",
+                        "ref": "${SOURCE_REPOSITORY_REF}"
+                    },
+                    "contextDir": "${CONTEXT_DIR}"
+                },
+                "strategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
+                        "forcePull": true,
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                            "name": "jboss-eap70-openshift:1.4"
+                        },
+                        "env": [
+                            {
+                                "name": "ARTIFACT_DIR",
+                                "value": "${ARTIFACT_DIR}"
+                            },
+                            {
+                                "name": "MAVEN_ARGS_APPEND",
+                                "value": "${MAVEN_ARGS_APPEND}"
+                            }
+                        ]
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${APPLICATION_NAME}:latest"
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "ImageChange",
+                        "imageChange": {}
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "server"
+                    "application": "${APPLICATION_NAME}"
                 }
             },
             "spec": {
@@ -319,10 +446,9 @@
                             "containerNames": [
                                 "${APPLICATION_NAME}"
                             ],
-                             "from": {
-                                "kind": "ImageStreamTag",
-                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "redhat-sso70-openshift:1.3" 
+                            "from": {
+                                "kind": "ImageStream",
+                                "name": "${APPLICATION_NAME}"
                             }
                         }
                     },
@@ -339,12 +465,11 @@
                         "name": "${APPLICATION_NAME}",
                         "labels": {
                             "deploymentConfig": "${APPLICATION_NAME}",
-                            "application": "${APPLICATION_NAME}",
-                            "component": "server"
+                            "application": "${APPLICATION_NAME}"
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "sso-service-account",
+                        "serviceAccountName": "eap-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
@@ -352,6 +477,11 @@
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
                                 "volumeMounts": [
+                                    {
+                                        "name": "sso-saml-keystore-volume",
+                                        "mountPath": "/etc/sso-saml-secret-volume",
+                                        "readOnly": true
+                                    },
                                     {
                                         "name": "eap-keystore-volume",
                                         "mountPath": "/etc/eap-secret-volume",
@@ -405,42 +535,6 @@
                                 ],
                                 "env": [
                                     {
-                                        "name": "DB_SERVICE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-postgresql=DB"
-                                    },
-                                    {
-                                        "name": "DB_JNDI",
-                                        "value": "${DB_JNDI}"
-                                    },
-                                    {
-                                        "name": "DB_USERNAME",
-                                        "value": "${DB_USERNAME}"
-                                    },
-                                    {
-                                        "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "DB_DATABASE",
-                                        "value": "${DB_DATABASE}"
-                                    },
-                                    {
-                                        "name": "TX_DATABASE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-postgresql=DB"
-                                    },
-                                    {
-                                        "name": "DB_MIN_POOL_SIZE",
-                                        "value": "${DB_MIN_POOL_SIZE}"
-                                    },
-                                    {
-                                        "name": "DB_MAX_POOL_SIZE",
-                                        "value": "${DB_MAX_POOL_SIZE}"
-                                    },
-                                    {
-                                        "name": "DB_TX_ISOLATION",
-                                        "value": "${DB_TX_ISOLATION}"
-                                    },
-                                    {
                                         "name": "OPENSHIFT_KUBE_PING_LABELS",
                                         "value": "application=${APPLICATION_NAME}"
                                     },
@@ -453,22 +547,42 @@
                                         }
                                     },
                                     {
-                                        "name": "EAP_HTTPS_KEYSTORE_DIR",
+                                        "name": "HOSTNAME_HTTP",
+                                        "value": "${HOSTNAME_HTTP}"
+                                    },
+                                    {
+                                        "name": "HOSTNAME_HTTPS",
+                                        "value": "${HOSTNAME_HTTPS}"
+                                    }, 
+                                    {
+                                        "name": "HTTPS_KEYSTORE_DIR",
                                         "value": "/etc/eap-secret-volume"
                                     },
                                     {
-                                        "name": "EAP_HTTPS_KEYSTORE",
+                                        "name": "HTTPS_KEYSTORE",
                                         "value": "${HTTPS_KEYSTORE}"
                                     },
                                     {
-                                        "name": "EAP_HTTPS_NAME",
+                                        "name": "HTTPS_NAME",
                                         "value": "${HTTPS_NAME}"
                                     },
                                     {
-                                        "name": "EAP_HTTPS_PASSWORD",
+                                        "name": "HTTPS_PASSWORD",
                                         "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
+                                        "name": "HORNETQ_CLUSTER_PASSWORD",
+                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_QUEUES",
+                                        "value": "${HORNETQ_QUEUES}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_TOPICS",
+                                        "value": "${HORNETQ_TOPICS}"
+                                    },
+				                    {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
                                         "value": "${JGROUPS_ENCRYPT_SECRET}"
                                     },
@@ -493,29 +607,79 @@
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
                                     {
-                                        "name": "SSO_ADMIN_USERNAME",
-                                        "value": "${SSO_ADMIN_USERNAME}"
+                                        "name": "SSO_URI",
+                                        "value": "${SSO_URI}"
                                     },
                                     {
-                                        "name": "SSO_ADMIN_PASSWORD",
-                                        "value": "${SSO_ADMIN_PASSWORD}"
+                                        "name": "SSO_SERVICE_URI",
+                                        "value": "${SSO_SERVICE_URI}"
                                     },
                                     {
                                         "name": "SSO_REALM",
                                         "value": "${SSO_REALM}"
                                     },
                                     {
-                                        "name": "SSO_SERVICE_USERNAME",
-                                        "value": "${SSO_SERVICE_USERNAME}"
+                                        "name": "SSO_USERNAME",
+                                        "value": "${SSO_USERNAME}"
                                     },
                                     {
-                                        "name": "SSO_SERVICE_PASSWORD",
-                                        "value": "${SSO_SERVICE_PASSWORD}"
+                                        "name": "SSO_PASSWORD",
+                                        "value": "${SSO_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "SSO_PUBLIC_KEY",
+                                        "value": "${SSO_PUBLIC_KEY}"
+                                    },
+                                    {
+                                        "name": "SSO_BEARER_ONLY",
+                                        "value": "${SSO_BEARER_ONLY}"
+                                    },
+                                    {
+                                        "name": "APPLICATION_ROUTES",
+                                        "value": "${APPLICATION_ROUTES}"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_KEYSTORE_SECRET",
+                                        "value": "${SSO_SAML_KEYSTORE_SECRET}"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_KEYSTORE",
+                                        "value": "${SSO_SAML_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_CERTIFICATE_NAME",
+                                        "value": "${SSO_SAML_CERTIFICATE_NAME}"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_KEYSTORE_PASSWORD",
+                                        "value": "${SSO_SAML_KEYSTORE_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "SSO_SECRET",
+                                        "value": "${SSO_SECRET}"
+                                    },
+                                    {
+                                        "name": "SSO_ENABLE_CORS",
+                                        "value": "${SSO_ENABLE_CORS}"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_LOGOUT_PAGE",
+                                        "value": "${SSO_SAML_LOGOUT_PAGE}"
+                                    },
+                                    {
+                                        "name": "SSO_SECURE_SSL_CONNECTIONS",
+                                        "value": "${SSO_SECURE_SSL_CONNECTIONS}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
+                            {
+                                "name": "sso-saml-keystore-volume",
+                                "secret": {
+                                    "secretName": "${SSO_SAML_KEYSTORE_SECRET}"
+                                }
+                            },
                             {
                                 "name": "eap-keystore-volume",
                                 "secret": {
@@ -527,93 +691,6 @@
                                 "secret": {
                                     "secretName": "${JGROUPS_ENCRYPT_SECRET}"
                                 }
-                            }
-                        ]
-                    }
-                }
-            }
-        },
-        {
-            "kind": "DeploymentConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${APPLICATION_NAME}-postgresql",
-                "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "database"
-                }
-            },
-            "spec": {
-                "strategy": {
-                    "type": "Recreate"
-                },
-                "triggers": [
-                    {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "automatic": true,
-                            "containerNames": [
-                                "${APPLICATION_NAME}-postgresql"
-                            ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "postgresql:latest"
-                            }
-                        }
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
-                },
-                "template": {
-                    "metadata": {
-                        "name": "${APPLICATION_NAME}-postgresql",
-                        "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-postgresql",
-                            "application": "${APPLICATION_NAME}",
-                            "component": "database"
-                        }
-                    },
-                    "spec": {
-                        "terminationGracePeriodSeconds": 60,
-                        "containers": [
-                            {
-                                "name": "${APPLICATION_NAME}-postgresql",
-                                "image": "postgresql",
-                                "imagePullPolicy": "Always",
-                                "ports": [
-                                    {
-                                        "containerPort": 5432,
-                                        "protocol": "TCP"
-                                    }
-                                ],
-                                "env": [
-                                    {
-                                        "name": "POSTGRESQL_USER",
-                                        "value": "${DB_USERNAME}"
-                                    },
-                                    {
-                                        "name": "POSTGRESQL_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "POSTGRESQL_DATABASE",
-                                        "value": "${DB_DATABASE}"
-                                    },
-                                    {
-                                        "name": "POSTGRESQL_MAX_CONNECTIONS",
-                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}"
-                                    },
-                                    {
-                                        "name": "POSTGRESQL_SHARED_BUFFERS",
-                                        "value": "${POSTGRESQL_SHARED_BUFFERS}"
-                                    }
-                                ]
                             }
                         ]
                     }
