@@ -95,13 +95,6 @@
             "required": false
         },
         {
-            "description": "HornetQ cluster admin password",
-            "name": "HORNETQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
             "description": "Database user name",
             "name": "DB_USERNAME",
             "from": "user[a-zA-Z0-9]{3}",
@@ -116,18 +109,6 @@
             "required": true
         },
         {
-            "description": "Queue names",
-            "name": "HORNETQ_QUEUES",
-            "value": "",
-            "required": false
-        },
-        {
-            "description": "Topic names",
-            "name": "HORNETQ_TOPICS",
-            "value": "",
-            "required": false
-        },
-        {
             "description": "Size of persistent storage for database volume.",
             "name": "VOLUME_CAPACITY",
             "value": "512Mi",
@@ -136,7 +117,7 @@
         {
             "description": "The name of the secret containing the keystore file",
             "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "eap-app-secret",
+            "value": "sso-app-secret",
             "required": false
         },
         {
@@ -169,6 +150,18 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
+        },
+        {
+            "description": "SSO Server admin username",
+            "name": "SSO_ADMIN_USERNAME",
+            "value": "admin",
+            "required": false
+        },
+        {
+            "description": "SSO Server admin  password",
+            "name": "SSO_ADMIN_PASSWORD",
+            "value": "admin",
+            "required": false
         }
     ],
     "objects": [
@@ -311,7 +304,7 @@
                              "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "redhat-sso70-openshift:1.3-TP"
+                                "name": "redhat-sso70-openshift:1.3"
                             }
                         }
                     },
@@ -384,6 +377,11 @@
                                         "name": "https",
                                         "containerPort": 8443,
                                         "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "ping",
+                                        "containerPort": 8888,
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
@@ -452,18 +450,6 @@
                                         "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "HORNETQ_QUEUES",
-                                        "value": "${HORNETQ_QUEUES}"
-                                    },
-                                    {
-                                        "name": "HORNETQ_TOPICS",
-                                        "value": "${HORNETQ_TOPICS}"
-                                    },
-                                    {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
                                         "value": "${JGROUPS_ENCRYPT_SECRET}"
                                     },
@@ -486,6 +472,14 @@
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "SSO_ADMIN_USERNAME",
+                                        "value": "${SSO_ADMIN_USERNAME}"
+                                    },
+                                    {
+                                        "name": "SSO_ADMIN_PASSWORD",
+                                        "value": "${SSO_ADMIN_PASSWORD}"
                                     }
                                 ]
                             }
