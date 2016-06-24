@@ -249,9 +249,9 @@
             "required": false
         },
         {
-            "description": "If true SSL communication between EAP and the SSO Server will be secure (i.e. certificate validation is enabled with curl)",
-            "name": "SSO_SECURE_SSL_CONNECTIONS",
-            "value": "false",
+            "description": "If true SSL communication between EAP and the SSO Server will be insecure (i.e. certificate validation is disabled with curl)",
+            "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
+            "value": "true",
             "required": false
         }
    ],
@@ -667,8 +667,8 @@
                                         "value": "${SSO_SAML_LOGOUT_PAGE}"
                                     },
                                     {
-                                        "name": "SSO_SECURE_SSL_CONNECTIONS",
-                                        "value": "${SSO_SECURE_SSL_CONNECTIONS}"
+                                        "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
+                                        "value": "${SSO_DISABLE_SSL_CERTIFICATE_VALIDATION}"
                                     }
                                 ]
                             }
