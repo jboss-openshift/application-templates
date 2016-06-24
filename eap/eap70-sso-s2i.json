@@ -147,13 +147,13 @@
         },
         {
             "description": "SSO Location",
-            "name": "SSO_URI",
+            "name": "SSO_URL",
             "value": "",
             "required": true
         },
         {
-            "description": "SSO Location",
-            "name": "SSO_SERVICE_URI",
+            "description": "SSO Service Location",
+            "name": "SSO_SERVICE_URL",
             "value": "https://secure-sso:8443/auth",
             "required": false
         },
@@ -184,12 +184,6 @@
         {
             "description": "SSO Client Access Type",
             "name": "SSO_BEARER_ONLY",
-            "value": "",
-            "required": false
-        },
-        {
-            "description": "Routes",
-            "name": "APPLICATION_ROUTES",
             "value": "",
             "required": false
         },
@@ -252,6 +246,24 @@
             "description": "If true SSL communication between EAP and the SSO Server will be insecure (i.e. certificate validation is disabled with curl)",
             "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
             "value": "true",
+            "required": false
+        },
+        {
+            "description": "The name of the truststore file within the secret (e.g. /etc/sso-secret-volume/truststore.jks)",
+            "name": "SSO_TRUSTSTORE",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The password for the truststore and certificate (e.g. mykeystorepass)",
+            "name": "SSO_TRUSTSTORE_PASSWORD",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName",
+            "name": "SSO_TRUSTSTORE_SECRET",
+            "value": "",
             "required": false
         }
    ],
@@ -607,12 +619,12 @@
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
                                     {
-                                        "name": "SSO_URI",
-                                        "value": "${SSO_URI}"
+                                        "name": "SSO_URL",
+                                        "value": "${SSO_URL}"
                                     },
                                     {
-                                        "name": "SSO_SERVICE_URI",
-                                        "value": "${SSO_SERVICE_URI}"
+                                        "name": "SSO_SERVICE_URL",
+                                        "value": "${SSO_SERVICE_URL}"
                                     },
                                     {
                                         "name": "SSO_REALM",
@@ -633,10 +645,6 @@
                                     {
                                         "name": "SSO_BEARER_ONLY",
                                         "value": "${SSO_BEARER_ONLY}"
-                                    },
-                                    {
-                                        "name": "APPLICATION_ROUTES",
-                                        "value": "${APPLICATION_ROUTES}"
                                     },
                                     {
                                         "name": "SSO_SAML_KEYSTORE_SECRET",
@@ -669,6 +677,14 @@
                                     {
                                         "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
                                         "value": "${SSO_DISABLE_SSL_CERTIFICATE_VALIDATION}"
+                                    },
+                                    {
+                                        "name": "SSO_TRUSTSTORE",
+                                        "value": "${SSO_TRUSTSTORE}"
+                                    },
+                                    {
+                                        "name": "SSO_TRUSTSTORE_PASSWORD",
+                                        "value": "${SSO_TRUSTSTORE_PASSWORD}"
                                     }
                                 ]
                             }

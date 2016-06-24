@@ -177,6 +177,42 @@
             "name": "SSO_ADMIN_PASSWORD",
             "value": "admin",
             "required": false
+        },
+         {
+            "description": "SSO Realm",
+            "name": "SSO_REALM",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "SSO service username",
+            "name": "SSO_SERVICE_USERNAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "SSO service password",
+            "name": "SSO_SERVICE_PASSWORD",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name of the truststore file within the secret (e.g. /etc/sso-secret-volume/truststore.jks)",
+            "name": "SSO_TRUSTSTORE",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The password for the truststore and certificate (e.g. mykeystorepass)",
+            "name": "SSO_TRUSTSTORE_PASSWORD",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName",
+            "name": "SSO_TRUSTSTORE_SECRET",
+            "value": "",
+            "required": false
         }
     ],
     "objects": [
@@ -495,6 +531,26 @@
                                     {
                                         "name": "SSO_ADMIN_PASSWORD",
                                         "value": "${SSO_ADMIN_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "SSO_REALM",
+                                        "value": "${SSO_REALM}"
+                                    },
+                                    {
+                                        "name": "SSO_SERVICE_USERNAME",
+                                        "value": "${SSO_SERVICE_USERNAME}"
+                                    },
+                                    {
+                                        "name": "SSO_SERVICE_PASSWORD",
+                                        "value": "${SSO_SERVICE_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "SSO_TRUSTSTORE",
+                                        "value": "${SSO_TRUSTSTORE}"
+                                    },
+                                    {
+                                        "name": "SSO_TRUSTSTORE_PASSWORD",
+                                        "value": "${SSO_TRUSTSTORE_PASSWORD}"
                                     }
                                 ]
                             }
