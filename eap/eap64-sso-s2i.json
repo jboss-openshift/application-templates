@@ -208,7 +208,7 @@
         {
             "description": "The name of the keystore file within the secret",
             "name": "SSO_SAML_KEYSTORE",
-            "value": "/etc/sso-saml-secret-volume/keystore.jks",
+            "value": "keystore.jks",
             "required": false
         },
         {
@@ -249,7 +249,7 @@
             "required": false
         },
         {
-            "description": "The name of the truststore file within the secret (e.g. /etc/sso-secret-volume/truststore.jks)",
+            "description": "The name of the truststore file within the secret (e.g. truststore.jks)",
             "name": "SSO_TRUSTSTORE",
             "value": "",
             "required": false
@@ -655,6 +655,10 @@
                                         "value": "${SSO_SAML_KEYSTORE}"
                                     },
                                     {
+                                        "name": "SSO_SAML_KEYSTORE_DIR",
+                                        "value": "/etc/sso-saml-secret-volume"
+                                    },
+                                    {
                                         "name": "SSO_SAML_CERTIFICATE_NAME",
                                         "value": "${SSO_SAML_CERTIFICATE_NAME}"
                                     },
@@ -681,6 +685,10 @@
                                     {
                                         "name": "SSO_TRUSTSTORE",
                                         "value": "${SSO_TRUSTSTORE}"
+                                    },
+                                    {
+                                        "name": "SSO_TRUSTSTORE_DIR",
+                                        "value": "/etc/sso-secret-volume"
                                     },
                                     {
                                         "name": "SSO_TRUSTSTORE_PASSWORD",
