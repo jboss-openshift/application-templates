@@ -163,6 +163,36 @@
             "required": false
         },
         {
+            "description": "Name of a secret containing SSL related files",
+            "name": "AMQ_SECRET",
+            "value": "amq-app-secret",
+            "required": true
+        },
+        {
+            "description": "SSL trust store filename",
+            "name": "AMQ_TRUSTSTORE",
+            "value": "broker.ts",
+            "required": true
+        },
+        {
+            "description": "SSL trust store password",
+            "name": "AMQ_TRUSTSTORE_PASSWORD",
+            "value": "",
+            "required": true
+        },
+        {
+            "description": "SSL key store filename",
+            "name": "AMQ_KEYSTORE",
+            "value": "broker.ks",
+            "required": true
+        },
+        {
+            "description": "Password for accessing SSL keystore",
+            "name": "AMQ_KEYSTORE_PASSWORD",
+            "value": "",
+            "required": true
+        },
+        {
             "description": "GitHub trigger secret",
             "name": "GITHUB_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
@@ -253,6 +283,30 @@
                 },
                 "annotations": {
                     "description": "The broker's OpenWire port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 61617,
+                        "targetPort": 61617
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-tcp-ssl",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The broker's OpenWire (SSL) port."
                 }
             }
         },
@@ -601,6 +655,13 @@
                                 "name": "${APPLICATION_NAME}-amq",
                                 "image": "jboss-amq-62",
                                 "imagePullPolicy": "Always",
+                                "volumeMounts": [
+                                    {
+                                        "name": "broker-secret-volume",
+                                        "mountPath": "/etc/amq-secret-volume",
+                                        "readOnly": true
+                                    }
+                                ],
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [
@@ -692,8 +753,36 @@
                                     {
                                         "name": "AMQ_STORAGE_USAGE_LIMIT",
                                         "value": "${AMQ_STORAGE_USAGE_LIMIT}"
+                                    },
+                                    {
+                                        "name": "AMQ_KEYSTORE_TRUSTSTORE_DIR",
+                                        "value": "/etc/amq-secret-volume"
+                                    },
+                                    {
+                                        "name": "AMQ_TRUSTSTORE",
+                                        "value": "${AMQ_TRUSTSTORE}"
+                                    },
+                                    {
+                                        "name": "AMQ_TRUSTSTORE_PASSWORD",
+                                        "value": "${AMQ_TRUSTSTORE_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AMQ_KEYSTORE",
+                                        "value": "${AMQ_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "AMQ_KEYSTORE_PASSWORD",
+                                        "value": "${AMQ_KEYSTORE_PASSWORD}"
                                     }
                                 ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "broker-secret-volume",
+                                "secret": {
+                                    "secretName": "${AMQ_SECRET}"
+                                }
                             }
                         ]
                     }
