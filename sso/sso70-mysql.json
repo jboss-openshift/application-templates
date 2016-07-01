@@ -58,15 +58,15 @@
             "required": false
         },
         {
-            "description": "The name associated with the server certificate",
+            "description": "The name associated with the server certificate (e.g. jboss)",
             "name": "HTTPS_NAME",
-            "value": "jboss",
+            "value": "",
             "required": false
         },
         {
-            "description": "The password for the keystore and certificate",
+            "description": "The password for the keystore and certificate (e.g. mykeystorepass)",
             "name": "HTTPS_PASSWORD",
-            "value": "mykeystorepass",
+            "value": "",
             "required": false
         },
         {

@@ -76,15 +76,21 @@
             "required": false
         },
         {
-            "description": "The name associated with the server certificate",
-            "name": "HTTPS_NAME",
-            "value": "jboss",
+            "description": "The type of the keystore file (JKS or JCEKS)",
+            "name": "HTTPS_KEYSTORE_TYPE",
+            "value": "",
             "required": false
         },
         {
-            "description": "The password for the keystore and certificate",
+            "description": "The name associated with the server certificate (e.g. jboss)",
+            "name": "HTTPS_NAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "The password for the keystore and certificate (e.g. mykeystorepass)",
             "name": "HTTPS_PASSWORD",
-            "value": "mykeystorepass",
+            "value": "",
             "required": false
         },
         {
@@ -127,15 +133,15 @@
             "required": false
         },
         {
-            "description": "The name associated with the server certificate",
+            "description": "The name associated with the server certificate (e.g. secret-key)",
             "name": "JGROUPS_ENCRYPT_NAME",
-            "value": "secret-key",
+            "value": "",
             "required": false
         },
         {
-            "description": "The password for the keystore and certificate",
+            "description": "The password for the keystore and certificate (e.g. password)",
             "name": "JGROUPS_ENCRYPT_PASSWORD",
-            "value": "password",
+            "value": "",
             "required": false
         },
         {
@@ -573,6 +579,10 @@
                                     {
                                         "name": "HTTPS_KEYSTORE",
                                         "value": "${HTTPS_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "HTTPS_KEYSTORE_TYPE",
+                                        "value": "${HTTPS_KEYSTORE_TYPE}"
                                     },
                                     {
                                         "name": "HTTPS_NAME",
