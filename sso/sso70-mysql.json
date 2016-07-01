@@ -136,13 +136,13 @@
             "required": false
         },
         {
-            "description": "The name associated with the server certificate",
+            "description": "The name associated with the server certificate (e.g. secret-key)",
             "name": "JGROUPS_ENCRYPT_NAME",
             "value": "",
             "required": false
         },
         {
-            "description": "The password for the keystore and certificate",
+            "description": "The password for the keystore and certificate (e.g. password)",
             "name": "JGROUPS_ENCRYPT_PASSWORD",
             "value": "",
             "required": false
@@ -378,7 +378,7 @@
                     },
                     "spec": {
                         "serviceAccountName": "sso-service-account",
-                        "terminationGracePeriodSeconds": 60,
+                        "terminationGracePeriodSeconds": 75,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
@@ -396,6 +396,17 @@
                                         "readOnly": true
                                     }
                                 ],
+                                "lifecycle": {
+                                    "preStop": {
+                                        "exec": {
+                                            "command": [
+                                                "/opt/eap/bin/jboss-cli.sh",
+                                                "-c",
+                                                ":shutdown(timeout=60)"
+                                            ]
+                                        }
+                                    }
+                                },
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
