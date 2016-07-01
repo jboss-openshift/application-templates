@@ -76,6 +76,12 @@
             "required": false
         },
         {
+            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
+            "name": "SERVICE_ACCOUNT_NAME",
+            "value": "eap-service-account",
+            "required": true
+        },
+        {
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
             "value": "eap-app-secret",
@@ -443,7 +449,7 @@
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "eap-service-account",
+                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
