@@ -255,19 +255,16 @@
                 }
             },
             "spec": {
+                "dockerImageRepository": "registry.access.redhat.com/redhat-sso-7/sso70-openshift",
                 "tags": [
                     {
-                        "name": "1.3-TP",
+                        "name": "1.3",
                         "annotations": {
                             "description": "Red Hat SSO 7.0 Tech Preview",
                             "iconClass": "icon-jboss",
                             "tags": "sso,keycloak,redhat",
                             "supports":"sso:7.0,xpaas:1.3",
                             "version": "1.3"
-                        },
-                        "from": {
-                          "kind": "DockerImage",
-                          "name": "registry.access.redhat.com/redhat-sso-7-tech-preview/sso70-openshift:1.3"
                         }
                     }
                 ]
