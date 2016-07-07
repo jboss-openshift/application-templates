@@ -36,13 +36,13 @@
         {
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/bdecoste/redhat-sso-quickstarts",
+            "value": "https://github.com/redhat-developer/redhat-sso-quickstarts",
             "required": true
         },
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "7.0.x",
+            "value": "7.0.x-ose",
             "required": false
         },
         {
@@ -66,7 +66,7 @@
         {
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
-            "value": "eap7-app-secret",
+            "value": "eap-app-secret",
             "required": true
         },
         {
@@ -123,7 +123,7 @@
         {
             "description": "The name of the secret containing the keystore file",
             "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "eap7-app-secret",
+            "value": "eap-app-secret",
             "required": false
         },
         {
@@ -150,6 +150,12 @@
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
+        },
+        {
+            "description": "Controls whether exploded deployment content should be automatically deployed",
+            "name": "AUTO_DEPLOY_EXPLODED",
+            "value": "false",
+            "required": false
         },
         {
             "description": "SSO Location",
@@ -200,15 +206,9 @@
             "required": false
         },
         {
-            "description": "maven",
-            "name": "MAVEN_ARGS_APPEND",
-            "value": "",
-            "required": false
-        },
-        {
             "description": "The name of the secret containing the keystore file",
             "name": "SSO_SAML_KEYSTORE_SECRET",
-            "value": "eap7-app-secret",
+            "value": "eap-app-secret",
             "required": false
         },
         {
@@ -409,7 +409,7 @@
                             },
                             {
                                 "name": "MAVEN_ARGS_APPEND",
-                                "value": "${MAVEN_ARGS_APPEND}"
+                                "value": ""
                             }
                         ]
                     }
@@ -487,8 +487,8 @@
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
-                        "terminationGracePeriodSeconds": 75,
+                        "serviceAccountName": "eap-service-account",
+                        "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
@@ -511,17 +511,6 @@
                                         "readOnly": true
                                     }
                                 ],
-                                "lifecycle": {
-                                    "preStop": {
-                                        "exec": {
-                                            "command": [
-                                                "/opt/eap/bin/jboss-cli.sh",
-                                                "-c",
-                                                ":shutdown(timeout=60)"
-                                            ]
-                                        }
-                                    }
-                                },
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
@@ -638,6 +627,10 @@
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AUTO_DEPLOY_EXPLODED",
+                                        "value": "${AUTO_DEPLOY_EXPLODED}"
                                     },
                                     {
                                         "name": "SSO_URL",
