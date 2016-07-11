@@ -260,7 +260,7 @@
                     {
                         "name": "1.3",
                         "annotations": {
-                            "description": "Red Hat SSO 7.0 Tech Preview",
+                            "description": "Red Hat SSO 7.0",
                             "iconClass": "icon-jboss",
                             "tags": "sso,keycloak,redhat",
                             "supports":"sso:7.0,xpaas:1.3",
