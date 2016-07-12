@@ -6,13 +6,13 @@
             "iconClass" : "icon-jboss",
             "description": "Application template for EAP 6 applications built using S2I, enabled for SSO.",
             "tags": "eap,javaee,java,jboss,xpaas,sso,keycloak",
-            "version": "1.3.0"
+            "version": "1.3.2"
         },
         "name": "eap70-sso-s2i"
     },
     "labels": {
         "template": "eap70-sso-s2i",
-        "xpaas": "1.3.0"
+        "xpaas": "1.3.2"
     },
     "parameters": [
         {
