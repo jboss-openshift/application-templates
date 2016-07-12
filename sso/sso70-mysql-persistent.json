@@ -46,12 +46,6 @@
             "required": true
         },
         {
-            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
-            "name": "SERVICE_ACCOUNT_NAME",
-            "value": "sso-service-account",
-            "required": true
-        },
-        {
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
             "value": "sso-app-secret",
@@ -61,6 +55,12 @@
             "description": "The name of the keystore file within the secret",
             "name": "HTTPS_KEYSTORE",
             "value": "keystore.jks",
+            "required": false
+        },
+        {
+            "description": "The type of the keystore file (JKS or JCEKS)",
+            "name": "HTTPS_KEYSTORE_TYPE",
+            "value": "",
             "required": false
         },
         {
@@ -148,13 +148,13 @@
             "required": false
         },
         {
-            "description": "The name associated with the server certificate (e.g. secret-key)",
+            "description": "The name associated with the server certificate",
             "name": "JGROUPS_ENCRYPT_NAME",
             "value": "",
             "required": false
         },
         {
-            "description": "The password for the keystore and certificate (e.g. password)",
+            "description": "The password for the keystore and certificate",
             "name": "JGROUPS_ENCRYPT_PASSWORD",
             "value": "",
             "required": false
@@ -203,7 +203,7 @@
             "required": false
         },
         {
-            "description": "The name of the truststore file within the secret (e.g. /etc/sso-secret-volume/truststore.jks)",
+            "description": "The name of the truststore file within the secret (e.g. truststore.jks)",
             "name": "SSO_TRUSTSTORE",
             "value": "",
             "required": false
@@ -382,8 +382,8 @@
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
-                        "terminationGracePeriodSeconds": 75,
+                        "serviceAccountName": "sso-service-account",
+                        "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
@@ -401,17 +401,6 @@
                                         "readOnly": true
                                     }
                                 ],
-                                "lifecycle": {
-                                    "preStop": {
-                                        "exec": {
-                                            "command": [
-                                                "/opt/eap/bin/jboss-cli.sh",
-                                                "-c",
-                                                ":shutdown(timeout=60)"
-                                            ]
-                                        }
-                                    }
-                                },
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
@@ -502,19 +491,23 @@
                                         }
                                     },
                                     {
-                                        "name": "EAP_HTTPS_KEYSTORE_DIR",
+                                        "name": "HTTPS_KEYSTORE_DIR",
                                         "value": "/etc/eap-secret-volume"
                                     },
                                     {
-                                        "name": "EAP_HTTPS_KEYSTORE",
+                                        "name": "HTTPS_KEYSTORE",
                                         "value": "${HTTPS_KEYSTORE}"
                                     },
                                     {
-                                        "name": "EAP_HTTPS_NAME",
+                                        "name": "HTTPS_KEYSTORE_TYPE",
+                                        "value": "${HTTPS_KEYSTORE_TYPE}"
+                                    },
+                                    {
+                                        "name": "HTTPS_NAME",
                                         "value": "${HTTPS_NAME}"
                                     },
                                     {
-                                        "name": "EAP_HTTPS_PASSWORD",
+                                        "name": "HTTPS_PASSWORD",
                                         "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
@@ -564,6 +557,10 @@
                                     {
                                         "name": "SSO_TRUSTSTORE",
                                         "value": "${SSO_TRUSTSTORE}"
+                                    },
+                                    {
+                                        "name": "SSO_TRUSTSTORE_DIR",
+                                        "value": "/etc/sso-secret-volume"
                                     },
                                     {
                                         "name": "SSO_TRUSTSTORE_PASSWORD",

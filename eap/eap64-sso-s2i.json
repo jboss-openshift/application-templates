@@ -36,13 +36,13 @@
         {
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/bdecoste/redhat-sso-quickstarts",
+            "value": "https://github.com/redhat-developer/redhat-sso-quickstarts",
             "required": true
         },
         {
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "7.0.x",
+            "value": "7.0.x-ose",
             "required": false
         },
         {
@@ -62,12 +62,6 @@
             "name": "HORNETQ_TOPICS",
             "value": "",
             "required": false
-        },
-        {
-            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
-            "name": "SERVICE_ACCOUNT_NAME",
-            "value": "eap-service-account",
-            "required": true
         },
         {
             "description": "The name of the secret containing the keystore file",
@@ -158,6 +152,12 @@
             "required": true
         },
         {
+            "description": "Controls whether exploded deployment content should be automatically deployed",
+            "name": "AUTO_DEPLOY_EXPLODED",
+            "value": "false",
+            "required": false
+        },
+        {
             "description": "SSO Location",
             "name": "SSO_URL",
             "value": "",
@@ -203,12 +203,6 @@
             "description": "Artifacts",
             "name": "ARTIFACT_DIR",
             "value": "app-jee-jsp/target,service-jee-jaxrs/target,app-profile-jee-jsp/target,app-profile-saml-jee-jsp/target",
-            "required": false
-        },
-        {
-            "description": "maven",
-            "name": "MAVEN_ARGS_APPEND",
-            "value": "",
             "required": false
         },
         {
@@ -415,7 +409,7 @@
                             },
                             {
                                 "name": "MAVEN_ARGS_APPEND",
-                                "value": "${MAVEN_ARGS_APPEND}"
+                                "value": ""
                             }
                         ]
                     }
@@ -493,7 +487,7 @@
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
+                        "serviceAccountName": "eap-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
@@ -635,6 +629,10 @@
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
                                     {
+                                        "name": "AUTO_DEPLOY_EXPLODED",
+                                        "value": "${AUTO_DEPLOY_EXPLODED}"
+                                    },
+                                    {
                                         "name": "SSO_URL",
                                         "value": "${SSO_URL}"
                                     },
@@ -709,6 +707,10 @@
                                     {
                                         "name": "SSO_TRUSTSTORE_PASSWORD",
                                         "value": "${SSO_TRUSTSTORE_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "JAVA_OPTS_APPEND",
+                                        "value": "-Xdebug"
                                     }
                                 ]
                             }
