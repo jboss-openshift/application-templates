@@ -64,9 +64,15 @@
             "required": false
         },
         {
+            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
+            "name": "SERVICE_ACCOUNT_NAME",
+            "value": "eap7-service-account",
+            "required": true
+        },
+        {
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
-            "value": "eap-app-secret",
+            "value": "eap7-app-secret",
             "required": true
         },
         {
@@ -123,7 +129,7 @@
         {
             "description": "The name of the secret containing the keystore file",
             "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "eap-app-secret",
+            "value": "eap7-app-secret",
             "required": false
         },
         {
@@ -208,7 +214,7 @@
         {
             "description": "The name of the secret containing the keystore file",
             "name": "SSO_SAML_KEYSTORE_SECRET",
-            "value": "eap-app-secret",
+            "value": "eap7-app-secret",
             "required": false
         },
         {
@@ -487,8 +493,8 @@
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "eap-service-account",
-                        "terminationGracePeriodSeconds": 60,
+                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
+                        "terminationGracePeriodSeconds": 75,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
@@ -511,6 +517,17 @@
                                         "readOnly": true
                                     }
                                 ],
+                                "lifecycle": {
+                                    "preStop": {
+                                        "exec": {
+                                            "command": [
+                                                "/opt/eap/bin/jboss-cli.sh",
+                                                "-c",
+                                                ":shutdown(timeout=60)"
+                                            ]
+                                        }
+                                    }
+                                },
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
