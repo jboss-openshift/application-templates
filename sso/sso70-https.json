@@ -134,19 +134,19 @@
             "required": false
         },
         {
-            "description": "SSO Realm",
+            "description": "Realm to be created in the SSO server (e.g. demo).",
             "name": "SSO_REALM",
             "value": "",
             "required": false
         },
         {
-            "description": "SSO service username",
+            "description": "The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm.",
             "name": "SSO_SERVICE_USERNAME",
             "value": "",
             "required": false
         },
         {
-            "description": "SSO service password",
+            "description": "The password for the SSO service user.",
             "name": "SSO_SERVICE_PASSWORD",
             "value": "",
             "required": false
