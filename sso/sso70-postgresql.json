@@ -202,7 +202,7 @@
         {
             "description": "The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName",
             "name": "SSO_TRUSTSTORE_SECRET",
-            "value": "",
+            "value": "sso-app-secret",
             "required": false
         }
     ],
@@ -390,6 +390,11 @@
                                     {
                                         "name": "eap-jgroups-keystore-volume",
                                         "mountPath": "/etc/jgroups-encrypt-secret-volume",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "name": "sso-truststore-volume",
+                                        "mountPath": "/etc/sso-secret-volume",
                                         "readOnly": true
                                     }
                                 ],
@@ -583,6 +588,12 @@
                                 "name": "eap-jgroups-keystore-volume",
                                 "secret": {
                                     "secretName": "${JGROUPS_ENCRYPT_SECRET}"
+                                }
+                            },
+                            {
+                                "name": "sso-truststore-volume",
+                                "secret": {
+                                    "secretName": "${SSO_TRUSTSTORE_SECRET}"
                                 }
                             }
                         ]
