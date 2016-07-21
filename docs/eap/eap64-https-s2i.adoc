@@ -31,8 +31,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | kitchensink | False
 |`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
 |`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
+|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | eap-service-account | True
 |`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap-app-secret | True
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
+|`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
 |`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}` | False
 |`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}` | False
 |`HORNETQ_CLUSTER_PASSWORD` | `HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}` | True
@@ -44,6 +46,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
 |`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
+|`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |=======================================================================
 
 
@@ -94,7 +97,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap64-openshift:1.2 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, ImageChange, Generic, ConfigChange
+|jboss-eap64-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange, Generic, GitHub
 |=============
 
 
@@ -143,7 +146,7 @@ information.
 |============
 |Deployment | Service Account
 
-|`${APPLICATION_NAME}` | eap-service-account
+|`${APPLICATION_NAME}` | `${SERVICE_ACCOUNT_NAME}`
 |============
 
 
@@ -188,11 +191,12 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.15+| `${APPLICATION_NAME}`
+.17+| `${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
+|`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
 |`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
 |`HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}`
@@ -204,6 +208,7 @@ information.
 |`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
 |`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
+|`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
 |=======================================================================
 
 

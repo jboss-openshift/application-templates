@@ -35,6 +35,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
+|`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |=======================================================================
 
 
@@ -83,7 +84,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap70-openshift:1.3 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, ImageChange, Generic, ConfigChange
+|jboss-eap70-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange, Generic, GitHub
 |=============
 
 
@@ -164,13 +165,14 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.6+| `${APPLICATION_NAME}`
+.7+| `${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
 |`MQ_CLUSTER_PASSWORD` | A-MQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
 |`MQ_QUEUES` | Queue names | `${MQ_QUEUES}`
 |`MQ_TOPICS` | Topic names | `${MQ_TOPICS}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
+|`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
 |=======================================================================
 
 

@@ -38,6 +38,7 @@ toc::[levels=1]
 * link:./eap/eap64-mongodb-s2i.adoc[eap64-mongodb-s2i]
 * link:./eap/eap70-mysql-persistent-s2i.adoc[eap70-mysql-persistent-s2i]
 * link:./eap/eap70-postgresql-s2i.adoc[eap70-postgresql-s2i]
+* link:./eap/eap70-sso-s2i.adoc[eap70-sso-s2i]
 * link:./eap/eap70-amq-persistent-s2i.adoc[eap70-amq-persistent-s2i]
 * link:./eap/eap64-sso-s2i.adoc[eap64-sso-s2i]
 * link:./eap/eap70-postgresql-persistent-s2i.adoc[eap70-postgresql-persistent-s2i]
@@ -97,7 +98,7 @@ toc::[levels=1]
 * link:./sso/sso70-postgresql-persistent.adoc[sso70-postgresql-persistent]
 * link:./sso/sso70-postgresql.adoc[sso70-postgresql]
 * link:./sso/README.adoc[README]
-* link:./sso/sso70-basic.adoc[sso70-basic]
+* link:./sso/sso70-https.adoc[sso70-https]
 
 ////
   the source for the release notes part of this page is in the file

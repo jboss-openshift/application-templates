@@ -33,8 +33,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
 |`MQ_QUEUES` | `MQ_QUEUES` | Queue names | `${MQ_QUEUES}` | False
 |`MQ_TOPICS` | `MQ_TOPICS` | Topic names | `${MQ_TOPICS}` | False
+|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | eap7-service-account | True
 |`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap7-app-secret | False
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
+|`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
 |`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}` | False
 |`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}` | False
 |`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
@@ -53,6 +55,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
 |`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
+|`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |=======================================================================
 
 
@@ -104,7 +107,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap70-openshift:1.3 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, ImageChange, Generic, ConfigChange
+|jboss-eap70-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange, Generic, GitHub
 |=============
 
 
@@ -155,7 +158,7 @@ information.
 |============
 |Deployment | Service Account
 
-|`${APPLICATION_NAME}` | eap7-service-account
+|`${APPLICATION_NAME}` | `${SERVICE_ACCOUNT_NAME}`
 |============
 
 
@@ -203,7 +206,7 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.26+| `${APPLICATION_NAME}`
+.28+| `${APPLICATION_NAME}`
 |`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
 |`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | `${DB_JNDI}`
 |`DB_USERNAME` | Database user name | `${DB_USERNAME}`
@@ -217,6 +220,7 @@ information.
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
+|`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
 |`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
 |`MQ_CLUSTER_PASSWORD` | A-MQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
@@ -228,13 +232,15 @@ information.
 |`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
 |`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
+|`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
 |`DEFAULT_JOB_REPOSITORY` | -- | `${APPLICATION_NAME}-postgresql`
 |`TIMER_SERVICE_DATA_STORE` | -- | `${APPLICATION_NAME}-postgresql`
-.5+| `${APPLICATION_NAME}-postgresql`
+.6+| `${APPLICATION_NAME}-postgresql`
 |`POSTGRESQL_USER` | -- | `${DB_USERNAME}`
 |`POSTGRESQL_PASSWORD` | -- | `${DB_PASSWORD}`
 |`POSTGRESQL_DATABASE` | -- | `${DB_DATABASE}`
 |`POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}`
+|`POSTGRESQL_MAX_PREPARED_TRANSACTIONS` | -- | `${POSTGRESQL_MAX_CONNECTIONS}`
 |`POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}`
 |=======================================================================
 
