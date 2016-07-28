@@ -86,6 +86,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`MQ_PROTOCOL` | -- | Protocols to configure, separated by commas.  Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. | openwire | False
 |`MQ_QUEUES` | `AMQ_QUEUES` | Queue names, separated by commas.  These queues will be automatically created when the broker starts.  If left empty, queues will be still created dynamically. | `${MQ_QUEUES}` | False
 |`MQ_TOPICS` | `AMQ_TOPICS` | Topic names, separated by commas.  These topics will be automatically created when the broker starts.  If left empty, topics will be still created dynamically. | `${MQ_TOPICS}` | False
+|`MQ_SERIALIZABLE_PACKAGES` | `MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}` | False
 |`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
 |`MQ_USERNAME` | `AMQ_USER` | User name for standard broker user.  It is required for connecting to the broker.  If left empty, it will be generated. | `${MQ_USERNAME}` | False
 |`MQ_PASSWORD` | `AMQ_PASSWORD` | Password for standard broker user.  It is required for connecting to the broker.  If left empty, it will be generated. | `${MQ_PASSWORD}` | False
@@ -225,12 +226,13 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.15+| `${APPLICATION_NAME}-amq`
+.16+| `${APPLICATION_NAME}-amq`
 |`AMQ_USER` | User name for standard broker user.  It is required for connecting to the broker.  If left empty, it will be generated. | `${MQ_USERNAME}`
 |`AMQ_PASSWORD` | Password for standard broker user.  It is required for connecting to the broker.  If left empty, it will be generated. | `${MQ_PASSWORD}`
 |`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
 |`AMQ_QUEUES` | Queue names, separated by commas.  These queues will be automatically created when the broker starts.  If left empty, queues will be still created dynamically. | `${MQ_QUEUES}`
 |`AMQ_TOPICS` | Topic names, separated by commas.  These topics will be automatically created when the broker starts.  If left empty, topics will be still created dynamically. | `${MQ_TOPICS}`
+|`MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}`
 |`AMQ_SPLIT` | Split the data directory for each node in a mesh. | `${AMQ_SPLIT}`
 |`AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | `${AMQ_MESH_DISCOVERY_TYPE}`
 |`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-tcp`

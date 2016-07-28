@@ -4,7 +4,7 @@
     generator or the input template (./*.in)
 ////
 
-= eap64-sso-s2i
+= eap70-sso-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
@@ -31,8 +31,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld | False
 |`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
 |`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
-|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | eap-service-account | True
-|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap-app-secret | True
+|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | eap7-service-account | True
+|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap7-app-secret | True
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
 |`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate (e.g. jboss) | `${HTTPS_NAME}` | False
@@ -41,21 +41,21 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
-|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap-app-secret | False
+|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap7-app-secret | False
 |`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False
 |`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate (e.g. secret-key) | `${JGROUPS_ENCRYPT_NAME}` | False
 |`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |`SSO_URL` | `SSO_URL` | The URL for the SSO server (e.g. https://secure-sso-myproject.example.com/auth).  This is the URL through which the user will be redirected when a login or token is required by the application. | `${SSO_URL}` | True
-|`SSO_SERVICE_URL` | `SSO_SERVICE_URL` | The URL for the interal SSO service, where secure-sso is the kubernetes service exposed by the SSO server.  This is used to create the application client(s) (see SSO_USERNAME).  This can also be the same as SSO_URL. | https://secure-sso:8443/auth | False
+|`SSO_SERVICE_URL` | `SSO_SERVICE_URL` | The URL for the interal SSO service, where secure-sso (the default) is the kubernetes service exposed by the SSO server.  This is used to create the application client(s) (see SSO_USERNAME).  This can also be the same as SSO_URL. | https://secure-sso:8443/auth | False
 |`SSO_REALM` | `SSO_REALM` | The SSO realm to which the application client(s) should be associated (e.g. demo). | `${SSO_REALM}` | True
 |`SSO_USERNAME` | `SSO_USERNAME` | The username used to access the SSO service.  This is used to create the appliction client(s) within the specified SSO realm. This should match the SSO_SERVICE_USERNAME specified through one of the sso70-* templates. | `${SSO_USERNAME}` | False
 |`SSO_PASSWORD` | `SSO_PASSWORD` | The password for the SSO service user. | `${SSO_PASSWORD}` | False
-|`SSO_PUBLIC_KEY` | `SSO_PUBLIC_KEY` | SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability.  This can be retrieved from the SSO server, for the specified realm. | `${SSO_PUBLIC_KEY}` | False
+|`SSO_PUBLIC_KEY` | `SSO_PUBLIC_KEY` | SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability | `${SSO_PUBLIC_KEY}` | False
 |`SSO_BEARER_ONLY` | `SSO_BEARER_ONLY` | SSO Client Access Type | `${SSO_BEARER_ONLY}` | False
 |`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder.  If unspecified, all archives in /target will be copied. | app-jee-jsp/target,service-jee-jaxrs/target,app-profile-jee-jsp/target,app-profile-saml-jee-jsp/target | False
-|`SSO_SAML_KEYSTORE_SECRET` | `SSO_SAML_KEYSTORE_SECRET` | The name of the secret containing the keystore file | eap-app-secret | False
+|`SSO_SAML_KEYSTORE_SECRET` | `SSO_SAML_KEYSTORE_SECRET` | The name of the secret containing the keystore file | eap7-app-secret | False
 |`SSO_SAML_KEYSTORE` | `SSO_SAML_KEYSTORE_SECRET` | The name of the keystore file within the secret | keystore.jks | False
 |`SSO_SAML_CERTIFICATE_NAME` | `SSO_SAML_CERTIFICATE_NAME` | The name associated with the server certificate | jboss | False
 |`SSO_SAML_KEYSTORE_PASSWORD` | `SSO_SAML_KEYSTORE` | The password for the keystore and certificate | mykeystorepass | False
@@ -65,7 +65,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SSO_DISABLE_SSL_CERTIFICATE_VALIDATION` | `SSO_DISABLE_SSL_CERTIFICATE_VALIDATION` | If true SSL communication between EAP and the SSO Server will be insecure (i.e. certificate validation is disabled with curl) | true | False
 |`SSO_TRUSTSTORE` | `SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}` | False
 |`SSO_TRUSTSTORE_PASSWORD` | `SSO_TRUSTSTORE` | The password for the truststore and certificate (e.g. mykeystorepass) | `${SSO_TRUSTSTORE}` | False
-|`SSO_TRUSTSTORE_SECRET` | `SSO_TRUSTSTORE` | The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName | eap-app-secret | False
+|`SSO_TRUSTSTORE_SECRET` | `SSO_TRUSTSTORE` | The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName | eap7-app-secret | False
 |=======================================================================
 
 
@@ -116,7 +116,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap64-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange, Generic, GitHub
+|jboss-eap70-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange, Generic, GitHub
 |=============
 
 
@@ -231,11 +231,11 @@ information.
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
 |`SSO_URL` | The URL for the SSO server (e.g. https://secure-sso-myproject.example.com/auth).  This is the URL through which the user will be redirected when a login or token is required by the application. | `${SSO_URL}`
-|`SSO_SERVICE_URL` | The URL for the interal SSO service, where secure-sso is the kubernetes service exposed by the SSO server.  This is used to create the application client(s) (see SSO_USERNAME).  This can also be the same as SSO_URL. | `${SSO_SERVICE_URL}`
+|`SSO_SERVICE_URL` | The URL for the interal SSO service, where secure-sso (the default) is the kubernetes service exposed by the SSO server.  This is used to create the application client(s) (see SSO_USERNAME).  This can also be the same as SSO_URL. | `${SSO_SERVICE_URL}`
 |`SSO_REALM` | The SSO realm to which the application client(s) should be associated (e.g. demo). | `${SSO_REALM}`
 |`SSO_USERNAME` | The username used to access the SSO service.  This is used to create the appliction client(s) within the specified SSO realm. This should match the SSO_SERVICE_USERNAME specified through one of the sso70-* templates. | `${SSO_USERNAME}`
 |`SSO_PASSWORD` | The password for the SSO service user. | `${SSO_PASSWORD}`
-|`SSO_PUBLIC_KEY` | SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability.  This can be retrieved from the SSO server, for the specified realm. | `${SSO_PUBLIC_KEY}`
+|`SSO_PUBLIC_KEY` | SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability | `${SSO_PUBLIC_KEY}`
 |`SSO_BEARER_ONLY` | SSO Client Access Type | `${SSO_BEARER_ONLY}`
 |`SSO_SAML_KEYSTORE_SECRET` | The name of the secret containing the keystore file | `${SSO_SAML_KEYSTORE_SECRET}`
 |`SSO_SAML_KEYSTORE` | The name of the secret containing the keystore file | `${SSO_SAML_KEYSTORE}`

@@ -4,7 +4,7 @@
     generator or the input template (./*.in)
 ////
 
-= sso70-basic
+= sso70-https
 :toc:
 :toc-placement!:
 :toclevels: 5
@@ -29,22 +29,29 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`APPLICATION_NAME` | -- | The name for the application. | sso | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | -- | False
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | -- | False
+|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | sso-service-account | True
 |`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | sso-app-secret | False
-|`HTTPS_KEYSTORE` | `EAP_HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
-|`HTTPS_NAME` | `EAP_HTTPS_NAME` | The name associated with the server certificate | jboss | False
-|`HTTPS_PASSWORD` | `EAP_HTTPS_PASSWORD` | The password for the keystore and certificate | mykeystorepass | False
+|`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
+|`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
+|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate (e.g. jboss) | `${HTTPS_NAME}` | False
+|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate (e.g. mykeystorepass) | `${HTTPS_PASSWORD}` | False
 |`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
 |`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
 |`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
-|`HORNETQ_CLUSTER_PASSWORD` | `HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}` | True
-|`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
-|`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
-|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap-app-secret | False
+|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | sso-app-secret | False
 |`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False
-|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | secret-key | False
-|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | password | False
+|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate (e.g. secret-key) | `${JGROUPS_ENCRYPT_NAME}` | False
+|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
+|`SSO_ADMIN_USERNAME` | `SSO_ADMIN_USERNAME` | SSO Server admin username | admin | False
+|`SSO_ADMIN_PASSWORD` | `SSO_ADMIN_PASSWORD` | SSO Server admin  password | admin | False
+|`SSO_REALM` | `SSO_REALM` | Realm to be created in the SSO server (e.g. demo). | `${SSO_REALM}` | False
+|`SSO_SERVICE_USERNAME` | `SSO_SERVICE_USERNAME` | The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm. | `${SSO_SERVICE_USERNAME}` | False
+|`SSO_SERVICE_PASSWORD` | `SSO_SERVICE_PASSWORD` | The password for the SSO service user. | `${SSO_SERVICE_PASSWORD}` | False
+|`SSO_TRUSTSTORE` | `SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}` | False
+|`SSO_TRUSTSTORE_PASSWORD` | `SSO_TRUSTSTORE` | The password for the truststore and certificate (e.g. mykeystorepass) | `${SSO_TRUSTSTORE}` | False
+|`SSO_TRUSTSTORE_SECRET` | `SSO_TRUSTSTORE` | The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName | sso-app-secret | False
 |=======================================================================
 
 
@@ -65,7 +72,6 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 
 |`${APPLICATION_NAME}` | 8080 | The web server's http port.
 |`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
-|`${APPLICATION_NAME}-basic` | 5432 | The database server's port.
 |=============
 
 
@@ -132,7 +138,7 @@ information.
 |============
 |Deployment | Service Account
 
-|`${APPLICATION_NAME}` | sso-service-account
+|`${APPLICATION_NAME}` | `${SERVICE_ACCOUNT_NAME}`
 |============
 
 
@@ -163,10 +169,11 @@ information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.3+| `${APPLICATION_NAME}`
+.4+| `${APPLICATION_NAME}`
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
+|ping | 8888 | `TCP`
 |=============
 
 
@@ -176,25 +183,31 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.18+| `${APPLICATION_NAME}`
+.24+| `${APPLICATION_NAME}`
 |`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
 |`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
 |`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
 |`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
-|`EAP_HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
-|`EAP_HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
-|`EAP_HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
-|`EAP_HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
-|`HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}`
-|`HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}`
-|`HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}`
+|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
+|`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
+|`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
+|`HTTPS_NAME` | The name associated with the server certificate (e.g. jboss) | `${HTTPS_NAME}`
+|`HTTPS_PASSWORD` | The password for the keystore and certificate (e.g. mykeystorepass) | `${HTTPS_PASSWORD}`
 |`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
 |`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
 |`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
-|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
-|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
+|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate (e.g. secret-key) | `${JGROUPS_ENCRYPT_NAME}`
+|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
+|`SSO_ADMIN_USERNAME` | SSO Server admin username | `${SSO_ADMIN_USERNAME}`
+|`SSO_ADMIN_PASSWORD` | SSO Server admin  password | `${SSO_ADMIN_PASSWORD}`
+|`SSO_REALM` | Realm to be created in the SSO server (e.g. demo). | `${SSO_REALM}`
+|`SSO_SERVICE_USERNAME` | The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm. | `${SSO_SERVICE_USERNAME}`
+|`SSO_SERVICE_PASSWORD` | The password for the SSO service user. | `${SSO_SERVICE_PASSWORD}`
+|`SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}`
+|`SSO_TRUSTSTORE_DIR` | The name of the truststore file within the secret (e.g. truststore.jks) | `/etc/sso-secret-volume`
+|`SSO_TRUSTSTORE_PASSWORD` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE_PASSWORD}`
 |=======================================================================
 
 
