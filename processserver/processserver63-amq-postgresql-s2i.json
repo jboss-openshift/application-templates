@@ -902,14 +902,6 @@
                                         "value": "${MQ_PROTOCOL}"
                                     },
                                     {
-                                        "name": "AMQ_QUEUES",
-                                        "value": "${MQ_QUEUES}"
-                                    },
-                                    {
-                                        "name": "AMQ_TOPICS",
-                                        "value": "${MQ_TOPICS}"
-                                    },
-                                    {
                                         "name": "AMQ_MESH_DISCOVERY_TYPE",
                                         "value": "${AMQ_MESH_DISCOVERY_TYPE}"
                                     },
