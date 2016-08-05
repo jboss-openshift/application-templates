@@ -137,6 +137,12 @@
             "required": false
         },
         {
+            "description": "Split the data directory for each node in a mesh.",
+            "name": "AMQ_SPLIT",
+            "value": "false",
+            "required": false
+        },
+        {
             "description": "Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP.",
             "name": "MQ_PROTOCOL",
             "value": "openwire",
