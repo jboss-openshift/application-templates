@@ -108,7 +108,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap64-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange, Generic, GitHub
+|jboss-eap64-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, ConfigChange, GitHub
 |=============
 
 

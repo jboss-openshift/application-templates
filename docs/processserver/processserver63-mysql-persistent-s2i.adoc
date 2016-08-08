@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= decisionserver62-https-s2i
+= processserver63-mysql-persistent-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-Application template for BRMS Realtime Decision Server 6.2 HTTPS applications built using S2I.
+Application template for BPMS Intelligent Process Server 6 MySQL applications with persistent storage built using S2I.
 
 toc::[]
 
@@ -23,23 +23,38 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | HelloRulesContainer=org.openshift.quickstarts:decisionserver-hellorules:1.3.3.Final | False
+|`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | processserver-library=org.openshift.quickstarts:processserver-library:1.3.0.Final | False
 |`KIE_SERVER_PROTOCOL` | `KIE_SERVER_PROTOCOL` | The protocol to access the KIE Server REST interface. | https | False
 |`KIE_SERVER_PORT` | `KIE_SERVER_PORT` | The port to access the KIE Server REST interface. | 8443 | False
 |`KIE_SERVER_USER` | `KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | kieserver | False
 |`KIE_SERVER_PASSWORD` | `KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}` | False
+|`KIE_SERVER_DOMAIN` | `KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | other | False
+|`KIE_SERVER_PERSISTENCE_DIALECT` | `KIE_SERVER_PERSISTENCE_DIALECT` | Hibernate persistence dialect. | org.hibernate.dialect.MySQL5Dialect | False
 |`APPLICATION_NAME` | -- | The name for the application. | kie-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
-|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts.git | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.2 | False
-|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | decisionserver/hellorules | False
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.3 | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | processserver/library | False
+|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS | java:jboss/datasources/ExampleDS | False
+|`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
+|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
 |`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
 |`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
-|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | decisionserver-app-secret | True
+|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | processserver-app-secret | False
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | jboss | False
 |`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | mykeystorepass | False
+|`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
+|`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
+|`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
+|`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
+|`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
+|`MYSQL_LOWER_CASE_TABLE_NAMES` | `MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}` | False
+|`MYSQL_MAX_CONNECTIONS` | `MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}` | False
+|`MYSQL_FT_MIN_WORD_LEN` | `MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}` | False
+|`MYSQL_FT_MAX_WORD_LEN` | `MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}` | False
+|`MYSQL_AIO` | `MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}` | False
 |`HORNETQ_CLUSTER_PASSWORD` | `HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}` | True
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
@@ -64,6 +79,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 
 |`${APPLICATION_NAME}` | 8080 | The web server's http port.
 |`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
+|`${APPLICATION_NAME}-mysql` | 3306 | The database server's port.
 |=============
 
 
@@ -94,7 +110,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-decisionserver62-openshift:1.2 |  link:../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, ConfigChange, GitHub
+|jboss-processserver63-openshift:1.3 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, ConfigChange, GitHub
 |=============
 
 
@@ -113,6 +129,7 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |Deployment | Triggers
 
 |`${APPLICATION_NAME}` | ImageChange
+|`${APPLICATION_NAME}-mysql` | ImageChange
 |============
 
 
@@ -128,6 +145,7 @@ for more information.
 |Deployment | Replicas
 
 |`${APPLICATION_NAME}` | 1
+|`${APPLICATION_NAME}-mysql` | 1
 |============
 
 
@@ -143,7 +161,7 @@ information.
 |============
 |Deployment | Service Account
 
-|`${APPLICATION_NAME}` | decisionserver-service-account
+|`${APPLICATION_NAME}` | processserver-service-account
 |============
 
 
@@ -154,6 +172,7 @@ information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
+|`${APPLICATION_NAME}-mysql` | mysql
 |============
 
 
@@ -178,6 +197,8 @@ information.
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
+.1+| `${APPLICATION_NAME}-mysql`
+|-- | 3306 | `TCP`
 |=============
 
 
@@ -187,19 +208,48 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.12+| `${APPLICATION_NAME}`
+.32+| `${APPLICATION_NAME}`
 |`KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | `${KIE_CONTAINER_DEPLOYMENT}`
 |`KIE_SERVER_PROTOCOL` | The protocol to access the KIE Server REST interface. | `${KIE_SERVER_PROTOCOL}`
 |`KIE_SERVER_PORT` | The port to access the KIE Server REST interface. | `${KIE_SERVER_PORT}`
 |`KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | `${KIE_SERVER_USER}`
 |`KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}`
-|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/decisionserver-secret-volume`
+|`KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | `${KIE_SERVER_DOMAIN}`
+|`KIE_SERVER_PERSISTENCE_DIALECT` | Hibernate persistence dialect. | `${KIE_SERVER_PERSISTENCE_DIALECT}`
+|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB,${APPLICATION_NAME}-mysql=QUARTZ`
+|`TX_DATABASE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
+|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS | `${DB_JNDI}`
+|`DB_USERNAME` | Database user name | `${DB_USERNAME}`
+|`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
+|`DB_DATABASE` | Database name | `${DB_DATABASE}`
+|`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
+|`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
+|`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
+|`QUARTZ_JNDI` | -- | `${DB_JNDI}NotManaged`
+|`QUARTZ_USERNAME` | -- | `${DB_USERNAME}`
+|`QUARTZ_PASSWORD` | -- | `${DB_PASSWORD}`
+|`QUARTZ_DATABASE` | -- | `${DB_DATABASE}`
+|`QUARTZ_MIN_POOL_SIZE` | -- | `${DB_MIN_POOL_SIZE}`
+|`QUARTZ_MAX_POOL_SIZE` | -- | `${DB_MAX_POOL_SIZE}`
+|`QUARTZ_TX_ISOLATION` | -- | `${DB_TX_ISOLATION}`
+|`QUARTZ_JTA` | -- | false
+|`QUARTZ_NONXA` | -- | true
+|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/processserver-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
 |`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
 |`HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}`
 |`HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}`
 |`HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}`
+.8+| `${APPLICATION_NAME}-mysql`
+|`MYSQL_USER` | -- | `${DB_USERNAME}`
+|`MYSQL_PASSWORD` | -- | `${DB_PASSWORD}`
+|`MYSQL_DATABASE` | -- | `${DB_DATABASE}`
+|`MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}`
+|`MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}`
+|`MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}`
+|`MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}`
+|`MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}`
 |=======================================================================
 
 
@@ -209,18 +259,33 @@ information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-|`${APPLICATION_NAME}` | decisionserver-keystore-volume | `/etc/decisionserver-secret-volume` | ssl certs | True
+|`${APPLICATION_NAME}` | processserver-keystore-volume | `/etc/processserver-secret-volume` | ssl certs | True
+|`${APPLICATION_NAME}-mysql` | `${APPLICATION_NAME}-mysql-pvol` | `/var/lib/mysql/data` | mysql | false
 |=============
 
 
 === External Dependencies
 
 
+==== Volume Claims
+
+A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
+by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
+Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
+more information.
+
+|=============
+|Name | Access Mode
+
+|`${APPLICATION_NAME}-mysql-claim` | ReadWriteOnce
+|=============
+
+
 
 
 ==== Secrets
 
-This template requires link:../secrets/dec-app-secret.adoc[dec-app-secret.json]
+This template requires link:../secrets/pro-app-secret.adoc[pro-app-secret.json]
 to be installed for the application to run.
 
 

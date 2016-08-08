@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for BRMS Realtime Decision Server 6 A-MQ applications built using S2I.
+Application template for BRMS Realtime Decision Server 6.2 A-MQ applications built using S2I.
 
 toc::[]
 
@@ -23,10 +23,11 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | HelloRulesContainer=org.openshift.quickstarts:decisionserver-hellorules:1.2.0.Final | False
+|`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | HelloRulesContainer=org.openshift.quickstarts:decisionserver-hellorules:1.3.3.Final | False
 |`KIE_SERVER_USER` | `KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | kieserver | False
 |`KIE_SERVER_PASSWORD` | `KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}` | False
 |`KIE_SERVER_DOMAIN` | `KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | other | False
+|`KIE_SERVER_JMS_QUEUES_REQUEST` | `KIE_SERVER_JMS_QUEUES_REQUEST` | JNDI name of request queue for JMS. | queue/KIE.SERVER.REQUEST | False
 |`KIE_SERVER_JMS_QUEUES_RESPONSE` | `KIE_SERVER_JMS_QUEUES_RESPONSE` | JNDI name of response queue for JMS. | queue/KIE.SERVER.RESPONSE | False
 |`APPLICATION_NAME` | -- | The name for the application. | kie-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
@@ -44,8 +45,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | mykeystorepass | False
 |`MQ_USERNAME` | `MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}` | False
 |`MQ_PASSWORD` | `MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}` | False
-|`AMQ_ADMIN_USERNAME` | `AMQ_ADMIN_USERNAME` | User name for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_USERNAME}` | True
-|`AMQ_ADMIN_PASSWORD` | `AMQ_ADMIN_PASSWORD` | Password for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_PASSWORD}` | True
+|`AMQ_MESH_DISCOVERY_TYPE` | `AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | kube | False
+|`AMQ_STORAGE_USAGE_LIMIT` | `AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | 100 gb | False
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
@@ -100,7 +101,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-decisionserver62-openshift:1.2 |  link:../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`] | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange, Generic, GitHub
+|jboss-decisionserver62-openshift:1.2 |  link:../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, ConfigChange, GitHub
 |=============
 
 
@@ -188,12 +189,12 @@ information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.4+| `${APPLICATION_NAME}`
+.3+| `${APPLICATION_NAME}`
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
-|ping | 8888 | `TCP`
-.7+| `${APPLICATION_NAME}-amq`
+.8+| `${APPLICATION_NAME}-amq`
+|jolokia | 8778 | `TCP`
 |amqp | 5672 | `TCP`
 |amqp-ssl | 5671 | `TCP`
 |mqtt | 1883 | `TCP`
@@ -210,11 +211,12 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.16+| `${APPLICATION_NAME}`
+.17+| `${APPLICATION_NAME}`
 |`KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | `${KIE_CONTAINER_DEPLOYMENT}`
 |`KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | `${KIE_SERVER_USER}`
 |`KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}`
 |`KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | `${KIE_SERVER_DOMAIN}`
+|`KIE_SERVER_JMS_QUEUES_REQUEST` | JNDI name of request queue for JMS. | `${KIE_SERVER_JMS_QUEUES_REQUEST}`
 |`KIE_SERVER_JMS_QUEUES_RESPONSE` | JNDI name of response queue for JMS. | `${KIE_SERVER_JMS_QUEUES_RESPONSE}`
 |`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq=MQ`
 |`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/JmsXA | `${MQ_JNDI}`
@@ -231,10 +233,10 @@ information.
 |`AMQ_USER` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
 |`AMQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
 |`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
-|`AMQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_QUEUES}`
-|`AMQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}`
-|`AMQ_ADMIN_USERNAME` | User name for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_USERNAME}`
-|`AMQ_ADMIN_PASSWORD` | Password for broker admin. If left empty, it will be generated. | `${AMQ_ADMIN_PASSWORD}`
+|`AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | `${AMQ_MESH_DISCOVERY_TYPE}`
+|`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-tcp`
+|`AMQ_MESH_SERVICE_NAMESPACE` | -- | --
+|`AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | `${AMQ_STORAGE_USAGE_LIMIT}`
 |=======================================================================
 
 

@@ -78,9 +78,24 @@ toc::[levels=1]
 
 == JBoss BRMS Realtime Decision Server
 
+* link:./decisionserver/decisionserver63-amq-s2i.adoc[decisionserver63-amq-s2i]
+* link:./decisionserver/decisionserver63-basic-s2i.adoc[decisionserver63-basic-s2i]
 * link:./decisionserver/decisionserver62-amq-s2i.adoc[decisionserver62-amq-s2i]
+* link:./decisionserver/decisionserver63-https-s2i.adoc[decisionserver63-https-s2i]
 * link:./decisionserver/decisionserver62-https-s2i.adoc[decisionserver62-https-s2i]
 * link:./decisionserver/decisionserver62-basic-s2i.adoc[decisionserver62-basic-s2i]
+
+== JBoss BPMS Intelligent Process Server
+
+* link:./processserver/processserver63-mysql-s2i.adoc[processserver63-mysql-s2i]
+* link:./processserver/processserver63-amq-postgresql-persistent-s2i.adoc[processserver63-amq-postgresql-persistent-s2i]
+* link:./processserver/processserver63-mysql-persistent-s2i.adoc[processserver63-mysql-persistent-s2i]
+* link:./processserver/processserver63-postgresql-s2i.adoc[processserver63-postgresql-s2i]
+* link:./processserver/processserver63-amq-mysql-persistent-s2i.adoc[processserver63-amq-mysql-persistent-s2i]
+* link:./processserver/processserver63-basic-s2i.adoc[processserver63-basic-s2i]
+* link:./processserver/processserver63-postgresql-persistent-s2i.adoc[processserver63-postgresql-persistent-s2i]
+* link:./processserver/processserver63-amq-mysql-s2i.adoc[processserver63-amq-mysql-s2i]
+* link:./processserver/processserver63-amq-postgresql-s2i.adoc[processserver63-amq-postgresql-s2i]
 
 == JBoss Data Grid
 
@@ -107,12 +122,18 @@ toc::[levels=1]
 
 == Release Notes
 
+=== Release 1.3.3
+
+ * New image definitions for:
+ ** JBoss Process Server 6.3
+ ** JBoss Decision Server 6.3
+
 === Release 1.3.2
 
  * New image definitions for:
-   * EAP 6.4
-   * EAP 7
-   * Red Hat SS0 7 GA
+ ** EAP 6.4
+ ** EAP 7
+ ** Red Hat SS0 7 GA
  * Added support for configuring EAP timer service to use an external data source
  * Service account name is specified using a parameter in EAP and SSO templates
  * Added ability to deploy exploded archives
@@ -120,16 +141,16 @@ toc::[levels=1]
 === Release 1.3.1
 
  * New image definitions for:
-   * EAP 7 GA
-   * A-MQ 6
+ ** EAP 7 GA
+ ** A-MQ 6
  * A-MQ persistent templates now support meshing.  Use AMQ_SPLIT=true to use separate storage directories for each pod in a cluster.
 
 === Release 1.3.0
 
  * New image definitions for:
-   * Red Hat SSO
-   * EAP 7 Beta
-   * Red Hat SSO support in EAP 6.4 and 7 beta
+ ** Red Hat SSO
+ ** EAP 7 Beta
+ ** Red Hat SSO support in EAP 6.4 and 7 beta
  * Switch templates using deprecated key serviceAccount to serviceAccountName
 
 === Release 1.2.0

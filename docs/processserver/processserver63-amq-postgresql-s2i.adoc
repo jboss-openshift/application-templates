@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= eap70-amq-persistent-s2i
+= processserver63-amq-postgresql-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-Application template for EAP 7 A-MQ applications with persistent storage built using S2I.
+Application template for BPMS Intelligent Process Server 6 AMQ and PostgreSQL applications built using S2I.
 
 toc::[]
 
@@ -23,25 +23,39 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
+|`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | processserver-library=org.openshift.quickstarts:processserver-library:1.3.0.Final | False
+|`KIE_SERVER_PROTOCOL` | `KIE_SERVER_PROTOCOL` | The protocol to access the KIE Server REST interface. | https | False
+|`KIE_SERVER_PORT` | `KIE_SERVER_PORT` | The port to access the KIE Server REST interface. | 8443 | False
+|`KIE_SERVER_USER` | `KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | kieserver | False
+|`KIE_SERVER_PASSWORD` | `KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}` | False
+|`KIE_SERVER_DOMAIN` | `KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | other | False
+|`KIE_SERVER_JMS_QUEUES_REQUEST` | `KIE_SERVER_JMS_QUEUES_REQUEST` | JNDI name of request queue for JMS. | queue/KIE.SERVER.REQUEST | False
+|`KIE_SERVER_JMS_QUEUES_RESPONSE` | `KIE_SERVER_JMS_QUEUES_RESPONSE` | JNDI name of response queue for JMS. | queue/KIE.SERVER.RESPONSE | False
+|`KIE_SERVER_EXECUTOR_JMS_QUEUE` | `KIE_SERVER_EXECUTOR_JMS_QUEUE` | JNDI name of executor queue for JMS. | queue/KIE.SERVER.EXECUTOR | False
+|`KIE_SERVER_PERSISTENCE_DIALECT` | `KIE_SERVER_PERSISTENCE_DIALECT` | Hibernate persistence dialect. | org.hibernate.dialect.PostgreSQL82Dialect | False
+|`APPLICATION_NAME` | -- | The name for the application. | kie-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
-|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts.git | True
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.3 | False
-|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld-mdb | False
-|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
-|`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | java:/ConnectionFactory | False
-|`AMQ_SPLIT` | `AMQ_SPLIT` | Split the data directory for each node in a mesh. | false | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | processserver/library | False
+|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS | java:jboss/datasources/ExampleDS | False
+|`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
+|`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/JmsXA | java:/JmsXA | False
 |`MQ_PROTOCOL` | `MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | openwire | False
-|`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | HELLOWORLDMDBQueue | False
-|`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | HELLOWORLDMDBTopic | False
-|`MQ_SERIALIZABLE_PACKAGES` | `MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}` | False
-|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | eap7-service-account | True
-|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap7-app-secret | False
+|`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | KIE.SERVER.REQUEST,KIE.SERVER.RESPONSE,KIE.SERVER.EXECUTOR | False
+|`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}` | False
+|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | processserver-app-secret | False
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
-|`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
-|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}` | False
-|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}` | False
+|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | jboss | False
+|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | mykeystorepass | False
+|`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
+|`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
+|`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
+|`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
+|`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
+|`POSTGRESQL_MAX_CONNECTIONS` | `POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}` | False
+|`POSTGRESQL_SHARED_BUFFERS` | `POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}` | False
 |`MQ_USERNAME` | `MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}` | False
 |`MQ_PASSWORD` | `MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}` | False
 |`AMQ_MESH_DISCOVERY_TYPE` | `AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | kube | False
@@ -49,12 +63,6 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
-|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap7-app-secret | False
-|`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False
-|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
-|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}` | False
-|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
-|`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |=======================================================================
 
 
@@ -73,8 +81,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |=============
 |Service        |Port  | Description
 
-|`${APPLICATION_NAME}` | 8080 | The web server's HTTP port.
-|`secure-${APPLICATION_NAME}` | 8443 | The web server's HTTPS port.
+|`${APPLICATION_NAME}` | 8080 | The web server's http port.
+|`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
+|`${APPLICATION_NAME}-postgresql` | 5432 | The database server's port.
 |`${APPLICATION_NAME}-amq-tcp` | 61616 | The broker's OpenWire port.
 |=============
 
@@ -106,7 +115,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap70-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, ConfigChange, GitHub
+|jboss-processserver63-openshift:1.3 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, ConfigChange, GitHub
 |=============
 
 
@@ -125,6 +134,7 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |Deployment | Triggers
 
 |`${APPLICATION_NAME}` | ImageChange
+|`${APPLICATION_NAME}-postgresql` | ImageChange
 |`${APPLICATION_NAME}-amq` | ImageChange
 |============
 
@@ -141,6 +151,7 @@ for more information.
 |Deployment | Replicas
 
 |`${APPLICATION_NAME}` | 1
+|`${APPLICATION_NAME}-postgresql` | 1
 |`${APPLICATION_NAME}-amq` | 1
 |============
 
@@ -157,7 +168,7 @@ information.
 |============
 |Deployment | Service Account
 
-|`${APPLICATION_NAME}` | `${SERVICE_ACCOUNT_NAME}`
+|`${APPLICATION_NAME}` | processserver-service-account
 |============
 
 
@@ -168,6 +179,7 @@ information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
+|`${APPLICATION_NAME}-postgresql` | postgresql
 |`${APPLICATION_NAME}-amq` | jboss-amq-62
 |============
 
@@ -194,11 +206,12 @@ information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.4+| `${APPLICATION_NAME}`
+.3+| `${APPLICATION_NAME}`
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
-|ping | 8888 | `TCP`
+.1+| `${APPLICATION_NAME}-postgresql`
+|-- | 5432 | `TCP`
 .8+| `${APPLICATION_NAME}-amq`
 |jolokia | 8778 | `TCP`
 |amqp | 5672 | `TCP`
@@ -217,37 +230,47 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.22+| `${APPLICATION_NAME}`
+.30+| `${APPLICATION_NAME}`
+|`KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | `${KIE_CONTAINER_DEPLOYMENT}`
+|`KIE_SERVER_PROTOCOL` | The protocol to access the KIE Server REST interface. | `${KIE_SERVER_PROTOCOL}`
+|`KIE_SERVER_PORT` | The port to access the KIE Server REST interface. | `${KIE_SERVER_PORT}`
+|`KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | `${KIE_SERVER_USER}`
+|`KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}`
+|`KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | `${KIE_SERVER_DOMAIN}`
+|`KIE_SERVER_JMS_QUEUES_REQUEST` | JNDI name of request queue for JMS. | `${KIE_SERVER_JMS_QUEUES_REQUEST}`
+|`KIE_SERVER_JMS_QUEUES_RESPONSE` | JNDI name of response queue for JMS. | `${KIE_SERVER_JMS_QUEUES_RESPONSE}`
+|`KIE_SERVER_EXECUTOR_JMS_QUEUE` | JNDI name of executor queue for JMS. | `${KIE_SERVER_EXECUTOR_JMS_QUEUE}`
 |`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq=MQ`
-|`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | `${MQ_JNDI}`
+|`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/JmsXA | `${MQ_JNDI}`
 |`MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
 |`MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
 |`MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | tcp
 |`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_QUEUES}`
 |`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}`
-|`MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}`
-|`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
-|`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
-|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
+|`KIE_SERVER_PERSISTENCE_DIALECT` | Hibernate persistence dialect. | `${KIE_SERVER_PERSISTENCE_DIALECT}`
+|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
+|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS | `${DB_JNDI}`
+|`DB_USERNAME` | Database user name | `${DB_USERNAME}`
+|`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
+|`DB_DATABASE` | Database name | `${DB_DATABASE}`
+|`TX_DATABASE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
+|`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
+|`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
+|`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
+|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/processserver-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
-|`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
 |`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
-|`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
-|`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
-|`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
-|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
-|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
-|`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
-|`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
-.11+| `${APPLICATION_NAME}-amq`
+.5+| `${APPLICATION_NAME}-postgresql`
+|`POSTGRESQL_USER` | -- | `${DB_USERNAME}`
+|`POSTGRESQL_PASSWORD` | -- | `${DB_PASSWORD}`
+|`POSTGRESQL_DATABASE` | -- | `${DB_DATABASE}`
+|`POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}`
+|`POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}`
+.7+| `${APPLICATION_NAME}-amq`
 |`AMQ_USER` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
 |`AMQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
 |`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
-|`AMQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_QUEUES}`
-|`AMQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}`
-|`MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}`
-|`AMQ_SPLIT` | Split the data directory for each node in a mesh. | `${AMQ_SPLIT}`
 |`AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | `${AMQ_MESH_DISCOVERY_TYPE}`
 |`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-tcp`
 |`AMQ_MESH_SERVICE_NAMESPACE` | -- | --
@@ -261,65 +284,20 @@ information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-|`${APPLICATION_NAME}` | eap-keystore-volume | `/etc/eap-secret-volume` | ssl certs | True
-|`${APPLICATION_NAME}-amq` | `${APPLICATION_NAME}-amq-pvol` | `/opt/amq/data/kahadb` | kahadb | false
+|`${APPLICATION_NAME}` | processserver-keystore-volume | `/etc/processserver-secret-volume` | ssl certs | True
 |=============
 
 
 === External Dependencies
 
 
-==== Volume Claims
-
-A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
-by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
-Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
-more information.
-
-|=============
-|Name | Access Mode
-
-|`${APPLICATION_NAME}-amq-claim` | ReadWriteOnce
-|=============
-
-
 
 
 ==== Secrets
 
-This template requires link:../secrets/eap-app-secret.adoc[eap-app-secret.json]
+This template requires link:../secrets/pro-app-secret.adoc[pro-app-secret.json]
 to be installed for the application to run.
 
 
-
-[[clustering]]
-==== Clustering
-
-Clustering in OpenShift EAP is achieved through one of two discovery mechanisms:
-Kubernetes or DNS. This is done by configuring the JGroups protocol stack in
-standalone-openshift.xml with either the `<openshift.KUBE_PING/>` or `<openshift.DNS_PING/>`
-elements. Out of the box, `KUBE_PING` is the supported protocol and what is
-pre-configured in OpenShift EAP.
-
-For `KUBE_PING` to work, however, the following steps must be taken:
-
-. The `OPENSHIFT_KUBE_PING_NAMESPACE` environment variable must be set (see table above).
-  If not set, the server will act as if it is a single-node cluster (a "cluster of one").
-. The `OPENSHIFT_KUBE_PING_LABELS` environment variables should be set (see table above).
-  If not set, pods outside of your application (albeit in your namespace) will try to join.
-. Authorization must be granted to the service account the pod is running under to be
-  allowed to access Kubernetes' REST api. This is done on the command line.
-
-.Policy commands
-====
-Using the default service account in the myproject namespace:
-....
-oc policy add-role-to-user view system:serviceaccount:myproject:default -n myproject
-....
-Using the eap-service-account in the myproject namespace:
-....
-oc policy add-role-to-user view system:serviceaccount:myproject:eap-service-account -n myproject
-....
-====
 
 

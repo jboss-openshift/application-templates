@@ -18,8 +18,8 @@ from ptemplate.template import Template
 GIT_REPO = "https://github.com/jboss-openshift/application-templates.git"
 REPO_NAME = "application-templates/"
 TEMPLATE_DOCS = "docs/"
-APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","datagrid","sso")
-template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'datagrid', 'sso']
+APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","processserver","datagrid","sso")
+template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'processserver', 'datagrid', 'sso']
 amq_ssl_desc = None
 
 LINKS =  {"jboss-eap64-openshift:1.2": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
@@ -28,6 +28,8 @@ LINKS =  {"jboss-eap64-openshift:1.2": "../../eap/eap-openshift{outfilesuffix}[`
           "jboss-webserver30-tomcat7-openshift:1.2": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver-3/webserver30-tomcat7-openshift`]",
           "jboss-webserver30-tomcat8-openshift:1.2": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver30-tomcat8-openshift`]",
           "jboss-decisionserver62-openshift:1.2": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`]",
+          "jboss-decisionserver63-openshift:1.3": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver63-openshift`]",
+          "jboss-processserver63-openshift:1.3": "../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`]",
           "jboss-eap70-openshift:1.3": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`]",
           "jboss-eap70-openshift:1.4": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`]",
           "redhat-sso70-openshift:1.3": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso70-openshift`]",
@@ -288,6 +290,7 @@ fullname = {
     "eap":       "JBoss EAP",
     "webserver": "JBoss Web Server",
     "decisionserver": "JBoss BRMS Realtime Decision Server",
+    "processserver": "JBoss BPMS Intelligent Process Server",
     "datagrid": "JBoss Data Grid",
     "sso": "Red Hat SSO",
 }
