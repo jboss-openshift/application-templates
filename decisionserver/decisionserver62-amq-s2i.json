@@ -41,12 +41,6 @@
             "required": false
         },
         {
-            "description": "JNDI name of request queue for JMS.",
-            "name": "KIE_SERVER_JMS_QUEUES_REQUEST",
-            "value": "queue/KIE.SERVER.REQUEST",
-            "required": false
-        },
-        {
             "description": "JNDI name of response queue for JMS.",
             "name": "KIE_SERVER_JMS_QUEUES_RESPONSE",
             "value": "queue/KIE.SERVER.RESPONSE",
@@ -482,10 +476,6 @@
                                     {
                                         "name": "KIE_SERVER_DOMAIN",
                                         "value": "${KIE_SERVER_DOMAIN}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_JMS_QUEUES_REQUEST",
-                                        "value": "${KIE_SERVER_JMS_QUEUES_REQUEST}"
                                     },
                                     {
                                         "name": "KIE_SERVER_JMS_QUEUES_RESPONSE",
