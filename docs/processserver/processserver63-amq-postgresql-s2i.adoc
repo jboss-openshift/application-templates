@@ -115,7 +115,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-processserver63-openshift:1.3 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, ConfigChange, GitHub
+|jboss-processserver63-openshift:1.3 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, GitHub, ConfigChange
 |=============
 
 
