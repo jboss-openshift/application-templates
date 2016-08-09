@@ -289,8 +289,8 @@ fullname = {
     "amq":       "JBoss A-MQ",
     "eap":       "JBoss EAP",
     "webserver": "JBoss Web Server",
-    "decisionserver": "JBoss Decision Server",
-    "processserver": "JBoss Process Server",
+    "decisionserver": "Red Hat JBoss BRMS decision server",
+    "processserver": "Red Hat JBoss BPM Suite intelligent process server",
     "datagrid": "JBoss Data Grid",
     "sso": "Red Hat SSO",
 }
