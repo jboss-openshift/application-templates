@@ -84,7 +84,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap70-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | ConfigChange, GitHub, ImageChange, Generic
+|jboss-eap70-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | Generic, GitHub, ConfigChange, ImageChange
 |=============
 
 

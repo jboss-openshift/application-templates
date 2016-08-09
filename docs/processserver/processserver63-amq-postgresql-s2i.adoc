@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for JBoss Process Server 6.3 AMQ and PostgreSQL applications built using S2I.
+Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server AMQ and PostgreSQL applications built using S2I.
 
 toc::[]
 
@@ -115,7 +115,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-processserver63-openshift:1.3 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`] | `${APPLICATION_NAME}:latest` | ConfigChange, GitHub, ImageChange, Generic
+|jboss-processserver63-openshift:1.3 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`] | `${APPLICATION_NAME}:latest` | Generic, GitHub, ConfigChange, ImageChange
 |=============
 
 
