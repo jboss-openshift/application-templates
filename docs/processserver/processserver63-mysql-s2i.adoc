@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for BPMS Intelligent Process Server 6 MySQL applications built using S2I.
+Application template for JBoss Process Server 6.3 MySQL applications built using S2I.
 
 toc::[]
 
@@ -109,7 +109,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-processserver63-openshift:1.3 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, GitHub, ConfigChange
+|jboss-processserver63-openshift:1.3 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`] | `${APPLICATION_NAME}:latest` | ConfigChange, GitHub, ImageChange, Generic
 |=============
 
 

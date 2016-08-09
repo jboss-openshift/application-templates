@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for BRMS Realtime Decision Server 6.2 applications built using S2I.
+Application template for JBoss Decision Server 6.2 applications built using S2I.
 
 toc::[]
 
@@ -85,7 +85,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-decisionserver62-openshift:1.2 |  link:../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, GitHub, ConfigChange
+|jboss-decisionserver62-openshift:1.2 |  link:../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`] | `${APPLICATION_NAME}:latest` | ConfigChange, GitHub, ImageChange, Generic
 |=============
 
 

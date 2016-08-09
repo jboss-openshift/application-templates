@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for BRMS Realtime Decision Server 6.2 A-MQ applications built using S2I.
+Application template for JBoss Decision Server 6.2 A-MQ applications built using S2I.
 
 toc::[]
 
@@ -27,7 +27,6 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`KIE_SERVER_USER` | `KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | kieserver | False
 |`KIE_SERVER_PASSWORD` | `KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}` | False
 |`KIE_SERVER_DOMAIN` | `KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | other | False
-|`KIE_SERVER_JMS_QUEUES_REQUEST` | `KIE_SERVER_JMS_QUEUES_REQUEST` | JNDI name of request queue for JMS. | queue/KIE.SERVER.REQUEST | False
 |`KIE_SERVER_JMS_QUEUES_RESPONSE` | `KIE_SERVER_JMS_QUEUES_RESPONSE` | JNDI name of response queue for JMS. | queue/KIE.SERVER.RESPONSE | False
 |`APPLICATION_NAME` | -- | The name for the application. | kie-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
@@ -101,7 +100,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-decisionserver62-openshift:1.2 |  link:../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`] | `${APPLICATION_NAME}:latest` | Generic, ImageChange, GitHub, ConfigChange
+|jboss-decisionserver62-openshift:1.2 |  link:../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver62-openshift`] | `${APPLICATION_NAME}:latest` | ConfigChange, GitHub, ImageChange, Generic
 |=============
 
 
@@ -211,12 +210,11 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.17+| `${APPLICATION_NAME}`
+.16+| `${APPLICATION_NAME}`
 |`KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | `${KIE_CONTAINER_DEPLOYMENT}`
 |`KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | `${KIE_SERVER_USER}`
 |`KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}`
 |`KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | `${KIE_SERVER_DOMAIN}`
-|`KIE_SERVER_JMS_QUEUES_REQUEST` | JNDI name of request queue for JMS. | `${KIE_SERVER_JMS_QUEUES_REQUEST}`
 |`KIE_SERVER_JMS_QUEUES_RESPONSE` | JNDI name of response queue for JMS. | `${KIE_SERVER_JMS_QUEUES_RESPONSE}`
 |`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq=MQ`
 |`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/JmsXA | `${MQ_JNDI}`

@@ -76,7 +76,7 @@ toc::[levels=1]
 * link:./webserver/jws30-tomcat7-mongodb-s2i.adoc[jws30-tomcat7-mongodb-s2i]
 * link:./webserver/jws30-tomcat8-mysql-s2i.adoc[jws30-tomcat8-mysql-s2i]
 
-== JBoss BRMS Realtime Decision Server
+== JBoss Decision Server
 
 * link:./decisionserver/decisionserver63-amq-s2i.adoc[decisionserver63-amq-s2i]
 * link:./decisionserver/decisionserver63-basic-s2i.adoc[decisionserver63-basic-s2i]
@@ -85,7 +85,7 @@ toc::[levels=1]
 * link:./decisionserver/decisionserver62-https-s2i.adoc[decisionserver62-https-s2i]
 * link:./decisionserver/decisionserver62-basic-s2i.adoc[decisionserver62-basic-s2i]
 
-== JBoss BPMS Intelligent Process Server
+== JBoss Process Server
 
 * link:./processserver/processserver63-mysql-s2i.adoc[processserver63-mysql-s2i]
 * link:./processserver/processserver63-amq-postgresql-persistent-s2i.adoc[processserver63-amq-postgresql-persistent-s2i]
