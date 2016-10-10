@@ -4,14 +4,14 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-jboss",
-            "description": "Application template for JBoss Data Virtualization 6.3 services built using S2I.  Includes ability to configure certificates for serving secure content.",
+            "description": "Application template for JBoss Data Virtualization 6.3 services built using S2I.  Includes support for installing extensions (e.g. third-party DB drivers) and the ability to configure certificates for serving secure content.",
             "tags": "jdv,datavirt,jboss,xpaas",
             "version": "1.4.0"
         },
-        "name": "jdv63-secure-s2i"
+        "name": "jdv63-extensions-support-s2i"
     },
     "labels": {
-        "template": "jdv63-secure-s2i",
+        "template": "jdv63-extensions-support-s2i",
         "xpaas": "1.4.0"
     },
     "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the following secrets: \"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed VDB(s); \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
@@ -55,21 +55,49 @@
             "description": "The URL of the repository with your application source code.",
             "displayName": "Git Repository URL",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/teiid/teiid-quickstarts",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
             "required": true
         },
         {
             "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
             "displayName": "Git Reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "8.12",
+            "value": "master",
             "required": false
         },
         {
             "description": "Set this to the relative path to your project if it is not in the root of your repository.",
             "displayName": "Context Directory",
             "name": "CONTEXT_DIR",
-            "value": "dynamicvdb-datafederation",
+            "value": "datavirt/dynamicvdb-datafederation/derby/vdb",
+            "required": false
+        },
+        {
+            "description": "The URL of the repository with source code for the extensions image.  The image should have all modules, etc., placed in the \"/extensions/\" directory in the image.  If the contents are in a different directory, the sourcePath for the ImageSource in the BuildConfig must be modified.",
+            "displayName": "Extensions Git Repository URL",
+            "name": "EXTENSIONS_REPOSITORY_URL",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
+            "required": true
+        },
+        {
+            "description": "Set this to a branch name, tag or other ref of your extensions repository if you are not using the default branch.",
+            "displayName": "Extensions Git Reference",
+            "name": "EXTENSIONS_REPOSITORY_REF",
+            "value": "master",
+            "required": false
+        },
+        {
+            "description": "Set this to the relative path to your project if it is not in the root of your extensions repository.",
+            "displayName": "Extensions Context Directory",
+            "name": "EXTENSIONS_DIR",
+            "value": "datavirt/derby-driver-image",
+            "required": false
+        },
+        {
+            "description": "Set this to the relative path to the Dockerfile in your extensions directory.",
+            "displayName": "Extensions Dockerfile",
+            "name": "EXTENSIONS_DOCKERFILE",
+            "value": "Dockerfile",
             "required": false
         },
         {
@@ -333,6 +361,65 @@
             }
         },
         {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-ext",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-ext",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "source": {
+                    "type": "Git",
+                    "git": {
+                        "uri": "${EXTENSIONS_REPOSITORY_URL}",
+                        "ref": "${EXTENSIONS_REPOSITORY_REF}"
+                    },
+                    "contextDir": "${EXTENSIONS_DIR}"
+                },
+                "strategy": {
+                    "type": "Docker",
+                    "dockerStrategy": {
+                        "dockerfilePath": "${EXTENSIONS_DOCKERFILE}"
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${APPLICATION_NAME}-ext:latest"
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        },
+        {
             "kind": "BuildConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -348,7 +435,21 @@
                         "uri": "${SOURCE_REPOSITORY_URL}",
                         "ref": "${SOURCE_REPOSITORY_REF}"
                     },
-                    "contextDir": "${CONTEXT_DIR}"
+                    "contextDir": "${CONTEXT_DIR}",
+                    "images": [
+                        {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${APPLICATION_NAME}-ext:latest"
+                            },
+                            "paths": [
+                                {
+                                    "destinationDir": "${CONTEXT_DIR}/extensions/extras",
+                                    "sourcePath": "/extensions/."
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "strategy": {
                     "type": "Source",
@@ -358,7 +459,13 @@
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
                             "name": "jboss-datavirt63-openshift:1.0"
-                        }
+                        },
+                        "env": [
+                            {
+                                "name": "CUSTOM_INSTALL_DIRECTORIES",
+                                "value": "extensions/*"
+                            }
+                        ]
                     }
                 },
                 "output": {
@@ -383,6 +490,15 @@
                     {
                         "type": "ImageChange",
                         "imageChange": {}
+                    },
+                    {
+                        "type": "ImageChange",
+                        "imageChange": {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${APPLICATION_NAME}-ext:latest"
+                            }
+                        }
                     },
                     {
                         "type": "ConfigChange"
