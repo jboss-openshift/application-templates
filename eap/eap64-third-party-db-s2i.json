@@ -4,50 +4,43 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-jboss",
-            "description": "Application template for JBoss Data Virtualization 6.3 services built using S2I.  Includes support for installing extensions (e.g. third-party DB drivers) and the ability to configure certificates for serving secure content.",
-            "tags": "jdv,datavirt,jboss,xpaas",
+            "description": "Application template for EAP 6 DB applications built using S2I.  Includes support for installing third-party DB drivers.",
+            "tags": "eap,javaee,java,jboss,xpaas",
             "version": "1.4.0"
         },
-        "name": "jdv63-extensions-support-s2i"
+        "name": "eap64-third-party-db-s2i"
     },
     "labels": {
-        "template": "jdv63-extensions-support-s2i",
+        "template": "eap64-third-party-db-s2i",
         "xpaas": "1.4.0"
     },
-    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the following secrets: \"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed VDB(s); \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new EAP application has been created in your project.  Please be sure to create the following secrets: \"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed application(s); \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "description": "The name for the application.",
             "displayName": "Application Name",
             "name": "APPLICATION_NAME",
-            "value": "jdv-app",
+            "value": "eap-app",
             "required": true
         },
         {
-            "description": "The name of the secret containing configuration properties for the data sources.",
+            "description": "The name of the secret containing configuration properties for the datasources.",
             "displayName": "Configuration Secret Name",
             "name": "CONFIGURATION_NAME",
-            "value": "jdv-app-config",
+            "value": "eap-app-config",
             "required": true
         },
         {
-            "description": "Specify a custom hostname for the http route.  Leave blank to use default hostname, e.g.: <service-name>-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
             "displayName": "Custom http Route Hostname",
             "name": "HOSTNAME_HTTP",
             "value": "",
             "required": false
         },
         {
-            "description": "Specify a custom hostname for the https route.  Leave blank to use default hostname, e.g.: secure-<service-name>-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
             "displayName": "Custom https Route Hostname",
             "name": "HOSTNAME_HTTPS",
-            "value": "",
-            "required": false
-        },
-        {
-            "description": "Specify a custom hostname for the JDBC route.  Leave blank to use default hostname, e.g.: secure-<service-name>-<project>.<default-domain-suffix>",
-            "displayName": "Custom JDBC Route Hostname",
-            "name": "HOSTNAME_JDBC",
             "value": "",
             "required": false
         },
@@ -69,36 +62,49 @@
             "description": "Set this to the relative path to your project if it is not in the root of your repository.",
             "displayName": "Context Directory",
             "name": "CONTEXT_DIR",
-            "value": "datavirt/dynamicvdb-datafederation/derby/vdb",
+            "value": "datavirt/hibernate-webapp",
             "required": false
         },
         {
-            "description": "The URL of the repository with source code for the extensions image.  The image should have all modules, etc., placed in the \"/extensions/\" directory in the image.  If the contents are in a different directory, the sourcePath for the ImageSource in the BuildConfig must be modified.",
-            "displayName": "Extensions Git Repository URL",
-            "name": "EXTENSIONS_REPOSITORY_URL",
-            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
+            "description": "ImageStreamTag definition for the image containing the drivers and configuration, e.g. jboss-datavirt63-openshift:1.0-driver",
+            "displayName": "Drivers ImageStreamTag",
+            "name": "EXTENSIONS_IMAGE",
+            "value": "jboss-datavirt63-openshift:1.0-driver",
             "required": true
         },
         {
-            "description": "Set this to a branch name, tag or other ref of your extensions repository if you are not using the default branch.",
-            "displayName": "Extensions Git Reference",
-            "name": "EXTENSIONS_REPOSITORY_REF",
-            "value": "master",
+            "description": "Namespace within which the ImageStream definition for the image containing the drivers and configuration is located.",
+            "displayName": "Drivers ImageStream Namespace",
+            "name": "EXTENSIONS_IMAGE_NAMESPACE",
+            "value": "openshift",
+            "required": true
+        },
+        {
+            "description": "Full path to the directory within the extensions image where the extensions are located (e.g. install.sh, modules/, etc.)",
+            "displayName": "Drivers Image Install Directory",
+            "name": "EXTENSIONS_INSTALL_DIR",
+            "value": "/extensions",
+            "required": true
+        },
+        {
+            "description": "Queue names to preconfigure within HornetQ subsystem.",
+            "displayName": "Queue Names",
+            "name": "HORNETQ_QUEUES",
+            "value": "",
             "required": false
         },
         {
-            "description": "Set this to the relative path to your project if it is not in the root of your extensions repository.",
-            "displayName": "Extensions Context Directory",
-            "name": "EXTENSIONS_DIR",
-            "value": "datavirt/derby-driver-image",
+            "description": "Topic names to preconfigure within HornetQ subsystem.",
+            "displayName": "Topic Names",
+            "name": "HORNETQ_TOPICS",
+            "value": "",
             "required": false
         },
         {
-            "description": "Set this to the relative path to the Dockerfile in your extensions directory.",
-            "displayName": "Extensions Dockerfile",
-            "name": "EXTENSIONS_DOCKERFILE",
-            "value": "Dockerfile",
-            "required": false
+            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
+            "name": "SERVICE_ACCOUNT_NAME",
+            "value": "eap-service-account",
+            "required": true
         },
         {
             "description": "The name of the secret containing the keystore to be used for serving secure content.",
@@ -136,34 +142,10 @@
             "required": false
         },
         {
-            "description": "Username associated with Teiid data service.",
-            "displayName": "Teiid Username",
-            "name": "TEIID_USERNAME",
-            "from": "[\\a]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "description": "Password for Teiid user.",
-            "displayName": "Teiid User Password",
-            "name": "TEIID_PASSWORD",
-            "from": "[\\a\\A]{8}[\\d]{1}[\\A]{1}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "description": "Username associated with ModeShape.",
-            "displayName": "ModeShape Username",
-            "name": "MODESHAPE_USERNAME",
-            "from": "[\\a]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "description": "Password for ModeShape user.",
-            "displayName": "ModeShape User Password",
-            "name": "MODESHAPE_PASSWORD",
-            "from": "[\\a\\A]{8}[\\d]{1}[\\A]{1}",
+            "description": "Admin password for HornetQ cluster.",
+            "displayName": "HornetQ Cluster Admin Password",
+            "name": "HORNETQ_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
         },
@@ -241,24 +223,8 @@
             "spec": {
                 "ports": [
                     {
-                        "name": "http",
                         "port": 8080,
-                        "targetPort": "http"
-                    },
-                    {
-                        "name": "https",
-                        "port": 8443,
-                        "targetPort": "https"
-                    },
-                    {
-                        "name": "jdbc",
-                        "port": 31000,
-                        "targetPort": "jdbc"
-                    },
-                    {
-                        "name": "jdbcs",
-                        "port": 31443,
-                        "targetPort": "jdbcs"
+                        "targetPort": 8080
                     }
                 ],
                 "selector": {
@@ -271,7 +237,31 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The data virtualization services."
+                    "description": "The web server's http port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 8443,
+                        "targetPort": 8443
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "metadata": {
+                "name": "secure-${APPLICATION_NAME}",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The web server's https port."
                 }
             }
         },
@@ -285,14 +275,11 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Route for application's http (REST) service."
+                    "description": "Route for application's http service."
                 }
             },
             "spec": {
                 "host": "${HOSTNAME_HTTP}",
-                "port": {
-                    "targetPort": "http"
-                },
                 "to": {
                     "name": "${APPLICATION_NAME}"
                 }
@@ -308,42 +295,13 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Route for application's https (REST) service."
+                    "description": "Route for application's https service."
                 }
             },
             "spec": {
                 "host": "${HOSTNAME_HTTPS}",
-                "port": {
-                    "targetPort": "https"
-                },
                 "to": {
-                    "name": "${APPLICATION_NAME}"
-                },
-                "tls": {
-                    "termination": "passthrough"
-                }
-            }
-        },
-        {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-jdbc",
-            "metadata": {
-                "name": "jdbc-${APPLICATION_NAME}",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Route for application's JDBC service."
-                }
-            },
-            "spec": {
-                "host": "${HOSTNAME_JDBC}",
-                "port": {
-                    "targetPort": "jdbcs"
-                },
-                "to": {
-                    "name": "${APPLICATION_NAME}"
+                    "name": "secure-${APPLICATION_NAME}"
                 },
                 "tls": {
                     "termination": "passthrough"
@@ -358,65 +316,6 @@
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 }
-            }
-        },
-        {
-            "kind": "ImageStream",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${APPLICATION_NAME}-ext",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "kind": "BuildConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${APPLICATION_NAME}-ext",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                }
-            },
-            "spec": {
-                "source": {
-                    "type": "Git",
-                    "git": {
-                        "uri": "${EXTENSIONS_REPOSITORY_URL}",
-                        "ref": "${EXTENSIONS_REPOSITORY_REF}"
-                    },
-                    "contextDir": "${EXTENSIONS_DIR}"
-                },
-                "strategy": {
-                    "type": "Docker",
-                    "dockerStrategy": {
-                        "dockerfilePath": "${EXTENSIONS_DOCKERFILE}"
-                    }
-                },
-                "output": {
-                    "to": {
-                        "kind": "ImageStreamTag",
-                        "name": "${APPLICATION_NAME}-ext:latest"
-                    }
-                },
-                "triggers": [
-                    {
-                        "type": "GitHub",
-                        "github": {
-                            "secret": "${GITHUB_WEBHOOK_SECRET}"
-                        }
-                    },
-                    {
-                        "type": "Generic",
-                        "generic": {
-                            "secret": "${GENERIC_WEBHOOK_SECRET}"
-                        }
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ]
             }
         },
         {
@@ -440,12 +339,13 @@
                         {
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "${APPLICATION_NAME}-ext:latest"
+                                "namespace": "${EXTENSIONS_IMAGE_NAMESPACE}",
+                                "name": "${EXTENSIONS_IMAGE}"
                             },
                             "paths": [
                                 {
                                     "destinationDir": "./${CONTEXT_DIR}/extensions/extras",
-                                    "sourcePath": "/extensions/."
+                                    "sourcePath": "${EXTENSIONS_INSTALL_DIR}/."
                                 }
                             ]
                         }
@@ -458,7 +358,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-datavirt63-openshift:1.0"
+                            "name": "jboss-eap64-openshift:1.5"
                         },
                         "env": [
                             {
@@ -496,7 +396,8 @@
                         "imageChange": {
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "${APPLICATION_NAME}-ext:latest"
+                                "namespace": "${EXTENSIONS_IMAGE_NAMESPACE}",
+                                "name": "${EXTENSIONS_IMAGE}"
                             }
                         }
                     },
@@ -550,6 +451,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
@@ -559,7 +461,7 @@
                                 "volumeMounts": [
                                     {
                                         "name": "configuration",
-                                        "mountPath": "/etc/datavirt-environment",
+                                        "mountPath": "/etc/eap-environment",
                                         "readOnly": true
                                     },
                                     {
@@ -608,16 +510,6 @@
                                         "protocol": "TCP"
                                     },
                                     {
-                                        "name": "jdbc",
-                                        "containerPort": 31000,
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "jdbcs",
-                                        "containerPort": 31443,
-                                        "protocol": "TCP"
-                                    },
-                                    {
                                         "name": "ping",
                                         "containerPort": 8888,
                                         "protocol": "TCP"
@@ -635,6 +527,10 @@
                                                 "fieldPath": "metadata.namespace"
                                             }
                                         }
+                                    },
+                                    {
+                                        "name": "EXTENSIONS_PROPERTIES_FILES",
+                                        "value": "/etc/eap-environment/*"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
@@ -655,6 +551,18 @@
                                     {
                                         "name": "HTTPS_PASSWORD",
                                         "value": "${HTTPS_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_CLUSTER_PASSWORD",
+                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_QUEUES",
+                                        "value": "${HORNETQ_QUEUES}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_TOPICS",
+                                        "value": "${HORNETQ_TOPICS}"
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
@@ -683,42 +591,6 @@
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
-                                    },
-                                    {
-                                        "name": "TEIID_USERNAME",
-                                        "value": "${TEIID_USERNAME}"
-                                    },
-                                    {
-                                        "name": "TEIID_PASSWORD",
-                                        "value": "${TEIID_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "MODESHAPE_USERNAME",
-                                        "value": "${MODESHAPE_USERNAME}"
-                                    },
-                                    {
-                                        "name": "MODESHAPE_PASSWORD",
-                                        "value": "${MODESHAPE_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "EXTENSIONS_PROPERTIES_FILES",
-                                        "value": "/etc/datavirt-environment/*"
-                                    },
-                                    {
-                                        "name": "DATAVIRT_TRANSPORT_KEYSTORE",
-                                        "value": "/etc/eap-secret-volume/${HTTPS_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "DATAVIRT_TRANSPORT_KEYSTORE_TYPE",
-                                        "value": "${HTTPS_KEYSTORE_TYPE}"
-                                    },
-                                    {
-                                        "name": "DATAVIRT_TRANSPORT_KEYSTORE_ALIAS",
-                                        "value": "${HTTPS_NAME}"
-                                    },
-                                    {
-                                        "name": "DATAVIRT_TRANSPORT_KEYSTORE_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
                                     }
                                 ]
                             }
