@@ -5,7 +5,7 @@
         "annotations": {
             "description": "Application template for SSO 7.0 PostgreSQL applications",
             "iconClass" : "icon-jboss",
-            "tags" : "sso,keycloak,postrgresql,java,database,jboss,xpaas",
+            "tags" : "sso,keycloak,postgresql,java,database,jboss,xpaas",
             "version" : "1.3.2"
         },
         "name": "sso70-postgresql"
@@ -66,25 +66,25 @@
         {
             "description": "The type of the keystore file (JKS or JCEKS)",
             "name": "HTTPS_KEYSTORE_TYPE",
-            "value": "",
+            "value": "JKS",
             "required": false
         },
         {
             "description": "The name associated with the server certificate (e.g. jboss)",
             "name": "HTTPS_NAME",
-            "value": "",
+            "value": "jboss",
             "required": false
         },
         {
             "description": "The password for the keystore and certificate (e.g. mykeystorepass)",
             "name": "HTTPS_PASSWORD",
-            "value": "",
+            "value": "mykeystorepass",
             "required": false
         },
         {
             "description": "Sets xa-pool/min-pool-size for the configured datasource.",
             "name": "DB_MIN_POOL_SIZE",
-	    "required": false
+            "required": false
         },
         {
             "description": "Sets xa-pool/max-pool-size for the configured datasource.",
@@ -135,13 +135,13 @@
         {
             "description": "The name associated with the server certificate (e.g. secret-key)",
             "name": "JGROUPS_ENCRYPT_NAME",
-            "value": "",
+            "value": "secret-key",
             "required": false
         },
         {
             "description": "The password for the keystore and certificate (e.g. password)",
             "name": "JGROUPS_ENCRYPT_PASSWORD",
-            "value": "",
+            "value": "password",
             "required": false
         },
         {
@@ -164,7 +164,7 @@
             "required": false
         },
         {
-            "description": "SSO Server admin  password",
+            "description": "SSO Server admin password",
             "name": "SSO_ADMIN_PASSWORD",
             "value": "admin",
             "required": false
@@ -176,7 +176,7 @@
             "required": false
         },
         {
-            "description": "The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm.",
+            "description": "The username used to access the SSO service. This is used by clients to create the application client(s) within the specified SSO realm.",
             "name": "SSO_SERVICE_USERNAME",
             "value": "",
             "required": false
@@ -204,6 +204,20 @@
             "name": "SSO_TRUSTSTORE_SECRET",
             "value": "sso-app-secret",
             "required": false
+        },
+        {
+            "name": "MEMORY_LIMIT",
+            "displayName": "Memory Limit",
+            "description": "Maximum amount of memory the Red Hat SSO container can use.",
+            "value": "1Gi",
+            "required": true
+        },
+        {
+            "name": "MEMORY_PSQL_LIMIT",
+            "displayName": "Memory Limit (PSQL)",
+            "description": "Maximum amount of memory the PostgreSQL container can use.",
+            "value": "512Mi",
+            "required": true
         }
     ],
     "objects": [
@@ -425,6 +439,11 @@
                                             "-c",
                                             "/opt/eap/bin/readinessProbe.sh"
                                         ]
+                                    }
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
                                     }
                                 },
                                 "ports": [
@@ -660,6 +679,11 @@
                                         "protocol": "TCP"
                                     }
                                 ],
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_PSQL_LIMIT}"
+                                    }
+                                },
                                 "env": [
                                     {
                                         "name": "POSTGRESQL_USER",
