@@ -529,7 +529,7 @@
                                         }
                                     },
                                     {
-                                        "name": "EXTENSIONS_PROPERTIES_FILES",
+                                        "name": "ENV_FILES",
                                         "value": "/etc/eap-environment/*"
                                     },
                                     {

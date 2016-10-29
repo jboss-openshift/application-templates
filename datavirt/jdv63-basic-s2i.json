@@ -386,7 +386,7 @@
                                         "value": "${MODESHAPE_PASSWORD}"
                                     },
                                     {
-                                        "name": "EXTENSIONS_PROPERTIES_FILES",
+                                        "name": "ENV_FILES",
                                         "value": "/etc/datavirt-environment/*"
                                     }
                                 ]

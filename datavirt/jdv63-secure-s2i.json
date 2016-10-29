@@ -585,7 +585,7 @@
                                         "value": "${MODESHAPE_PASSWORD}"
                                     },
                                     {
-                                        "name": "EXTENSIONS_PROPERTIES_FILES",
+                                        "name": "ENV_FILES",
                                         "value": "/etc/datavirt-environment/*"
                                     },
                                     {
@@ -597,7 +597,7 @@
                                         "value": "${HTTPS_KEYSTORE_TYPE}"
                                     },
                                     {
-                                        "name": "DATAVIRT_TRANSPORT_KEYSTORE_ALIAS",
+                                        "name": "DATAVIRT_TRANSPORT_KEY_ALIAS",
                                         "value": "${HTTPS_NAME}"
                                     },
                                     {
