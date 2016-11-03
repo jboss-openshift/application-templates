@@ -14,7 +14,7 @@
         "template": "jdv63-secure-s2i",
         "xpaas": "1.4.0"
     },
-    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the following secrets: \"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed VDB(s); \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets: \"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed VDB(s); \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "description": "The name for the application.",
@@ -73,10 +73,16 @@
             "required": false
         },
         {
+            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
+            "name": "SERVICE_ACCOUNT_NAME",
+            "value": "jdv-service-account",
+            "required": true
+        },
+        {
             "description": "The name of the secret containing the keystore to be used for serving secure content.",
             "displayName": "Server Keystore Secret Name",
             "name": "HTTPS_SECRET",
-            "value": "eap-app-secret",
+            "value": "jdv-app-secret",
             "required": true
         },
         {
@@ -166,7 +172,7 @@
             "description": "The name of the secret containing the keystore to be used for securing JGroups communications.",
             "displayName": "JGroups Secret Name",
             "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "eap-app-secret",
+            "value": "jdv-app-secret",
             "required": false
         },
         {
@@ -434,6 +440,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
@@ -447,12 +454,12 @@
                                         "readOnly": true
                                     },
                                     {
-                                        "name": "eap-keystore-volume",
-                                        "mountPath": "/etc/eap-secret-volume",
+                                        "name": "jdv-keystore-volume",
+                                        "mountPath": "/etc/jdv-secret-volume",
                                         "readOnly": true
                                     },
                                     {
-                                        "name": "eap-jgroups-keystore-volume",
+                                        "name": "jdv-jgroups-keystore-volume",
                                         "mountPath": "/etc/jgroups-encrypt-secret-volume",
                                         "readOnly": true
                                     }
@@ -522,7 +529,7 @@
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/eap-secret-volume"
+                                        "value": "/etc/jdv-secret-volume"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE",
@@ -590,7 +597,7 @@
                                     },
                                     {
                                         "name": "DATAVIRT_TRANSPORT_KEYSTORE",
-                                        "value": "/etc/eap-secret-volume/${HTTPS_KEYSTORE}"
+                                        "value": "/etc/jdv-secret-volume/${HTTPS_KEYSTORE}"
                                     },
                                     {
                                         "name": "DATAVIRT_TRANSPORT_KEYSTORE_TYPE",
@@ -615,13 +622,13 @@
                                 }
                             },
                             {
-                                "name": "eap-keystore-volume",
+                                "name": "jdv-keystore-volume",
                                 "secret": {
                                     "secretName": "${HTTPS_SECRET}"
                                 }
                             },
                             {
-                                "name": "eap-jgroups-keystore-volume",
+                                "name": "jdv-jgroups-keystore-volume",
                                 "secret": {
                                     "secretName": "${JGROUPS_ENCRYPT_SECRET}"
                                 }
