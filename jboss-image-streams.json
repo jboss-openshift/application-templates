@@ -310,20 +310,6 @@
                             "supports":"datavirt:6.3,java:8,xpaas:1.4",
                             "version": "1.0"
                         }
-                    },
-                    {
-                        "name": "1.0-driver",
-                        "annotations": {
-                            "description": "Red Hat JBoss Data Virtualization 6.3 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "datavirt,jdbc,jboss,xpaas",
-                            "supports":"datavirt:6.3,jdbc,xpaas:1.4",
-                            "version": "1.0"
-                        },
-                        "from": {
-                          "kind": "DockerImage",
-                          "name": "registry.access.redhat.com/jboss-datavirt-6/datavirt63-driver-openshift:1.0"
-                        }
                     }
                 ]
             }
