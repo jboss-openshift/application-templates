@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= eap64-https-s2i
+= datavirt63-secure-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-Application template for EAP 6 applications built using S2I.
+Application template for JBoss Data Virtualization 6.3 services built using S2I.  Includes ability to configure certificates for serving secure content.
 
 toc::[]
 
@@ -23,29 +23,32 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
-|`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
-|`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
-|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 6.4.x | False
-|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | kitchensink | False
-|`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
-|`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
-|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | eap-service-account | True
-|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap-app-secret | True
-|`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
-|`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
-|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}` | False
-|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}` | False
-|`HORNETQ_CLUSTER_PASSWORD` | `HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}` | True
-|`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
-|`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
+|`APPLICATION_NAME` | -- | The name for the application. | datavirt-app | True
+|`CONFIGURATION_NAME` | -- | The name of the secret containing configuration properties for the data sources. | datavirt-app-config | True
+|`HOSTNAME_HTTP` | -- | Specify a custom hostname for the http route.  Leave blank to use default hostname, e.g.: <service-name>-<project>.<default-domain-suffix> | -- | False
+|`HOSTNAME_HTTPS` | -- | Specify a custom hostname for the https route.  Leave blank to use default hostname, e.g.: secure-<service-name>-<project>.<default-domain-suffix> | -- | False
+|`HOSTNAME_JDBC` | -- | Specify a custom hostname for the JDBC route.  Leave blank to use default hostname, e.g.: secure-<service-name>-<project>.<default-domain-suffix> | -- | False
+|`SOURCE_REPOSITORY_URL` | -- | The URL of the repository with your application source code. | https://github.com/teiid/teiid-quickstarts | True
+|`SOURCE_REPOSITORY_REF` | -- | Set this to a branch name, tag or other ref of your repository if you are not using the default branch. | 8.12 | False
+|`CONTEXT_DIR` | -- | Set this to the relative path to your project if it is not in the root of your repository. | dynamicvdb-datafederation | False
+|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | datavirt-service-account | True
+|`HTTPS_SECRET` | -- | The name of the secret containing the keystore to be used for serving secure content. | datavirt-app-secret | True
+|`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret. | keystore.jks | False
+|`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS). | `${HTTPS_KEYSTORE}` | False
+|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate. | jboss | False
+|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | mykeystorepass | False
+|`TEIID_USERNAME` | `TEIID_USERNAME` | Username associated with Teiid data service. | `${TEIID_USERNAME}` | True
+|`TEIID_PASSWORD` | `TEIID_PASSWORD` | Password for Teiid user. | `${TEIID_PASSWORD}` | True
+|`MODESHAPE_USERNAME` | `MODESHAPE_USERNAME` | Username associated with ModeShape. | `${MODESHAPE_USERNAME}` | True
+|`MODESHAPE_PASSWORD` | `MODESHAPE_PASSWORD` | Password for ModeShape user. | `${MODESHAPE_PASSWORD}` | True
+|`GITHUB_WEBHOOK_SECRET` | -- | A secret string used to configure the GitHub webhook. | secret101 | True
+|`GENERIC_WEBHOOK_SECRET` | -- | A secret string used to configure the Generic webhook. | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
-|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap-app-secret | False
-|`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False
-|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
-|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}` | False
-|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
+|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore to be used for securing JGroups communications. | datavirt-app-secret | False
+|`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the JGroups secret. | jgroups.jceks | False
+|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the JGroups server certificate | secret-key | False
+|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | password | False
+|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | Password used by JGroups to authenticate nodes in the cluster. | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |=======================================================================
 
@@ -65,8 +68,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |=============
 |Service        |Port  | Description
 
-|`${APPLICATION_NAME}` | 8080 | The web server's http port.
-|`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
+|`${APPLICATION_NAME}` | 8080 | The data virtualization services.
 |=============
 
 
@@ -83,6 +85,7 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 
 |`${APPLICATION_NAME}-http` | none | `${HOSTNAME_HTTP}`
 |`${APPLICATION_NAME}-https` | TLS passthrough | `${HOSTNAME_HTTPS}`
+|`${APPLICATION_NAME}-jdbc` | TLS passthrough | `${HOSTNAME_JDBC}`
 |=============
 
 
@@ -97,7 +100,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap64-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|jboss-datavirt63-openshift:1.0 |  link:../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
@@ -177,10 +180,12 @@ information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.4+| `${APPLICATION_NAME}`
+.6+| `${APPLICATION_NAME}`
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
+|jdbc | 31000 | `TCP`
+|jdbcs | 31443 | `TCP`
 |ping | 8888 | `TCP`
 |=============
 
@@ -191,24 +196,30 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.17+| `${APPLICATION_NAME}`
+.23+| `${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
-|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
-|`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
-|`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
-|`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
+|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret. | `/etc/datavirt-secret-volume`
+|`HTTPS_KEYSTORE` | The name of the keystore file within the secret. | `${HTTPS_KEYSTORE}`
+|`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret. | `${HTTPS_KEYSTORE_TYPE}`
+|`HTTPS_NAME` | The name associated with the server certificate. | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
-|`HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}`
-|`HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}`
-|`HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}`
-|`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
-|`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
-|`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
-|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
+|`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore to be used for securing JGroups communications. | `${JGROUPS_ENCRYPT_SECRET}`
+|`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the JGroups secret. | `/etc/jgroups-encrypt-secret-volume`
+|`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the JGroups secret. | `${JGROUPS_ENCRYPT_KEYSTORE}`
+|`JGROUPS_ENCRYPT_NAME` | The name associated with the JGroups server certificate | `${JGROUPS_ENCRYPT_NAME}`
 |`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
-|`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
+|`JGROUPS_CLUSTER_PASSWORD` | Password used by JGroups to authenticate nodes in the cluster. | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
+|`TEIID_USERNAME` | Username associated with Teiid data service. | `${TEIID_USERNAME}`
+|`TEIID_PASSWORD` | Password for Teiid user. | `${TEIID_PASSWORD}`
+|`MODESHAPE_USERNAME` | Username associated with ModeShape. | `${MODESHAPE_USERNAME}`
+|`MODESHAPE_PASSWORD` | Password for ModeShape user. | `${MODESHAPE_PASSWORD}`
+|`ENV_FILES` | -- | `/etc/datavirt-environment/*`
+|`DATAVIRT_TRANSPORT_KEYSTORE` | -- | `/etc/datavirt-secret-volume/${HTTPS_KEYSTORE}`
+|`DATAVIRT_TRANSPORT_KEYSTORE_TYPE` | -- | `${HTTPS_KEYSTORE_TYPE}`
+|`DATAVIRT_TRANSPORT_KEY_ALIAS` | -- | `${HTTPS_NAME}`
+|`DATAVIRT_TRANSPORT_KEYSTORE_PASSWORD` | -- | `${HTTPS_PASSWORD}`
 |=======================================================================
 
 
@@ -218,7 +229,7 @@ information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-|`${APPLICATION_NAME}` | eap-keystore-volume | `/etc/eap-secret-volume` | ssl certs | True
+|`${APPLICATION_NAME}` | configuration | `/etc/datavirt-environment` | -- | True
 |=============
 
 
@@ -229,39 +240,9 @@ information.
 
 ==== Secrets
 
-This template requires link:../secrets/eap-app-secret.adoc[eap-app-secret.json]
+This template requires link:../secrets/datavirt-app-secret.adoc[datavirt-app-secret.json]
 to be installed for the application to run.
 
 
-
-[[clustering]]
-==== Clustering
-
-Clustering in OpenShift EAP is achieved through one of two discovery mechanisms:
-Kubernetes or DNS. This is done by configuring the JGroups protocol stack in
-standalone-openshift.xml with either the `<openshift.KUBE_PING/>` or `<openshift.DNS_PING/>`
-elements. Out of the box, `KUBE_PING` is the supported protocol and what is
-pre-configured in OpenShift EAP.
-
-For `KUBE_PING` to work, however, the following steps must be taken:
-
-. The `OPENSHIFT_KUBE_PING_NAMESPACE` environment variable must be set (see table above).
-  If not set, the server will act as if it is a single-node cluster (a "cluster of one").
-. The `OPENSHIFT_KUBE_PING_LABELS` environment variables should be set (see table above).
-  If not set, pods outside of your application (albeit in your namespace) will try to join.
-. Authorization must be granted to the service account the pod is running under to be
-  allowed to access Kubernetes' REST api. This is done on the command line.
-
-.Policy commands
-====
-Using the default service account in the myproject namespace:
-....
-oc policy add-role-to-user view system:serviceaccount:myproject:default -n myproject
-....
-Using the eap-service-account in the myproject namespace:
-....
-oc policy add-role-to-user view system:serviceaccount:myproject:eap-service-account -n myproject
-....
-====
 
 

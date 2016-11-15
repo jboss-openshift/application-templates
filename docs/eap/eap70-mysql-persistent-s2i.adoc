@@ -111,7 +111,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap70-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | Generic, GitHub, ConfigChange, ImageChange
+|jboss-eap70-openshift:1.4 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
@@ -283,7 +283,7 @@ more information.
 
 ==== Secrets
 
-This template requires link:../secrets/eap-app-secret.adoc[eap-app-secret.json]
+This template requires link:../secrets/eap7-app-secret.adoc[eap7-app-secret.json]
 to be installed for the application to run.
 
 

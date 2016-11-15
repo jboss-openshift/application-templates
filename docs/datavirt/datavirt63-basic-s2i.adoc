@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= jws30-tomcat8-https-s2i
+= datavirt63-basic-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-Application template for JWS applications built using S2I.
+Application template for JBoss Data Virtualization 6.3 services built using S2I.
 
 toc::[]
 
@@ -23,21 +23,21 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`APPLICATION_NAME` | -- | The name for the application. | jws-app | True
-|`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
-|`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
-|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts.git | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.2 | False
-|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | tomcat-websocket-chat | False
-|`JWS_HTTPS_SECRET` | -- | The name of the secret containing the certificate files | jws-app-secret | True
-|`JWS_HTTPS_CERTIFICATE` | `JWS_HTTPS_CERTIFICATE_DIR` | The name of the certificate file within the secret | server.crt | False
-|`JWS_HTTPS_CERTIFICATE_KEY` | `JWS_HTTPS_CERTIFICATE` | The name of the certificate key file within the secret | server.key | False
-|`JWS_HTTPS_CERTIFICATE_PASSWORD` | `JWS_HTTPS_CERTIFICATE` | The certificate password | `${JWS_HTTPS_CERTIFICATE}` | False
-|`JWS_ADMIN_USERNAME` | `JWS_ADMIN_USERNAME` | JWS Admin User | `${JWS_ADMIN_USERNAME}` | True
-|`JWS_ADMIN_PASSWORD` | `JWS_ADMIN_PASSWORD` | JWS Admin Password | `${JWS_ADMIN_PASSWORD}` | True
-|`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
-|`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
+|`APPLICATION_NAME` | -- | The name for the application. | datavirt-app | True
+|`CONFIGURATION_NAME` | -- | The name of the secret containing configuration properties for the data sources. | datavirt-app-config | True
+|`HOSTNAME_HTTP` | -- | Specify a custom hostname for the http route.  Leave blank to use default hostname, e.g.: <service-name>-<project>.<default-domain-suffix> | -- | False
+|`SOURCE_REPOSITORY_URL` | -- | The URL of the repository with your application source code. | https://github.com/teiid/teiid-quickstarts | True
+|`SOURCE_REPOSITORY_REF` | -- | Set this to a branch name, tag or other ref of your repository if you are not using the default branch. | 8.12 | False
+|`CONTEXT_DIR` | -- | Set this to the relative path to your project if it is not in the root of your repository. | dynamicvdb-datafederation | False
+|`TEIID_USERNAME` | `TEIID_USERNAME` | Username associated with Teiid data service. | `${TEIID_USERNAME}` | True
+|`TEIID_PASSWORD` | `TEIID_PASSWORD` | Password for Teiid user. | `${TEIID_PASSWORD}` | True
+|`MODESHAPE_USERNAME` | `MODESHAPE_USERNAME` | Username associated with ModeShape. | `${MODESHAPE_USERNAME}` | True
+|`MODESHAPE_PASSWORD` | `MODESHAPE_PASSWORD` | Password for ModeShape user. | `${MODESHAPE_PASSWORD}` | True
+|`GITHUB_WEBHOOK_SECRET` | -- | A secret string used to configure the GitHub webhook. | secret101 | True
+|`GENERIC_WEBHOOK_SECRET` | -- | A secret string used to configure the Generic webhook. | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
+|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | Password used by JGroups to authenticate nodes in the cluster. | `${JGROUPS_CLUSTER_PASSWORD}` | True
+|`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |=======================================================================
 
 
@@ -56,8 +56,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |=============
 |Service        |Port  | Description
 
-|`${APPLICATION_NAME}` | 8080 | The web server's http port.
-|`secure-${APPLICATION_NAME}` | 8443 | The web server's https port.
+|`${APPLICATION_NAME}` | 8080 | The data virtualization services.
 |=============
 
 
@@ -73,7 +72,6 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 | Service    | Security | Hostname
 
 |`${APPLICATION_NAME}-http` | none | `${HOSTNAME_HTTP}`
-|`${APPLICATION_NAME}-https` | TLS passthrough | `${HOSTNAME_HTTPS}`
 |=============
 
 
@@ -88,7 +86,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-webserver30-tomcat8-openshift:1.2 |  link:../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver30-tomcat8-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|jboss-datavirt63-openshift:1.0 |  link:../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
@@ -128,18 +126,6 @@ for more information.
 ==== Pod Template
 
 
-===== Service Accounts
-
-Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
-https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
-information.
-
-|============
-|Deployment | Service Account
-
-|`${APPLICATION_NAME}` | jws-service-account
-|============
-
 
 
 ===== Image
@@ -157,7 +143,7 @@ information.
 
 .${APPLICATION_NAME}
 ----
-/bin/bash -c curl -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer&att=stateName' |grep -iq 'stateName *= *STARTED'
+/bin/bash -c /opt/eap/bin/readinessProbe.sh
 ----
 
 
@@ -168,10 +154,11 @@ information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.3+| `${APPLICATION_NAME}`
+.4+| `${APPLICATION_NAME}`
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
-|https | 8443 | `TCP`
+|jdbc | 31000 | `TCP`
+|ping | 8888 | `TCP`
 |=============
 
 
@@ -181,13 +168,16 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.6+| `${APPLICATION_NAME}`
-|`JWS_HTTPS_CERTIFICATE_DIR` | The name of the certificate file within the secret | `/etc/jws-secret-volume`
-|`JWS_HTTPS_CERTIFICATE` | The name of the certificate file within the secret | `${JWS_HTTPS_CERTIFICATE}`
-|`JWS_HTTPS_CERTIFICATE_KEY` | The name of the certificate file within the secret | `${JWS_HTTPS_CERTIFICATE_KEY}`
-|`JWS_HTTPS_CERTIFICATE_PASSWORD` | The name of the certificate file within the secret | `${JWS_HTTPS_CERTIFICATE_PASSWORD}`
-|`JWS_ADMIN_USERNAME` | JWS Admin User | `${JWS_ADMIN_USERNAME}`
-|`JWS_ADMIN_PASSWORD` | JWS Admin Password | `${JWS_ADMIN_PASSWORD}`
+.9+| `${APPLICATION_NAME}`
+|`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
+|`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
+|`JGROUPS_CLUSTER_PASSWORD` | Password used by JGroups to authenticate nodes in the cluster. | `${JGROUPS_CLUSTER_PASSWORD}`
+|`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
+|`TEIID_USERNAME` | Username associated with Teiid data service. | `${TEIID_USERNAME}`
+|`TEIID_PASSWORD` | Password for Teiid user. | `${TEIID_PASSWORD}`
+|`MODESHAPE_USERNAME` | Username associated with ModeShape. | `${MODESHAPE_USERNAME}`
+|`MODESHAPE_PASSWORD` | Password for ModeShape user. | `${MODESHAPE_PASSWORD}`
+|`ENV_FILES` | -- | `/etc/datavirt-environment/*`
 |=======================================================================
 
 
@@ -197,7 +187,7 @@ information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-|`${APPLICATION_NAME}` | jws-certificate-volume | `/etc/jws-secret-volume` | ssl certs | True
+|`${APPLICATION_NAME}` | configuration | `/etc/datavirt-environment` | -- | True
 |=============
 
 
@@ -205,11 +195,6 @@ information.
 
 
 
-
-==== Secrets
-
-This template requires link:../secrets/jws-app-secret.adoc[jws-app-secret.json]
-to be installed for the application to run.
 
 
 

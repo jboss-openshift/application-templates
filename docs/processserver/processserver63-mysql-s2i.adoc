@@ -109,7 +109,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-processserver63-openshift:1.3 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`] | `${APPLICATION_NAME}:latest` | Generic, GitHub, ConfigChange, ImageChange
+|jboss-processserver63-openshift:1.3 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
@@ -260,7 +260,7 @@ information.
 
 ==== Secrets
 
-This template requires link:../secrets/pro-app-secret.adoc[pro-app-secret.json]
+This template requires link:../secrets/processserver-app-secret.adoc[processserver-app-secret.json]
 to be installed for the application to run.
 
 

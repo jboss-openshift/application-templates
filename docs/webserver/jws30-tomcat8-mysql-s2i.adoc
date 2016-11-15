@@ -101,7 +101,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-webserver30-tomcat8-openshift:1.2 |  link:../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver30-tomcat8-openshift`] | `${APPLICATION_NAME}:latest` | Generic, GitHub, ConfigChange, ImageChange
+|jboss-webserver30-tomcat8-openshift:1.2 |  link:../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver30-tomcat8-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 

@@ -233,7 +233,7 @@ information.
 
 ==== Secrets
 
-This template requires link:../secrets/dat-app-secret.adoc[dat-app-secret.json]
+This template requires link:../secrets/datagrid-app-secret.adoc[datagrid-app-secret.json]
 to be installed for the application to run.
 
 
