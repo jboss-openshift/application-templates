@@ -49,12 +49,20 @@ A service is an abstraction which defines a logical set of pods and a policy by 
 https://cloud.google.com/container-engine/docs/services/[container-engine documentation] for more information.
 
 |=============
-|Service        |Port  | Description
+|Service        |Port  |Name | Description
 
-|`${APPLICATION_NAME}-amq-amqp` | 5672 | The broker's AMQP port.
-|`${APPLICATION_NAME}-amq-mqtt` | 1883 | The broker's MQTT port.
-|`${APPLICATION_NAME}-amq-stomp` | 61613 | The broker's STOMP port.
-|`${APPLICATION_NAME}-amq-tcp` | 61616 | The broker's OpenWire port.
+.1+| `${APPLICATION_NAME}-amq-amqp`
+|5672 | --
+.1+| The broker's AMQP port.
+.1+| `${APPLICATION_NAME}-amq-mqtt`
+|1883 | --
+.1+| The broker's MQTT port.
+.1+| `${APPLICATION_NAME}-amq-stomp`
+|61613 | --
+.1+| The broker's STOMP port.
+.1+| `${APPLICATION_NAME}-amq-tcp`
+|61616 | --
+.1+| The broker's OpenWire port.
 |=============
 
 

@@ -83,13 +83,23 @@ A service is an abstraction which defines a logical set of pods and a policy by 
 https://cloud.google.com/container-engine/docs/services/[container-engine documentation] for more information.
 
 |=============
-|Service        |Port  | Description
+|Service        |Port  |Name | Description
 
-|`${APPLICATION_NAME}` | 8080 | The web server's HTTP port.
-|`secure-${APPLICATION_NAME}` | 8443 | The web server's HTTPS port.
-|`${APPLICATION_NAME}-memcached` | 11211 | Memcached service for clustered applications.
-|`${APPLICATION_NAME}-hotrod` | 11333 | Hot Rod service for clustered applications.
-|`${APPLICATION_NAME}-postgresql` | 5432 | The database server's port.
+.1+| `${APPLICATION_NAME}`
+|8080 | --
+.1+| The web server's HTTP port.
+.1+| `secure-${APPLICATION_NAME}`
+|8443 | --
+.1+| The web server's HTTPS port.
+.1+| `${APPLICATION_NAME}-memcached`
+|11211 | --
+.1+| Memcached service for clustered applications.
+.1+| `${APPLICATION_NAME}-hotrod`
+|11333 | --
+.1+| Hot Rod service for clustered applications.
+.1+| `${APPLICATION_NAME}-postgresql`
+|5432 | --
+.1+| The database server's port.
 |=============
 
 
