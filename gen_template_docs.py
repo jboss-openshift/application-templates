@@ -13,13 +13,14 @@ import json
 import os
 import sys
 import re
+from collections import OrderedDict
 from ptemplate.template import Template
 
 GIT_REPO = "https://github.com/jboss-openshift/application-templates.git"
 REPO_NAME = "application-templates/"
 TEMPLATE_DOCS = "docs/"
-APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","processserver","datagrid","sso")
-template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'processserver', 'datagrid', 'sso']
+APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","processserver","datagrid","datavirt","sso")
+template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'processserver', 'datagrid', 'datavirt', 'sso']
 amq_ssl_desc = None
 
 LINKS =  {"jboss-eap64-openshift:1.2": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
@@ -32,6 +33,7 @@ LINKS =  {"jboss-eap64-openshift:1.2": "../../eap/eap-openshift{outfilesuffix}[`
           "jboss-processserver63-openshift:1.3": "../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver63-openshift`]",
           "jboss-eap70-openshift:1.3": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`]",
           "jboss-eap70-openshift:1.4": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`]",
+          "jboss-datavirt63-openshift:1.0": "../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`]",
           "redhat-sso70-openshift:1.3": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso70-openshift`]",
 }
 
@@ -61,7 +63,7 @@ def generate_templates():
 
 def generate_template(path):
     with open(path) as data_file:
-        data = json.load(data_file)
+        data = json.load(data_file, object_pairs_hook=OrderedDict)
 
     if not 'labels' in data or not "template" in data["labels"]:
         sys.stderr.write("no template label for template %s, can't generate documentation\n"%path)
@@ -146,7 +148,8 @@ def createTemplate(data, path):
             # our 'secrets' are always attached to a service account
             # only include the secrets section if we have defined serviceAccount(s)
             if len(serviceAccountName) > 0:
-                tdata['objects'][0]['secrets'] = [{ "templateabbrev": data['labels']['template'][0:3] }]
+                secretName = [param["value"] for param in data["parameters"] if "value" in param and param["value"].endswith("-app-secret")]
+                tdata['objects'][0]['secrets'] = [{ "secretName": secretName[0] }]
 
         # currently the clustering section applies only to EAP templates
         if re.match('^eap', path):
@@ -219,8 +222,13 @@ def createObjectTable(data, tableKind):
          else:
             columns = [obj["id"], "none", obj["spec"]["host"]]
       elif obj["kind"] ==  'BuildConfig' and tableKind == 'BuildConfig':
-         s2i = obj["spec"]["strategy"]["sourceStrategy"]["from"]["name"]
-         columns = [s2i," link:" + LINKS[s2i], obj["spec"]["output"]["to"]["name"], ", ".join({x["type"] for x in obj["spec"]["triggers"] }) ]
+         if obj["spec"]["strategy"]["type"] == 'Source':
+            s2i = obj["spec"]["strategy"]["sourceStrategy"]["from"]["name"]
+            link = " link:" + LINKS[s2i]
+         elif obj["spec"]["strategy"]["type"] == 'Docker':
+            s2i = obj["spec"]["strategy"]["dockerStrategy"]["dockerfilePath"]
+            link = ""
+         columns = [s2i, link, obj["spec"]["output"]["to"]["name"], ", ".join([x["type"] for x in obj["spec"]["triggers"] ]) ]
       elif obj["kind"] ==  'PersistentVolumeClaim' and tableKind == 'PersistentVolumeClaim':
          columns = [obj["metadata"]["name"], obj["spec"]["accessModes"][0]]
       if(obj["kind"] == tableKind):
@@ -292,6 +300,7 @@ fullname = {
     "decisionserver": "Red Hat JBoss BRMS decision server",
     "processserver": "Red Hat JBoss BPM Suite intelligent process server",
     "datagrid": "JBoss Data Grid",
+    "datavirt": "Red Hat JBoss Data Virtualization",
     "sso": "Red Hat SSO",
 }
 

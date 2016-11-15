@@ -174,7 +174,7 @@ more information.
 {#secrets}
 ==== Secrets
 
-This template requires link:../secrets/{templateabbrev}-app-secret.adoc[{templateabbrev}-app-secret.json]
+This template requires link:../secrets/{secretName}.adoc[{secretName}.json]
 to be installed for the application to run.
 {/secrets}
 
