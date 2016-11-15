@@ -33,7 +33,7 @@ A service is an abstraction which defines a logical set of pods and a policy by 
 https://cloud.google.com/container-engine/docs/services/[container-engine documentation] for more information.
 
 |=============
-|Service        |Port  | Description
+|Service        |Port  |Name | Description
 {table}
 |=============
 {/Service}

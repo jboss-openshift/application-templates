@@ -215,7 +215,17 @@ def createObjectTable(data, tableKind):
    columns =[]
    for obj in data["objects"]:
       if obj["kind"] ==  'Service' and tableKind == 'Service':
-         columns = [obj["metadata"]["name"], str(obj["spec"]["ports"][0]["port"]), obj["metadata"]["annotations"]["description"] ]
+         addDescription=True
+         ports = obj["spec"]["ports"]
+         text += "\n." + str(len(ports)) + "+| `" + obj["metadata"]["name"] + "`"
+         for p in ports:
+            columns = ["port", "name"]
+            columns = [str(p[col]) if p.get(col) else "--" for col in columns]
+            text += buildRow(columns)
+            if addDescription:
+               text += "\n." + str(len(ports)) + "+| " + obj["metadata"]["annotations"]["description"]
+               addDescription=False
+         continue
       elif obj["kind"] ==  'Route' and tableKind == 'Route':
          if(obj["spec"].get("tls")):
             columns = [obj["id"], ("TLS "+ obj["spec"]["tls"]["termination"]), obj["spec"]["host"]]
