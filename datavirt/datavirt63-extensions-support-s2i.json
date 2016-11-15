@@ -8,10 +8,10 @@
             "tags": "jdv,datavirt,jboss,xpaas",
             "version": "1.4.0"
         },
-        "name": "jdv63-extensions-support-s2i"
+        "name": "datavirt63-extensions-support-s2i"
     },
     "labels": {
-        "template": "jdv63-extensions-support-s2i",
+        "template": "datavirt63-extensions-support-s2i",
         "xpaas": "1.4.0"
     },
     "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets: \"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed VDB(s); \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
@@ -20,14 +20,14 @@
             "description": "The name for the application.",
             "displayName": "Application Name",
             "name": "APPLICATION_NAME",
-            "value": "jdv-app",
+            "value": "datavirt-app",
             "required": true
         },
         {
             "description": "The name of the secret containing configuration properties for the data sources.",
             "displayName": "Configuration Secret Name",
             "name": "CONFIGURATION_NAME",
-            "value": "jdv-app-config",
+            "value": "datavirt-app-config",
             "required": true
         },
         {
@@ -103,14 +103,14 @@
         {
             "description": "The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
             "name": "SERVICE_ACCOUNT_NAME",
-            "value": "jdv-service-account",
+            "value": "datavirt-service-account",
             "required": true
         },
         {
             "description": "The name of the secret containing the keystore to be used for serving secure content.",
             "displayName": "Server Keystore Secret Name",
             "name": "HTTPS_SECRET",
-            "value": "jdv-app-secret",
+            "value": "datavirt-app-secret",
             "required": true
         },
         {
@@ -200,7 +200,7 @@
             "description": "The name of the secret containing the keystore to be used for securing JGroups communications.",
             "displayName": "JGroups Secret Name",
             "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "jdv-app-secret",
+            "value": "datavirt-app-secret",
             "required": false
         },
         {
@@ -570,12 +570,12 @@
                                         "readOnly": true
                                     },
                                     {
-                                        "name": "jdv-keystore-volume",
-                                        "mountPath": "/etc/jdv-secret-volume",
+                                        "name": "datavirt-keystore-volume",
+                                        "mountPath": "/etc/datavirt-secret-volume",
                                         "readOnly": true
                                     },
                                     {
-                                        "name": "jdv-jgroups-keystore-volume",
+                                        "name": "datavirt-jgroups-keystore-volume",
                                         "mountPath": "/etc/jgroups-encrypt-secret-volume",
                                         "readOnly": true
                                     }
@@ -645,7 +645,7 @@
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/jdv-secret-volume"
+                                        "value": "/etc/datavirt-secret-volume"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE",
@@ -713,7 +713,7 @@
                                     },
                                     {
                                         "name": "DATAVIRT_TRANSPORT_KEYSTORE",
-                                        "value": "/etc/jdv-secret-volume/${HTTPS_KEYSTORE}"
+                                        "value": "/etc/datavirt-secret-volume/${HTTPS_KEYSTORE}"
                                     },
                                     {
                                         "name": "DATAVIRT_TRANSPORT_KEYSTORE_TYPE",
@@ -738,13 +738,13 @@
                                 }
                             },
                             {
-                                "name": "jdv-keystore-volume",
+                                "name": "datavirt-keystore-volume",
                                 "secret": {
                                     "secretName": "${HTTPS_SECRET}"
                                 }
                             },
                             {
-                                "name": "jdv-jgroups-keystore-volume",
+                                "name": "datavirt-jgroups-keystore-volume",
                                 "secret": {
                                     "secretName": "${JGROUPS_ENCRYPT_SECRET}"
                                 }

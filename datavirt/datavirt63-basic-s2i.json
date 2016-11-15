@@ -8,10 +8,10 @@
             "tags": "jdv,datavirt,jboss,xpaas",
             "version": "1.4.0"
         },
-        "name": "jdv63-basic-s2i"
+        "name": "datavirt63-basic-s2i"
     },
     "labels": {
-        "template": "jdv63-basic-s2i",
+        "template": "datavirt63-basic-s2i",
         "xpaas": "1.4.0"
     },
     "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create a secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
@@ -20,14 +20,14 @@
             "description": "The name for the application.",
             "displayName": "Application Name",
             "name": "APPLICATION_NAME",
-            "value": "jdv-app",
+            "value": "datavirt-app",
             "required": true
         },
         {
             "description": "The name of the secret containing configuration properties for the data sources.",
             "displayName": "Configuration Secret Name",
             "name": "CONFIGURATION_NAME",
-            "value": "jdv-app-config",
+            "value": "datavirt-app-config",
             "required": true
         },
         {
