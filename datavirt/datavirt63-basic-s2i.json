@@ -14,7 +14,7 @@
         "template": "datavirt63-basic-s2i",
         "xpaas": "1.4.0"
     },
-    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create a secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
+    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
     "parameters": [
         {
             "description": "The name for the application.",
@@ -41,22 +41,28 @@
             "description": "The URL of the repository with your application source code.",
             "displayName": "Git Repository URL",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/teiid/teiid-quickstarts",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
             "required": true
         },
         {
             "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
             "displayName": "Git Reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "8.12",
+            "value": "master",
             "required": false
         },
         {
             "description": "Set this to the relative path to your project if it is not in the root of your repository.",
             "displayName": "Context Directory",
             "name": "CONTEXT_DIR",
-            "value": "dynamicvdb-datafederation",
+            "value": "datavirt/dynamicvdb-datafederation/app",
             "required": false
+        },
+        {
+            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow usage of the secret specified by CONFIGURATION_NAME.",
+            "name": "SERVICE_ACCOUNT_NAME",
+            "value": "datavirt-service-account",
+            "required": true
         },
         {
             "description": "Username associated with Teiid data service.",
@@ -295,6 +301,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
