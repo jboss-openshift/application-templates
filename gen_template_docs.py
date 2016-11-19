@@ -10,6 +10,7 @@
 # Notes: NEEDS TO BE CLEANED UP
 
 import json
+import yaml
 import os
 import sys
 import re
@@ -56,20 +57,23 @@ def generate_templates():
     for directory in template_dirs:
         if not os.path.isdir(directory):
             continue
-        for template in os.listdir(directory):
-            if template[-5:] != '.json':
+        for template in sorted(os.listdir(directory)):
+            if template[-5:] != '.json' and template[-5:] != '.yaml':
                 continue
             generate_template(os.path.join(directory, template))
 
 def generate_template(path):
     with open(path) as data_file:
-        data = json.load(data_file, object_pairs_hook=OrderedDict)
+        if path[-5:] == '.json':
+            data = json.load(data_file, object_pairs_hook=OrderedDict)
+            outfile = TEMPLATE_DOCS + re.sub('\.json$', '', path) + '.adoc'
+        else:
+            data = yaml.load(data_file)
+            outfile = TEMPLATE_DOCS + re.sub('\.yaml$', '', path) + '.adoc'
 
     if not 'labels' in data or not "template" in data["labels"]:
         sys.stderr.write("no template label for template %s, can't generate documentation\n"%path)
         return
-
-    outfile = TEMPLATE_DOCS + re.sub('\.json$', '', path) + '.adoc'
 
     outdir = os.path.dirname(outfile)
     if not os.path.exists(outdir):
@@ -148,8 +152,11 @@ def createTemplate(data, path):
             # our 'secrets' are always attached to a service account
             # only include the secrets section if we have defined serviceAccount(s)
             if len(serviceAccountName) > 0:
-                secretName = [param["value"] for param in data["parameters"] if "value" in param and param["value"].endswith("-app-secret")]
-                tdata['objects'][0]['secrets'] = [{ "secretName": secretName[0] }]
+                if re.match('^datavirt', path):
+                    tdata['objects'][0]['secrets'] = [{ "secretName": "datavirt-app-secret", "secretFile": "datavirt-app-secret.yaml" }]
+                else:
+                    secretName = [param["value"] for param in data["parameters"] if "value" in param and param["value"].endswith("-app-secret")]
+                    tdata['objects'][0]['secrets'] = [{ "secretName": secretName[0], "secretFile": secretName[0] + ".json" }]
 
         # currently the clustering section applies only to EAP templates
         if re.match('^eap', path):
@@ -321,13 +328,13 @@ def generate_readme():
         # page header
         fh.write(open('./README.adoc.in').read())
 
-        for directory in template_dirs:
+        for directory in sorted(template_dirs):
             if not os.path.isdir(directory):
                 continue
             # section header
             fh.write('\n== %s\n\n' % fullname.get(directory, directory))
             # links
-            for template in [ os.path.splitext(x)[0] for x in os.listdir(directory) ]:
+            for template in [ os.path.splitext(x)[0] for x in sorted(os.listdir(directory)) ]:
                 # XXX: Hack for 1.3 release, which excludes processserver
                 if template != "processserver-app-secret":
                     fh.write("* link:./%s/%s.adoc[%s]\n" % (directory, template, template))
