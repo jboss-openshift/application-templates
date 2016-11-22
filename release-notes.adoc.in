@@ -6,6 +6,11 @@
 
 == Release Notes
 
+=== Release 1.3.5
+ * Updated datavirt templates to reference new quickstart
+ * Modified datavirt-app-secret to include secret for datasource configuration
+ * datavirt-app-secret.json renamed datavirt-app-secret.yaml to improve readability
+
 === Release 1.3.4
 
  * New image definitions for:

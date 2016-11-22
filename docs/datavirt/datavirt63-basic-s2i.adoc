@@ -26,9 +26,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`APPLICATION_NAME` | -- | The name for the application. | datavirt-app | True
 |`CONFIGURATION_NAME` | -- | The name of the secret containing configuration properties for the data sources. | datavirt-app-config | True
 |`HOSTNAME_HTTP` | -- | Specify a custom hostname for the http route.  Leave blank to use default hostname, e.g.: <service-name>-<project>.<default-domain-suffix> | -- | False
-|`SOURCE_REPOSITORY_URL` | -- | The URL of the repository with your application source code. | https://github.com/teiid/teiid-quickstarts | True
-|`SOURCE_REPOSITORY_REF` | -- | Set this to a branch name, tag or other ref of your repository if you are not using the default branch. | 8.12 | False
-|`CONTEXT_DIR` | -- | Set this to the relative path to your project if it is not in the root of your repository. | dynamicvdb-datafederation | False
+|`SOURCE_REPOSITORY_URL` | -- | The URL of the repository with your application source code. | https://github.com/jboss-openshift/openshift-quickstarts | True
+|`SOURCE_REPOSITORY_REF` | -- | Set this to a branch name, tag or other ref of your repository if you are not using the default branch. | master | False
+|`CONTEXT_DIR` | -- | Set this to the relative path to your project if it is not in the root of your repository. | datavirt/dynamicvdb-datafederation/app | False
+|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow usage of the secret specified by CONFIGURATION_NAME. | datavirt-service-account | True
 |`TEIID_USERNAME` | `TEIID_USERNAME` | Username associated with Teiid data service. | `${TEIID_USERNAME}` | True
 |`TEIID_PASSWORD` | `TEIID_PASSWORD` | Password for Teiid user. | `${TEIID_PASSWORD}` | True
 |`MODESHAPE_USERNAME` | `MODESHAPE_USERNAME` | Username associated with ModeShape. | `${MODESHAPE_USERNAME}` | True
@@ -129,6 +130,18 @@ for more information.
 ==== Pod Template
 
 
+===== Service Accounts
+
+Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
+https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
+information.
+
+|============
+|Deployment | Service Account
+
+|`${APPLICATION_NAME}` | `${SERVICE_ACCOUNT_NAME}`
+|============
+
 
 
 ===== Image
@@ -198,6 +211,11 @@ for more information.
 
 
 
+
+==== Secrets
+
+This template requires link:../secrets/datavirt-app-secret.adoc[datavirt-app-secret.yaml]
+to be installed for the application to run.
 
 
 
