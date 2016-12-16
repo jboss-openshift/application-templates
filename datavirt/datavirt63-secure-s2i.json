@@ -597,7 +597,7 @@
                                     },
                                     {
                                         "name": "DATAVIRT_TRANSPORT_KEYSTORE",
-                                        "value": "/etc/datavirt-secret-volume/${HTTPS_KEYSTORE}"
+                                        "value": "${HTTPS_KEYSTORE}"
                                     },
                                     {
                                         "name": "DATAVIRT_TRANSPORT_KEYSTORE_TYPE",
