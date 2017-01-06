@@ -283,6 +283,28 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
+                "name": "jboss-datagrid65-client-openshift"
+            },
+            "spec": {
+                "dockerImageRepository": "registry.access.redhat.com/jboss-datagrid-6/datagrid65-client-openshift",
+                "tags": [
+                    {
+                        "name": "1.0",
+                        "annotations": {
+                            "description": "JBoss Data Grid 6.5 Client Modules for EAP.",
+                            "iconClass": "icon-jboss",
+                            "tags": "datagrid,jboss,xpaas",
+                            "supports":"datagrid:6.5,eap:6.4,eap:7.0",
+                            "version": "1.0"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
                 "name": "jboss-datavirt63-openshift"
             },
             "spec": {
@@ -295,6 +317,28 @@
                             "iconClass": "icon-jboss",
                             "tags": "datavirt,java,jboss,xpaas",
                             "supports":"datavirt:6.3,java:8,xpaas:1.4",
+                            "version": "1.0"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "jboss-datavirt63-driver-openshift"
+            },
+            "spec": {
+                "dockerImageRepository": "registry.access.redhat.com/jboss-datavirt-6/datavirt63-driver-openshift",
+                "tags": [
+                    {
+                        "name": "1.0",
+                        "annotations": {
+                            "description": "JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP.",
+                            "iconClass": "icon-jboss",
+                            "tags": "datavirt,jboss,xpaas",
+                            "supports":"datavirt:6.3,eap:6.4,eap:7.0",
                             "version": "1.0"
                         }
                     }
