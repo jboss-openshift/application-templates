@@ -271,6 +271,12 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
+        },
+        {
+            "description": "Maven mirror to use for s2i builds",
+            "name": "MAVEN_MIRROR_URL",
+            "value": "",
+            "required": false
         }
     ],
     "objects": [
@@ -448,6 +454,10 @@
                             {
                                 "name": "KIE_CONTAINER_DEPLOYMENT",
                                 "value": "${KIE_CONTAINER_DEPLOYMENT}"
+                            },
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
                             }
                         ],
                         "forcePull": true,
