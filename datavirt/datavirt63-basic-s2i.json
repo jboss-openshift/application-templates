@@ -273,6 +273,15 @@
                         "imageChange": {}
                     },
                     {
+                        "type": "ImageChange",
+                        "imageChange": {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "jboss-datagrid65-client-openshift:1.0"
+                            }
+                        }
+                    },
+                    {
                         "type": "ConfigChange"
                     }
                 ]
