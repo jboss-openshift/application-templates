@@ -238,6 +238,12 @@
             "name": "AUTO_DEPLOY_EXPLODED",
             "value": "false",
             "required": false
+        },
+        {
+            "description": "Maven mirror to use for s2i builds",
+            "name": "MAVEN_MIRROR_URL",
+            "value": "",
+            "required": false
         }
     ],
     "objects": [
@@ -483,6 +489,10 @@
                             {
                                 "name": "CUSTOM_INSTALL_DIRECTORIES",
                                 "value": "extensions/*"
+                            },
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
                             }
                         ]
                     }

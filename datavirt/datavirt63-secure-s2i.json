@@ -210,6 +210,12 @@
             "name": "AUTO_DEPLOY_EXPLODED",
             "value": "false",
             "required": false
+        },
+        {
+            "description": "Maven mirror to use for s2i builds",
+            "name": "MAVEN_MIRROR_URL",
+            "value": "",
+            "required": false
         }
     ],
     "objects": [
@@ -374,6 +380,12 @@
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
+                        "env": [
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
+                            }
+                        ],
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
