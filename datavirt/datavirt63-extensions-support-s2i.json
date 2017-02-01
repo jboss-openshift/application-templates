@@ -238,6 +238,13 @@
             "name": "AUTO_DEPLOY_EXPLODED",
             "value": "false",
             "required": false
+        },
+        {
+            "description": "Comma delimited list of source directories containing VDBs for deployment",
+            "displayName": "VDB Deployment Directories",
+            "name": "VDB_DIRS",
+            "value": "",
+            "required": false
         }
     ],
     "objects": [
@@ -483,6 +490,10 @@
                             {
                                 "name": "CUSTOM_INSTALL_DIRECTORIES",
                                 "value": "extensions/*"
+                            },
+                            {
+                                "name": "VDB_DIRS",
+                                "value": "${VDB_DIRS}"
                             }
                         ]
                     }
