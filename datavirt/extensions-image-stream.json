@@ -1,0 +1,38 @@
+{
+    "kind": "List",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "jboss-image-streams",
+        "annotations": {
+            "description": "ImageStream definitions for JDV extensions"
+        }
+    },
+    "items": [
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "jdv-extensions",
+                 "annotations": {
+                    "description": "Provides JDV extensions image(s)",
+                    "openshift.io/image.insecureRepository": "true"
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "registry.example.com:5000/jboss-datavirt-6/jdv-extensions",
+                "tags": [
+                    {
+                        "name": "1.0",
+                        "annotations": {
+                            "description": "datavirt",
+                            "iconClass": "icon-jdv",
+                            "tags": "datavirt",
+                            "supports":"datavirt:6.3",
+                            "version": "1.0"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
