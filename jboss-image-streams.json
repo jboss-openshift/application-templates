@@ -228,6 +228,19 @@
                             "sampleRef": "1.3",
                             "version": "1.3"
                         }
+                    },
+                    {
+                        "name": "1.4",
+                        "annotations": {
+                            "description": "Red Hat JBoss BRMS 6.3 decision server S2I images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "builder,decisionserver,java,xpaas",
+                            "supports":"decisionserver:6.3,java:8,xpaas:1.4",
+                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                            "sampleContextDir": "decisionserver/hellorules",
+                            "sampleRef": "1.3",
+                            "version": "1.4"
+                        }
                     }
                 ]
             }
