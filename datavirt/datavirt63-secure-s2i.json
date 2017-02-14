@@ -223,7 +223,7 @@
             "displayName": "SSO Server URL",
             "name": "SSO_URL",
             "value": "",
-            "required": true
+            "required": false
         },
         {
             "description": "The URL for the interal SSO service, where secure-sso is the kubernetes service exposed by the SSO server.  This is used to create the application client(s) (see SSO_USERNAME).  This can also be the same as SSO_URL.",
@@ -237,7 +237,7 @@
             "displayName": "SSO Realm",
             "name": "SSO_REALM",
             "value": "",
-            "required": true
+            "required": false
         },
         {
             "description": "The username used to access the SSO service.  This is used to create the appliction client(s) within the specified SSO realm. This should match the SSO_SERVICE_USERNAME specified through one of the sso70-* templates.",
@@ -301,7 +301,7 @@
             "displayName": "SSO Client Secret",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "required": true
+            "required": false
         },
         {
             "description": "Enable CORS for SSO applications. true or false",
