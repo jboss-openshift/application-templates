@@ -6,13 +6,13 @@
             "iconClass": "icon-tomcat",
             "description": "Application template for JWS applications built using S2I.",
             "tags": "tomcat,tomcat8,java,jboss,xpaas",
-            "version": "1.2.0"
+            "version": "1.4.0"
         },
         "name": "jws30-tomcat8-https-s2i"
     },
     "labels": {
         "template": "jws30-tomcat8-https-s2i",
-        "xpaas": "1.2.0"
+        "xpaas": "1.4.0"
     },
     "parameters": [
         {
@@ -237,7 +237,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-webserver30-tomcat8-openshift:1.2"
+                            "name": "jboss-webserver30-tomcat8-openshift:1.3"
                         }
                     }
                 },

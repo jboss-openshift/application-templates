@@ -40,6 +40,18 @@
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "1.2"
                         }
+                    },
+                    {
+                        "name": "1.3",
+                        "annotations": {
+                            "description": "JBoss Web Server 3.0 Tomcat 7 S2I images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "builder,tomcat,tomcat7,java,jboss,xpaas",
+                            "supports":"tomcat7:3.0,tomcat:7,java:8,xpaas:1.3",
+                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                            "sampleContextDir": "tomcat-websocket-chat",
+                            "version": "1.3"
+                        }
                     }
                 ]
             }
@@ -75,6 +87,18 @@
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "1.2"
+                        }
+                    },
+                    {
+                        "name": "1.3",
+                        "annotations": {
+                            "description": "JBoss Web Server 3.0 Tomcat 8 S2I images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "builder,tomcat,tomcat8,java,jboss,xpaas",
+                            "supports":"tomcat8:3.0,tomcat:8,java:8,xpaas:1.3",
+                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                            "sampleContextDir": "tomcat-websocket-chat",
+                            "version": "1.3"
                         }
                     }
                 ]
