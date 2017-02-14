@@ -428,6 +428,16 @@
                             "supports":"sso:7.0,xpaas:1.3",
                             "version": "1.3"
                         }
+                    },
+                    {
+                        "name": "1.4",
+                        "annotations": {
+                            "description": "Red Hat SSO 7.0",
+                            "iconClass": "icon-jboss",
+                            "tags": "sso,keycloak,redhat",
+                            "supports":"sso:7.0,xpaas:1.4",
+                            "version": "1.4"
+                        }
                     }
                 ]
             }
