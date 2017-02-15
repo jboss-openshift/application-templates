@@ -16,36 +16,42 @@
     },
     "parameters": [
         {
+            "displayName": "Application Name",
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "jws-app",
             "required": true
         },
         {
+            "displayName": "Custom http Route Hostname",
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTP",
             "value": "",
             "required": false
         },
         {
+            "displayName": "Git Repository URL",
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
             "value": "https://github.com/jboss-openshift/openshift-quickstarts.git",
             "required": true
         },
         {
+            "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
             "value": "1.2",
             "required": false
         },
         {
+            "displayName": "Context Directory",
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
             "value": "tomcat-websocket-chat",
             "required": false
         },
         {
+            "displayName": "JWS Admin Username",
             "description": "JWS Admin User",
             "name": "JWS_ADMIN_USERNAME",
             "from": "[a-zA-Z0-9]{8}",
@@ -53,6 +59,7 @@
             "required": true
         },
         {
+            "displayName": "JWS Admin Password",
             "description": "JWS Admin Password",
             "name": "JWS_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
@@ -60,6 +67,7 @@
             "required": true
         },
         {
+            "displayName": "Github Webhook Secret",
             "description": "GitHub trigger secret",
             "name": "GITHUB_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
@@ -67,6 +75,7 @@
             "required": true
         },
         {
+            "displayName": "Generic Webhook Secret",
             "description": "Generic build trigger secret",
             "name": "GENERIC_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
@@ -74,6 +83,7 @@
             "required": true
         },
         {
+            "displayName": "ImageStream Namespace",
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
