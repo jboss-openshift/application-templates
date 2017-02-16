@@ -16,72 +16,84 @@
     },
     "parameters": [
         {
+            "displayName": "Application Name",
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "datagrid-app",
             "required": true
         },
         {
+            "displayName": "Custom http Route Hostname",
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTP",
             "value": "",
             "required": false
         },
         {
+            "displayName": "Username",
             "description": "User name for JDG user.",
             "name": "USERNAME",
             "value": "",
             "required": false
         },
         {
+            "displayName": "Password",
             "description": "Password for JDG user.",
             "name": "PASSWORD",
             "value": "",
             "required": false
         },
         {
+            "displayName": "ImageStream Namespace",
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
         },
         {
+            "displayName": "Infinispan Connectors",
             "description": "Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest')",
             "name": "INFINISPAN_CONNECTORS",
             "value": "hotrod,memcached,rest",
             "required": false
         },
         {
+            "displayName": "Cache Names",
             "description": "Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry.",
             "name": "CACHE_NAMES",
             "value": "",
             "required": false
         },
         {
+            "displayName": "Datavirt Cache Names",
             "description": "Comma-separated list of caches to configure for use by Red Hat JBoss Data Virtualization for materialization of views.  Three caches will be created for each named cache: <name>, <name>_staging and <name>_alias.",
             "name": "DATAVIRT_CACHE_NAMES",
             "value": "",
             "required": false
         },
         {
+            "displayName": "Encryption Requires SSL Client Authentication?",
             "description": "",
             "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
             "value": "",
             "required": false
         },
         {
+            "displayName": "Memcached Cache Name",
             "description": "The name of the cache to expose through this memcached connector (defaults to 'default')",
             "name": "MEMCACHED_CACHE",
             "value": "default",
             "required": false
         },
         {
+            "displayName": "REST Security Domain",
             "description": "The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint",
             "name": "REST_SECURITY_DOMAIN",
             "value": "",
             "required": false
         },
         {
+            "displayName": "JGroups Cluster Password",
             "description": "JGroups cluster password",
             "name": "JGROUPS_CLUSTER_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
