@@ -245,6 +245,13 @@
             "name": "VDB_DIRS",
             "value": "",
             "required": false
+        },
+        {
+            "displayName": "Maven mirror URL",
+            "description": "Maven mirror to use for S2I builds",
+            "name": "MAVEN_MIRROR_URL",
+            "value": "",
+            "required": false
         }
     ],
     "objects": [
@@ -494,6 +501,10 @@
                             {
                                 "name": "VDB_DIRS",
                                 "value": "${VDB_DIRS}"
+                            },
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
                             }
                         ]
                     }
