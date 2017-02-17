@@ -208,6 +208,13 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
+        },
+        {
+            "displayName": "Maven mirror URL",
+            "description": "Maven mirror to use for S2I builds",
+            "name": "MAVEN_MIRROR_URL",
+            "value": "",
+            "required": false
         }
     ],
     "objects": [
@@ -357,6 +364,12 @@
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
+                        "env": [
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
+                            }
+                        ],
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
