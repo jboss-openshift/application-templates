@@ -306,6 +306,13 @@
             "name": "SSO_TRUSTSTORE_SECRET",
             "value": "eap7-app-secret",
             "required": false
+        },
+        {
+            "displayName": "Maven mirror URL",
+            "description": "Maven mirror to use for S2I builds",
+            "name": "MAVEN_MIRROR_URL",
+            "value": "",
+            "required": false
         }
    ],
     "objects": [
@@ -445,6 +452,10 @@
                             {
                                 "name": "MAVEN_ARGS_APPEND",
                                 "value": ""
+                            },
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
                             }
                         ]
                     }
