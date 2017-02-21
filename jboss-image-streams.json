@@ -444,9 +444,10 @@
                     {
                         "name": "1.0",
                         "annotations": {
-                            "description": "OpenJDK S2I images.",
+                            "openshift.io/display-name": "Red Hat OpenJDK 8",
+                            "description": "Build and run Java applications using Maven and OpenJDK 8.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,java,xpaas",
+                            "tags": "builder,java,xpaas,openjdk",
                             "supports":"java:8,xpaas:1.0",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
                             "sampleContextDir": "undertow-servlet",
