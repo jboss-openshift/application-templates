@@ -14,6 +14,7 @@
         "template": "processserver63-basic-s2i",
         "xpaas": "1.3.3"
     },
+    "message": "A new BPMS application has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}.",
     "parameters": [
         {
             "displayName": "KIE Container Deployment",
