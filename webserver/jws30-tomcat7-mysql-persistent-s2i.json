@@ -14,6 +14,7 @@
         "template": "jws30-tomcat7-mysql-persistent-s2i",
         "xpaas": "1.2.0"
     },
+    "message": "A new persistent JWS application for Tomcat 7 (using MySQL) has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the \"jws-service-account\" service account and the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
     "parameters": [
         {
             "displayName": "Application Name",
