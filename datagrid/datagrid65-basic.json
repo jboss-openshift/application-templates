@@ -14,6 +14,7 @@
         "template": "datagrid65-basic",
         "xpaas": "1.4.0"
     },
+    "message": "A new data grid service has been created in your project. It supports connector type(s) \"${INFINISPAN_CONNECTORS}\".",
     "parameters": [
         {
             "displayName": "Application Name",

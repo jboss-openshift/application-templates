@@ -14,6 +14,7 @@
         "template": "decisionserver62-basic-s2i",
         "xpaas": "1.3.3"
     },
+    "message": "A new BRMS application has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}.",
     "parameters": [
         {
             "displayName": "KIE Container Deployment",
