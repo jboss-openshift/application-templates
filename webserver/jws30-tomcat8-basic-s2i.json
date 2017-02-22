@@ -14,6 +14,7 @@
         "template": "jws30-tomcat8-basic-s2i",
         "xpaas": "1.2.0"
     },
+    "message": "A new JWS application for Tomcat 8 has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}.",
     "parameters": [
         {
             "displayName": "Application Name",
