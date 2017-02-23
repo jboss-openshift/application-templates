@@ -6,7 +6,8 @@
             "iconClass": "icon-jboss",
             "description": "Application template for Java applications built using S2I.",
             "tags": "java,xpaas",
-            "version": "1.0.0"
+            "version": "1.0.0",
+            "openshift.io/display-name": "Red Hat OpenJDK 8"
         },
         "name": "openjdk18-web-basic-s2i"
     },

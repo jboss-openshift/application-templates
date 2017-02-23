@@ -6,7 +6,8 @@
             "iconClass": "icon-jboss",
             "description": "Application template for JDG 6.5 and MySQL applications.",
             "tags": "datagrid,jboss,xpaas",
-            "version": "1.4.0"
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 + MySQL (Ephemeral with https)"
         },
         "name": "datagrid65-mysql"
     },
