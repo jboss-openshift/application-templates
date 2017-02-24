@@ -98,7 +98,7 @@
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
             "value": "eap-app-secret",
-            "required": false
+            "required": true
         },
         {
             "displayName": "Server Keystore Filename",
