@@ -505,8 +505,13 @@
                                         "protocol": "TCP"
                                     },
                                     {
-                                        "name": "hotrod",
+                                        "name": "hotrod-internal",
                                         "containerPort": 11222,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "hotrod",
+                                        "containerPort": 11333,
                                         "protocol": "TCP"
                                     }
                                 ],
