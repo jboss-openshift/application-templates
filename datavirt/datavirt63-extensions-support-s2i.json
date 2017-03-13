@@ -745,8 +745,12 @@
                                         "value": "/etc/datavirt-environment/*"
                                     },
                                     {
+                                        "name": "DATAVIRT_TRANSPORT_KEYSTORE_DIR",
+                                        "value": "/etc/datavirt-secret-volume"
+                                    },
+                                    {
                                         "name": "DATAVIRT_TRANSPORT_KEYSTORE",
-                                        "value": "/etc/datavirt-secret-volume/${HTTPS_KEYSTORE}"
+                                        "value": "${HTTPS_KEYSTORE}"
                                     },
                                     {
                                         "name": "DATAVIRT_TRANSPORT_KEYSTORE_TYPE",
