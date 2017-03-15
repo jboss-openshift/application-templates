@@ -269,6 +269,15 @@
                                         ]
                                     }
                                 },
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/amq/bin/livenessProbe.sh"
+                                        ]
+                                    }
+                                },
                                 "ports": [
                                     {
                                         "name": "jolokia",
