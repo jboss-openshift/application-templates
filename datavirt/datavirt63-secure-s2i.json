@@ -778,10 +778,6 @@
                                         "value": "/etc/datavirt-environment/*"
                                     },
                                     {
-                                        "name": "DATAVIRT_TRANSPORT_KEYSTORE_DIR",
-                                        "value": "/etc/datavirt-secret-volume"
-                                    },
-                                    {
                                         "name": "DATAVIRT_TRANSPORT_KEYSTORE",
                                         "value": "${HTTPS_KEYSTORE}"
                                     },
