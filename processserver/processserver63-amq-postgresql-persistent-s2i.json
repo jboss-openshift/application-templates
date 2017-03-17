@@ -6,7 +6,8 @@
             "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server AMQ and PostgreSQL applications with persistent storage built using S2I.",
             "iconClass": "icon-jboss",
             "tags": "processserver,amq,postgresql,javaee,java,database,jboss,xpaas",
-            "version": "1.4.0"
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.3 intelligent process server + A-MQ + PostgreSQL (Persistent with https)"
         },
         "name": "processserver63-amq-postgresql-persistent-s2i"
     },

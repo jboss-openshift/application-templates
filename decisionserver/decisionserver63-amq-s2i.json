@@ -6,7 +6,8 @@
             "description": "Application template for Red Hat JBoss BRMS 6.3 decision server A-MQ applications built using S2I.",
             "iconClass": "icon-jboss",
             "tags": "decisionserver,amq,java,messaging,jboss,xpaas",
-            "version": "1.4.0"
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss BRMS 6.3 decision server + A-MQ (with https)"
         },
         "name": "decisionserver63-amq-s2i"
     },

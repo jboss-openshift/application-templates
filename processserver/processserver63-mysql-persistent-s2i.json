@@ -6,7 +6,8 @@
             "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server MySQL applications with persistent storage built using S2I.",
             "iconClass": "icon-jboss",
             "tags": "processserver,mysql,javaee,java,database,jboss,xpaas",
-            "version": "1.4.0"
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.3 intelligent process server + MySQL (Persistent with https)"
         },
         "name": "processserver63-mysql-persistent-s2i"
     },
