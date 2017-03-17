@@ -6,7 +6,8 @@
             "description": "Application template for SSO 7.0 PostgreSQL applications with persistent storage",
             "iconClass" : "icon-jboss",
             "tags" : "sso,keycloak,postrgresql,java,database,jboss,xpaas",
-            "version": "1.4.0"
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat Single Sign-On 7.0 + PostgreSQL (Persistent)"
         },
         "name": "sso70-postgresql-persistent"
     },
@@ -97,7 +98,7 @@
             "displayName": "Datasource Minimum Pool Size",
             "description": "Sets xa-pool/min-pool-size for the configured datasource.",
             "name": "DB_MIN_POOL_SIZE",
-	    "required": false
+            "required": false
         },
         {
             "displayName": "Datasource Maximum Pool Size",
@@ -383,7 +384,7 @@
                             "containerNames": [
                                 "${APPLICATION_NAME}"
                             ],
-                             "from": {
+                            "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
                                 "name": "redhat-sso70-openshift:1.4"
