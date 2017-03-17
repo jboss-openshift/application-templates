@@ -3,10 +3,11 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass" : "icon-jboss",
+            "iconClass": "icon-jboss",
             "description": "Application template for EAP 6 applications built using S2I, enabled for SSO.",
             "tags": "eap,javaee,java,jboss,xpaas,sso,keycloak",
-            "version": "1.4.0"
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss EAP 7.0 + Single Sign-On (with https)"
         },
         "name": "eap70-sso-s2i"
     },
@@ -314,7 +315,7 @@
             "value": "",
             "required": false
         }
-   ],
+    ],
     "objects": [
         {
             "kind": "Service",
@@ -633,7 +634,7 @@
                                     {
                                         "name": "HOSTNAME_HTTPS",
                                         "value": "${HOSTNAME_HTTPS}"
-                                    }, 
+                                    },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
                                         "value": "/etc/eap-secret-volume"
@@ -666,7 +667,7 @@
                                         "name": "HORNETQ_TOPICS",
                                         "value": "${HORNETQ_TOPICS}"
                                     },
-				                    {
+                                    {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
                                         "value": "${JGROUPS_ENCRYPT_SECRET}"
                                     },
