@@ -40,6 +40,7 @@
             "required": false
         },
         {
+            "displayName": "KIE Server Persistence Dialect",
             "description": "Hibernate persistence dialect.",
             "name": "KIE_SERVER_PERSISTENCE_DIALECT",
             "value": "org.hibernate.dialect.H2Dialect",

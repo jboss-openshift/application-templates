@@ -61,6 +61,7 @@
         },
         {
             "description": "The name of the service account to use for the deployment.  The service account should be configured to allow usage of the secret specified by CONFIGURATION_NAME.",
+            "displayName": "Service Account Name",
             "name": "SERVICE_ACCOUNT_NAME",
             "value": "datavirt-service-account",
             "required": true

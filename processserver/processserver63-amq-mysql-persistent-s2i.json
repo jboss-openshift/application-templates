@@ -25,12 +25,14 @@
             "required": false
         },
         {
+            "displayName": "KIE Server Protocol",
             "description": "The protocol to access the KIE Server REST interface.",
             "name": "KIE_SERVER_PROTOCOL",
             "value": "https",
             "required": false
         },
         {
+            "displayName": "KIE Server Port",
             "description": "The port to access the KIE Server REST interface.",
             "name": "KIE_SERVER_PORT",
             "value": "8443",
@@ -73,12 +75,14 @@
             "required": false
         },
         {
+            "displayName": "KIE Server Executor JMS Queue",
             "description": "JNDI name of executor queue for JMS.",
             "name": "KIE_SERVER_EXECUTOR_JMS_QUEUE",
             "value": "queue/KIE.SERVER.EXECUTOR",
             "required": false
         },
         {
+            "displayName": "KIE Server Persistence Dialect",
             "description": "Hibernate persistence dialect.",
             "name": "KIE_SERVER_PERSISTENCE_DIALECT",
             "value": "org.hibernate.dialect.MySQL5Dialect",
