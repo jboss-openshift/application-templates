@@ -266,6 +266,13 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
+        },
+        {
+            "displayName": "Artifact Directories",
+            "description": "List of directories from which archives will be copied into the deployment folder.  If unspecified, all archives in /target will be copied.",
+            "name": "ARTIFACT_DIR",
+            "value": "app-jee-jsp/target,service-jee-jaxrs/target,app-profile-jee-jsp/target,app-profile-saml-jee-jsp/target",
+            "required": false
         }
     ],
     "objects": [
@@ -419,6 +426,10 @@
                             {
                                 "name": "KIE_CONTAINER_DEPLOYMENT",
                                 "value": "${KIE_CONTAINER_DEPLOYMENT}"
+                            },
+                            {
+                                "name": "ARTIFACT_DIR",
+                                "value": "${ARTIFACT_DIR}"
                             }
                         ],
                         "forcePull": true,
