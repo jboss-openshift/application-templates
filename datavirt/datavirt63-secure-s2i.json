@@ -75,6 +75,7 @@
         },
         {
             "description": "The name of the service account to use for the deployment.  The service account should be configured to allow usage of the secret(s) specified by CONFIGURATION_NAME, HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
+            "displayName": "Service Account Name",
             "name": "SERVICE_ACCOUNT_NAME",
             "value": "datavirt-service-account",
             "required": true
