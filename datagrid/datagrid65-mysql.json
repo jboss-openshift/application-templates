@@ -187,6 +187,13 @@
             "required": false
         },
         {
+            "displayName": "Default Cache Type",
+            "description": "Default cache type for all caches. If empty then distributed will be the default",
+            "name": "CACHE_TYPE_DEFAULT",
+            "value": "",
+            "required": false
+        },
+        {
             "displayName": "Encryption Requires SSL Client Authentication?",
             "description": "",
             "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
@@ -627,6 +634,10 @@
                                     {
                                         "name": "DATAVIRT_CACHE_NAMES",
                                         "value": "${DATAVIRT_CACHE_NAMES}"
+                                    },
+                                    {
+                                        "name": "CACHE_TYPE_DEFAULT",
+                                        "value": "${CACHE_TYPE_DEFAULT}"
                                     },
                                     {
                                         "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
