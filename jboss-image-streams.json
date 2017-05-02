@@ -467,6 +467,32 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
+                "name": "jboss-amq-63",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3"
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "registry.access.redhat.com/jboss-amq-6/amq63-openshift",
+                "tags": [
+                    {
+                        "name": "1.0",
+                        "annotations": {
+                            "description": "JBoss A-MQ 6.0 broker image.",
+                            "iconClass": "icon-jboss",
+                            "tags": "messaging,amq,jboss,xpaas",
+                            "supports": "amq:6.3,messaging,xpaas:1.0",
+                            "version": "1.0",
+                            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
                 "name": "redhat-sso70-openshift",
                 "annotations": {
                     "description": "Red Hat SSO 7.0",
