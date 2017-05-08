@@ -199,6 +199,12 @@
             "name": "MAVEN_MIRROR_URL",
             "value": "",
             "required": false
+        },
+        {
+            "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
+            "name": "ARTIFACT_DIR",
+            "value": "",
+            "required": false
         }
     ],
     "objects": [
@@ -352,6 +358,10 @@
                             {
                                 "name": "MAVEN_MIRROR_URL",
                                 "value": "${MAVEN_MIRROR_URL}"
+                            },
+                            {
+                                "name": "ARTIFACT_DIR",
+                                "value": "${ARTIFACT_DIR}"
                             }
                         ],
                         "forcePull": true,
