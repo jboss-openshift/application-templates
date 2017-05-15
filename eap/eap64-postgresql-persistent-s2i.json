@@ -255,6 +255,13 @@
             "name": "AUTO_DEPLOY_EXPLODED",
             "value": "false",
             "required": false
+        },
+        {
+            "displayName": "PostgreSQL Image Version",
+            "description": "The version of the PostgreSQL image",
+            "name": "POSTGRESQL_IMAGE_STREAM_TAG",
+            "value": "9.5",
+            "required": true
         }
     ],
     "objects": [
@@ -702,7 +709,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "postgresql:latest"
+                                "name": "postgresql:${POSTGRESQL_IMAGE_STREAM_TAG}"
                             }
                         }
                     },
