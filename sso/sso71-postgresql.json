@@ -5,7 +5,7 @@
         "annotations": {
             "description": "Application template for SSO 7.1 PostgreSQL applications",
             "iconClass" : "icon-jboss",
-            "tags" : "sso,keycloak,postrgresql,java,database,jboss,xpaas",
+            "tags" : "sso,keycloak,jboss,xpaas",
             "version": "1.0.0",
             "openshift.io/display-name": "Red Hat Single Sign-On 7.1 + PostgreSQL (Ephemeral)"
         },
