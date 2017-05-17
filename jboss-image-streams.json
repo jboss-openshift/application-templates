@@ -338,6 +338,16 @@
                             "supports":"datavirt:6.3,xpaas:1.4",
                             "version": "1.1"
                         }
+                    },
+                    {
+                        "name": "1.2",
+                        "annotations": {
+                            "description": "Red Hat JBoss Data Virtualization 6.3 S2I images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "datavirt,jboss,xpaas",
+                            "supports":"datavirt:6.3,xpaas:1.4",
+                            "version": "1.2"
+                        }
                     }
                 ]
             }
