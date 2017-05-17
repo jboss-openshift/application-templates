@@ -339,7 +339,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's http port."
+                    "description": "The web server's http port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"},{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -363,7 +364,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's https port."
+                    "description": "The web server's https port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"},{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}]"
                 }
             }
         },

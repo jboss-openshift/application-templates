@@ -197,7 +197,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The broker's OpenWire port."
+                    "description": "The broker's OpenWire port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-amq-amqp\", \"kind\": \"Service\"},{\"name\": \"${APPLICATION_NAME}-amq-mqtt\", \"kind\": \"Service\"},{\"name\": \"${APPLICATION_NAME}-amq-stomp\", \"kind\": \"Service\"}]"
                 }
             }
         },
