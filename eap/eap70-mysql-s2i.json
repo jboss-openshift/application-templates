@@ -5,7 +5,7 @@
         "annotations": {
             "description": "Application template for EAP 7 MySQL applications built using S2I.",
             "iconClass": "icon-jboss",
-            "tags": "eap,mysql,javaee,java,database,jboss,xpaas",
+            "tags": "eap,javaee,java,jboss,xpaas",
             "version": "1.4.0",
             "openshift.io/display-name": "Red Hat JBoss EAP 7.0 + MySQL (Ephemeral with https)"
         },
@@ -302,7 +302,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's http port."
+                    "description": "The web server's http port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -326,7 +327,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's https port."
+                    "description": "The web server's https port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 }
             }
         },

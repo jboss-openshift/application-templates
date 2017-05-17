@@ -194,6 +194,13 @@
             "required": false
         },
         {
+            "displayName": "Default Cache Type",
+            "description": "Default cache type for all caches. If empty then distributed will be the default",
+            "name": "CACHE_TYPE_DEFAULT",
+            "value": "",
+            "required": false
+        },
+        {
             "displayName": "Encryption Requires SSL Client Authentication?",
             "description": "",
             "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
@@ -272,7 +279,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's HTTP port."
+                    "description": "The web server's HTTP port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -296,7 +304,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's HTTPS port."
+                    "description": "The web server's HTTPS port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -320,7 +329,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Memcached service for clustered applications."
+                    "description": "Memcached service for clustered applications.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -344,7 +354,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Hot Rod service for clustered applications."
+                    "description": "Hot Rod service for clustered applications.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -634,6 +645,10 @@
                                     {
                                         "name": "DATAVIRT_CACHE_NAMES",
                                         "value": "${DATAVIRT_CACHE_NAMES}"
+                                    },
+                                    {
+                                        "name": "CACHE_TYPE_DEFAULT",
+                                        "value": "${CACHE_TYPE_DEFAULT}"
                                     },
                                     {
                                         "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
