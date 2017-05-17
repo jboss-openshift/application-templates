@@ -5,8 +5,9 @@
         "annotations": {
             "description": "Application template for Red Hat JBoss BPM Suite 6.4 intelligent process server AMQ and PostgreSQL applications built using S2I.",
             "iconClass": "icon-jboss",
-            "tags": "processserver,amq,postgresql,javaee,java,database,jboss,xpaas",
-            "version": "1.4.0"
+            "tags": "processserver,jboss,xpaas",
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.4 intelligent process server + A-MQ + PostgreSQL (Ephemeral with https)"
         },
         "name": "processserver64-amq-postgresql-s2i"
     },
@@ -24,12 +25,14 @@
             "required": false
         },
         {
+            "displayName": "KIE Server Protocol",
             "description": "The protocol to access the KIE Server REST interface.",
             "name": "KIE_SERVER_PROTOCOL",
             "value": "https",
             "required": false
         },
         {
+            "displayName": "KIE Server Port",
             "description": "The port to access the KIE Server REST interface.",
             "name": "KIE_SERVER_PORT",
             "value": "8443",
@@ -72,12 +75,14 @@
             "required": false
         },
         {
+            "displayName": "KIE Server Executor JMS Queue",
             "description": "JNDI name of executor queue for JMS.",
             "name": "KIE_SERVER_EXECUTOR_JMS_QUEUE",
             "value": "queue/KIE.SERVER.EXECUTOR",
             "required": false
         },
         {
+            "displayName": "KIE Server Persistence Dialect",
             "description": "Hibernate persistence dialect.",
             "name": "KIE_SERVER_PERSISTENCE_DIALECT",
             "value": "org.hibernate.dialect.PostgreSQL82Dialect",
@@ -295,6 +300,13 @@
             "required": true
         },
         {
+            "displayName": "Maven mirror URL",
+            "description": "Maven mirror to use for S2I builds",
+            "name": "MAVEN_MIRROR_URL",
+            "value": "",
+            "required": false
+        },
+        {
             "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
             "name": "ARTIFACT_DIR",
             "value": "",
@@ -322,7 +334,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's http port."
+                    "description": "The web server's http port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-postgresql\", \"kind\": \"Service\"},{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -346,7 +359,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's https port."
+                    "description": "The web server's https port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-postgresql\", \"kind\": \"Service\"},{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -476,6 +490,10 @@
                             {
                                 "name": "KIE_CONTAINER_DEPLOYMENT",
                                 "value": "${KIE_CONTAINER_DEPLOYMENT}"
+                            },
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
                             },
                             {
                                 "name": "ARTIFACT_DIR",

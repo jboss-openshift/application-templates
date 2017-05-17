@@ -5,8 +5,9 @@
         "annotations": {
             "description": "Application template for Red Hat JBoss BRMS 6.4 decision server applications built using S2I.",
             "iconClass": "icon-jboss",
-            "tags": "decisionserver,java,jboss,xpaas",
-            "version": "1.4.0"
+            "tags": "decisionserver,jboss,xpaas",
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss BRMS 6.4 decision server (no https)"
         },
         "name": "decisionserver64-basic-s2i"
     },
@@ -119,6 +120,13 @@
             "required": true
         },
         {
+            "displayName": "Maven mirror URL",
+            "description": "Maven mirror to use for S2I builds",
+            "name": "MAVEN_MIRROR_URL",
+            "value": "",
+            "required": false
+        },
+        {
             "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
             "name": "ARTIFACT_DIR",
             "value": "",
@@ -205,6 +213,10 @@
                             {
                                 "name": "KIE_CONTAINER_DEPLOYMENT",
                                 "value": "${KIE_CONTAINER_DEPLOYMENT}"
+                            },
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
                             },
                             {
                                 "name": "ARTIFACT_DIR",

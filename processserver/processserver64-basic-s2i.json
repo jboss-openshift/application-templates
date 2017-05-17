@@ -5,8 +5,9 @@
         "annotations": {
             "description": "Application template for Red Hat JBoss BPM Suite 6.4 intelligent process server applications built using S2I.",
             "iconClass": "icon-jboss",
-            "tags": "processserver,javaee,java,jboss,xpaas",
-            "version": "1.4.0"
+            "tags": "processserver,jboss,xpaas",
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.4 intelligent process server (no https)"
         },
         "name": "processserver64-basic-s2i"
     },
@@ -39,6 +40,7 @@
             "required": false
         },
         {
+            "displayName": "KIE Server Persistence Dialect",
             "description": "Hibernate persistence dialect.",
             "name": "KIE_SERVER_PERSISTENCE_DIALECT",
             "value": "org.hibernate.dialect.H2Dialect",
@@ -123,6 +125,13 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
+        },
+        {
+            "displayName": "Maven mirror URL",
+            "description": "Maven mirror to use for S2I builds",
+            "name": "MAVEN_MIRROR_URL",
+            "value": "",
+            "required": false
         },
         {
             "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
@@ -211,6 +220,10 @@
                             {
                                 "name": "KIE_CONTAINER_DEPLOYMENT",
                                 "value": "${KIE_CONTAINER_DEPLOYMENT}"
+                            },
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
                             },
                             {
                                 "name": "ARTIFACT_DIR",
