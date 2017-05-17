@@ -75,6 +75,7 @@
         },
         {
             "description": "The name of the service account to use for the deployment.  The service account should be configured to allow usage of the secret(s) specified by CONFIGURATION_NAME, HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
+            "displayName": "Service Account Name",
             "name": "SERVICE_ACCOUNT_NAME",
             "value": "datavirt-service-account",
             "required": true
@@ -530,12 +531,6 @@
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
-                        "env": [
-                            {
-                                "name": "MAVEN_MIRROR_URL",
-                                "value": "${MAVEN_MIRROR_URL}"
-                            }
-                        ],
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
@@ -543,6 +538,10 @@
                             "name": "jboss-datavirt63-openshift:1.1"
                         },
                         "env": [
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
+                            },
                             {
                                 "name": "CUSTOM_INSTALL_DIRECTORIES",
                                 "value": "extensions/*"
