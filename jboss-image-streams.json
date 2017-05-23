@@ -12,7 +12,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-webserver30-tomcat7-openshift"
+                "name": "jboss-webserver30-tomcat7-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 7"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-webserver-3/webserver30-tomcat7-openshift",
@@ -48,7 +51,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-webserver30-tomcat8-openshift"
+                "name": "jboss-webserver30-tomcat8-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 8"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-webserver-3/webserver30-tomcat8-openshift",
@@ -84,7 +90,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-eap64-openshift"
+                "name": "jboss-eap64-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss EAP 6.4"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-eap-6/eap64-openshift",
@@ -148,7 +157,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-eap70-openshift"
+                "name": "jboss-eap70-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss EAP 7.0"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-eap-7/eap70-openshift",
@@ -186,7 +198,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-decisionserver62-openshift"
+                "name": "jboss-decisionserver62-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss BRMS 6.2 decision server"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-decisionserver-6/decisionserver62-openshift",
@@ -211,7 +226,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-decisionserver63-openshift"
+                "name": "jboss-decisionserver63-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss BRMS 6.3 decision server"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-decisionserver-6/decisionserver63-openshift",
@@ -236,7 +254,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-processserver63-openshift"
+                "name": "jboss-processserver63-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.3 intelligent process server"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-processserver-6/processserver63-openshift",
@@ -261,7 +282,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-datagrid65-openshift"
+                "name": "jboss-datagrid65-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-datagrid-6/datagrid65-openshift",
@@ -293,7 +317,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-datagrid65-client-openshift"
+                "name": "jboss-datagrid65-client-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 Client Modules for EAP"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-datagrid-6/datagrid65-client-openshift",
@@ -314,7 +341,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-datavirt63-openshift"
+                "name": "jboss-datavirt63-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-datavirt-6/datavirt63-openshift",
@@ -346,7 +376,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-datavirt63-driver-openshift"
+                "name": "jboss-datavirt63-driver-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-datavirt-6/datavirt63-driver-openshift",
@@ -367,7 +400,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-amq-62"
+                "name": "jboss-amq-62",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-amq-6/amq62-openshift",
@@ -411,7 +447,8 @@
             "metadata": {
                 "name": "redhat-sso70-openshift",
                 "annotations": {
-                    "description": "Red Hat SSO 7.0"
+                    "description": "Red Hat SSO 7.0",
+                    "openshift.io/display-name": "Red Hat Single Sign-On 7.0"
                 }
             },
             "spec": {
@@ -446,7 +483,8 @@
             "metadata": {
                 "name": "redhat-sso71-openshift",
                 "annotations": {
-                    "description": "Red Hat SSO 7.1"
+                    "description": "Red Hat SSO 7.1",
+                    "openshift.io/display-name": "Red Hat Single Sign-On 7.1"
                 }
             },
             "spec": {
@@ -469,7 +507,10 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "redhat-openjdk18-openshift"
+                "name": "redhat-openjdk18-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat OpenJDK 8"
+                }
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift",
