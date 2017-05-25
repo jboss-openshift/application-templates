@@ -249,6 +249,13 @@
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
+        },
+        {
+            "displayName": "MySQL Image Version",
+            "description": "The version of the MySQL image",
+            "name": "MYSQL_IMAGE_STREAM_TAG",
+            "value": "5.7",
+            "required": true
         }
     ],
     "objects": [
@@ -728,7 +735,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "mysql:latest"
+                                "name": "mysql:${MYSQL_IMAGE_STREAM_TAG}"
                             }
                         }
                     },

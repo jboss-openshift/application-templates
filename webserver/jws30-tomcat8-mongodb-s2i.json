@@ -199,6 +199,13 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
+        },
+        {
+            "displayName": "MongoDB Image Version",
+            "description": "The version of the MongoDB image",
+            "name": "MONGODB_IMAGE_STREAM_TAG",
+            "value": "3.2",
+            "required": true
         }
     ],
     "objects": [
@@ -571,7 +578,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "mongodb:latest"
+                                "name": "mongodb:${MONGODB_IMAGE_STREAM_TAG}"
                             }
                         }
                     },
