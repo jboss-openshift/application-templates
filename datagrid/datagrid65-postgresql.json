@@ -231,6 +231,13 @@
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
+        },
+        {
+            "displayName": "PostgreSQL Image Version",
+            "description": "The version of the PostgreSQL image",
+            "name": "POSTGRESQL_IMAGE_STREAM_TAG",
+            "value": "9.5",
+            "required": true
         }
     ],
     "objects": [
@@ -708,7 +715,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "postgresql:latest"
+                                "name": "postgresql:${POSTGRESQL_IMAGE_STREAM_TAG}"
                             }
                         }
                     },
