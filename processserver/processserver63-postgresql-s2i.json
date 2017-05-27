@@ -254,6 +254,13 @@
             "name": "ARTIFACT_DIR",
             "value": "",
             "required": false
+        },
+        {
+            "displayName": "PostgreSQL Image Stream Tag",
+            "description": "The tag to use for the \"postgresql\" image stream.  Typically, this aligns with the major.minor version of PostgreSQL.",
+            "name": "POSTGRESQL_IMAGE_STREAM_TAG",
+            "value": "9.5",
+            "required": true
         }
     ],
     "objects": [
@@ -681,7 +688,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "postgresql:latest"
+                                "name": "postgresql:${POSTGRESQL_IMAGE_STREAM_TAG}"
                             }
                         }
                     },
