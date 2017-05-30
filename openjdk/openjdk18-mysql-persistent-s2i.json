@@ -4,15 +4,14 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-jboss",
-            "description": "Application template for Java applications built using S2I.",
-            "tags": "java,xpaas",
-            "version": "1.0.0",
-            "openshift.io/display-name": "Red Hat OpenJDK 8"
+            "description": "Application template for Java MySql applications with persistent storage built using S2I.",
+            "tags": "java,mysql,xpaas",
+            "version": "1.0.0"
         },
-        "name": "openjdk18-web-basic-s2i"
+        "name": "openjdk18-mysql-persistent-s2i"
     },
     "labels": {
-        "template": "openjdk18-web-basic-s2i",
+        "template": "openjdk18-mysql-persistent-s2i",
         "xpaas": "1.0.0"
     },
     "message": "A new java application has been created in your project.",
@@ -79,8 +78,59 @@
             "description": "Path within Git project to build; empty for root project directory.",
             "displayName": "Context Directory",
             "name": "CONTEXT_DIR",
-            "value": "undertow-servlet",
+            "value": "undertow-jdbc",
             "required": false
+        },
+        {
+            "description": "Database name",
+            "name": "DB_DATABASE",
+            "value": "root",
+            "required": true
+        },
+        {
+            "description": "Size of persistent storage for database volume.",
+            "name": "VOLUME_CAPACITY",
+            "value": "512Mi",
+            "required": true
+        },
+        {
+            "description": "Sets how the table names are stored and compared.",
+            "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
+            "required": false
+        },
+        {
+            "description": "The maximum permitted number of simultaneous client connections.",
+            "name": "MYSQL_MAX_CONNECTIONS",
+            "required": false
+        },
+        {
+            "description": "The minimum length of the word to be included in a FULLTEXT index.",
+            "name": "MYSQL_FT_MIN_WORD_LEN",
+            "required": false
+        },
+        {
+            "description": "The maximum length of the word to be included in a FULLTEXT index.",
+            "name": "MYSQL_FT_MAX_WORD_LEN",
+            "required": false
+        },
+        {
+            "description": "Controls the innodb_use_native_aio setting value if the native AIO is broken.",
+            "name": "MYSQL_AIO",
+            "required": false
+        },
+        {
+            "description": "Database user name",
+            "name": "DB_USERNAME",
+            "from": "user[a-zA-Z0-9]{3}",
+            "generate": "expression",
+            "required": true
+        },
+        {
+            "description": "Database user password",
+            "name": "DB_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
         },
         {
             "description": "GitHub trigger secret",
@@ -152,6 +202,30 @@
                 },
                 "annotations": {
                     "description": "The application's https port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 3306,
+                        "targetPort": 3306
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-mysql",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The database server's port."
                 }
             }
         },
@@ -357,6 +431,32 @@
                                         "containerPort": 8443,
                                         "protocol": "TCP"
                                     }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "DB_DRIVER",
+                                        "value": "mysql"
+                                    },
+                                    {
+                                        "name": "DB_HOST",
+                                        "value": "${APPLICATION_NAME}-mysql"
+                                    },
+                                    {
+                                        "name": "DB_PORT",
+                                        "value": "3306"
+                                    },
+                                    {
+                                        "name": "DB_USERNAME",
+                                        "value": "${DB_USERNAME}"
+                                    },
+                                    {
+                                        "name": "DB_PASSWORD",
+                                        "value": "${DB_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "DB_DATABASE",
+                                        "value": "${DB_DATABASE}"
+                                    }
                                 ]
                             }
                         ],
@@ -368,6 +468,137 @@
                                 }
                             }
                         ]
+                    }
+                }
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-mysql",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-mysql"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "name": "mysql:latest"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
+                },
+                "template": {
+                    "metadata": {
+                        "name": "${APPLICATION_NAME}-mysql",
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}-mysql",
+                            "application": "${APPLICATION_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "containers": [
+                            {
+                                "name": "${APPLICATION_NAME}-mysql",
+                                "image": "mysql",
+                                "imagePullPolicy": "Always",
+                                "ports": [
+                                    {
+                                        "containerPort": 3306,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/var/lib/mysql/data",
+                                        "name": "${APPLICATION_NAME}-mysql-pvol"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "MYSQL_USER",
+                                        "value": "${DB_USERNAME}"
+                                    },
+                                    {
+                                        "name": "MYSQL_PASSWORD",
+                                        "value": "${DB_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MYSQL_DATABASE",
+                                        "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
+                                        "value": "${MYSQL_LOWER_CASE_TABLE_NAMES}"
+                                    },
+                                    {
+                                        "name": "MYSQL_MAX_CONNECTIONS",
+                                        "value": "${MYSQL_MAX_CONNECTIONS}"
+                                    },
+                                    {
+                                        "name": "MYSQL_FT_MIN_WORD_LEN",
+                                        "value": "${MYSQL_FT_MIN_WORD_LEN}"
+                                    },
+                                    {
+                                        "name": "MYSQL_FT_MAX_WORD_LEN",
+                                        "value": "${MYSQL_FT_MAX_WORD_LEN}"
+                                    },
+                                    {
+                                        "name": "MYSQL_AIO",
+                                        "value": "${MYSQL_AIO}"
+                                    }
+                                ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "${APPLICATION_NAME}-mysql-pvol",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${APPLICATION_NAME}-mysql-claim"
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-mysql-claim",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "${VOLUME_CAPACITY}"
                     }
                 }
             }

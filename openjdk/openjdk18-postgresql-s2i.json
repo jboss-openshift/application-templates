@@ -5,14 +5,13 @@
         "annotations": {
             "iconClass": "icon-jboss",
             "description": "Application template for Java applications built using S2I.",
-            "tags": "java,xpaas",
-            "version": "1.0.0",
-            "openshift.io/display-name": "Red Hat OpenJDK 8"
+            "tags": "java,postgresql,xpaas",
+            "version": "1.0.0"
         },
-        "name": "openjdk18-web-basic-s2i"
+        "name": "openjdk18-postgresql-s2i"
     },
     "labels": {
-        "template": "openjdk18-web-basic-s2i",
+        "template": "openjdk18-postgresql-s2i",
         "xpaas": "1.0.0"
     },
     "message": "A new java application has been created in your project.",
@@ -79,8 +78,38 @@
             "description": "Path within Git project to build; empty for root project directory.",
             "displayName": "Context Directory",
             "name": "CONTEXT_DIR",
-            "value": "undertow-servlet",
+            "value": "undertow-jdbc",
             "required": false
+        },
+        {
+            "description": "Database name",
+            "name": "DB_DATABASE",
+            "value": "root",
+            "required": true
+        },
+        {
+            "description": "The maximum permitted number of simultaneous client connections.",
+            "name": "POSTGRESQL_MAX_CONNECTIONS",
+            "required": false
+        },
+        {
+            "description": "Configures how much memory is dedicated to PostgreSQL for caching data.",
+            "name": "POSTGRESQL_SHARED_BUFFERS",
+            "required": false
+        },
+        {
+            "description": "Database user name",
+            "name": "DB_USERNAME",
+            "from": "user[a-zA-Z0-9]{3}",
+            "generate": "expression",
+            "required": true
+        },
+        {
+            "description": "Database user password",
+            "name": "DB_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
         },
         {
             "description": "GitHub trigger secret",
@@ -152,6 +181,30 @@
                 },
                 "annotations": {
                     "description": "The application's https port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 5432,
+                        "targetPort": 5432
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-postgresql",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The database server's port."
                 }
             }
         },
@@ -357,6 +410,32 @@
                                         "containerPort": 8443,
                                         "protocol": "TCP"
                                     }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "DB_DRIVER",
+                                        "value": "postgresql"
+                                    },
+                                    {
+                                        "name": "DB_HOST",
+                                        "value": "${APPLICATION_NAME}-postgresql"
+                                    },
+                                    {
+                                        "name": "DB_PORT",
+                                        "value": "5432"
+                                    },
+                                    {
+                                        "name": "DB_USERNAME",
+                                        "value": "${DB_USERNAME}"
+                                    },
+                                    {
+                                        "name": "DB_PASSWORD",
+                                        "value": "${DB_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "DB_DATABASE",
+                                        "value": "${DB_DATABASE}"
+                                    }
                                 ]
                             }
                         ],
@@ -366,6 +445,99 @@
                                 "secret": {
                                     "secretName": "${HTTPS_SECRET}"
                                 }
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-postgresql",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-postgresql"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "name": "postgresql:latest"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                },
+                "template": {
+                    "metadata": {
+                        "name": "${APPLICATION_NAME}-postgresql",
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}-postgresql",
+                            "application": "${APPLICATION_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "containers": [
+                            {
+                                "name": "${APPLICATION_NAME}-postgresql",
+                                "image": "postgresql",
+                                "imagePullPolicy": "Always",
+                                "ports": [
+                                    {
+                                        "containerPort": 5432,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "POSTGRESQL_USER",
+                                        "value": "${DB_USERNAME}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_PASSWORD",
+                                        "value": "${DB_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_DATABASE",
+                                        "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_MAX_CONNECTIONS",
+                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS",
+                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS",
+                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_SHARED_BUFFERS",
+                                        "value": "${POSTGRESQL_SHARED_BUFFERS}"
+                                    }
+                                ]
                             }
                         ]
                     }
