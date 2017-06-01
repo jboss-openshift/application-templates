@@ -254,6 +254,20 @@
             "name": "MAVEN_MIRROR_URL",
             "value": "",
             "required": false
+        },
+        {
+            "displayName": "Quickstart Database Type",
+            "description": "Quickstart Database Type corresponding to secret datavirt-app-config",
+            "name": "QS_DB_TYPE",
+            "value": "derby",
+            "required": false
+        },
+        {
+            "displayName": "Environment Variable File Locations",
+            "description": "Comma-delimited list of ENV file locations",
+            "name": "ENV_FILES",
+            "value": "/etc/datavirt-environment/*",
+            "required": false
         }
     ],
     "objects": [
@@ -755,7 +769,7 @@
                                     },
                                     {
                                         "name": "ENV_FILES",
-                                        "value": "/etc/datavirt-environment/*"
+                                        "value": "${ENV_FILES}"
                                     },
                                     {
                                         "name": "DATAVIRT_TRANSPORT_KEYSTORE",
@@ -775,7 +789,7 @@
                                     },
                                     {
                                         "name": "QS_DB_TYPE",
-                                        "value": "derby",
+                                        "value": "${QS_DB_TYPE}",
                                         "description": "Used soley by the quickstart and set here to ensure the template can be instatiated with its default parameter values, i.e. so itworks ootb."
                                     }
                                 ]
