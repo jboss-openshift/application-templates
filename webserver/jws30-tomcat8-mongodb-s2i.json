@@ -178,6 +178,13 @@
             "required": true
         },
         {
+            "displayName": "Connector Configuration Server Value",
+            "description": "Connector Configuration Server Value",
+            "name": "OVERRIDE_SERVER_NAME",
+            "value": "",
+            "required": false
+        },
+        {
             "displayName": "Github Webhook Secret",
             "description": "GitHub trigger secret",
             "name": "GITHUB_WEBHOOK_SECRET",
@@ -531,6 +538,10 @@
                                     {
                                         "name": "JWS_ADMIN_PASSWORD",
                                         "value": "${JWS_ADMIN_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "OVERRIDE_SERVER_NAME",
+                                        "value": "${OVERRIDE_SERVER_NAME}"
                                     }
                                 ]
                             }
