@@ -173,7 +173,7 @@
         {
             "displayName": "Connector Configuration Server Value",
             "description": "Connector Configuration Server Value",
-            "name": "OVERRIDE_SERVER_NAME",
+            "name": "SERVER_NAME",
             "value": "",
             "required": false
         },
@@ -543,8 +543,8 @@
                                         "value": "${JWS_ADMIN_PASSWORD}"
                                     },
                                     {
-                                        "name": "OVERRIDE_SERVER_NAME",
-                                        "value": "${OVERRIDE_SERVER_NAME}"
+                                        "name": "SERVER_NAME",
+                                        "value": "${SERVER_NAME}"
                                     },
                                     {
                                         "name": "JWS_SERVLET_LISTINGS",
