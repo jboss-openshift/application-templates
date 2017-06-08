@@ -185,6 +185,20 @@
             "required": false
         },
         {
+            "displayName": "Servlet listings Setting",
+            "description": "Servlet listings Setting",
+            "name": "JWS_SERVLET_LISTINGS",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Servlet readonly Setting",
+            "description": "Servlet readonly Setting",
+            "name": "JWS_SERVLET_READONLY",
+            "value": "",
+            "required": false
+        },
+        {
             "displayName": "Github Webhook Secret",
             "description": "GitHub trigger secret",
             "name": "GITHUB_WEBHOOK_SECRET",
@@ -542,6 +556,14 @@
                                     {
                                         "name": "OVERRIDE_SERVER_NAME",
                                         "value": "${OVERRIDE_SERVER_NAME}"
+                                    },
+                                    {
+                                        "name": "JWS_SERVLET_LISTINGS",
+                                        "value": "${JWS_SERVLET_LISTINGS}"
+                                    },
+                                    {
+                                        "name": "JWS_SERVLET_READONLY",
+                                        "value": "${JWS_SERVLET_READONLY}"
                                     }
                                 ]
                             }
