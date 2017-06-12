@@ -44,8 +44,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
-|`SSO_ADMIN_USERNAME` | `SSO_ADMIN_USERNAME` | SSO Server admin username | admin | False
-|`SSO_ADMIN_PASSWORD` | `SSO_ADMIN_PASSWORD` | SSO Server admin  password | admin | False
+|`SSO_ADMIN_USERNAME` | `SSO_ADMIN_USERNAME` | SSO Server admin username | `${SSO_ADMIN_USERNAME}` | True
+|`SSO_ADMIN_PASSWORD` | `SSO_ADMIN_PASSWORD` | SSO Server admin  password | `${SSO_ADMIN_PASSWORD}` | True
 |`SSO_REALM` | `SSO_REALM` | Realm to be created in the SSO server (e.g. demo). | `${SSO_REALM}` | False
 |`SSO_SERVICE_USERNAME` | `SSO_SERVICE_USERNAME` | The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm. | `${SSO_SERVICE_USERNAME}` | False
 |`SSO_SERVICE_PASSWORD` | `SSO_SERVICE_PASSWORD` | The password for the SSO service user. | `${SSO_SERVICE_PASSWORD}` | False

@@ -54,6 +54,9 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | password | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | Password used by JGroups to authenticate nodes in the cluster. | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
+|`VDB_DIRS` | -- | Comma delimited list of source directories containing VDBs for deployment | -- | False
+|`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
+|`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
 |=======================================================================
 
 
@@ -110,7 +113,7 @@ for more information.
 | S2I image  | link | Build output | BuildTriggers and Settings
 
 |`${EXTENSIONS_DOCKERFILE}` |  | `${APPLICATION_NAME}-ext:latest` | GitHub, Generic, ConfigChange
-|jboss-datavirt63-openshift:1.0 |  link:../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ImageChange, ConfigChange
+|jboss-datavirt63-openshift:1.2 |  link:../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ImageChange, ImageChange, ConfigChange
 |=============
 
 
@@ -226,7 +229,7 @@ information.
 |`MODESHAPE_USERNAME` | Username associated with ModeShape. | `${MODESHAPE_USERNAME}`
 |`MODESHAPE_PASSWORD` | Password for ModeShape user. | `${MODESHAPE_PASSWORD}`
 |`ENV_FILES` | -- | `/etc/datavirt-environment/*`
-|`DATAVIRT_TRANSPORT_KEYSTORE` | -- | `/etc/datavirt-secret-volume/${HTTPS_KEYSTORE}`
+|`DATAVIRT_TRANSPORT_KEYSTORE` | -- | `${HTTPS_KEYSTORE}`
 |`DATAVIRT_TRANSPORT_KEYSTORE_TYPE` | -- | `${HTTPS_KEYSTORE_TYPE}`
 |`DATAVIRT_TRANSPORT_KEY_ALIAS` | -- | `${HTTPS_NAME}`
 |`DATAVIRT_TRANSPORT_KEYSTORE_PASSWORD` | -- | `${HTTPS_PASSWORD}`

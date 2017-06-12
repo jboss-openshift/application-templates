@@ -59,6 +59,7 @@ toc::[levels=1]
 * link:./eap/eap64-postgresql-persistent-s2i.adoc[eap64-postgresql-persistent-s2i]
 * link:./eap/eap64-postgresql-s2i.adoc[eap64-postgresql-s2i]
 * link:./eap/eap64-sso-s2i.adoc[eap64-sso-s2i]
+* link:./eap/eap64-third-party-db-s2i.adoc[eap64-third-party-db-s2i]
 * link:./eap/eap70-amq-persistent-s2i.adoc[eap70-amq-persistent-s2i]
 * link:./eap/eap70-amq-s2i.adoc[eap70-amq-s2i]
 * link:./eap/eap70-basic-s2i.adoc[eap70-basic-s2i]
@@ -70,6 +71,7 @@ toc::[levels=1]
 * link:./eap/eap70-postgresql-persistent-s2i.adoc[eap70-postgresql-persistent-s2i]
 * link:./eap/eap70-postgresql-s2i.adoc[eap70-postgresql-s2i]
 * link:./eap/eap70-sso-s2i.adoc[eap70-sso-s2i]
+* link:./eap/eap70-third-party-db-s2i.adoc[eap70-third-party-db-s2i]
 
 == Red Hat JBoss BPM Suite intelligent process server
 
@@ -102,6 +104,11 @@ toc::[levels=1]
 * link:./sso/sso70-mysql.adoc[sso70-mysql]
 * link:./sso/sso70-postgresql-persistent.adoc[sso70-postgresql-persistent]
 * link:./sso/sso70-postgresql.adoc[sso70-postgresql]
+* link:./sso/sso71-https.adoc[sso71-https]
+* link:./sso/sso71-mysql-persistent.adoc[sso71-mysql-persistent]
+* link:./sso/sso71-mysql.adoc[sso71-mysql]
+* link:./sso/sso71-postgresql-persistent.adoc[sso71-postgresql-persistent]
+* link:./sso/sso71-postgresql.adoc[sso71-postgresql]
 
 == JBoss Web Server
 
