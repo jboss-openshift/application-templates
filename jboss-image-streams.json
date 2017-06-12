@@ -157,6 +157,19 @@
                             "version": "1.4",
                             "openshift.io/display-name": "Red Hat JBoss EAP 6.4"
                         }
+                    },
+                    {
+                        "name": "1.5",
+                        "annotations": {
+                            "description": "JBoss EAP 6.4 S2I images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "builder,eap,javaee,java,jboss,xpaas",
+                            "supports":"eap:6.4,javaee:6,java:8,xpaas:1.5",
+                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "6.4.x",
+                            "version": "1.5"
+                        }
                     }
                 ]
             }
@@ -199,6 +212,19 @@
                             "sampleRef": "7.0.0.GA",
                             "version": "1.4",
                             "openshift.io/display-name": "Red Hat JBoss EAP 7.0"
+                        }
+                    },
+                    {
+                        "name": "1.5",
+                        "annotations": {
+                            "description": "JBoss EAP 7.0 S2I images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "builder,eap,javaee,java,jboss,xpaas",
+                            "supports":"eap:7.0,javaee:7,java:8,xpaas:1.5",
+                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "7.0.0.GA",
+                            "version": "1.5"
                         }
                     }
                 ]
