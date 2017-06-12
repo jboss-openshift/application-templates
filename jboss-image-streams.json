@@ -459,6 +459,16 @@
                             "version": "1.3",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2"
                         }
+                    },
+                    {
+                        "name": "1.4",
+                        "annotations": {
+                            "description": "JBoss A-MQ 6.2 broker image.",
+                            "iconClass": "icon-jboss",
+                            "tags": "messaging,amq,jboss,xpaas",
+                            "supports":"amq:6.2,messaging,xpaas:1.4",
+                            "version": "1.4"
+                        }
                     }
                 ]
             }
