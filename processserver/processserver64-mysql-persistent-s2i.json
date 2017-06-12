@@ -3,19 +3,19 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server PostgreSQL applications with persistent storage built using S2I.",
+            "description": "Application template for Red Hat JBoss BPM Suite 6.4 intelligent process server MySQL applications with persistent storage built using S2I.",
             "iconClass": "icon-jboss",
             "tags": "processserver,jboss,xpaas",
             "version": "1.4.0",
-            "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.3 intelligent process server + PostgreSQL (Persistent with https)"
+            "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.4 intelligent process server + MySQL (Persistent with https)"
         },
-        "name": "processserver63-postgresql-persistent-s2i"
+        "name": "processserver64-mysql-persistent-s2i"
     },
     "labels": {
-        "template": "processserver63-postgresql-persistent-s2i",
+        "template": "processserver64-mysql-persistent-s2i",
         "xpaas": "1.4.0"
     },
-    "message": "A new persistent BPMS application (using PostgreSQL) has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the \"processserver-service-account\" service account and the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
+    "message": "A new persistent BPMS application (using MySQL) has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the \"processserver-service-account\" service account and the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
     "parameters": [
         {
             "displayName": "KIE Container Deployment",
@@ -64,7 +64,7 @@
             "displayName": "KIE Server Persistence Dialect",
             "description": "Hibernate persistence dialect.",
             "name": "KIE_SERVER_PERSISTENCE_DIALECT",
-            "value": "org.hibernate.dialect.PostgreSQL82Dialect",
+            "value": "org.hibernate.dialect.MySQL5Dialect",
             "required": false
         },
         {
@@ -207,15 +207,33 @@
             "required": false
         },
         {
-            "displayName": "PostgreSQL Maximum number of connections",
-            "description": "The maximum number of client connections allowed. This also sets the maximum number of prepared transactions.",
-            "name": "POSTGRESQL_MAX_CONNECTIONS",
+            "displayName": "MySQL Lower Case Table Names",
+            "description": "Sets how the table names are stored and compared.",
+            "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
             "required": false
         },
         {
-            "displayName": "PostgreSQL Shared Buffers",
-            "description": "Configures how much memory is dedicated to PostgreSQL for caching data.",
-            "name": "POSTGRESQL_SHARED_BUFFERS",
+            "displayName": "MySQL Maximum number of connections",
+            "description": "The maximum permitted number of simultaneous client connections.",
+            "name": "MYSQL_MAX_CONNECTIONS",
+            "required": false
+        },
+        {
+            "displayName": "MySQL FullText Minimum Word Length",
+            "description": "The minimum length of the word to be included in a FULLTEXT index.",
+            "name": "MYSQL_FT_MIN_WORD_LEN",
+            "required": false
+        },
+        {
+            "displayName": "MySQL FullText Maximum Word Length",
+            "description": "The maximum length of the word to be included in a FULLTEXT index.",
+            "name": "MYSQL_FT_MAX_WORD_LEN",
+            "required": false
+        },
+        {
+            "displayName": "MySQL AIO",
+            "description": "Controls the innodb_use_native_aio setting value if the native AIO is broken.",
+            "name": "MYSQL_AIO",
             "required": false
         },
         {
@@ -263,10 +281,10 @@
             "required": false
         },
         {
-            "displayName": "PostgreSQL Image Stream Tag",
-            "description": "The tag to use for the \"postgresql\" image stream.  Typically, this aligns with the major.minor version of PostgreSQL.",
-            "name": "POSTGRESQL_IMAGE_STREAM_TAG",
-            "value": "9.5",
+            "displayName": "MySQL Image Stream Tag",
+            "description": "The tag to use for the \"mysql\" image stream.  Typically, this aligns with the major.minor version of MySQL.",
+            "name": "MYSQL_IMAGE_STREAM_TAG",
+            "value": "5.7",
             "required": true
         }
     ],
@@ -292,7 +310,7 @@
                 },
                 "annotations": {
                     "description": "The web server's http port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-postgresql\", \"kind\": \"Service\"}]"
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -317,7 +335,7 @@
                 },
                 "annotations": {
                     "description": "The web server's https port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-postgresql\", \"kind\": \"Service\"}]"
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -327,16 +345,16 @@
             "spec": {
                 "ports": [
                     {
-                        "port": 5432,
-                        "targetPort": 5432
+                        "port": 3306,
+                        "targetPort": 3306
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
                 }
             },
             "metadata": {
-                "name": "${APPLICATION_NAME}-postgresql",
+                "name": "${APPLICATION_NAME}-mysql",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
@@ -437,7 +455,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-processserver63-openshift:1.4"
+                            "name": "jboss-processserver64-openshift:1.0"
                         }
                     }
                 },
@@ -594,11 +612,11 @@
                                     },
                                     {
                                         "name": "DB_SERVICE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-postgresql=DB,${APPLICATION_NAME}-postgresql=QUARTZ"
+                                        "value": "${APPLICATION_NAME}-mysql=DB,${APPLICATION_NAME}-mysql=QUARTZ"
                                     },
                                     {
                                         "name": "TX_DATABASE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-postgresql=DB"
+                                        "value": "${APPLICATION_NAME}-mysql=DB"
                                     },
                                     {
                                         "name": "DB_JNDI",
@@ -711,7 +729,7 @@
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
-                "name": "${APPLICATION_NAME}-postgresql",
+                "name": "${APPLICATION_NAME}-mysql",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 }
@@ -726,12 +744,12 @@
                         "imageChangeParams": {
                             "automatic": true,
                             "containerNames": [
-                                "${APPLICATION_NAME}-postgresql"
+                                "${APPLICATION_NAME}-mysql"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "postgresql:${POSTGRESQL_IMAGE_STREAM_TAG}"
+                                "name": "mysql:${MYSQL_IMAGE_STREAM_TAG}"
                             }
                         }
                     },
@@ -741,13 +759,13 @@
                 ],
                 "replicas": 1,
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
                 },
                 "template": {
                     "metadata": {
-                        "name": "${APPLICATION_NAME}-postgresql",
+                        "name": "${APPLICATION_NAME}-mysql",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-postgresql",
+                            "deploymentConfig": "${APPLICATION_NAME}-mysql",
                             "application": "${APPLICATION_NAME}"
                         }
                     },
@@ -755,50 +773,62 @@
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
-                                "name": "${APPLICATION_NAME}-postgresql",
-                                "image": "postgresql",
+                                "name": "${APPLICATION_NAME}-mysql",
+                                "image": "mysql",
                                 "imagePullPolicy": "Always",
                                 "ports": [
                                     {
-                                        "containerPort": 5432,
+                                        "containerPort": 3306,
                                         "protocol": "TCP"
                                     }
                                 ],
                                 "volumeMounts": [
                                     {
-                                        "mountPath": "/var/lib/pgsql/data",
-                                        "name": "${APPLICATION_NAME}-postgresql-pvol"
+                                        "mountPath": "/var/lib/mysql/data",
+                                        "name": "${APPLICATION_NAME}-mysql-pvol"
                                     }
                                 ],
                                 "env": [
                                     {
-                                        "name": "POSTGRESQL_USER",
+                                        "name": "MYSQL_USER",
                                         "value": "${DB_USERNAME}"
                                     },
                                     {
-                                        "name": "POSTGRESQL_PASSWORD",
+                                        "name": "MYSQL_PASSWORD",
                                         "value": "${DB_PASSWORD}"
                                     },
                                     {
-                                        "name": "POSTGRESQL_DATABASE",
+                                        "name": "MYSQL_DATABASE",
                                         "value": "${DB_DATABASE}"
                                     },
                                     {
-                                        "name": "POSTGRESQL_MAX_CONNECTIONS",
-                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}"
+                                        "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
+                                        "value": "${MYSQL_LOWER_CASE_TABLE_NAMES}"
                                     },
                                     {
-                                        "name": "POSTGRESQL_SHARED_BUFFERS",
-                                        "value": "${POSTGRESQL_SHARED_BUFFERS}"
+                                        "name": "MYSQL_MAX_CONNECTIONS",
+                                        "value": "${MYSQL_MAX_CONNECTIONS}"
+                                    },
+                                    {
+                                        "name": "MYSQL_FT_MIN_WORD_LEN",
+                                        "value": "${MYSQL_FT_MIN_WORD_LEN}"
+                                    },
+                                    {
+                                        "name": "MYSQL_FT_MAX_WORD_LEN",
+                                        "value": "${MYSQL_FT_MAX_WORD_LEN}"
+                                    },
+                                    {
+                                        "name": "MYSQL_AIO",
+                                        "value": "${MYSQL_AIO}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
                             {
-                                "name": "${APPLICATION_NAME}-postgresql-pvol",
+                                "name": "${APPLICATION_NAME}-mysql-pvol",
                                 "persistentVolumeClaim": {
-                                    "claimName": "${APPLICATION_NAME}-postgresql-claim"
+                                    "claimName": "${APPLICATION_NAME}-mysql-claim"
                                 }
                             }
                         ]
@@ -810,7 +840,7 @@
             "apiVersion": "v1",
             "kind": "PersistentVolumeClaim",
             "metadata": {
-                "name": "${APPLICATION_NAME}-postgresql-claim",
+                "name": "${APPLICATION_NAME}-mysql-claim",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 }

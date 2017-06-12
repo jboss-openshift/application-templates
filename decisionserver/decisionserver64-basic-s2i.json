@@ -3,39 +3,25 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "description": "Application template for Red Hat JBoss BRMS 6.3 decision server HTTPS applications built using S2I.",
+            "description": "Application template for Red Hat JBoss BRMS 6.4 decision server applications built using S2I.",
             "iconClass": "icon-jboss",
             "tags": "decisionserver,jboss,xpaas",
             "version": "1.4.0",
-            "openshift.io/display-name": "Red Hat JBoss BRMS 6.3 decision server (with https)"
+            "openshift.io/display-name": "Red Hat JBoss BRMS 6.4 decision server (no https)"
         },
-        "name": "decisionserver63-https-s2i"
+        "name": "decisionserver64-basic-s2i"
     },
     "labels": {
-        "template": "decisionserver63-https-s2i",
+        "template": "decisionserver64-basic-s2i",
         "xpaas": "1.4.0"
     },
-    "message": "A new BRMS application with SSL support has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. Please be sure to create the \"decisionserver-service-account\" service account and the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
+    "message": "A new BRMS application has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}.",
     "parameters": [
         {
             "displayName": "KIE Container Deployment",
             "description": "The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
             "name": "KIE_CONTAINER_DEPLOYMENT",
             "value": "decisionserver-hellorules=org.openshift.quickstarts:decisionserver-hellorules:1.3.0.Final",
-            "required": false
-        },
-        {
-            "displayName": "KIE Server Protocol",
-            "description": "The protocol to access the KIE Server REST interface.",
-            "name": "KIE_SERVER_PROTOCOL",
-            "value": "https",
-            "required": false
-        },
-        {
-            "displayName": "KIE Server Port",
-            "description": "The port to access the KIE Server REST interface.",
-            "name": "KIE_SERVER_PORT",
-            "value": "8443",
             "required": false
         },
         {
@@ -64,13 +50,6 @@
             "displayName": "Custom http Route Hostname",
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTP",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Custom https Route Hostname",
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
-            "name": "HOSTNAME_HTTPS",
             "value": "",
             "required": false
         },
@@ -107,34 +86,6 @@
             "description": "Topic names",
             "name": "HORNETQ_TOPICS",
             "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Server Keystore Secret Name",
-            "description": "The name of the secret containing the keystore file",
-            "name": "HTTPS_SECRET",
-            "value": "decisionserver-app-secret",
-            "required": true
-        },
-        {
-            "displayName": "Server Keystore Filename",
-            "description": "The name of the keystore file within the secret",
-            "name": "HTTPS_KEYSTORE",
-            "value": "keystore.jks",
-            "required": false
-        },
-        {
-            "displayName": "Server Certificate Name",
-            "description": "The name associated with the server certificate",
-            "name": "HTTPS_NAME",
-            "value": "jboss",
-            "required": false
-        },
-        {
-            "displayName": "Server Keystore Password",
-            "description": "The password for the keystore and certificate",
-            "name": "HTTPS_PASSWORD",
-            "value": "mykeystorepass",
             "required": false
         },
         {
@@ -208,30 +159,6 @@
             }
         },
         {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 8443,
-                        "targetPort": 8443
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            },
-            "metadata": {
-                "name": "secure-${APPLICATION_NAME}",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "The web server's https port."
-                }
-            }
-        },
-        {
             "kind": "Route",
             "apiVersion": "v1",
             "id": "${APPLICATION_NAME}-http",
@@ -248,29 +175,6 @@
                 "host": "${HOSTNAME_HTTP}",
                 "to": {
                     "name": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-https",
-            "metadata": {
-                "name": "secure-${APPLICATION_NAME}",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Route for application's https service."
-                }
-            },
-            "spec": {
-                "host": "${HOSTNAME_HTTPS}",
-                "to": {
-                    "name": "secure-${APPLICATION_NAME}"
-                },
-                "tls": {
-                    "termination": "passthrough"
                 }
             }
         },
@@ -323,7 +227,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-decisionserver63-openshift:1.4"
+                            "name": "jboss-decisionserver64-openshift:1.0"
                         }
                     }
                 },
@@ -400,20 +304,12 @@
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "decisionserver-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
-                                "volumeMounts": [
-                                    {
-                                        "name": "decisionserver-keystore-volume",
-                                        "mountPath": "/etc/decisionserver-secret-volume",
-                                        "readOnly": true
-                                    }
-                                ],
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
@@ -442,11 +338,6 @@
                                         "name": "http",
                                         "containerPort": 8080,
                                         "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "https",
-                                        "containerPort": 8443,
-                                        "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
@@ -455,36 +346,12 @@
                                         "value": "${KIE_CONTAINER_DEPLOYMENT}"
                                     },
                                     {
-                                        "name": "KIE_SERVER_PROTOCOL",
-                                        "value": "${KIE_SERVER_PROTOCOL}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PORT",
-                                        "value": "${KIE_SERVER_PORT}"
-                                    },
-                                    {
                                         "name": "KIE_SERVER_USER",
                                         "value": "${KIE_SERVER_USER}"
                                     },
                                     {
                                         "name": "KIE_SERVER_PASSWORD",
                                         "value": "${KIE_SERVER_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/decisionserver-secret-volume"
-                                    },
-                                    {
-                                        "name": "HTTPS_KEYSTORE",
-                                        "value": "${HTTPS_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "HTTPS_NAME",
-                                        "value": "${HTTPS_NAME}"
-                                    },
-                                    {
-                                        "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
                                         "name": "HORNETQ_CLUSTER_PASSWORD",
@@ -499,14 +366,6 @@
                                         "value": "${HORNETQ_TOPICS}"
                                     }
                                 ]
-                            }
-                        ],
-                        "volumes": [
-                            {
-                                "name": "decisionserver-keystore-volume",
-                                "secret": {
-                                    "secretName": "${HTTPS_SECRET}"
-                                }
                             }
                         ]
                     }
