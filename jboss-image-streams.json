@@ -630,6 +630,17 @@
                             "version": "1.0",
                             "openshift.io/display-name": "Red Hat Single Sign-On 7.1"
                         }
+                    },
+                    {
+                        "name": "1.1",
+                        "annotations": {
+                            "description": "Red Hat SSO 7.1",
+                            "iconClass": "icon-jboss",
+                            "tags": "sso,keycloak,redhat",
+                            "supports": "sso:7.1,xpaas:1.4",
+                            "version": "1.1",
+                            "openshift.io/display-name": "Red Hat Single Sign-On 7.1"
+                        }
                     }
                 ]
             }
