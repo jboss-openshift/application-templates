@@ -314,6 +314,38 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
+                "name": "jboss-eap71-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss EAP 7.1"
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "registry.access.redhat.com/jboss-eap-7/eap71-openshift",
+                "tags": [
+                    {
+                        "name": "1.0-TP",
+                        "annotations": {
+                            "description": "JBoss EAP 7.1 Tech Preview.",
+                            "iconClass": "icon-jboss",
+                            "tags": "builder,eap,javaee,java,jboss,xpaas",
+                            "supports":"eap:7.1,javaee:7,java:8,xpaas:1.0",
+                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "7.1.0.GA",
+                            "version": "1.0"
+                        },
+                        "from": {
+                          "kind": "DockerImage",
+                          "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap71-openshift:1.0"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
                 "name": "jboss-decisionserver62-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss BRMS 6.2 decision server"
