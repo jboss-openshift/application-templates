@@ -23,6 +23,8 @@ Restrictions for password:
   at least 8 characters
   at least 1 digit
   at least 1 non-alphanumeric symbol
+  must be different than username
+  must not be root, admin, or administrator
 
 
 toc::[]
@@ -40,10 +42,12 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`APPLICATION_NAME` | -- | The name for the application. | datagrid-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`USERNAME` | `USERNAME` | User name for JDG user. | `${USERNAME}` | False
-|`PASSWORD` | `PASSWORD` | Password for JDG user. | `${PASSWORD}` | False
+|`PASSWORD` | `PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${PASSWORD}` | False
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`INFINISPAN_CONNECTORS` | `INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | hotrod,memcached,rest | False
 |`CACHE_NAMES` | `CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${CACHE_NAMES}` | False
+|`DATAVIRT_CACHE_NAMES` | `CACHE_NAMES` | Comma-separated list of caches to configure for use by Red Hat JBoss Data Virtualization for materialization of views.  Three caches will be created for each named cache: <name>, <name>_staging and <name>_alias. | `${CACHE_NAMES}` | False
+|`CACHE_TYPE_DEFAULT` | `CACHE_TYPE_DEFAULT` | Default cache type for all caches. If empty then distributed will be the default | `${CACHE_TYPE_DEFAULT}` | False
 |`ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH` | `ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH` |  | `${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}` | False
 |`MEMCACHED_CACHE` | `MEMCACHED_CACHE` | The name of the cache to expose through this memcached connector (defaults to 'default') | default | False
 |`REST_SECURITY_DOMAIN` | `REST_SECURITY_DOMAIN` | The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint | `${REST_SECURITY_DOMAIN}` | False
@@ -159,12 +163,13 @@ for more information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.5+| `${APPLICATION_NAME}`
+.6+| `${APPLICATION_NAME}`
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |ping | 8888 | `TCP`
 |memcached | 11211 | `TCP`
-|hotrod | 11222 | `TCP`
+|hotrod-internal | 11222 | `TCP`
+|hotrod | 11333 | `TCP`
 |=============
 
 
@@ -174,18 +179,20 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.11+| `${APPLICATION_NAME}`
+.13+| `${APPLICATION_NAME}`
 |`USERNAME` | User name for JDG user. | `${USERNAME}`
-|`PASSWORD` | Password for JDG user. | `${PASSWORD}`
+|`PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${PASSWORD}`
 |`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
 |`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
 |`INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | `${INFINISPAN_CONNECTORS}`
 |`CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${CACHE_NAMES}`
+|`DATAVIRT_CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${DATAVIRT_CACHE_NAMES}`
+|`CACHE_TYPE_DEFAULT` | Default cache type for all caches. If empty then distributed will be the default | `${CACHE_TYPE_DEFAULT}`
 |`ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH` |  | `${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}`
 |`HOTROD_SERVICE_NAME` | -- | `${APPLICATION_NAME}-hotrod`
 |`MEMCACHED_CACHE` | The name of the cache to expose through this memcached connector (defaults to 'default') | `${MEMCACHED_CACHE}`
 |`REST_SECURITY_DOMAIN` | The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint | `${REST_SECURITY_DOMAIN}`
-|`JGROUPS_CLUSTER_PASSWORD` | Password for JDG user. | `${JGROUPS_CLUSTER_PASSWORD}`
+|`JGROUPS_CLUSTER_PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${JGROUPS_CLUSTER_PASSWORD}`
 |=======================================================================
 
 

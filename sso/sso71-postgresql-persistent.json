@@ -247,6 +247,13 @@
             "name": "SSO_TRUSTSTORE_SECRET",
             "value": "sso-app-secret",
             "required": false
+        },
+        {
+            "displayName": "PostgreSQL Image Stream Tag",
+            "description": "The tag to use for the \"postgresql\" image stream.  Typically, this aligns with the major.minor version of PostgreSQL.",
+            "name": "POSTGRESQL_IMAGE_STREAM_TAG",
+            "value": "9.5",
+            "required": true
         }
     ],
     "objects": [
@@ -391,7 +398,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "redhat-sso71-openshift:1.0"
+                                "name": "redhat-sso71-openshift:1.1"
                             }
                         }
                     },
@@ -663,7 +670,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "postgresql:latest"
+                                "name": "postgresql:${POSTGRESQL_IMAGE_STREAM_TAG}"
                             }
                         }
                     },
