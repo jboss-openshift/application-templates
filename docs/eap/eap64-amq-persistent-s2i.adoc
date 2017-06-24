@@ -46,8 +46,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`MQ_PASSWORD` | `MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}` | False
 |`AMQ_MESH_DISCOVERY_TYPE` | `AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | kube | False
 |`AMQ_STORAGE_USAGE_LIMIT` | `AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | 100 gb | False
-|`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
-|`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
+|`GITHUB_WEBHOOK_SECRET` | -- | Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted. | secret101 | True
+|`GENERIC_WEBHOOK_SECRET` | -- | Generic trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted. | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap-app-secret | False
 |`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False

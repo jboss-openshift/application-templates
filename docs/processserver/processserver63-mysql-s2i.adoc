@@ -55,8 +55,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`MYSQL_FT_MAX_WORD_LEN` | `MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}` | False
 |`MYSQL_AIO` | `MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}` | False
 |`HORNETQ_CLUSTER_PASSWORD` | `HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}` | True
-|`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
-|`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
+|`GITHUB_WEBHOOK_SECRET` | -- | Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted. | secret101 | True
+|`GENERIC_WEBHOOK_SECRET` | -- | Generic trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted. | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
 |`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
