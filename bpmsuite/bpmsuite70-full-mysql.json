@@ -295,6 +295,25 @@
             "name": "MYSQL_IMAGE_STREAM_TAG",
             "value": "5.7",
             "required": true
+        },
+        {
+            "displayName": "Maven repository URL",
+            "description": "Fully qualified URL to a Maven repository. If unspecified, will fall back to Business Central service.",
+            "name": "MAVEN_REPO_URL",
+            "required": false
+        },
+        {
+            "displayName": "Maven repository username",
+            "description": "Username to access the Maven repository. If using Business Central, will have to match KIE_ADMIN_USER. Default is \"adminUser\".",
+            "name": "MAVEN_REPO_USERNAME",
+            "value": "adminUser",
+            "required": false
+        },
+        {
+            "displayName": "Maven repository password",
+            "description": "Password to access the Maven repository. If using Business Central, will have to match KIE_ADMIN_PWD. No default specified.",
+            "name": "MAVEN_REPO_PASSWORD",
+            "required": false
         }
     ],
     "objects": [
@@ -880,6 +899,26 @@
                                     {
                                         "name": "KIE_SERVER_USER",
                                         "value": "${KIE_SERVER_USER}"
+                                    },
+                                    {
+                                        "name": "MAVEN_REPO_URL",
+                                        "value": "${MAVEN_REPO_URL}"
+                                    },
+                                    {
+                                        "name": "MAVEN_REPO_SERVICE",
+                                        "value": "${APPLICATION_NAME}-buscentr"
+                                    },
+                                    {
+                                        "name": "MAVEN_REPO_PATH",
+                                        "value": "/maven2/"
+                                    },
+                                    {
+                                        "name": "MAVEN_REPO_USERNAME",
+                                        "value": "${MAVEN_REPO_USERNAME}"
+                                    },
+                                    {
+                                        "name": "MAVEN_REPO_PASSWORD",
+                                        "value": "${MAVEN_REPO_PASSWORD}"
                                     },
                                     {
                                         "name": "DB_SERVICE_PREFIX_MAPPING",
