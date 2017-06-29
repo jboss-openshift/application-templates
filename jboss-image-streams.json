@@ -634,7 +634,7 @@
                     {
                         "name": "1.0",
                         "annotations": {
-                            "description": "JBoss A-MQ 6.0 broker image.",
+                            "description": "JBoss A-MQ 6.3 broker image.",
                             "iconClass": "icon-jboss",
                             "tags": "messaging,amq,jboss,xpaas",
                             "supports": "amq:6.3,messaging,xpaas:1.0",
