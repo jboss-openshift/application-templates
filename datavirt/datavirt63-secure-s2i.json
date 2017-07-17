@@ -273,7 +273,7 @@
             "description": "The name of the secret containing the keystore file",
             "displayName": "SSO SAML Keystore Secret",
             "name": "SSO_SAML_KEYSTORE_SECRET",
-            "value": "eap-app-secret",
+            "value": "datavirt-app-secret",
             "required": false
         },
         {
@@ -344,7 +344,7 @@
             "description": "The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName",
             "name": "SSO_TRUSTSTORE_SECRET",
             "displayName": "SSO Truststore Secret",
-            "value": "eap-app-secret",
+            "value": "datavirt-app-secret",
             "required": false
         },
         {
