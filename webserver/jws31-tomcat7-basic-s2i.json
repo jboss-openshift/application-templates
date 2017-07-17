@@ -3,77 +3,106 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass": "icon-jboss",
-            "description": "Application template for Java applications built using S2I.",
-            "tags": "java,xpaas",
-            "version": "1.1.0",
-            "openshift.io/display-name": "Red Hat OpenJDK 8"
+            "iconClass": "icon-tomcat",
+            "description": "Application template for JWS applications built using S2I.",
+            "tags": "tomcat,tomcat7,java,jboss,xpaas",
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 7 (no https)"
         },
-        "name": "openjdk18-web-basic-s2i"
+        "name": "jws31-tomcat7-basic-s2i"
     },
     "labels": {
-        "template": "openjdk18-web-basic-s2i",
+        "template": "jws31-tomcat7-basic-s2i",
         "xpaas": "1.4.0"
     },
-    "message": "A new java application has been created in your project.",
+    "message": "A new JWS application for Tomcat 7 has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}.",
     "parameters": [
         {
-            "description": "The name for the application.",
             "displayName": "Application Name",
+            "description": "The name for the application.",
             "name": "APPLICATION_NAME",
-            "value": "openjdk-app",
+            "value": "jws-app",
             "required": true
         },
         {
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
             "displayName": "Custom http Route Hostname",
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTP",
             "value": "",
             "required": false
         },
         {
-            "description": "Git source URI for application",
             "displayName": "Git Repository URL",
+            "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts.git",
             "required": true
         },
         {
-            "description": "Git branch/tag reference",
             "displayName": "Git Reference",
+            "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "master",
+            "value": "1.2",
             "required": false
         },
         {
-            "description": "Path within Git project to build; empty for root project directory.",
             "displayName": "Context Directory",
+            "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "undertow-servlet",
+            "value": "tomcat-websocket-chat",
             "required": false
         },
         {
-            "description": "GitHub trigger secret",
+            "displayName": "JWS Admin Username",
+            "description": "JWS Admin User",
+            "name": "JWS_ADMIN_USERNAME",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
+        },
+        {
+            "displayName": "JWS Admin Password",
+            "description": "JWS Admin Password",
+            "name": "JWS_ADMIN_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
+        },
+        {
             "displayName": "Github Webhook Secret",
+            "description": "GitHub trigger secret",
             "name": "GITHUB_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
         },
         {
-            "description": "Generic build trigger secret",
             "displayName": "Generic Webhook Secret",
+            "description": "Generic build trigger secret",
             "name": "GENERIC_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
+        },
+        {
+            "displayName": "Maven mirror URL",
+            "description": "Maven mirror to use for S2I builds",
+            "name": "MAVEN_MIRROR_URL",
+            "value": "",
+            "required": false
+        },
+        {
+            "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
+            "name": "ARTIFACT_DIR",
+            "value": "",
+            "required": false
         }
     ],
     "objects": [
@@ -97,7 +126,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The application's http port."
+                    "description": "The web server's http port."
                 }
             }
         },
@@ -152,11 +181,21 @@
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
+                        "env": [
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
+                            },
+                            {
+                                "name": "ARTIFACT_DIR",
+                                "value": "${ARTIFACT_DIR}"
+                            }
+                        ],
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "redhat-openjdk18-openshift:1.1"
+                            "name": "jboss-webserver31-tomcat7-openshift:1.0"
                         }
                     }
                 },
@@ -233,14 +272,21 @@
                         }
                     },
                     "spec": {
-                        "terminationGracePeriodSeconds": 75,
+                        "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
-                                "env": [
-                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "curl --noproxy '*' -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer&att=stateName' |grep -iq 'stateName *= *STARTED'"
+                                        ]
+                                    }
+                                },
                                 "ports": [
                                     {
                                         "name": "jolokia",
@@ -251,11 +297,16 @@
                                         "name": "http",
                                         "containerPort": 8080,
                                         "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "JWS_ADMIN_USERNAME",
+                                        "value": "${JWS_ADMIN_USERNAME}"
                                     },
                                     {
-                                        "name": "https",
-                                        "containerPort": 8443,
-                                        "protocol": "TCP"
+                                        "name": "JWS_ADMIN_PASSWORD",
+                                        "value": "${JWS_ADMIN_PASSWORD}"
                                     }
                                 ]
                             }

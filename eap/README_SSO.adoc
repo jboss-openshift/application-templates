@@ -16,7 +16,7 @@ One template is provided:
 Templates are configured with the following basic parameters in addition
 to the standard EAP parameters:
 
-* `SSO_URI`: URI of the SSO/Keycloak server
+* `SSO_URL`: URL of the SSO/Keycloak server
 * `SSO_REALM`: SSO/Keycloak realm for the deployed application(s)
 * `SSO_PUBLIC_KEY`: Public key of the SSO/Keycloak Realm. This field is
 optional but if omitted can leave the applications vulnerable to
@@ -55,14 +55,14 @@ demouser/demopass). Add Roles to User: JEE Role from #2. This User is
 used to authenticate access to user applications.
 
 Copy the Realm Public Key from the SSO/Keycloak console and use as the
-value of `SSO_PUBLIC_KEY` below. Set `SSO_URI` according to the location
+value of `SSO_PUBLIC_KEY` below. Set `SSO_URL` according to the location
 of the SSO server.
 
 .Create Secrets and SSO/Keycloak-enabled EAP in user (e.g. "myproject") project/namespace:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 $ oc create -n myproject -f secrets/eap-app-secret.json
 $ oc create -n myproject -f secrets/sso-app-secret.json
-$ oc process -f eap/eap64-sso-s2i.json -v APPLICATION_NAME=helloworld,SOURCE_REPOSITORY_URL=https://github.com/keycloak/keycloak-examples,SOURCE_REPOSITORY_REF=0.4-openshift,CONTEXT_DIR=,SSO_URI=https://secure-sso-demo.hostname/auth,SSO_REALM=demo,SSO_USERNAME=mgmtuser,SSO_PASSWORD=mgmtpass,SSO_PUBLIC_KEY=XXX | oc create -n myproject -f -
+$ oc process -f eap/eap64-sso-s2i.json -v APPLICATION_NAME=helloworld,SOURCE_REPOSITORY_URL=https://github.com/keycloak/keycloak-examples,SOURCE_REPOSITORY_REF=0.4-openshift,CONTEXT_DIR=,SSO_URL=https://secure-sso-demo.hostname/auth,SSO_REALM=demo,SSO_USERNAME=mgmtuser,SSO_PASSWORD=mgmtpass,SSO_PUBLIC_KEY=XXX | oc create -n myproject -f -
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 After executing the above, you should be able to access the
