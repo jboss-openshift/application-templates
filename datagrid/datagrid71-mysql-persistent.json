@@ -222,13 +222,6 @@
             "required": false
         },
         {
-            "displayName": "REST Encryption",
-            "description": "Enable REST Encryption, true or false",
-            "name": "REST_ENCRYPTION",
-            "value": "true",
-            "required": false
-        },
-        {
             "displayName": "JGroups Secret Name",
             "description": "The name of the secret containing the keystore file",
             "name": "JGROUPS_ENCRYPT_SECRET",
@@ -703,10 +696,6 @@
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "REST_ENCRYPTION",
-                                        "value": "${REST_ENCRYPTION}"
                                     }
                                 ]
                             }
