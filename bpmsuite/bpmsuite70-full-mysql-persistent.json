@@ -321,7 +321,7 @@
             "description": "Password to access the Maven repository. If using Business Central, will have to match KIE_ADMIN_PWD. No default specified.",
             "name": "MAVEN_REPO_PASSWORD",
             "required": false
-        }
+        },
         {
             "displayName": "Business Central Volume Capacity",
             "description": "Size of the persistent storage for Business Central's runtime data.",
