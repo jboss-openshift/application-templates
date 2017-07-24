@@ -38,8 +38,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate (e.g. jboss) | `${HTTPS_NAME}` | False
 |`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate (e.g. mykeystorepass) | `${HTTPS_PASSWORD}` | False
 |`HORNETQ_CLUSTER_PASSWORD` | `HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}` | True
-|`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
-|`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
+|`GITHUB_WEBHOOK_SECRET` | -- | Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted. | secret101 | True
+|`GENERIC_WEBHOOK_SECRET` | -- | Generic trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted. | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap7-app-secret | False
 |`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False

@@ -278,7 +278,7 @@
         },
         {
             "displayName": "Github Webhook Secret",
-            "description": "GitHub trigger secret",
+            "description": "Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted.",
             "name": "GITHUB_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
@@ -286,7 +286,7 @@
         },
         {
             "displayName": "Generic Webhook Secret",
-            "description": "Generic build trigger secret",
+            "description": "Generic trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted.",
             "name": "GENERIC_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",

@@ -53,7 +53,7 @@
             "required": false
         },
         {
-            "description": "GitHub trigger secret",
+            "description": "Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted.",
             "displayName": "Github Webhook Secret",
             "name": "GITHUB_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
@@ -61,7 +61,7 @@
             "required": true
         },
         {
-            "description": "Generic build trigger secret",
+            "description": "Generic trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted.",
             "displayName": "Generic Webhook Secret",
             "name": "GENERIC_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
