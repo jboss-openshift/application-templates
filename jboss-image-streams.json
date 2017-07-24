@@ -331,7 +331,7 @@
                             "supports":"eap:7.1,javaee:7,java:8,xpaas:1.0",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
-                            "sampleRef": "7.1.0.GA",
+                            "sampleRef": "7.0.0.GA",
                             "version": "1.0"
                         },
                         "from": {
