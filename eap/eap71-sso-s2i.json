@@ -49,7 +49,7 @@
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "7.1.x-ose",
+            "value": "7.0.x-ose",
             "required": false
         },
         {
