@@ -601,7 +601,7 @@
                                     },
                                     {
                                         "name": "${APPLICATION_NAME}-buscentr-pvol",
-                                        "mountPath": "/var/opt/bpmsuite/data"
+                                        "mountPath": "/opt/eap/standalone/data/bpmsuite"
                                     }
                                 ],
                                 "livenessProbe": {
