@@ -5,7 +5,7 @@
         "annotations": {
             "iconClass": "icon-jboss",
             "description": "Application template for JBoss Data Virtualization 6.3 services built using S2I.  Includes support for installing extensions (e.g. third-party DB drivers) and the ability to configure certificates for serving secure content.",
-            "tags": "jdv,datavirt,jboss,xpaas",
+            "tags": "jdv,datavirt,database,jboss,xpaas",
             "version": "1.4.0",
             "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3 (with SSL and Extensions)"
         },
