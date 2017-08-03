@@ -401,6 +401,16 @@
                         "name": "jdbcs",
                         "port": 31443,
                         "targetPort": "jdbcs"
+                    },
+                    {
+                        "name": "odbc",
+                        "port": 35432,
+                        "targetPort": "odbc"
+                    },
+                    {
+                        "name": "odbcs",
+                        "port": 35443,
+                        "targetPort": "odbcs"
                     }
                 ],
                 "selector": {
@@ -712,6 +722,16 @@
                                     {
                                         "name": "jdbcs",
                                         "containerPort": 31443,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "odbc",
+                                        "containerPort": 35432,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "odbcs",
+                                        "containerPort": 35443,
                                         "protocol": "TCP"
                                     },
                                     {
