@@ -386,7 +386,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-amq-62:1.5"
+                                "name": "jboss-amq-63:1.1"
                             }
                         }
                     },
@@ -411,7 +411,7 @@
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-drainer",
-                                "image": "jboss-amq-62",
+                                "image": "jboss-amq-63",
                                 "command": [
                                     "/opt/amq/bin/drain.sh"
                                 ],
