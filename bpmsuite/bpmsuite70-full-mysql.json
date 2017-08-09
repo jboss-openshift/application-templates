@@ -15,7 +15,7 @@
         "template": "bpmsuite70-full-mysql",
         "xpaas": "1.4.0"
     },
-    "message": "A new BPMS application (using MySQL) has been created in your project. The username/password for accessing the BPMS Business Central interface is ${KIE_ADMIN_USER}/${KIE_ADMIN_PASSWORD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the \"bpmsuite-service-account\" service account and the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
+    "message": "A new BPMS application (using MySQL) has been created in your project. The username/password for accessing the BPMS Business Central interface is ${KIE_ADMIN_USER}/${KIE_ADMIN_PWD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the \"bpmsuite-service-account\" service account and the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
     "parameters": [
         {
             "displayName": "EAP Admin User",

@@ -1,0 +1,506 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "annotations": {
+            "description": "Application template for Red Hat JBoss BPM Suite 7.0 which includes only a Business Central.",
+            "iconClass": "icon-jboss",
+            "tags": "bpmsuite,jboss,xpaas",
+            "version": "1.0.0",
+            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central",
+            "openshift.io/image.insecureRepository": "true"
+        },
+        "name": "bpmsuite70-businesscentral-monitoring-ephemeral"
+    },
+    "labels": {
+        "template": "bpmsuite70-businesscentral-monitoring-ephemeral",
+        "xpaas": "1.4.0"
+    },
+    "message": "A new BPM Suite Business Central Monitoring + Smart Router application has been created in your project. The username/password for accessing the BPMS Business Central interface is \"${KIE_ADMIN_USER}/${KIE_ADMIN_PWD}\".",
+    "parameters": [
+        {
+            "displayName": "Application Name",
+            "description": "The name for the application.",
+            "name": "APPLICATION_NAME",
+            "value": "myapp",
+            "required": true
+        },
+        {
+            "displayName": "ImageStream Namespace",
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "name": "IMAGE_STREAM_NAMESPACE",
+            "value": "openshift",
+            "required": true
+        },
+        {
+            "displayName": "EAP Admin User",
+            "description": "EAP administrator username",
+            "name": "ADMIN_USERNAME",
+            "value": "eapadmin",
+            "required": false
+        },
+        {
+            "displayName": "EAP Admin Password",
+            "description": "EAP administrator password",
+            "name": "ADMIN_PASSWORD",
+            "from": "[a-zA-Z]{6}[0-9]{1}!",
+            "generate": "expression",
+            "required": false
+        },
+        {
+            "displayName": "KIE Admin User",
+            "description": "KIE administrator username",
+            "name": "KIE_ADMIN_USER",
+            "value": "adminUser",
+            "required": false
+        },
+        {
+            "displayName": "KIE Admin Password",
+            "description": "KIE administrator password",
+            "name": "KIE_ADMIN_PWD",
+            "from": "[a-zA-Z]{6}[0-9]{1}!",
+            "generate": "expression",
+            "required": false
+        },
+        {
+            "displayName": "KIE Server Controller User",
+            "description": "KIE server controller username (adds the user)",
+            "name": "KIE_SERVER_CONTROLLER_USER",
+            "value": "controllerUser",
+            "required": false
+        },
+        {
+            "displayName": "KIE Server Controller Password",
+            "description": "KIE server controller password (adds the user)",
+            "name": "KIE_SERVER_CONTROLLER_PWD",
+            "value": "controllerPassword",
+            "required": false
+        },
+        {
+            "displayName": "KIE Server User",
+            "description": "KIE execution server username (Sets the org.kie.server.user system property, used by the embedded controller)",
+            "name": "KIE_SERVER_USER",
+            "value": "executionUser",
+            "required": false
+        },
+        {
+            "displayName": "KIE Server Password",
+            "description": "KIE execution server password (Sets the org.kie.server.pwd system property, used by the embedded controller)",
+            "name": "KIE_SERVER_PWD",
+            "value": "executionPassword",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router listening port",
+            "description": "Port in which the smart router server listens (router property org.kie.server.router.port)",
+            "name": "KIE_ROUTER_PORT",
+            "value": "9000",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router external URL",
+            "description": "Public URL where the router can be found. Format http://<host>:<port> (router property org.kie.server.router.url.external)",
+            "name": "KIE_ROUTER_URL_EXTERNAL",
+            "example": "http://my-app-smartrouter-projectName.osurl:9000",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router ID",
+            "description": "Router ID used when connecting to the controller (router property org.kie.server.router.id)",
+            "name": "KIE_ROUTER_ID",
+            "value": "kie-server-router",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router name",
+            "description": "Router name used when connecting to the controller (router property org.kie.server.router.name)",
+            "name": "KIE_ROUTER_NAME",
+            "value": "KIE Server Router",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router controller URL",
+            "description": "URL to access the controller (standalone or embedded in the business central) (router property org.kie.server.controller)",
+            "name": "KIE_ROUTER_CONTROLLER_URL",
+            "example": "http://my-app-controller-ocpuser.os.example.com:8080/business-central/rest/controller",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router controller user",
+            "description": "User name of the user to access the controller, when using basic authentication (router property org.kie.server.controller.user)",
+            "name": "KIE_ROUTER_CONTROLLER_USER",
+            "value": "controllerUser",
+            "example": "bpmsAdmin",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router controller password",
+            "description": "Password of the user to access the controller, when using basic authentication (router property org.kie.server.controller.pwd)",
+            "name": "KIE_ROUTER_CONTROLLER_PASSWORD",
+            "value": "controllerPassword",
+            "example": "bpmsAdmin",
+            "required": false
+        },
+        {
+            "displayName": "Business Central Custom http Route Hostname",
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-buscentr-<project>.<default-domain-suffix>",
+            "name": "BUSINESS_CENTRAL_HOSTNAME_HTTP",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router Custom http Route Hostname",
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-smartrouter-<project>.<default-domain-suffix>",
+            "name": "SMART_ROUTER_HOSTNAME_HTTP",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Queues",
+            "description": "Queue names",
+            "name": "HORNETQ_QUEUES",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Topics",
+            "description": "Topic names",
+            "name": "HORNETQ_TOPICS",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "HornetQ Password",
+            "description": "HornetQ cluster admin password",
+            "name": "HORNETQ_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
+        }
+    ],
+    "objects": [
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-buscentr"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-buscentr",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The business central web server's http port."
+                }
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-buscentr-http",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-buscentr",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Route for business central's http service."
+                }
+            },
+            "spec": {
+                "host": "${BUSINESS_CENTRAL_HOSTNAME_HTTP}",
+                "to": {
+                    "name": "${APPLICATION_NAME}-buscentr"
+                }
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-buscentr",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-buscentr"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "name": "jboss-bpmsuite70-businesscentral-monitoring-openshift:1.0"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-buscentr"
+                },
+                "template": {
+                    "metadata": {
+                        "name": "${APPLICATION_NAME}-buscentr",
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}-buscentr",
+                            "application": "${APPLICATION_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "containers": [
+                            {
+                                "name": "${APPLICATION_NAME}-buscentr",
+                                "image": "jboss-bpmsuite70-businesscentral-monitoring-openshift",
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/eap/bin/livenessProbe.sh"
+                                        ]
+                                    }
+                                },
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/eap/bin/readinessProbe.sh"
+                                        ]
+                                    }
+                                },
+                                "ports": [
+                                    {
+                                        "name": "jolokia",
+                                        "containerPort": 8778,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "http",
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "KIE_ADMIN_PWD",
+                                        "value": "${KIE_ADMIN_PWD}"
+                                    },
+                                    {
+                                        "name": "KIE_ADMIN_USER",
+                                        "value": "${KIE_ADMIN_USER}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_PWD",
+                                        "value": "${KIE_SERVER_CONTROLLER_PWD}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_USER",
+                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_PWD",
+                                        "value": "${KIE_SERVER_PWD}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_USER",
+                                        "value": "${KIE_SERVER_USER}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_CLUSTER_PASSWORD",
+                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_QUEUES",
+                                        "value": "${HORNETQ_QUEUES}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_TOPICS",
+                                        "value": "${HORNETQ_TOPICS}"
+                                    },
+                                    {
+                                        "name": "ADMIN_USERNAME",
+                                        "value": "${ADMIN_USERNAME}"
+                                    },
+                                    {
+                                        "name": "ADMIN_PASSWORD",
+                                        "value": "${ADMIN_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "PROBE_IMPL",
+                                        "value": "probe.eap.jolokia.EapProbe"
+                                    },
+                                    {
+                                        "name": "PROBE_DISABLE_BOOT_ERRORS_CHECK",
+                                        "value": "true"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 9000,
+                        "targetPort": 9000
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-smartrouter"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-smartrouter",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The smart router server http port."
+                }
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-smartrouter-http",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-smartrouter",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Route for the smart router's http service."
+                }
+            },
+            "spec": {
+                "host": "${SMART_ROUTER_HOSTNAME_HTTP}",
+                "to": {
+                    "name": "${APPLICATION_NAME}-smartrouter"
+                }
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-smartrouter",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-smartrouter"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "name": "jboss-bpmsuite70-smartrouter-openshift:1.0"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-smartrouter"
+                },
+                "template": {
+                    "metadata": {
+                        "name": "${APPLICATION_NAME}-smartrouter",
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}-smartrouter",
+                            "application": "${APPLICATION_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "containers": [
+                            {
+                                "name": "${APPLICATION_NAME}-smartrouter",
+                                "image": "jboss-bpmsuite70-smartrouter-openshift",
+                                "imagePullPolicy": "Always",
+                                "ports": [
+                                    {
+                                        "name": "http",
+                                        "containerPort": 9000,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "KIE_ROUTER_PORT",
+                                        "value": "${KIE_ROUTER_PORT}"
+                                    },
+                                    {
+                                        "name": "KIE_ROUTER_URL_EXTERNAL",
+                                        "value": "${KIE_ROUTER_URL_EXTERNAL}"
+                                    },
+                                    {
+                                        "name": "KIE_ROUTER_ID",
+                                        "value": "${KIE_ROUTER_ID}"
+                                    },
+                                    {
+                                        "name": "KIE_ROUTER_NAME",
+                                        "value": "${KIE_ROUTER_NAME}"
+                                    },
+                                    {
+                                        "name": "KIE_ROUTER_CONTROLLER_URL",
+                                        "value": "${KIE_ROUTER_CONTROLLER_URL}"
+                                    },
+                                    {
+                                        "name": "KIE_ROUTER_CONTROLLER_USER",
+                                        "value": "${KIE_ROUTER_CONTROLLER_USER}"
+                                    },
+                                    {
+                                        "name": "KIE_ROUTER_CONTROLLER_PASSWORD",
+                                        "value": "${KIE_ROUTER_CONTROLLER_PASSWORD}"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}
