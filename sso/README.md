@@ -1,8 +1,8 @@
-#Application Templates
+# Application Templates
 This project contains OpenShift v3 application templates which support
 Red Hat SSO/Keycloak
 
-##Structure
+## Structure
 Several templates are provided:
  * sso70-https.json:  SSO/Keycloak template backed by internal H2 database
  * sso70-postgresql.json: SSO/Keycloak template backed by Postgresql
@@ -22,10 +22,10 @@ Templates are configured with the following basic parameters:
  * SSO_SERVICE_USERNAME: User that will be automatically created in SSO_REALM with permissions to create client configrations (optional)
  * SSO_SERVICE_PASSWORD: Password for SSO_SERVICE_USERNAME (optional)
 
-##Username/Password
+## Username/Password
 For SSO Server: Defaults to admin/admin but can be overridden by SSO_ADMIN_USERNAME/SSO_ADMIN_PASSWORD
 
-##SSO Example
+## SSO Example
 
 Create Secrets and SSO/Keycloak Server in user (e.g. "myproject") project/namespace:
 
