@@ -95,34 +95,6 @@
             "required": false
         },
         {
-            "displayName": "ADMIN_GROUP",
-            "description": "Comma delimited list of groups/roles for the Application Realm User",
-            "name": "ADMIN_GROUP",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "HOTROD_AUTHENTICATION",
-            "description": "True/False for HotRod Authentication",
-            "name": "HOTROD_AUTHENTICATION",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "CONTAINER_SECURITY_ROLE_MAPPER",
-            "description": "Container Role Mapper",
-            "name": "CONTAINER_SECURITY_ROLE_MAPPER",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "CONTAINER_SECURITY_ROLES",
-            "description": "Comma Delimited List of Container Roles",
-            "name": "CONTAINER_SECURITY_ROLES",
-            "value": "",
-            "required": false
-        },
-        {
             "displayName": "REST Security Domain",
             "description": "The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint",
             "name": "REST_SECURITY_DOMAIN",
@@ -388,22 +360,6 @@
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "ADMIN_GROUP",
-                                        "value": "${ADMIN_GROUP}"
-                                    },
-                                    {
-                                        "name": "HOTROD_AUTHENTICATION",
-                                        "value": "${HOTROD_AUTHENTICATION}"
-                                    },
-                                    {
-                                        "name": "CONTAINER_SECURITY_ROLE_MAPPER",
-                                        "value": "${CONTAINER_SECURITY_ROLE_MAPPER}"
-                                    },
-                                    {
-                                        "name": "CONTAINER_SECURITY_ROLES",
-                                        "value": "${CONTAINER_SECURITY_ROLES}"
                                     }
                                 ]
                             }
