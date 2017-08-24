@@ -3,16 +3,16 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "description": "Application template for Red Hat JBoss BPM Suite 7.0 and MySQL applications.",
+            "description": "Application template for Red Hat JBoss BPM Suite 7.0 Business Central and MySQL applications.",
             "iconClass": "icon-jboss",
             "tags": "bpmsuite,jboss,xpaas",
             "version": "1.4.0",
-            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 + MySQL (Ephemeral with https)"
+            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central + MySQL (Ephemeral with https)"
         },
-        "name": "bpmsuite70-full-mysql"
+        "name": "bpmsuite70-businesscentral-mysql"
     },
     "labels": {
-        "template": "bpmsuite70-full-mysql",
+        "template": "bpmsuite70-businesscentral-mysql",
         "xpaas": "1.4.0"
     },
     "message": "A new BPMS application (using MySQL) has been created in your project. The username/password for accessing the BPMS Business Central interface is ${KIE_ADMIN_USER}/${KIE_ADMIN_PASSWORD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the \"bpmsuite-service-account\" service account and the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
@@ -78,48 +78,6 @@
             "required": false
         },
         {
-            "displayName": "KIE Server Bypass Auth User",
-            "description": "KIE execution server bypass auth user (Sets the org.kie.server.bypass.auth.user system property)",
-            "name": "KIE_SERVER_BYPASS_AUTH_USER",
-            "value": "false",
-            "required": false
-        },
-        {
-            "displayName": "KIE Server Persistence Dialect",
-            "description": "KIE execution server persistence dialect (Sets the org.kie.server.persistence.dialect system property)",
-            "name": "KIE_SERVER_PERSISTENCE_DIALECT",
-            "value": "org.hibernate.dialect.MySQL5Dialect",
-            "required": false
-        },
-        {
-            "displayName": "KIE Server Persistence DS",
-            "description": "KIE execution server persistence datasource (Sets the org.kie.server.persistence.ds system property)",
-            "name": "KIE_SERVER_PERSISTENCE_DS",
-            "value": "java:/jboss/datasources/ExampleDS",
-            "required": false
-        },
-        {
-            "displayName": "KIE Server Persistence TM",
-            "description": "KIE execution server persistence transaction manager (Sets the org.kie.server.persistence.tm system property)",
-            "name": "KIE_SERVER_PERSISTENCE_TM",
-            "value": "org.hibernate.engine.transaction.jta.platform.internal.JBossAppServerJtaPlatform",
-            "required": false
-        },
-        {
-            "displayName": "KIE MBeans",
-            "description": "KIE execution server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
-            "name": "KIE_MBEANS",
-            "value": "enabled",
-            "required": false
-        },
-        {
-            "displayName": "Drools Server Filter Classes",
-            "description": "KIE execution server class filtering (Sets the org.drools.server.filter.classes system property)",
-            "name": "DROOLS_SERVER_FILTER_CLASSES",
-            "value": "true",
-            "required": false
-        },
-        {
             "displayName": "Application Name",
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
@@ -137,20 +95,6 @@
             "displayName": "Busines Central Custom https Route Hostname",
             "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-buscentr-<project>.<default-domain-suffix>",
             "name": "BUSINESS_CENTRAL_HOSTNAME_HTTPS",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Execution Server Custom http Route Hostname",
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-execserv-<project>.<default-domain-suffix>",
-            "name": "EXECUTION_SERVER_HOSTNAME_HTTP",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Execution Server Custom https Route Hostname",
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-execserv-<project>.<default-domain-suffix>",
-            "name": "EXECUTION_SERVER_HOSTNAME_HTTPS",
             "value": "",
             "required": false
         },
@@ -295,25 +239,6 @@
             "name": "MYSQL_IMAGE_STREAM_TAG",
             "value": "5.7",
             "required": true
-        },
-        {
-            "displayName": "Maven repository URL",
-            "description": "Fully qualified URL to a Maven repository. If unspecified, will fall back to Business Central service.",
-            "name": "MAVEN_REPO_URL",
-            "required": false
-        },
-        {
-            "displayName": "Maven repository username",
-            "description": "Username to access the Maven repository. If using Business Central, will have to match KIE_ADMIN_USER. Default is \"adminUser\".",
-            "name": "MAVEN_REPO_USERNAME",
-            "value": "adminUser",
-            "required": false
-        },
-        {
-            "displayName": "Maven repository password",
-            "description": "Password to access the Maven repository. If using Business Central, will have to match KIE_ADMIN_PWD. No default specified.",
-            "name": "MAVEN_REPO_PASSWORD",
-            "required": false
         }
     ],
     "objects": [
@@ -364,56 +289,6 @@
                 "annotations": {
                     "description": "The business central web server's https port.",
                     "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
-                }
-            }
-        },
-        {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 8080,
-                        "targetPort": 8080
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-execserv"
-                }
-            },
-            "metadata": {
-                "name": "${APPLICATION_NAME}-execserv",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "The execution server web server's http port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"},{\"name\": \"${APPLICATION_NAME}-buscentr\", \"kind\": \"Service\"}]"
-                }
-            }
-        },
-        {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 8443,
-                        "targetPort": 8443
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-execserv"
-                }
-            },
-            "metadata": {
-                "name": "secure-${APPLICATION_NAME}-execserv",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "The execution server web server's https port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"},{\"name\": \"${APPLICATION_NAME}-buscentr\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -478,49 +353,6 @@
                 "host": "${BUSINESS_CENTRAL_HOSTNAME_HTTPS}",
                 "to": {
                     "name": "secure-${APPLICATION_NAME}-buscentr"
-                },
-                "tls": {
-                    "termination": "passthrough"
-                }
-            }
-        },
-        {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-execserv-http",
-            "metadata": {
-                "name": "${APPLICATION_NAME}-execserv",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Route for execution server's http service."
-                }
-            },
-            "spec": {
-                "host": "${EXECUTION_SERVER_HOSTNAME_HTTP}",
-                "to": {
-                    "name": "${APPLICATION_NAME}-execserv"
-                }
-            }
-        },
-        {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-execserv-https",
-            "metadata": {
-                "name": "secure-${APPLICATION_NAME}-execserv",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Route for execution server's https service."
-                }
-            },
-            "spec": {
-                "host": "${EXECUTION_SERVER_HOSTNAME_HTTPS}",
-                "to": {
-                    "name": "secure-${APPLICATION_NAME}-execserv"
                 },
                 "tls": {
                     "termination": "passthrough"
@@ -729,260 +561,6 @@
                                     {
                                         "name": "PROBE_DISABLE_BOOT_ERRORS_CHECK",
                                         "value": "true"
-                                    }
-                                ]
-                            }
-                        ],
-                        "volumes": [
-                            {
-                                "name": "bpmsuite-keystore-volume",
-                                "secret": {
-                                    "secretName": "${HTTPS_SECRET}"
-                                }
-                            }
-                        ]
-                    }
-                }
-            }
-        },
-        {
-            "kind": "DeploymentConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${APPLICATION_NAME}-execserv",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                }
-            },
-            "spec": {
-                "strategy": {
-                    "type": "Recreate"
-                },
-                "triggers": [
-                    {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "automatic": true,
-                            "containerNames": [
-                                "${APPLICATION_NAME}-execserv"
-                            ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-bpmsuite70-executionserver-openshift:1.0"
-                            }
-                        }
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-execserv"
-                },
-                "template": {
-                    "metadata": {
-                        "name": "${APPLICATION_NAME}-execserv",
-                        "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-execserv",
-                            "application": "${APPLICATION_NAME}"
-                        }
-                    },
-                    "spec": {
-                        "serviceAccountName": "bpmsuite-service-account",
-                        "terminationGracePeriodSeconds": 60,
-                        "containers": [
-                            {
-                                "name": "${APPLICATION_NAME}-execserv",
-                                "image": "jboss-bpmsuite70-executionserver-openshift",
-                                "imagePullPolicy": "Always",
-                                "volumeMounts": [
-                                    {
-                                        "name": "bpmsuite-keystore-volume",
-                                        "mountPath": "/etc/bpmsuite-secret-volume",
-                                        "readOnly": true
-                                    }
-                                ],
-                                "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "/opt/eap/bin/livenessProbe.sh"
-                                        ]
-                                    }
-                                },
-                                "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "/opt/eap/bin/readinessProbe.sh"
-                                        ]
-                                    }
-                                },
-                                "ports": [
-                                    {
-                                        "name": "jolokia",
-                                        "containerPort": 8778,
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "http",
-                                        "containerPort": 8080,
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "https",
-                                        "containerPort": 8443,
-                                        "protocol": "TCP"
-                                    }
-                                ],
-                                "env": [
-                                    {
-                                        "name": "DROOLS_SERVER_FILTER_CLASSES",
-                                        "value": "${DROOLS_SERVER_FILTER_CLASSES}"
-                                    },
-                                    {
-                                        "name": "KIE_ADMIN_PWD",
-                                        "value": "${KIE_ADMIN_PWD}"
-                                    },
-                                    {
-                                        "name": "KIE_ADMIN_USER",
-                                        "value": "${KIE_ADMIN_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_MBEANS",
-                                        "value": "${KIE_MBEANS}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_BYPASS_AUTH_USER",
-                                        "value": "${KIE_SERVER_BYPASS_AUTH_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_PWD",
-                                        "value": "${KIE_SERVER_CONTROLLER_PWD}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_SERVICE",
-                                        "value": "${APPLICATION_NAME}-buscentr"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_USER",
-                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_HOST",
-                                        "valueFrom": {
-                                            "fieldRef": {
-                                                "fieldPath": "status.podIP"
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PERSISTENCE_DIALECT",
-                                        "value": "${KIE_SERVER_PERSISTENCE_DIALECT}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PERSISTENCE_DS",
-                                        "value": "${KIE_SERVER_PERSISTENCE_DS}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PERSISTENCE_TM",
-                                        "value": "${KIE_SERVER_PERSISTENCE_TM}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PWD",
-                                        "value": "${KIE_SERVER_PWD}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_USER",
-                                        "value": "${KIE_SERVER_USER}"
-                                    },
-                                    {
-                                        "name": "MAVEN_REPO_URL",
-                                        "value": "${MAVEN_REPO_URL}"
-                                    },
-                                    {
-                                        "name": "MAVEN_REPO_SERVICE",
-                                        "value": "${APPLICATION_NAME}-buscentr"
-                                    },
-                                    {
-                                        "name": "MAVEN_REPO_PATH",
-                                        "value": "/maven2/"
-                                    },
-                                    {
-                                        "name": "MAVEN_REPO_USERNAME",
-                                        "value": "${MAVEN_REPO_USERNAME}"
-                                    },
-                                    {
-                                        "name": "MAVEN_REPO_PASSWORD",
-                                        "value": "${MAVEN_REPO_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "DB_SERVICE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-mysql=DB"
-                                    },
-                                    {
-                                        "name": "DB_JNDI",
-                                        "value": "${DB_JNDI}"
-                                    },
-                                    {
-                                        "name": "DB_USERNAME",
-                                        "value": "${DB_USERNAME}"
-                                    },
-                                    {
-                                        "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "DB_DATABASE",
-                                        "value": "${DB_DATABASE}"
-                                    },
-                                    {
-                                        "name": "TX_DATABASE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-mysql=DB"
-                                    },
-                                    {
-                                        "name": "DB_MIN_POOL_SIZE",
-                                        "value": "${DB_MIN_POOL_SIZE}"
-                                    },
-                                    {
-                                        "name": "DB_MAX_POOL_SIZE",
-                                        "value": "${DB_MAX_POOL_SIZE}"
-                                    },
-                                    {
-                                        "name": "DB_TX_ISOLATION",
-                                        "value": "${DB_TX_ISOLATION}"
-                                    },
-                                    {
-                                        "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/bpmsuite-secret-volume"
-                                    },
-                                    {
-                                        "name": "HTTPS_KEYSTORE",
-                                        "value": "${HTTPS_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "HTTPS_NAME",
-                                        "value": "${HTTPS_NAME}"
-                                    },
-                                    {
-                                        "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "HORNETQ_QUEUES",
-                                        "value": "${HORNETQ_QUEUES}"
-                                    },
-                                    {
-                                        "name": "HORNETQ_TOPICS",
-                                        "value": "${HORNETQ_TOPICS}"
                                     }
                                 ]
                             }

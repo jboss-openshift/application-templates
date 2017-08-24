@@ -530,6 +530,56 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
+                "name": "jboss-bpmsuite70-smartrouter-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Smart Router"
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-smartrouter-openshift",
+                "tags": [
+                    {
+                        "name": "1.0",
+                        "annotations": {
+                            "description": "Red Hat JBoss BPM Suite 7.0 Smart Router image.",
+                            "iconClass": "icon-jboss",
+                            "tags": "bpmsuite,xpaas",
+                            "supports":"bpmsuite:7.0,xpaas:1.4",
+                            "version": "1.0"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "jboss-bpmsuite70-standalonecontroller-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Standalone Controller"
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-standalonecontroller-openshift",
+                "tags": [
+                    {
+                        "name": "1.0",
+                        "annotations": {
+                            "description": "Red Hat JBoss BPM Suite 7.0 Standalone Controller image.",
+                            "iconClass": "icon-jboss",
+                            "tags": "bpmsuite,xpaas",
+                            "supports":"bpmsuite:7.0,xpaas:1.4",
+                            "version": "1.0"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
                 "name": "jboss-datagrid65-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5"
