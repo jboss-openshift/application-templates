@@ -534,7 +534,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-datagrid65-client-openshift:1.0"
+                                "name": "jboss-datagrid65-client-openshift:1.1"
                             },
                             "paths": [
                                 {
@@ -602,7 +602,7 @@
                         "imageChange": {
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-datagrid65-client-openshift:1.0"
+                                "name": "jboss-datagrid65-client-openshift:1.1"
                             }
                         }
                     },
