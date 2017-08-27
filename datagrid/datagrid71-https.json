@@ -3,54 +3,61 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "description": "Application template for SSO 7.0",
-            "iconClass" : "icon-jboss",
-            "tags" : "sso,keycloak,jboss,xpaas",
+            "iconClass": "icon-jboss",
+            "description": "Application template for JDG 7.1 applications.",
+            "tags": "datagrid,jboss,xpaas",
             "version": "1.4.0",
-            "openshift.io/display-name": "Red Hat Single Sign-On 7.0"
+            "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1 (Ephemeral with https)"
         },
-        "name": "sso70-https"
+        "name": "datagrid71-https"
     },
     "labels": {
-        "template": "sso70-https",
+        "template": "datagrid71-https",
         "xpaas": "1.4.0"
     },
-    "message": "A new SSO service has been created in your project. The admin username/password for accessing the master realm via the SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing SSO requests.",
+    "message": "A new data grid service has been created in your project. It supports connector type(s) \"${INFINISPAN_CONNECTORS}\". Please be sure to create the \"datagrid-service-account\" service account and the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "displayName": "Application Name",
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
-            "value": "sso",
+            "value": "datagrid-app",
             "required": true
         },
         {
             "displayName": "Custom http Route Hostname",
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTP",
             "value": "",
             "required": false
         },
         {
             "displayName": "Custom https Route Hostname",
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
+            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTPS",
             "value": "",
             "required": false
         },
         {
-            "displayName": "Service Account Name",
-            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
-            "name": "SERVICE_ACCOUNT_NAME",
-            "value": "sso-service-account",
-            "required": true
+            "displayName": "Username",
+            "description": "User name for JDG user.",
+            "name": "USERNAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Password",
+            "description": "The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional)",
+            "name": "PASSWORD",
+            "value": "",
+            "required": false
         },
         {
             "displayName": "Server Keystore Secret Name",
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
-            "value": "sso-app-secret",
-            "required": false
+            "value": "datagrid-app-secret",
+            "required": true
         },
         {
             "displayName": "Server Keystore Filename",
@@ -60,49 +67,80 @@
             "required": false
         },
         {
-            "displayName": "Server Keystore Type",
-            "description": "The type of the keystore file (JKS or JCEKS)",
-            "name": "HTTPS_KEYSTORE_TYPE",
-            "value": "",
-            "required": false
-        },
-        {
             "displayName": "Server Certificate Name",
-            "description": "The name associated with the server certificate (e.g. jboss)",
+            "description": "The name associated with the server certificate",
             "name": "HTTPS_NAME",
             "value": "",
             "required": false
         },
         {
             "displayName": "Server Keystore Password",
-            "description": "The password for the keystore and certificate (e.g. mykeystorepass)",
+            "description": "The password for the keystore and certificate",
             "name": "HTTPS_PASSWORD",
             "value": "",
             "required": false
         },
         {
-            "displayName": "Datasource Minimum Pool Size",
-            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
-            "name": "DB_MIN_POOL_SIZE",
+            "displayName": "ImageStream Namespace",
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "name": "IMAGE_STREAM_NAMESPACE",
+            "value": "openshift",
+            "required": true
+        },
+        {
+            "displayName": "Infinispan Connectors",
+            "description": "Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest')",
+            "name": "INFINISPAN_CONNECTORS",
+            "value": "hotrod,memcached,rest",
             "required": false
         },
         {
-            "displayName": "Datasource Maximum Pool Size",
-            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
-            "name": "DB_MAX_POOL_SIZE",
+            "displayName": "Cache Names",
+            "description": "Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry.",
+            "name": "CACHE_NAMES",
+            "value": "",
             "required": false
         },
         {
-            "displayName": "Datasource Transaction Isolation",
-            "description": "Sets transaction-isolation for the configured datasource.",
-            "name": "DB_TX_ISOLATION",
+            "displayName": "Datavirt Cache Names",
+            "description": "Comma-separated list of caches to configure for use by Red Hat JBoss Data Virtualization for materialization of views.  Three caches will be created for each named cache: <name>, <name>_staging and <name>_alias.",
+            "name": "DATAVIRT_CACHE_NAMES",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Default Cache Type",
+            "description": "Default cache type for all caches. If empty then distributed will be the default",
+            "name": "CACHE_TYPE_DEFAULT",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Encryption Requires SSL Client Authentication?",
+            "description": "",
+            "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Memcached Cache Name",
+            "description": "The name of the cache to expose through this memcached connector (defaults to 'default')",
+            "name": "MEMCACHED_CACHE",
+            "value": "default",
+            "required": false
+        },
+        {
+            "displayName": "REST Security Domain",
+            "description": "The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint",
+            "name": "REST_SECURITY_DOMAIN",
+            "value": "",
             "required": false
         },
         {
             "displayName": "JGroups Secret Name",
             "description": "The name of the secret containing the keystore file",
             "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "sso-app-secret",
+            "value": "datagrid-app-secret",
             "required": false
         },
         {
@@ -114,14 +152,14 @@
         },
         {
             "displayName": "JGroups Certificate Name",
-            "description": "The name associated with the server certificate (e.g. secret-key)",
+            "description": "The name associated with the server certificate",
             "name": "JGROUPS_ENCRYPT_NAME",
             "value": "",
             "required": false
         },
         {
             "displayName": "JGroups Keystore Password",
-            "description": "The password for the keystore and certificate (e.g. password)",
+            "description": "The password for the keystore and certificate",
             "name": "JGROUPS_ENCRYPT_PASSWORD",
             "value": "",
             "required": false
@@ -133,71 +171,6 @@
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
-        },
-        {
-            "displayName": "ImageStream Namespace",
-            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
-            "name": "IMAGE_STREAM_NAMESPACE",
-            "value": "openshift",
-            "required": true
-        },
-        {
-            "displayName": "SSO Admin Username",
-            "description": "SSO Server admin username",
-            "name": "SSO_ADMIN_USERNAME",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "displayName": "SSO Admin Password",
-            "description": "SSO Server admin  password",
-            "name": "SSO_ADMIN_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "displayName": "SSO Realm",
-            "description": "Realm to be created in the SSO server (e.g. demo).",
-            "name": "SSO_REALM",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Service Username",
-            "description": "The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm.",
-            "name": "SSO_SERVICE_USERNAME",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Service Password",
-            "description": "The password for the SSO service user.",
-            "name": "SSO_SERVICE_PASSWORD",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Trust Store",
-            "description": "The name of the truststore file within the secret (e.g. truststore.jks)",
-            "name": "SSO_TRUSTSTORE",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Trust Store Password",
-            "description": "The password for the truststore and certificate (e.g. mykeystorepass)",
-            "name": "SSO_TRUSTSTORE_PASSWORD",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Trust Store Secret",
-            "description": "The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName",
-            "name": "SSO_TRUSTSTORE_SECRET",
-            "value": "sso-app-secret",
-            "required": false
         }
     ],
     "objects": [
@@ -221,7 +194,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's http port."
+                    "description": "The web server's HTTP port."
                 }
             }
         },
@@ -245,7 +218,55 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's https port."
+                    "description": "The web server's HTTPS port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 11211,
+                        "targetPort": 11211
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-memcached",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Memcached service for clustered applications."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 11333,
+                        "targetPort": 11333
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-hotrod",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Hot Rod service for clustered applications."
                 }
             }
         },
@@ -259,7 +280,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Route for application's http service."
+                    "description": "Route for application's HTTP service."
                 }
             },
             "spec": {
@@ -279,7 +300,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Route for application's https service."
+                    "description": "Route for application's HTTPS service."
                 }
             },
             "spec": {
@@ -316,7 +337,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "redhat-sso70-openshift:1.4"
+                                "name": "jboss-datagrid71-openshift:1.0"
                             }
                         }
                     },
@@ -337,27 +358,22 @@
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
-                        "terminationGracePeriodSeconds": 75,
+                        "serviceAccountName": "datagrid-service-account",
+                        "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
-                                "image": "${APPLICATION_NAME}",
+                                "image": "jboss-datagrid71-openshift",
                                 "imagePullPolicy": "Always",
                                 "volumeMounts": [
                                     {
-                                        "name": "eap-keystore-volume",
-                                        "mountPath": "/etc/eap-secret-volume",
+                                        "name": "datagrid-keystore-volume",
+                                        "mountPath": "/etc/datagrid-secret-volume",
                                         "readOnly": true
                                     },
                                     {
-                                        "name": "eap-jgroups-keystore-volume",
+                                        "name": "datagrid-jgroups-keystore-volume",
                                         "mountPath": "/etc/jgroups-encrypt-secret-volume",
-                                        "readOnly": true
-                                    },
-                                    {
-                                        "name": "sso-truststore-volume",
-                                        "mountPath": "/etc/sso-secret-volume",
                                         "readOnly": true
                                     }
                                 ],
@@ -366,7 +382,7 @@
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "/opt/eap/bin/livenessProbe.sh"
+                                            "/opt/datagrid/bin/livenessProbe.sh"
                                         ]
                                     }
                                 },
@@ -375,7 +391,7 @@
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "/opt/eap/bin/readinessProbe.sh"
+                                            "/opt/datagrid/bin/readinessProbe.sh"
                                         ]
                                     }
                                 },
@@ -399,20 +415,47 @@
                                         "name": "ping",
                                         "containerPort": 8888,
                                         "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "memcached",
+                                        "containerPort": 11211,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "hotrod-internal",
+                                        "containerPort": 11222,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "hotrod",
+                                        "containerPort": 11333,
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
                                     {
-                                        "name": "DB_MIN_POOL_SIZE",
-                                        "value": "${DB_MIN_POOL_SIZE}"
+                                        "name": "USERNAME",
+                                        "value": "${USERNAME}"
                                     },
                                     {
-                                        "name": "DB_MAX_POOL_SIZE",
-                                        "value": "${DB_MAX_POOL_SIZE}"
+                                        "name": "PASSWORD",
+                                        "value": "${PASSWORD}"
                                     },
                                     {
-                                        "name": "DB_TX_ISOLATION",
-                                        "value": "${DB_TX_ISOLATION}"
+                                        "name": "HTTPS_KEYSTORE_DIR",
+                                        "value": "/etc/datagrid-secret-volume"
+                                    },
+                                    {
+                                        "name": "HTTPS_KEYSTORE",
+                                        "value": "${HTTPS_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "HTTPS_NAME",
+                                        "value": "${HTTPS_NAME}"
+                                    },
+                                    {
+                                        "name": "HTTPS_PASSWORD",
+                                        "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
                                         "name": "OPENSHIFT_KUBE_PING_LABELS",
@@ -427,36 +470,48 @@
                                         }
                                     },
                                     {
-                                        "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/eap-secret-volume"
+                                        "name": "INFINISPAN_CONNECTORS",
+                                        "value": "${INFINISPAN_CONNECTORS}"
                                     },
                                     {
-                                        "name": "HTTPS_KEYSTORE",
-                                        "value": "${HTTPS_KEYSTORE}"
+                                        "name": "CACHE_NAMES",
+                                        "value": "${CACHE_NAMES}"
                                     },
                                     {
-                                        "name": "HTTPS_KEYSTORE_TYPE",
-                                        "value": "${HTTPS_KEYSTORE_TYPE}"
+                                        "name": "DATAVIRT_CACHE_NAMES",
+                                        "value": "${DATAVIRT_CACHE_NAMES}"
                                     },
                                     {
-                                        "name": "HTTPS_NAME",
-                                        "value": "${HTTPS_NAME}"
+                                        "name": "CACHE_TYPE_DEFAULT",
+                                        "value": "${CACHE_TYPE_DEFAULT}"
                                     },
                                     {
-                                        "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
+                                        "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
+                                        "value": "${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}"
+                                    },
+                                    {
+                                        "name": "HOTROD_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-hotrod"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_CACHE",
+                                        "value": "${MEMCACHED_CACHE}"
+                                    },
+                                    {
+                                        "name": "REST_SECURITY_DOMAIN",
+                                        "value": "${REST_SECURITY_DOMAIN}"
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
                                         "value": "${JGROUPS_ENCRYPT_SECRET}"
                                     },
                                     {
-                                        "name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
-                                        "value": "/etc/jgroups-encrypt-secret-volume"
-                                    },
-                                    {
                                         "name": "JGROUPS_ENCRYPT_KEYSTORE",
                                         "value": "${JGROUPS_ENCRYPT_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
+                                        "value": "/etc/jgroups-encrypt-secret-volume"
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_NAME",
@@ -469,59 +524,21 @@
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "SSO_ADMIN_USERNAME",
-                                        "value": "${SSO_ADMIN_USERNAME}"
-                                    },
-                                    {
-                                        "name": "SSO_ADMIN_PASSWORD",
-                                        "value": "${SSO_ADMIN_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "SSO_REALM",
-                                        "value": "${SSO_REALM}"
-                                    },
-                                    {
-                                        "name": "SSO_SERVICE_USERNAME",
-                                        "value": "${SSO_SERVICE_USERNAME}"
-                                    },
-                                    {
-                                        "name": "SSO_SERVICE_PASSWORD",
-                                        "value": "${SSO_SERVICE_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "SSO_TRUSTSTORE",
-                                        "value": "${SSO_TRUSTSTORE}"
-                                    },
-                                    {
-                                        "name": "SSO_TRUSTSTORE_DIR",
-                                        "value": "/etc/sso-secret-volume"
-                                    },
-                                    {
-                                        "name": "SSO_TRUSTSTORE_PASSWORD",
-                                        "value": "${SSO_TRUSTSTORE_PASSWORD}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
                             {
-                                "name": "eap-keystore-volume",
+                                "name": "datagrid-keystore-volume",
                                 "secret": {
                                     "secretName": "${HTTPS_SECRET}"
                                 }
                             },
                             {
-                                "name": "eap-jgroups-keystore-volume",
+                                "name": "datagrid-jgroups-keystore-volume",
                                 "secret": {
                                     "secretName": "${JGROUPS_ENCRYPT_SECRET}"
-                                }
-                            },
-                            {
-                                "name": "sso-truststore-volume",
-                                "secret": {
-                                    "secretName": "${SSO_TRUSTSTORE_SECRET}"
                                 }
                             }
                         ]
