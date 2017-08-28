@@ -262,13 +262,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "The web server's HTTP port.",
@@ -287,13 +289,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 }
             },
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "The web server's HTTPS port.",
@@ -312,13 +316,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}-amq-tcp",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 },
                 "annotations": {
                     "description": "The broker's OpenWire port."
@@ -332,7 +338,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "Route for application's HTTP service."
@@ -352,7 +359,8 @@
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 },
                 "annotations": {
                     "description": "Route for application's HTTPS service."
@@ -374,7 +382,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 }
             }
         },
@@ -384,7 +393,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 }
             },
             "spec": {
@@ -452,7 +462,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "eap"
                 }
             },
             "spec": {
@@ -478,15 +489,12 @@
                     }
                 ],
                 "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                },
                 "template": {
                     "metadata": {
                         "name": "${APPLICATION_NAME}",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}",
-                            "application": "${APPLICATION_NAME}"
+                            "application": "${APPLICATION_NAME}",
+                            "component": "eap"
                         }
                     },
                     "spec": {
@@ -669,7 +677,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}-amq",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 }
             },
             "spec": {
@@ -696,15 +705,12 @@
                     }
                 ],
                 "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-amq"
-                },
                 "template": {
                     "metadata": {
                         "name": "${APPLICATION_NAME}-amq",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-amq",
-                            "application": "${APPLICATION_NAME}"
+                            "application": "${APPLICATION_NAME}",
+                            "component": "amq"
                         }
                     },
                     "spec": {

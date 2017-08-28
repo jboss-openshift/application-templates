@@ -418,13 +418,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datavirt"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datavirt"
                 },
                 "annotations": {
                     "description": "The data virtualization services."
@@ -438,7 +440,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datavirt"
                 },
                 "annotations": {
                     "description": "Route for application's http (REST) service."
@@ -461,7 +464,8 @@
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datavirt"
                 },
                 "annotations": {
                     "description": "Route for application's https (REST) service."
@@ -487,7 +491,8 @@
             "metadata": {
                 "name": "jdbc-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datavirt"
                 },
                 "annotations": {
                     "description": "Route for application's JDBC service."
@@ -512,7 +517,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datavirt"
                 }
             }
         },
@@ -522,7 +528,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datavirt"
                 }
             },
             "spec": {
@@ -622,7 +629,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datavirt"
                 }
             },
             "spec": {
@@ -648,15 +656,12 @@
                     }
                 ],
                 "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                },
                 "template": {
                     "metadata": {
                         "name": "${APPLICATION_NAME}",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}",
-                            "application": "${APPLICATION_NAME}"
+                            "application": "${APPLICATION_NAME}",
+                            "component": "datavirt"
                         }
                     },
                     "spec": {

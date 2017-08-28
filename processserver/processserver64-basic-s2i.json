@@ -156,13 +156,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "intelligent-process-server"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "intelligent-process-server"
                 },
                 "annotations": {
                     "description": "The web server's http port."
@@ -176,7 +178,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "intelligent-process-server"
                 },
                 "annotations": {
                     "description": "Route for application's http service."
@@ -195,7 +198,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "intelligent-process-server"
                 }
             }
         },
@@ -205,7 +209,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "intelligent-process-server"
                 }
             },
             "spec": {
@@ -277,7 +282,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "intelligent-process-server"
                 }
             },
             "spec": {
@@ -303,15 +309,12 @@
                     }
                 ],
                 "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                },
                 "template": {
                     "metadata": {
                         "name": "${APPLICATION_NAME}",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}",
-                            "application": "${APPLICATION_NAME}"
+                            "application": "${APPLICATION_NAME}",
+                            "component": "intelligent-process-server"
                         }
                     },
                     "spec": {
