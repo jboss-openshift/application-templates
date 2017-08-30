@@ -10,10 +10,10 @@
             "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central",
             "openshift.io/image.insecureRepository": "true"
         },
-        "name": "bpmsuite70-businesscentral-monitoring-ephemeral"
+        "name": "bpmsuite70-businesscentral-monitoring"
     },
     "labels": {
-        "template": "bpmsuite70-businesscentral-monitoring-ephemeral",
+        "template": "bpmsuite70-businesscentral-monitoring",
         "xpaas": "1.4.0"
     },
     "message": "A new BPM Suite Business Central Monitoring + Smart Router application has been created in your project. The username/password for accessing the BPMS Business Central interface is \"${KIE_ADMIN_USER}/${KIE_ADMIN_PWD}\".",
