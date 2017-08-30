@@ -10,10 +10,10 @@
             "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Execution Server + PostgreSQL (persistent)",
             "openshift.io/image.insecureRepository": "true"
         },
-        "name": "bpmsuite70-executionserver-postgresql-persistent"
+        "name": "bpmsuite70-executionserver-postgresql"
     },
     "labels": {
-        "template": "bpmsuite70-executionserver-postgresql-persistent",
+        "template": "bpmsuite70-executionserver-postgresql",
         "xpaas": "1.4.0"
     },
     "message": "A new persistent BPM Suite Execution Server application (using PostgreSQL) has been created in your project. For accessing the PostgreSQL database \"${DB_DATABASE}\" use the credentials \"${DB_USERNAME}/${DB_PASSWORD}\".",
