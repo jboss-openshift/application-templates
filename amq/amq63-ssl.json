@@ -127,6 +127,18 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-secret"
+            },
+            "stringData": {
+                "amq-password": "${MQ_PASSWORD}",
+                "amq-truststore-password": "${AMQ_TRUSTSTORE_PASSWORD}",
+                "amq-keystore-password": "${AMQ_KEYSTORE_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -444,7 +456,12 @@
                                     },
                                     {
                                         "name": "AMQ_PASSWORD",
-                                        "value": "${MQ_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-amq-secret",
+                                                "key" : "amq-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AMQ_TRANSPORTS",
@@ -488,7 +505,12 @@
                                     },
                                     {
                                         "name": "AMQ_TRUSTSTORE_PASSWORD",
-                                        "value": "${AMQ_TRUSTSTORE_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-amq-secret",
+                                                "key" : "amq-truststore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AMQ_KEYSTORE",
@@ -496,7 +518,12 @@
                                     },
                                     {
                                         "name": "AMQ_KEYSTORE_PASSWORD",
-                                        "value": "${AMQ_KEYSTORE_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-amq-secret",
+                                                "key" : "amq-keystore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AMQ_STORAGE_USAGE_LIMIT",

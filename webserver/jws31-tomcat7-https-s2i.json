@@ -142,6 +142,17 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "jws-https-certificate-password": "${JWS_HTTPS_CERTIFICATE_PASSWORD}",
+                "jws-admin-password": "${JWS_ADMIN_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -409,7 +420,12 @@
                                     },
                                     {
                                         "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
-                                        "value": "${JWS_HTTPS_CERTIFICATE_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jws-https-certificate-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "JWS_ADMIN_USERNAME",
@@ -417,7 +433,12 @@
                                     },
                                     {
                                         "name": "JWS_ADMIN_PASSWORD",
-                                        "value": "${JWS_ADMIN_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jws-admin-password"
+                                            }
+                                        }
                                     }
                                 ]
                             }

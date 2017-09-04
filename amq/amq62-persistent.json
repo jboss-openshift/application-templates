@@ -106,6 +106,16 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-secret"
+            },
+            "stringData" : {
+                "amq-password" : "${MQ_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -305,7 +315,12 @@
                                     },
                                     {
                                         "name": "AMQ_PASSWORD",
-                                        "value": "${MQ_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-amq-secret",
+                                                "key" : "amq-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AMQ_TRANSPORTS",
@@ -441,7 +456,12 @@
                                     },
                                     {
                                         "name": "AMQ_PASSWORD",
-                                        "value": "${MQ_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-amq-secret",
+                                                "key" : "amq-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AMQ_MESH_SERVICE_NAME",

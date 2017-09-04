@@ -340,6 +340,19 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "kie-server-password": "${KIE_SERVER_PASSWORD}",
+                "https-keystore-password": "${HTTPS_PASSWORD}",
+                "db-password": "${DB_PASSWORD}",
+                "mq-password": "${MQ_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -674,7 +687,12 @@
                                     },
                                     {
                                         "name": "KIE_SERVER_PASSWORD",
-                                        "value": "${KIE_SERVER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "kie-server-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "KIE_SERVER_DOMAIN",
@@ -706,7 +724,12 @@
                                     },
                                     {
                                         "name": "MQ_PASSWORD",
-                                        "value": "${MQ_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "mq-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MQ_PROTOCOL",
@@ -738,7 +761,12 @@
                                     },
                                     {
                                         "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "db-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "DB_DATABASE",
@@ -774,7 +802,12 @@
                                     },
                                     {
                                         "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "https-keystore-password"
+                                            }
+                                        }
                                     }
                                 ]
                             }
@@ -855,7 +888,12 @@
                                     },
                                     {
                                         "name": "MYSQL_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "db-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MYSQL_DATABASE",
@@ -997,7 +1035,12 @@
                                     },
                                     {
                                         "name": "AMQ_PASSWORD",
-                                        "value": "${MQ_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "mq-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AMQ_TRANSPORTS",

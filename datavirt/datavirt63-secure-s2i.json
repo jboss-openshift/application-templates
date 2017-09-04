@@ -378,6 +378,23 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "https-keystore-password": "${HTTPS_PASSWORD}",
+                "teiid-password": "${TEIID_PASSWORD}",
+                "modeshape-password": "${MODESHAPE_PASSWORD}",
+                "jgroups-encrypt-password": "${JGROUPS_ENCRYPT_PASSWORD}",
+                "jgroups-cluster-password": "${JGROUPS_CLUSTER_PASSWORD}",
+                "sso-password" : "${SSO_PASSWORD}",
+                "sso-saml-keystore-password": "${SSO_SAML_KEYSTORE_PASSWORD}",
+                "sso-truststore-password": "${SSO_TRUSTSTORE_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -771,7 +788,12 @@
                                     },
                                     {
                                         "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "https-keystore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
@@ -791,11 +813,21 @@
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_PASSWORD",
-                                        "value": "${JGROUPS_ENCRYPT_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-encrypt-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
-                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-cluster-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
@@ -807,7 +839,12 @@
                                     },
                                     {
                                         "name": "TEIID_PASSWORD",
-                                        "value": "${TEIID_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "teiid-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MODESHAPE_USERNAME",
@@ -815,7 +852,12 @@
                                     },
                                     {
                                         "name": "MODESHAPE_PASSWORD",
-                                        "value": "${MODESHAPE_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "modeshape-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "ENV_FILES",
@@ -835,7 +877,12 @@
                                     },
                                     {
                                         "name": "DATAVIRT_TRANSPORT_KEYSTORE_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "https-keystore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "SSO_URL",
@@ -855,7 +902,12 @@
                                     },
                                     {
                                         "name": "SSO_PASSWORD",
-                                        "value": "${SSO_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "sso-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "SSO_PUBLIC_KEY",
@@ -883,7 +935,12 @@
                                     },
                                     {
                                         "name": "SSO_SAML_KEYSTORE_PASSWORD",
-                                        "value": "${SSO_SAML_KEYSTORE_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "sso-saml-keystore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "SSO_SECRET",
@@ -911,7 +968,12 @@
                                     },
                                     {
                                         "name": "SSO_TRUSTSTORE_PASSWORD",
-                                        "value": "${SSO_TRUSTSTORE_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "sso-truststore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "SSO_OPENIDCONNECT_DEPLOYMENTS",

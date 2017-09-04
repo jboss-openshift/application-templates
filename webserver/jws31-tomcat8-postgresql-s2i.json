@@ -209,6 +209,18 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "jws-https-certificate-password": "${JWS_HTTPS_CERTIFICATE_PASSWORD}",
+                "db-password": "${DB_PASSWORD}",
+                "jws-admin-password": "${JWS_ADMIN_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -501,7 +513,12 @@
                                     },
                                     {
                                         "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "db-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "DB_DATABASE",
@@ -533,7 +550,12 @@
                                     },
                                     {
                                         "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
-                                        "value": "${JWS_HTTPS_CERTIFICATE_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jws-https-certificate-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "JWS_ADMIN_USERNAME",
@@ -541,7 +563,12 @@
                                     },
                                     {
                                         "name": "JWS_ADMIN_PASSWORD",
-                                        "value": "${JWS_ADMIN_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jws-admin-password"
+                                            }
+                                        }
                                     }
                                 ]
                             }
@@ -620,7 +647,12 @@
                                     },
                                     {
                                         "name": "POSTGRESQL_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "db-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "POSTGRESQL_DATABASE",

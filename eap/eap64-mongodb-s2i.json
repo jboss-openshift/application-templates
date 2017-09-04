@@ -286,6 +286,21 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "https-keystore-password": "${HTTPS_PASSWORD}",
+                "hornetq-cluster-password": "${HORNETQ_CLUSTER_PASSWORD}",
+                "db-password": "${DB_PASSWORD}",
+                "db-admin-password": "${DB_ADMIN_PASSWORD}",
+                "jgroups-encrypt-password": "${JGROUPS_ENCRYPT_PASSWORD}",
+                "jgroups-cluster-password": "${JGROUPS_CLUSTER_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -598,7 +613,12 @@
                                     },
                                     {
                                         "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "db-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "DB_DATABASE",
@@ -606,7 +626,12 @@
                                     },
                                     {
                                         "name": "DB_ADMIN_PASSWORD",
-                                        "value": "${DB_ADMIN_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "db-admin-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "DB_MIN_POOL_SIZE",
@@ -650,11 +675,21 @@
                                     },
                                     {
                                         "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "https-keystore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "hornetq-cluster-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "HORNETQ_QUEUES",
@@ -682,11 +717,21 @@
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_PASSWORD",
-                                        "value": "${JGROUPS_ENCRYPT_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-encrypt-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
-                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-cluster-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
@@ -777,7 +822,12 @@
                                     },
                                     {
                                         "name": "MONGODB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "db-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_DATABASE",
@@ -785,7 +835,12 @@
                                     },
                                     {
                                         "name": "MONGODB_ADMIN_PASSWORD",
-                                        "value": "${DB_ADMIN_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "db-admin-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_NOPREALLOC",

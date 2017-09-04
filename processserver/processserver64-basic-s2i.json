@@ -142,6 +142,17 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "kie-server-password": "${KIE_SERVER_PASSWORD}",
+                "hornetq-cluster-password": "${HORNETQ_CLUSTER_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -358,11 +369,21 @@
                                     },
                                     {
                                         "name": "KIE_SERVER_PASSWORD",
-                                        "value": "${KIE_SERVER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "kie-server-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "hornetq-cluster-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "HORNETQ_QUEUES",

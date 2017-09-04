@@ -112,6 +112,17 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "password": "${PASSWORD}",
+                "jgroups-cluster-password": "${JGROUPS_CLUSTER_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -311,7 +322,12 @@
                                     },
                                     {
                                         "name": "PASSWORD",
-                                        "value": "${PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "OPENSHIFT_KUBE_PING_LABELS",
@@ -359,7 +375,12 @@
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
-                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-cluster-password"
+                                            }
+                                        }
                                     }
                                 ]
                             }

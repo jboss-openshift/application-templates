@@ -279,6 +279,20 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "https-keystore-password": "${HTTPS_PASSWORD}",
+                "hornetq-cluster-password": "${HORNETQ_CLUSTER_PASSWORD}",
+                "db-password": "${DB_PASSWORD}",
+                "jgroups-encrypt-password": "${JGROUPS_ENCRYPT_PASSWORD}",
+                "jgroups-cluster-password": "${JGROUPS_CLUSTER_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -591,7 +605,12 @@
                                     },
                                     {
                                         "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "db-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "DB_DATABASE",
@@ -643,11 +662,21 @@
                                     },
                                     {
                                         "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "https-keystore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "hornetq-cluster-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "HORNETQ_QUEUES",
@@ -675,11 +704,23 @@
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_PASSWORD",
-                                        "value": "${JGROUPS_ENCRYPT_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-encrypt-password"
+                                            }
+                                        }
+
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
-                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-cluster-password"
+                                            }
+                                        }
+
                                     },
                                     {
                                         "name": "TIMER_SERVICE_DATA_STORE",
@@ -780,7 +821,12 @@
                                     },
                                     {
                                         "name": "POSTGRESQL_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "db-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "POSTGRESQL_DATABASE",

@@ -107,6 +107,16 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "jws-admin-password": "${JWS_ADMIN_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -306,7 +316,12 @@
                                     },
                                     {
                                         "name": "JWS_ADMIN_PASSWORD",
-                                        "value": "${JWS_ADMIN_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jws-admin-password"
+                                            }
+                                        }
                                     }
                                 ]
                             }

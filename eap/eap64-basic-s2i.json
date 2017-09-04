@@ -128,6 +128,17 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "hornetq-cluster-password": "${HORNETQ_CLUSTER_PASSWORD}",
+                "jgroups-cluster-password": "${JGROUPS_CLUSTER_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -349,7 +360,12 @@
                                     },
                                     {
                                         "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "hornetq-cluster-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "HORNETQ_QUEUES",
@@ -361,7 +377,12 @@
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
-                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-cluster-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",

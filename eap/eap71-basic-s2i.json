@@ -128,6 +128,18 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "mq-cluster-password": "${MQ_CLUSTER_PASSWORD}",
+                "jgroups-cluster-password": "${JGROUPS_CLUSTER_PASSWORD}"
+            }
+        },
+
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -349,7 +361,12 @@
                                     },
                                     {
                                         "name": "MQ_CLUSTER_PASSWORD",
-                                        "value": "${MQ_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "mq-cluster-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MQ_QUEUES",
@@ -361,7 +378,12 @@
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
-                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-cluster-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",

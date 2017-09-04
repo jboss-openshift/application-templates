@@ -262,6 +262,19 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "https-keystore-password": "${HTTPS_PASSWORD}",
+                "mq-password": "${MQ_PASSWORD}",
+                "jgroups-encrypt-password": "${JGROUPS_ENCRYPT_PASSWORD}",
+                "jgroups-cluster-password": "${JGROUPS_CLUSTER_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -574,7 +587,12 @@
                                     },
                                     {
                                         "name": "MQ_PASSWORD",
-                                        "value": "${MQ_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "mq-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MQ_PROTOCOL",
@@ -622,7 +640,12 @@
                                     },
                                     {
                                         "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "https-keystore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
@@ -642,11 +665,21 @@
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_PASSWORD",
-                                        "value": "${JGROUPS_ENCRYPT_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-encrypt-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
-                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-cluster-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
@@ -791,7 +824,12 @@
                                     },
                                     {
                                         "name": "AMQ_PASSWORD",
-                                        "value": "${MQ_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "mq-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AMQ_TRANSPORTS",

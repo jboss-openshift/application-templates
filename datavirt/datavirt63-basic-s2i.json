@@ -160,6 +160,18 @@
     ],
     "objects": [
         {
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-passwords-secret"
+            },
+            "stringData": {
+                "teiid-password": "${TEIID_PASSWORD}",
+                "modeshape-password": "${MODESHAPE_PASSWORD}",
+                "jgroups-cluster-password": "${JGROUPS_CLUSTER_PASSWORD}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -445,7 +457,12 @@
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
-                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "jgroups-cluster-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
@@ -457,7 +474,12 @@
                                     },
                                     {
                                         "name": "TEIID_PASSWORD",
-                                        "value": "${TEIID_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "teiid-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MODESHAPE_USERNAME",
@@ -465,7 +487,12 @@
                                     },
                                     {
                                         "name": "MODESHAPE_PASSWORD",
-                                        "value": "${MODESHAPE_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef" : {
+                                                "name" : "${APPLICATION_NAME}-passwords-secret",
+                                                "key" : "modeshape-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "ENV_FILES",
