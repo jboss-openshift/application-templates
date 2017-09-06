@@ -26,7 +26,7 @@ amq_ssl_desc = None
 
 LINKS =  {"jboss-eap64-openshift:TP": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
           "jboss-eap70-openshift:TP": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`]",
-          "jboss-eap71-openshift:1.0-TP": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7-tech-preview/eap71-openshift`]",
+          "jboss-eap71-openshift:TP": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7-tech-preview/eap71-openshift`]",
           "jboss-webserver31-tomcat7-openshift:TP": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat7-openshift`]",
           "jboss-webserver31-tomcat8-openshift:TP": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat8-openshift`]",
           "jboss-decisionserver64-openshift:TP": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver64-openshift`]",
