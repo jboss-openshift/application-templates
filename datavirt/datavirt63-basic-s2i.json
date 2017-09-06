@@ -173,6 +173,11 @@
                         "name": "jdbc",
                         "port": 31000,
                         "targetPort": "jdbc"
+                    },
+                    {
+                        "name": "odbc",
+                        "port": 35432,
+                        "targetPort": "odbc"
                     }
                 ],
                 "selector": {
@@ -412,6 +417,11 @@
                                     {
                                         "name": "jdbc",
                                         "containerPort": 31000,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "odbc",
+                                        "containerPort": 35432,
                                         "protocol": "TCP"
                                     },
                                     {
