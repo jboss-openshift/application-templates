@@ -383,7 +383,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-bpmsuite70-businesscentral-openshift:1.0.Beta01"
+                                "name": "jboss-bpmsuite70-businesscentral-openshift:1.0"
                             }
                         }
                     },
