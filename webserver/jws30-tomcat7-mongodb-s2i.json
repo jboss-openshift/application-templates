@@ -178,6 +178,27 @@
             "required": true
         },
         {
+            "displayName": "Connector Configuration Server Value",
+            "description": "Connector Configuration Server Value",
+            "name": "SERVER_NAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Servlet listings Setting",
+            "description": "Servlet listings Setting",
+            "name": "JWS_SERVLET_LISTINGS",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Servlet readonly Setting",
+            "description": "Servlet readonly Setting",
+            "name": "JWS_SERVLET_READONLY",
+            "value": "",
+            "required": false
+        },
+        {
             "displayName": "Github Webhook Secret",
             "description": "GitHub trigger secret",
             "name": "GITHUB_WEBHOOK_SECRET",
@@ -561,6 +582,18 @@
                                     {
                                         "name": "JWS_ADMIN_PASSWORD",
                                         "value": "${JWS_ADMIN_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "SERVER_NAME",
+                                        "value": "${SERVER_NAME}"
+                                    },
+                                    {
+                                        "name": "JWS_SERVLET_LISTINGS",
+                                        "value": "${JWS_SERVLET_LISTINGS}"
+                                    },
+                                    {
+                                        "name": "JWS_SERVLET_READONLY",
+                                        "value": "${JWS_SERVLET_READONLY}"
                                     }
                                 ]
                             }
