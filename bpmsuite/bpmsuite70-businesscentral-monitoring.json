@@ -6,9 +6,8 @@
             "description": "Application template for Red Hat JBoss BPM Suite 7.0 which includes only a Business Central.",
             "iconClass": "icon-jboss",
             "tags": "bpmsuite,jboss,xpaas",
-            "version": "1.0.0",
-            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central",
-            "openshift.io/image.insecureRepository": "true"
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central"
         },
         "name": "bpmsuite70-businesscentral-monitoring"
     },
@@ -247,7 +246,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-bpmsuite70-businesscentral-monitoring-openshift:1.0"
+                                "name": "jboss-bpmsuite70-businesscentral-monitoring-openshift:1.0.Beta01"
                             }
                         }
                     },
@@ -432,7 +431,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-bpmsuite70-smartrouter-openshift:1.0"
+                                "name": "jboss-bpmsuite70-smartrouter-openshift:1.0.Beta01"
                             }
                         }
                     },

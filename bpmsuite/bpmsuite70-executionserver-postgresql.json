@@ -6,9 +6,8 @@
             "description": "Application template for Red Hat JBoss BPM Suite 7.0 which includes an execution server with a PostgreSQL.",
             "iconClass": "icon-jboss",
             "tags": "bpmsuite,jboss,xpaas",
-            "version": "1.0.0",
-            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Execution Server + PostgreSQL (persistent)",
-            "openshift.io/image.insecureRepository": "true"
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Execution Server + PostgreSQL (persistent)"
         },
         "name": "bpmsuite70-executionserver-postgresql"
     },
@@ -445,7 +444,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-bpmsuite70-executionserver-openshift:1.0"
+                                "name": "jboss-bpmsuite70-executionserver-openshift:1.0.Beta01"
                             }
                         }
                     },
