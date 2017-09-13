@@ -563,7 +563,6 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-businesscentral-openshift",
                 "tags": [
                     {
                         "name": "1.0",
@@ -573,6 +572,10 @@
                             "tags": "bpmsuite,xpaas",
                             "supports":"bpmsuite:7.0,xpaas:1.4",
                             "version": "1.0"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-businesscentral-openshift:1.0"
                         }
                     }
                 ]
@@ -588,7 +591,6 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-businesscentral-monitoring-openshift",
                 "tags": [
                     {
                         "name": "1.0",
@@ -598,6 +600,10 @@
                             "tags": "bpmsuite,xpaas",
                             "supports":"bpmsuite:7.0,xpaas:1.4",
                             "version": "1.0"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-businesscentral-monitoring-openshift:1.0"
                         }
                     }
                 ]
@@ -613,7 +619,6 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-executionserver-openshift",
                 "tags": [
                     {
                         "name": "1.0",
@@ -623,6 +628,10 @@
                             "tags": "bpmsuite,xpaas",
                             "supports":"bpmsuite:7.0,xpaas:1.4",
                             "version": "1.0"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-executionserver-openshift:1.0"
                         }
                     }
                 ]
@@ -638,7 +647,6 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-smartrouter-openshift",
                 "tags": [
                     {
                         "name": "1.0",
@@ -648,6 +656,10 @@
                             "tags": "bpmsuite,xpaas",
                             "supports":"bpmsuite:7.0,xpaas:1.4",
                             "version": "1.0"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-smartrouter-openshift:1.0"
                         }
                     }
                 ]
@@ -663,7 +675,6 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-standalonecontroller-openshift",
                 "tags": [
                     {
                         "name": "1.0",
@@ -673,6 +684,10 @@
                             "tags": "bpmsuite,xpaas",
                             "supports":"bpmsuite:7.0,xpaas:1.4",
                             "version": "1.0"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/jboss-bpmsuite-7/bpmsuite70-standalonecontroller-openshift:1.0"
                         }
                     }
                 ]
