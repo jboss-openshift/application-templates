@@ -275,55 +275,6 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-decisionserver63-openshift",
-                "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss BRMS 6.3 decision server"
-                }
-            },
-            "spec": {
-                "tags": [
-                    {
-                        "name": "1.3",
-                        "annotations": {
-                            "description": "Red Hat JBoss BRMS 6.3 decision server S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,decisionserver,xpaas",
-                            "supports": "decisionserver:6.3,xpaas:1.3",
-                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
-                            "sampleContextDir": "decisionserver/hellorules",
-                            "sampleRef": "1.3",
-                            "version": "1.3",
-                            "openshift.io/display-name": "Red Hat JBoss BRMS 6.3 decision server"
-                        },
-                        "from": {
-                            "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-decisionserver-6/decisionserver63-openshift:1.3"
-                        }
-                    },
-                    {
-                        "name": "1.4",
-                        "annotations": {
-                            "description": "Red Hat JBoss BRMS 6.3 decision server S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,decisionserver,java,xpaas",
-                            "supports":"decisionserver:6.3,java:8,xpaas:1.4",
-                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
-                            "sampleContextDir": "decisionserver/hellorules",
-                            "sampleRef": "1.3",
-                            "version": "1.4"
-                        },
-                        "from": {
-                            "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-decisionserver-6/decisionserver63-openshift:1.4"
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "kind": "ImageStream",
-            "apiVersion": "v1",
-            "metadata": {
                 "name": "jboss-decisionserver64-openshift"
             },
             "spec": {
@@ -343,55 +294,6 @@
                         "from": {
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/jboss-decisionserver-6/decisionserver64-openshift:1.0"
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "kind": "ImageStream",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "jboss-processserver63-openshift",
-                "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.3 intelligent process server"
-                }
-            },
-            "spec": {
-                "tags": [
-                    {
-                        "name": "1.3",
-                        "annotations": {
-                            "description": "Red Hat JBoss BPM Suite 6.3 intelligent process server S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,processserver,xpaas",
-                            "supports": "processserver:6.3,xpaas:1.3",
-                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
-                            "sampleContextDir": "processserver/library",
-                            "sampleRef": "1.3",
-                            "version": "1.3",
-                            "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.3 intelligent process server"
-                        },
-                        "from": {
-                            "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-processserver-6/processserver63-openshift:1.3"
-                        }
-                    },
-                    {
-                        "name": "1.4",
-                        "annotations": {
-                            "description": "Red Hat JBoss BPM Suite 6.3 intelligent process server S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,processserver,java,xpaas",
-                            "supports":"processserver:6.3,java:8,xpaas:1.4",
-                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
-                            "sampleContextDir": "processserver/library",
-                            "sampleRef": "1.3",
-                            "version": "1.4"
-                        },
-                        "from": {
-                            "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-processserver-6/processserver63-openshift:1.4"
                         }
                     }
                 ]
