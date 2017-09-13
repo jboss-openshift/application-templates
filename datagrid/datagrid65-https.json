@@ -502,6 +502,10 @@
                                         "value": "${REST_SECURITY_DOMAIN}"
                                     },
                                     {
+                                        "name": "HOTROD_ENCRYPTION",
+                                        "value": "${HTTPS_NAME}"
+                                    },
+                                    {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
                                         "value": "${JGROUPS_ENCRYPT_SECRET}"
                                     },

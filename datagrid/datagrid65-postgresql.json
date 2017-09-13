@@ -639,6 +639,10 @@
                                         "value": "${APPLICATION_NAME}-hotrod"
                                     },
                                     {
+                                        "name": "HOTROD_ENCRYPTION",
+                                        "value": "${HTTPS_NAME}"
+                                    }, 
+                                    {
                                         "name": "MEMCACHED_CACHE",
                                         "value": "${MEMCACHED_CACHE}"
                                     },
