@@ -388,7 +388,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-webserver31-tomcat7-openshift:1.0"
+                            "name": "jboss-webserver31-tomcat7-openshift:1.1"
                         }
                     }
                 },

@@ -423,7 +423,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap64-openshift:1.5"
+                            "name": "jboss-eap64-openshift:1.6"
                         }
                     }
                 },
@@ -700,7 +700,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-amq-62:1.4"
+                                "name": "jboss-amq-62:1.6"
                             }
                         }
                     },
