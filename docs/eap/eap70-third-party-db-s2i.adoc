@@ -30,7 +30,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | master | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | datavirt/hibernate-webapp | False
-|`EXTENSIONS_IMAGE` | -- | ImageStreamTag definition for the image containing the drivers and configuration, e.g. jboss-datavirt63-openshift:1.0-driver | jboss-datavirt63-driver-openshift:1.0 | True
+|`EXTENSIONS_IMAGE` | -- | ImageStreamTag definition for the image containing the drivers and configuration, e.g. jboss-datavirt63-openshift:1.0-driver | jboss-datavirt63-driver-openshift:1.1 | True
 |`EXTENSIONS_IMAGE_NAMESPACE` | -- | Namespace within which the ImageStream definition for the image containing the drivers and configuration is located. | openshift | True
 |`EXTENSIONS_INSTALL_DIR` | -- | Full path to the directory within the extensions image where the extensions are located (e.g. install.sh, modules/, etc.) | `/extensions` | True
 |`MQ_QUEUES` | `MQ_QUEUES` | Queue names to preconfigure within Messaging subsystem. | `${MQ_QUEUES}` | False
@@ -107,7 +107,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap70-openshift:1.5 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ImageChange, ConfigChange
+|jboss-eap70-openshift:1.6 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ImageChange, ConfigChange
 |=============
 
 
