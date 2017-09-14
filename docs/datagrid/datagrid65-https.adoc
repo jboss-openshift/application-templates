@@ -205,7 +205,7 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.22+| `${APPLICATION_NAME}`
+.23+| `${APPLICATION_NAME}`
 |`USERNAME` | User name for JDG user. | `${USERNAME}`
 |`PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${PASSWORD}`
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/datagrid-secret-volume`
@@ -222,6 +222,7 @@ information.
 |`HOTROD_SERVICE_NAME` | -- | `${APPLICATION_NAME}-hotrod`
 |`MEMCACHED_CACHE` | The name of the cache to expose through this memcached connector (defaults to 'default') | `${MEMCACHED_CACHE}`
 |`REST_SECURITY_DOMAIN` | The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint | `${REST_SECURITY_DOMAIN}`
+|`HOTROD_ENCRYPTION` | -- | `${HTTPS_NAME}`
 |`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
 |`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
 |`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
