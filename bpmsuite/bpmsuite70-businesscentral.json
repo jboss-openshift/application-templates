@@ -99,20 +99,6 @@
             "required": false
         },
         {
-            "displayName": "Queues",
-            "description": "Queue names",
-            "name": "HORNETQ_QUEUES",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Topics",
-            "description": "Topic names",
-            "name": "HORNETQ_TOPICS",
-            "value": "",
-            "required": false
-        },
-        {
             "displayName": "Server Keystore Secret Name",
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
@@ -139,14 +125,6 @@
             "name": "HTTPS_PASSWORD",
             "value": "mykeystorepass",
             "required": false
-        },
-        {
-            "displayName": "HornetQ Password",
-            "description": "HornetQ cluster admin password",
-            "name": "HORNETQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
         },
         {
             "displayName": "ImageStream Namespace",
@@ -386,18 +364,6 @@
                                     {
                                         "name": "HTTPS_PASSWORD",
                                         "value": "${HTTPS_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "HORNETQ_QUEUES",
-                                        "value": "${HORNETQ_QUEUES}"
-                                    },
-                                    {
-                                        "name": "HORNETQ_TOPICS",
-                                        "value": "${HORNETQ_TOPICS}"
                                     },
                                     {
                                         "name": "ADMIN_USERNAME",
