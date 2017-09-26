@@ -53,6 +53,34 @@
             "required": false
         },
         {
+            "displayName": "JDG User Roles/Groups",
+            "description": "Comma delimited list of roles/groups associated with the JDG user",
+            "name": "ADMIN_GROUP",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Hotrod Authentication",
+            "description": "Enable Hotrod Authentication",
+            "name": "HOTROD_AUTHENTICATION",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Container Security Role Mapper",
+            "description": "Defines which role mapper to use for cache authentication",
+            "name": "CONTAINER_SECURITY_ROLE_MAPPER",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Container Security Roles",
+            "description": "Comma delimited list of role names and assigned permissions",
+            "name": "CONTAINER_SECURITY_ROLES",
+            "value": "",
+            "required": false
+        },
+        {
             "displayName": "Server Keystore Secret Name",
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
@@ -553,6 +581,22 @@
                                     {
                                         "name": "PASSWORD",
                                         "value": "${PASSWORD}"
+                                    },
+                                    {
+                                        "name": "ADMIN_GROUP",
+                                        "value": "${ADMIN_GROUP}"
+                                    },
+                                    {
+                                        "name": "HOTROD_AUTHENTICATION",
+                                        "value": "${HOTROD_AUTHENTICATION}"
+                                    },
+                                    {
+                                        "name": "CONTAINER_SECURITY_ROLE_MAPPER",
+                                        "value": "${CONTAINER_SECURITY_ROLE_MAPPER}"
+                                    },
+                                    {
+                                        "name": "CONTAINER_SECURITY_ROLES",
+                                        "value": "${CONTAINER_SECURITY_ROLES}"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
