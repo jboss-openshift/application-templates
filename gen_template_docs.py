@@ -24,14 +24,14 @@ APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","processserv
 template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'processserver', 'datagrid', 'datavirt', 'sso']
 amq_ssl_desc = None
 
-LINKS =  {"jboss-eap64-openshift:1.6": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
-          "jboss-eap70-openshift:1.6": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`]",
+LINKS =  {"jboss-eap64-openshift:TP": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
+          "jboss-eap70-openshift:TP": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`]",
           "jboss-eap71-openshift:1.0-TP": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7-tech-preview/eap71-openshift`]",
-          "jboss-webserver31-tomcat7-openshift:1.1": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat7-openshift`]",
-          "jboss-webserver31-tomcat8-openshift:1.1": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat8-openshift`]",
-          "jboss-decisionserver64-openshift:1.1": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver64-openshift`]",
-          "jboss-processserver64-openshift:1.1": "../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver64-openshift`]",
-          "jboss-datavirt63-openshift:1.3": "../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`]",
+          "jboss-webserver31-tomcat7-openshift:TP": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat7-openshift`]",
+          "jboss-webserver31-tomcat8-openshift:TP": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat8-openshift`]",
+          "jboss-decisionserver64-openshift:TP": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver64-openshift`]",
+          "jboss-processserver64-openshift:TP": "../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver64-openshift`]",
+          "jboss-datavirt63-openshift:TP": "../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`]",
           "redhat-sso71-openshift:1.1": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso71-openshift`]",
 }
 
