@@ -267,7 +267,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-datavirt63-openshift:1.3"
+                            "name": "jboss-datavirt63-openshift:TP"
                         },
                         "env": [
                             {

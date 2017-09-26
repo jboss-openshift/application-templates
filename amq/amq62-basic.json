@@ -215,7 +215,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-amq-62:1.6"
+                                "name": "jboss-amq-62:TP"
                             }
                         }
                     },
