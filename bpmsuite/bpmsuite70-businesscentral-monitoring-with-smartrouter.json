@@ -57,22 +57,7 @@
             "displayName": "KIE Admin Password",
             "description": "KIE administrator password",
             "name": "KIE_ADMIN_PWD",
-            "from": "[a-zA-Z]{6}[0-9]{1}!",
-            "generate": "expression",
-            "required": false
-        },
-        {
-            "displayName": "KIE Server Controller User",
-            "description": "KIE server controller username (adds the user)",
-            "name": "KIE_SERVER_CONTROLLER_USER",
-            "value": "controllerUser",
-            "required": false
-        },
-        {
-            "displayName": "KIE Server Controller Password",
-            "description": "KIE server controller password (adds the user)",
-            "name": "KIE_SERVER_CONTROLLER_PWD",
-            "value": "controllerPassword",
+            "value": "adminPassword",
             "required": false
         },
         {
@@ -126,10 +111,10 @@
             "required": false
         },
         {
-            "displayName": "Smart Router controller URL",
-            "description": "URL to access the controller (standalone or embedded in the business central) (router property org.kie.server.controller)",
+            "displayName": "Smart Router controller protocol",
+            "description": "KIE server controller protocol (Used to set the org.kie.server.controller system property)",
             "name": "KIE_SERVER_CONTROLLER_PROTOCOL",
-            "example": "http://my-app-controller-ocpuser.os.example.com:8080/business-central/rest/controller",
+            "value": "http",
             "required": false
         },
         {
@@ -150,8 +135,9 @@
             "displayName": "Smart router controller port",
             "description": "KIE server controller port (Used to set the org.kie.server.controller system property)",
             "name": "KIE_SERVER_CONTROLLER_PORT",
+            "value": "80",
             "example": "8080",
-            "required": false
+            "required": true
         },
         {
             "displayName": "Smart router controller token",
@@ -474,7 +460,7 @@
                                             "fieldRef": {
                                                 "fieldPath": "status.podIP"
                                             }
-                                         }
+                                        }
                                     },
                                     {
                                         "name": "KIE_SERVER_ROUTER_PORT",
