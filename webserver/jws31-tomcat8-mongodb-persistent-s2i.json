@@ -6,7 +6,7 @@
             "iconClass": "icon-tomcat",
             "description": "Application template for JWS MongoDB applications with persistent storage built using S2I.",
             "tags": "tomcat,tomcat8,java,jboss,xpaas",
-            "version": "1.4.0",
+            "version": "1.4.6",
             "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 8 + MongoDB (Persistent with https)"
         },
         "name": "jws31-tomcat8-mongodb-persistent-s2i"
@@ -14,7 +14,7 @@
     "message": "A new persistent JWS application for Tomcat 8 (using MongoDB) has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. For accessing the MongoDB database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD} (Admin password is \"${DB_ADMIN_PASSWORD}\"). Please be sure to create the \"jws-service-account\" service account and the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
     "labels": {
         "template": "jws31-tomcat8-mongodb-persistent-s2i",
-        "xpaas": "1.4.0"
+        "xpaas": "1.4.6"
     },
     "parameters": [
         {

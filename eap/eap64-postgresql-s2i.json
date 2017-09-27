@@ -6,14 +6,14 @@
             "description": "Application template for EAP 6 PostgreSQL applications built using S2I.",
             "iconClass": "icon-jboss",
             "tags": "eap,javaee,java,jboss,xpaas",
-            "version": "1.4.0",
+            "version": "1.4.6",
             "openshift.io/display-name": "Red Hat JBoss EAP 6.4 + PostgreSQL (Ephemeral with https)"
         },
         "name": "eap64-postgresql-s2i"
     },
     "labels": {
         "template": "eap64-postgresql-s2i",
-        "xpaas": "1.4.0"
+        "xpaas": "1.4.6"
     },
     "message": "A new EAP 6 and PostgreSQL based application with SSL support has been created in your project. The username/password for accessing the PostgreSQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [

@@ -6,14 +6,14 @@
             "iconClass": "icon-jboss",
             "description": "Application template for EAP 7 DB applications built using S2I.  Includes support for installing third-party DB drivers.",
             "tags": "eap,javaee,java,jboss,xpaas",
-            "version": "1.4.0",
+            "version": "1.4.6",
             "openshift.io/display-name": "Red Hat JBoss EAP 7.0 (with https, supporting third-party DB drivers)"
         },
         "name": "eap70-third-party-db-s2i"
     },
     "labels": {
         "template": "eap70-third-party-db-s2i",
-        "xpaas": "1.4.0"
+        "xpaas": "1.4.6"
     },
     "message": "A new EAP 7 based application with SSL support has been created in your project. Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets:\"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed application(s);  \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [

@@ -14,8 +14,12 @@
             "metadata": {
                 "name": "jboss-webserver30-tomcat7-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 7"
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 7",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -78,8 +82,12 @@
             "metadata": {
                 "name": "jboss-webserver30-tomcat8-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 8"
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 8",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -142,8 +150,12 @@
             "metadata": {
                 "name": "jboss-webserver31-tomcat7-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 7"
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 7",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -207,8 +219,12 @@
             "metadata": {
                 "name": "jboss-webserver31-tomcat8-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 8"
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 8",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -272,8 +288,12 @@
             "metadata": {
                 "name": "jboss-eap64-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss EAP 6.4"
+                    "openshift.io/display-name": "Red Hat JBoss EAP 6.4",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -412,8 +432,12 @@
             "metadata": {
                 "name": "jboss-eap70-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss EAP 7.0"
+                    "openshift.io/display-name": "Red Hat JBoss EAP 7.0",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -516,8 +540,12 @@
             "metadata": {
                 "name": "jboss-eap71-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss EAP 7.1"
+                    "openshift.io/display-name": "Red Hat JBoss EAP 7.1",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -566,8 +594,12 @@
             "metadata": {
                 "name": "jboss-decisionserver62-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss BRMS 6.2 decision server"
+                    "openshift.io/display-name": "Red Hat JBoss BRMS 6.2 decision server",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "dockerImageRepository": "registry.access.redhat.com/jboss-decisionserver-6/decisionserver62-openshift",
@@ -599,8 +631,12 @@
             "metadata": {
                 "name": "jboss-decisionserver63-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss BRMS 6.3 decision server"
+                    "openshift.io/display-name": "Red Hat JBoss BRMS 6.3 decision server",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -647,7 +683,14 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-decisionserver64-openshift"
+                "name": "jboss-decisionserver64-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss BRMS 6.4 decision server",
+                    "version": "1.4.6"
+                }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -714,8 +757,12 @@
             "metadata": {
                 "name": "jboss-processserver63-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.3 intelligent process server"
+                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.3 intelligent process server",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -762,7 +809,14 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-processserver64-openshift"
+                "name": "jboss-processserver64-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.4 intelligent process server",
+                    "version": "1.4.6"
+                }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -829,8 +883,12 @@
             "metadata": {
                 "name": "jboss-datagrid65-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5"
+                    "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -918,8 +976,12 @@
             "metadata": {
                 "name": "jboss-datagrid71-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1"
+                    "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -977,8 +1039,12 @@
             "metadata": {
                 "name": "jboss-datagrid65-client-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 Client Modules for EAP"
+                    "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 Client Modules for EAP",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -1019,8 +1085,12 @@
             "metadata": {
                 "name": "jboss-datagrid71-client-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1 Client Modules for EAP"
+                    "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1 Client Modules for EAP",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -1047,8 +1117,12 @@
             "metadata": {
                 "name": "jboss-datavirt63-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3"
+                    "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -1136,8 +1210,12 @@
             "metadata": {
                 "name": "jboss-datavirt63-driver-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP"
+                    "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -1178,8 +1256,12 @@
             "metadata": {
                 "name": "jboss-amq-62",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2"
+                    "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -1297,8 +1379,12 @@
             "metadata": {
                 "name": "jboss-amq-63",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3"
+                    "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -1372,8 +1458,12 @@
                 "name": "redhat-sso70-openshift",
                 "annotations": {
                     "description": "Red Hat SSO 7.0",
-                    "openshift.io/display-name": "Red Hat Single Sign-On 7.0"
+                    "openshift.io/display-name": "Red Hat Single Sign-On 7.0",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -1417,8 +1507,12 @@
                 "name": "redhat-sso71-openshift",
                 "annotations": {
                     "description": "Red Hat SSO 7.1",
-                    "openshift.io/display-name": "Red Hat Single Sign-On 7.1"
+                    "openshift.io/display-name": "Red Hat Single Sign-On 7.1",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
@@ -1491,8 +1585,12 @@
             "metadata": {
                 "name": "redhat-openjdk18-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat OpenJDK 8"
+                    "openshift.io/display-name": "Red Hat OpenJDK 8",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
