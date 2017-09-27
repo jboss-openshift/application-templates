@@ -1009,6 +1009,20 @@
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/jboss-datagrid-6/datagrid65-client-openshift:1.1"
                         }
+                    },
+                    {
+                        "name": "1.1",
+                        "annotations": {
+                            "description": "JBoss Data Grid 6.5 Client Modules for EAP.",
+                            "iconClass": "icon-jboss",
+                            "tags": "client,jboss,xpaas",
+                            "version": "1.1",
+                            "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 Client Modules for EAP"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/jboss-datagrid-6/datagrid65-client-openshift:1.1"
+                        }
                     }
                 ]
             }
