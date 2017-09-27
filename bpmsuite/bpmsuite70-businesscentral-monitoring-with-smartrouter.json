@@ -90,13 +90,6 @@
             "required": false
         },
         {
-            "displayName": "Smart Router host.",
-            "description": "Interface to which the smart router server will bind (property org.kie.server.router.host)",
-            "name": "KIE_SERVER_ROUTER_HOST",
-            "value": "localhost",
-            "required": false
-        },
-        {
             "displayName": "Smart Router ID",
             "description": "Router ID used when connecting to the controller (router property org.kie.server.router.id)",
             "name": "KIE_SERVER_ROUTER_ID",
@@ -477,7 +470,11 @@
                                 "env": [
                                     {
                                         "name": "KIE_SERVER_ROUTER_HOST",
-                                        "value": "${KIE_SERVER_ROUTER_HOST}"
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "status.podIP"
+                                            }
+                                         }
                                     },
                                     {
                                         "name": "KIE_SERVER_ROUTER_PORT",
