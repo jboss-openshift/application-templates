@@ -379,8 +379,7 @@
                                             "-c",
                                             "/opt/eap/bin/livenessProbe.sh"
                                         ]
-                                    },
-                                    "initialDelaySeconds": 10
+                                    }
                                 },
                                 "readinessProbe": {
                                     "exec": {
