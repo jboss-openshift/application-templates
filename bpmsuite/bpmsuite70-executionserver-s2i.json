@@ -99,6 +99,35 @@
             "required": false
         },
         {
+            "displayName": "KIE Server Router protocol",
+            "description": "KIE Server Router protocol (Used to set the org.kie.server.router system property)",
+            "name": "KIE_SERVER_ROUTER_PROTOCOL",
+            "value": "http",
+            "required": false
+        },
+        {
+            "displayName": "KIE Server Router service",
+            "description": "KIE Server Router service (Used to set the org.kie.server.router system property if host and port aren't set)",
+            "name": "KIE_SERVER_ROUTER_SERVICE",
+            "value": "",
+            "example": "smartrouter-myapp",
+            "required": false
+        },
+        {
+            "displayName": "KIE Server Router host",
+            "description": "KIE Server Router host (Used to set the org.kie.server.router system property)",
+            "name": "KIE_SERVER_ROUTER_HOST",
+            "example": "my-app-router-ocpuser.os.example.com",
+            "required": false
+        },
+        {
+            "displayName": "KIE Server Router port",
+            "description": "KIE Server Router port (Used to set the org.kie.server.router system property)",
+            "name": "KIE_SERVER_ROUTER_PORT",
+            "example": "9000",
+            "required": false
+        },
+        {
             "displayName": "KIE MBeans",
             "description": "KIE execution server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
             "name": "KIE_MBEANS",
@@ -585,6 +614,22 @@
                                     {
                                         "name": "KIE_SERVER_USER",
                                         "value": "${KIE_SERVER_USER}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_PROTOCOL",
+                                        "value": "${KIE_SERVER_ROUTER_PROTOCOL}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_SERVICE",
+                                        "value": "${KIE_SERVER_ROUTER_SERVICE}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_HOST",
+                                        "value": "${KIE_SERVER_ROUTER_HOST}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_PORT",
+                                        "value": "${KIE_SERVER_ROUTER_PORT}"
                                     },
                                     {
                                         "name": "MAVEN_REPO_URL",
