@@ -48,6 +48,34 @@
             "required": false
         },
         {
+            "displayName": "KIE server controller protocol",
+            "description": "KIE server controller protocol (Used to set the org.kie.server.controller system property)",
+            "name": "KIE_SERVER_CONTROLLER_PROTOCOL",
+            "value": "http",
+            "required": false
+        },
+        {
+            "displayName": "KIE server controller service",
+            "description": "KIE server controller service (Used to set the org.kie.server.controller system property if host and port aren't set)",
+            "name": "KIE_SERVER_CONTROLLER_SERVICE",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "KIE server controller host",
+            "description": "KIE server controller host (Used to set the org.kie.server.controller system property)",
+            "name": "KIE_SERVER_CONTROLLER_HOST",
+            "example": "my-app-controller-ocpuser.os.example.com",
+            "required": false
+        },
+        {
+            "displayName": "KIE server controller port",
+            "description": "KIE server controller port (Used to set the org.kie.server.controller system property)",
+            "name": "KIE_SERVER_CONTROLLER_PORT",
+            "example": "8080",
+            "required": false
+        },
+        {
             "displayName": "KIE Admin User",
             "description": "KIE administrator username",
             "name": "KIE_ADMIN_USER",
@@ -555,12 +583,24 @@
                                         "value": "${KIE_SERVER_CONTROLLER_PWD}"
                                     },
                                     {
-                                        "name": "KIE_SERVER_CONTROLLER_SERVICE",
-                                        "value": "${APPLICATION_NAME}-buscentr"
-                                    },
-                                    {
                                         "name": "KIE_SERVER_CONTROLLER_USER",
                                         "value": "${KIE_SERVER_CONTROLLER_USER}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_PROTOCOL",
+                                        "value": "${KIE_SERVER_CONTROLLER_PROTOCOL}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_SERVICE",
+                                        "value": "${KIE_SERVER_CONTROLLER_SERVICE}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_HOST",
+                                        "value": "${KIE_SERVER_CONTROLLER_HOST}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_PORT",
+                                        "value": "${KIE_SERVER_CONTROLLER_PORT}"
                                     },
                                     {
                                         "name": "KIE_SERVER_HOST",
