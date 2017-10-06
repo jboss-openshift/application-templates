@@ -61,20 +61,6 @@
             "required": false
         },
         {
-            "displayName": "KIE Server User",
-            "description": "KIE execution server username (Sets the org.kie.server.user system property, used by the embedded controller)",
-            "name": "KIE_SERVER_USER",
-            "value": "executionUser",
-            "required": false
-        },
-        {
-            "displayName": "KIE Server Password",
-            "description": "KIE execution server password (Sets the org.kie.server.pwd system property, used by the embedded controller)",
-            "name": "KIE_SERVER_PWD",
-            "value": "executionPassword",
-            "required": false
-        },
-        {
             "displayName": "Smart Router ID",
             "description": "Router ID used when connecting to the controller (router property org.kie.server.router.id)",
             "name": "KIE_SERVER_ROUTER_ID",
@@ -174,6 +160,40 @@
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-smartrouter-<project>.<default-domain-suffix>",
             "name": "SMART_ROUTER_HOSTNAME_HTTP",
             "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Maven repository URL",
+            "description": "Fully qualified URL to a external Maven repository.",
+            "name": "MAVEN_REPO_URL",
+            "required": false
+        },
+        {
+            "displayName": "Maven repository service",
+            "description": "Maven repository service to lookup if MAVEN_REPO_URL not specified",
+            "name": "MAVEN_REPO_SERVICE",
+            "example": "buscentr-myapp",
+            "required": false
+        },
+        {
+            "displayName": "Maven repository path when using service",
+            "description": "Maven repository path when using MAVEN_REPO_SERVICE",
+            "name": "MAVEN_REPO_PATH",
+            "example": "/maven2/",
+            "required": false
+        },
+        {
+            "displayName": "Maven repository username",
+            "description": "Username to access the external Maven repository.",
+            "name": "MAVEN_REPO_USERNAME",
+            "example": "adminUser",
+            "required": false
+        },
+        {
+            "displayName": "Maven repository password",
+            "description": "Password to access the external Maven repository",
+            "name": "MAVEN_REPO_PASSWORD",
+            "example": "adminPassword",
             "required": false
         }
     ],
@@ -321,12 +341,24 @@
                                         "value": "${KIE_SERVER_CONTROLLER_USER}"
                                     },
                                     {
-                                        "name": "KIE_SERVER_PWD",
-                                        "value": "${KIE_SERVER_PWD}"
+                                        "name": "MAVEN_REPO_URL",
+                                        "value": "${MAVEN_REPO_URL}"
                                     },
                                     {
-                                        "name": "KIE_SERVER_USER",
-                                        "value": "${KIE_SERVER_USER}"
+                                        "name": "MAVEN_REPO_SERVICE",
+                                        "value": "${MAVEN_REPO_SERVICE}"
+                                    },
+                                    {
+                                        "name": "MAVEN_REPO_PATH",
+                                        "value": "${MAVEN_REPO_PATH}"
+                                    },
+                                    {
+                                        "name": "MAVEN_REPO_USERNAME",
+                                        "value": "${MAVEN_REPO_USERNAME}"
+                                    },
+                                    {
+                                        "name": "MAVEN_REPO_PASSWORD",
+                                        "value": "${MAVEN_REPO_PASSWORD}"
                                     },
                                     {
                                         "name": "ADMIN_USERNAME",
