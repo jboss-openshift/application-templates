@@ -24,7 +24,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 == Objects
 
 The CLI supports various object types. A list of these object types as well as their abbreviations
-can be found in the https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#object-types[Openshift documentation].
+can be found in the https://docs.openshift.com/container-platform/OCP_VERSION/cli_reference/basic_cli_operations.html#object-types[Openshift documentation].
 
 {#Service}
 === Services
@@ -44,7 +44,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 A route is a way to expose a service by giving it an externally-reachable hostname such as `www.example.com`. A defined route and the endpoints
 identified by its service can be consumed by a router to provide named connectivity from external clients to your applications. Each route consists
 of a route name, service selector, and (optionally) security configuration. Refer to the
-https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html[Openshift documentation] for more information.
+https://docs.openshift.com/container-platform/OCP_VERSION/architecture/networking/routes.html#architecture-core-concepts-routes[Openshift documentation] for more information.
 
 |=============
 | Service    | Security | Hostname
@@ -57,7 +57,7 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 
 A `buildConfig` describes a single build definition and a set of triggers for when a new build should be created.
 A `buildConfig` is a REST object, which can be used in a POST to the API server to create a new instance. Refer to
-the https://docs.openshift.com/enterprise/3.0/dev_guide/builds.html#defining-a-buildconfig[Openshift documentation]
+https://docs.openshift.com/container-platform/OCP_VERSION/dev_guide/builds/index.html#defining-a-buildconfig[Openshift documentation]
 for more information.
 
 |=============
@@ -69,13 +69,13 @@ for more information.
 === Deployment Configurations
 
 A deployment in OpenShift is a replication controller based on a user defined template called a deployment configuration. Deployments are created manually or in response to triggered events.
-Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/deployments.html#creating-a-deployment-configuration[Openshift documentation] for more information.
+Refer to the https://docs.openshift.com/container-platform/OCP_VERSION/dev_guide/deployments/how_deployments_work.html#creating-a-deployment-configuration[Openshift documentation] for more information.
 
 {#triggers}
 ==== Triggers
 
 A trigger drives the creation of new deployments in response to events, both inside and outside OpenShift. Refer to the
-https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-developer-guide#triggers[Openshift documentation] for more information.
+ps://access.redhat.com/documentation/en-us/openshift_container_platform/OCP_VERSION/html/developer_guide/builds#dev-guide-triggering-builds[Openshift documentation] for more information.
 
 |============
 |Deployment | Triggers
@@ -103,7 +103,7 @@ for more information.
 ===== Service Accounts
 
 Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
-https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
+https://docs.openshift.com/container-platform/OCP_VERSION/dev_guide/service_accounts.html#dev-managing-service-accounts[Openshift documentation] for more
 information.
 
 |============
@@ -149,7 +149,7 @@ information.
 =====  Volumes
 
 |=============
-|Deployment |Name  | mountPath | Purpose | readOnly 
+|Deployment |Name  | mountPath | Purpose | readOnly
 {table}
 |=============
 {/volumes}
@@ -161,7 +161,7 @@ information.
 
 A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
 by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
-Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
+Refer to the https://docs.openshift.com/container-platform/OCP_VERSION/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
 more information.
 
 |=============
