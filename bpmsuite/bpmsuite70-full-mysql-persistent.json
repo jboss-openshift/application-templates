@@ -245,6 +245,13 @@
             "required": false
         },
         {
+            "displayName": "Timer service data store refresh interval (in milliseconds)",
+            "description": "Sets refresh-interval for the EJB timer service database-data-store.",
+            "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
+            "value": "30000",
+            "required": false
+        },
+        {
             "displayName": "Database Volume Capacity",
             "description": "Size of persistent storage for database volume.",
             "name": "DB_VOLUME_CAPACITY",
@@ -979,6 +986,14 @@
                                     {
                                         "name": "DB_TX_ISOLATION",
                                         "value": "${DB_TX_ISOLATION}"
+                                    },
+                                    {
+                                        "name": "TIMER_SERVICE_DATA_STORE",
+                                        "value": "${APPLICATION_NAME}-mysql"
+                                    },
+                                    {
+                                        "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
+                                        "value": "${TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL}"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",

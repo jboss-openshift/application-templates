@@ -245,6 +245,13 @@
             "required": false
         },
         {
+            "displayName": "Timer service data store refresh interval (in milliseconds)",
+            "description": "Sets refresh-interval for the EJB timer service database-data-store.",
+            "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
+            "value": "30000",
+            "required": false
+        },
+        {
             "displayName": "MySQL Lower Case Table Names",
             "description": "Sets how the table names are stored and compared.",
             "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
@@ -955,6 +962,14 @@
                                     {
                                         "name": "DB_TX_ISOLATION",
                                         "value": "${DB_TX_ISOLATION}"
+                                    },
+                                    {
+                                        "name": "TIMER_SERVICE_DATA_STORE",
+                                        "value": "${APPLICATION_NAME}-mysql"
+                                    },
+                                    {
+                                        "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
+                                        "value": "${TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL}"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
