@@ -4,10 +4,15 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-tomcat",
-            "description": "Application template for JWS MySQL applications with persistent storage built using S2I.",
-            "tags": "tomcat,tomcat7,java,jboss,xpaas",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "tags": "tomcat,tomcat7,java,jboss",
             "version": "1.4.6",
-            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 7 + MySQL (Persistent with https)"
+            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 7 + MySQL (with https)",
+            "description": "An example JBoss Web Server application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 3.1 Tomcat 7 based application, including a build configuration, application deployment configuration, database deployment configuration for MySQL using persistence and secure communication using https.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-web-server/",
+            "template.openshift.io/support-url": "https://access.redhat.com"
+
         },
         "name": "jws31-tomcat7-mysql-persistent-s2i"
     },
