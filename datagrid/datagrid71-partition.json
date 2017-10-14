@@ -9,10 +9,10 @@
             "version": "1.4.0",
             "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1 (Ephemeral, no https)"
         },
-        "name": "datagrid71-basic"
+        "name": "datagrid71-partition"
     },
     "labels": {
-        "template": "datagrid71-basic",
+        "template": "datagrid71-partition",
         "xpaas": "1.4.0"
     },
     "message": "A new data grid service has been created in your project. It supports connector type(s) \"${INFINISPAN_CONNECTORS}\".",
