@@ -4,7 +4,8 @@
     "metadata": {
         "name": "jboss-image-streams",
         "annotations": {
-            "description": "ImageStream definitions for JBoss Middleware products."
+            "description": "ImageStream definitions for JBoss Middleware products.",
+            "openshift.io/provider-display-name": "Red Hat, Inc."
         }
     },
     "items": [
@@ -14,7 +15,8 @@
             "metadata": {
                 "name": "jboss-webserver30-tomcat7-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 7",
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 7",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -26,14 +28,14 @@
                     {
                         "name": "1.1",
                         "annotations": {
-                            "description": "JBoss Web Server 3.0 Tomcat 7 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "hidden,builder,tomcat,tomcat7,java,jboss,xpaas",
-                            "supports": "tomcat7:3.0,tomcat:7,java:8,xpaas:1.1",
+                            "description": "JBoss Web Server 3.0 Apache Tomcat 7 S2I images.",
+                            "iconClass": "icon-tomcat",
+                            "tags": "builder,tomcat,tomcat7,java,jboss,hidden",
+                            "supports": "tomcat7:3.0,tomcat:7,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "1.1",
-                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 7"
+                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 7"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -43,14 +45,14 @@
                     {
                         "name": "1.2",
                         "annotations": {
-                            "description": "JBoss Web Server 3.0 Tomcat 7 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "hidden,builder,tomcat,tomcat7,java,jboss,xpaas",
-                            "supports": "tomcat7:3.0,tomcat:7,java:8,xpaas:1.2",
+                            "description": "JBoss Web Server 3.0 Apache Tomcat 7 S2I images.",
+                            "iconClass": "icon-tomcat",
+                            "tags": "builder,tomcat,tomcat7,java,jboss,hidden",
+                            "supports": "tomcat7:3.0,tomcat:7,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "1.2",
-                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 7"
+                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 7"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -60,13 +62,14 @@
                     {
                         "name": "1.3",
                         "annotations": {
-                            "description": "JBoss Web Server 3.0 Tomcat 7 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "hidden,builder,tomcat,tomcat7,java,jboss,xpaas",
-                            "supports":"tomcat7:3.0,tomcat:7,java:8,xpaas:1.3",
+                            "description": "JBoss Web Server 3.0 Apache Tomcat 7 S2I images.",
+                            "iconClass": "icon-tomcat",
+                            "tags": "builder,tomcat,tomcat7,java,jboss,hidden",
+                            "supports": "tomcat7:3.0,tomcat:7,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
-                            "version": "1.3"
+                            "version": "1.3",
+                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 ApacheTomcat 7"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -82,7 +85,8 @@
             "metadata": {
                 "name": "jboss-webserver30-tomcat8-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 8",
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 8",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -94,14 +98,14 @@
                     {
                         "name": "1.1",
                         "annotations": {
-                            "description": "JBoss Web Server 3.0 Tomcat 8 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "hidden,builder,tomcat,tomcat8,java,jboss,xpaas",
-                            "supports": "tomcat8:3.0,tomcat:8,java:8,xpaas:1.1",
+                            "description": "JBoss Web Server 3.0 Apache Tomcat 8 S2I images.",
+                            "iconClass": "icon-tomcat",
+                            "tags": "builder,tomcat,tomcat8,java,jboss,hidden",
+                            "supports": "tomcat8:3.0,tomcat:8,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "1.1",
-                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 8"
+                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 8"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -111,14 +115,14 @@
                     {
                         "name": "1.2",
                         "annotations": {
-                            "description": "JBoss Web Server 3.0 Tomcat 8 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "hidden,builder,tomcat,tomcat8,java,jboss,xpaas",
-                            "supports": "tomcat8:3.0,tomcat:8,java:8,xpaas:1.2",
+                            "description": "JBoss Web Server 3.0 Apache Tomcat 8 S2I images.",
+                            "iconClass": "icon-tomcat",
+                            "tags": "builder,tomcat,tomcat8,java,jboss,hidden",
+                            "supports": "tomcat8:3.0,tomcat:8,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "1.2",
-                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Tomcat 8"
+                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 8"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -128,13 +132,14 @@
                     {
                         "name": "1.3",
                         "annotations": {
-                            "description": "JBoss Web Server 3.0 Tomcat 8 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "hidden,builder,tomcat,tomcat8,java,jboss,xpaas",
-                            "supports":"tomcat8:3.0,tomcat:8,java:8,xpaas:1.3",
+                            "description": "JBoss Web Server 3.0 Apache Tomcat 8 S2I images.",
+                            "iconClass": "icon-tomcat",
+                            "tags": "builder,tomcat,tomcat8,java,jboss,hidden",
+                            "supports": "tomcat8:3.0,tomcat:8,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
-                            "version": "1.3"
+                            "version": "1.3",
+                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 8"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -150,7 +155,8 @@
             "metadata": {
                 "name": "jboss-webserver31-tomcat7-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 7",
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Apache Tomcat 7",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -162,14 +168,14 @@
                     {
                         "name": "TP",
                         "annotations": {
-                            "description": "JBoss Web Server 3.1 Tomcat 7 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,tomcat,tomcat7,java,jboss,xpaas",
-                            "supports": "tomcat7:3.1,tomcat:7,java:8,xpaas:1.4",
+                            "description": "JBoss Web Server 3.1 Apache Tomcat 7 S2I images.",
+                            "iconClass": "icon-tomcat",
+                            "tags": "builder,tomcat,tomcat7,java,jboss,hidden",
+                            "supports": "tomcat7:3.1,tomcat:7,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "TP",
-                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 7 (Tech Preview)"
+                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Apache Tomcat 7 (Tech Preview)"
                         },
                         "from": {
                             "kind": "ImageStreamTag",
@@ -179,14 +185,14 @@
                     {
                         "name": "1.0",
                         "annotations": {
-                            "description": "JBoss Web Server 3.1 Tomcat 7 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,tomcat,tomcat7,java,jboss,xpaas",
-                            "supports": "tomcat7:3.1,tomcat:7,java:8,xpaas:1.4",
+                            "description": "JBoss Web Server 3.1 Apache Tomcat 7 S2I images.",
+                            "iconClass": "icon-tomcat",
+                            "tags": "builder,tomcat,tomcat7,java,jboss,hidden",
+                            "supports": "tomcat7:3.1,tomcat:7,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "1.0",
-                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 7"
+                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Apache Tomcat 7"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -196,14 +202,14 @@
                     {
                         "name": "1.1-TP",
                         "annotations": {
-                            "description": "JBoss Web Server 3.1 Tomcat 7 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,tomcat,tomcat7,java,jboss,xpaas",
-                            "supports": "tomcat7:3.1,tomcat:7,java:8,xpaas:1.4",
+                            "description": "JBoss Web Server 3.1 Apache Tomcat 7 S2I images.",
+                            "iconClass": "icon-tomcat",
+                            "tags": "builder,tomcat,tomcat7,java,jboss,hidden",
+                            "supports": "tomcat7:3.1,tomcat:7,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "1.1",
-                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 7 (Tech Preview)"
+                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Apache Tomcat 7 (Tech Preview)"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -219,7 +225,8 @@
             "metadata": {
                 "name": "jboss-webserver31-tomcat8-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 8",
+                    "openshift.io/display-name": "JBoss Web Server 3.1 Apache Tomcat 8",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -231,14 +238,14 @@
                     {
                         "name": "TP",
                         "annotations": {
-                            "description": "JBoss Web Server 3.1 Tomcat 8 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,tomcat,tomcat8,java,jboss,xpaas",
-                            "supports": "tomcat8:3.1,tomcat:8,java:8,xpaas:1.4",
+                            "description": "JBoss Web Server 3.1 Apache Tomcat 8 S2I images.",
+                            "iconClass": "icon-tomcat",
+                            "tags": "builder,tomcat,tomcat8,java,jboss,hidden",
+                            "supports": "tomcat8:3.1,tomcat:8,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "TP",
-                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 8 (Tech Preview)"
+                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Apache Tomcat 8 (Tech Preview)"
                         },
                         "from": {
                             "kind": "ImageStreamTag",
@@ -248,14 +255,14 @@
                     {
                         "name": "1.0",
                         "annotations": {
-                            "description": "JBoss Web Server 3.1 Tomcat 8 S2I images.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,tomcat,tomcat8,java,jboss,xpaas",
-                            "supports": "tomcat8:3.1,tomcat:8,java:8,xpaas:1.4",
+                            "description": "JBoss Web Server 3.1 Apache Tomcat 8 S2I images.",
+                            "iconClass": "icon-tomcat",
+                            "tags": "builder,tomcat,tomcat8,java,jboss,hidden",
+                            "supports": "tomcat8:3.1,tomcat:8,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "1.0",
-                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 8"
+                            "openshift.io/display-name": "JBoss Web Server 3.1 Apache Tomcat 8"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -265,14 +272,14 @@
                     {
                         "name": "1.1-TP",
                         "annotations": {
-                            "description": "JBoss Web Server 3.1 Tomcat 8 S2I images.",
+                            "description": "JBoss Web Server 3.1 Apache Tomcat 8 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,tomcat,tomcat8,java,jboss,xpaas",
-                            "supports": "tomcat8:3.1,tomcat:8,java:8,xpaas:1.4",
+                            "tags": "builder,tomcat,tomcat8,java,jboss,hidden",
+                            "supports": "tomcat8:3.1,tomcat:8,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "tomcat-websocket-chat",
                             "version": "1.1",
-                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Tomcat 8 (Tech Preview)"
+                            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Apache Tomcat 8 (Tech Preview)"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -289,6 +296,7 @@
                 "name": "jboss-eap64-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss EAP 6.4",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -302,8 +310,8 @@
                         "annotations": {
                             "description": "JBoss EAP 6.4 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports": "eap:6.4,javaee:6,java:8,xpaas:1.1",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:6.4,javaee:6,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "6.4.x",
@@ -320,8 +328,8 @@
                         "annotations": {
                             "description": "JBoss EAP 6.4 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports": "eap:6.4,javaee:6,java:8,xpaas:1.1",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:6.4,javaee:6,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "6.4.x",
@@ -338,8 +346,8 @@
                         "annotations": {
                             "description": "JBoss EAP 6.4 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports": "eap:6.4,javaee:6,java:8,xpaas:1.2",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:6.4,javaee:6,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "6.4.x",
@@ -356,8 +364,8 @@
                         "annotations": {
                             "description": "JBoss EAP 6.4 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports": "eap:6.4,javaee:6,java:8,xpaas:1.3",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:6.4,javaee:6,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "6.4.x",
@@ -374,8 +382,8 @@
                         "annotations": {
                             "description": "JBoss EAP 6.4 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports": "eap:6.4,javaee:6,java:8,xpaas:1.4",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:6.4,javaee:6,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "6.4.x",
@@ -392,8 +400,8 @@
                         "annotations": {
                             "description": "JBoss EAP 6.4 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports":"eap:6.4,javaee:6,java:8,xpaas:1.5",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:6.4,javaee:6,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "6.4.x",
@@ -410,8 +418,8 @@
                         "annotations": {
                             "description": "JBoss EAP 6.4 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports":"eap:6.4,javaee:6,java:8,xpaas:1.5",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:6.4,javaee:6,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "6.4.x",
@@ -433,6 +441,7 @@
                 "name": "jboss-eap70-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss EAP 7.0",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -446,8 +455,8 @@
                         "annotations": {
                             "description": "JBoss EAP 7.0 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports": "eap:7.0,javaee:7,java:8,xpaas:1.3",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.0,javaee:7,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "7.0.0.GA",
@@ -464,8 +473,8 @@
                         "annotations": {
                             "description": "JBoss EAP 7.0 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports": "eap:7.0,javaee:7,java:8,xpaas:1.3",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.0,javaee:7,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "7.0.0.GA",
@@ -482,8 +491,8 @@
                         "annotations": {
                             "description": "JBoss EAP 7.0 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports": "eap:7.0,javaee:7,java:8,xpaas:1.4",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.0,javaee:7,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "7.0.0.GA",
@@ -500,8 +509,8 @@
                         "annotations": {
                             "description": "JBoss EAP 7.0 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports":"eap:7.0,javaee:7,java:8,xpaas:1.5",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.0,javaee:7,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "7.0.0.GA",
@@ -518,8 +527,8 @@
                         "annotations": {
                             "description": "JBoss EAP 7.0 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports":"eap:7.0,javaee:7,java:8,xpaas:1.5",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.0,javaee:7,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "7.0.0.GA",
@@ -541,6 +550,7 @@
                 "name": "jboss-eap71-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss EAP 7.1",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -554,8 +564,8 @@
                         "annotations": {
                             "description": "JBoss EAP 7.1 Tech Preview.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports":"eap:7.1,javaee:7,java:8,xpaas:1.0",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.1,javaee:7,java:8,xpass:1.0",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "7.0.0.GA",
@@ -572,8 +582,8 @@
                         "annotations": {
                             "description": "JBoss EAP 7.1 Tech Preview.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports":"eap:7.1,javaee:7,java:8,xpaas:1.0",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.1,javaee:7,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "7.0.0.GA",
@@ -581,8 +591,8 @@
                             "openshift.io/display-name": "Red Hat JBoss EAP 7.1 (Tech Preview)"
                         },
                         "from": {
-                          "kind": "DockerImage",
-                          "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap71-openshift:1.0"
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap71-openshift:1.0"
                         }
                     },
                     {
@@ -590,8 +600,8 @@
                         "annotations": {
                             "description": "JBoss EAP 7.1",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,eap,javaee,java,jboss,xpaas",
-                            "supports":"eap:7.1,javaee:7,java:8,xpaas:1.0",
+                            "tags": "builder,eap,javaee,java,jboss",
+                            "supports":"eap:7.1,javaee:7,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "7.0.0.GA",
@@ -619,15 +629,14 @@
                 "xpaas": "1.4.6"
             },
             "spec": {
-                "dockerImageRepository": "registry.access.redhat.com/jboss-decisionserver-6/decisionserver62-openshift",
                 "tags": [
                     {
                         "name": "1.2",
                         "annotations": {
                             "description": "Red Hat JBoss BRMS 6.2 decision server S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "hidden,builder,decisionserver,xpaas",
-                            "supports": "decisionserver:6.2,xpaas:1.2",
+                            "tags": "builder,decisionserver,hidden",
+                            "supports": "decisionserver:6.2",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "decisionserver/hellorules",
                             "sampleRef": "1.2",
@@ -649,6 +658,7 @@
                 "name": "jboss-decisionserver63-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss BRMS 6.3 decision server",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -662,8 +672,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss BRMS 6.3 decision server S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "hidden,builder,decisionserver,xpaas",
-                            "supports": "decisionserver:6.3,xpaas:1.3",
+                            "tags": "builder,decisionserver,hidden",
+                            "supports": "decisionserver:6.3",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "decisionserver/hellorules",
                             "sampleRef": "1.3",
@@ -680,8 +690,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss BRMS 6.3 decision server S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "hidden,builder,decisionserver,java,xpaas",
-                            "supports":"decisionserver:6.3,java:8,xpaas:1.4",
+                            "tags": "builder,decisionserver,java,hidden",
+                            "supports": "decisionserver:6.3,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "decisionserver/hellorules",
                             "sampleRef": "1.3",
@@ -703,6 +713,7 @@
                 "name": "jboss-decisionserver64-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss BRMS 6.4 decision server",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -716,8 +727,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss BRMS 6.4 decision server S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,decisionserver,java,xpaas",
-                            "supports":"decisionserver:6.4,java:8,xpaas:1.4",
+                            "tags": "builder,decisionserver,java,hidden",
+                            "supports": "decisionserver:6.4,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "decisionserver/hellorules",
                             "sampleRef": "1.3",
@@ -734,8 +745,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss BRMS 6.4 decision server S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,decisionserver,java,xpaas",
-                            "supports":"decisionserver:6.4,java:8,xpaas:1.4",
+                            "tags": "builder,decisionserver,java,hidden",
+                            "supports": "decisionserver:6.4,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "decisionserver/hellorules",
                             "sampleRef": "1.3",
@@ -752,8 +763,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss BRMS 6.4 decision server S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,decisionserver,java,xpaas",
-                            "supports":"decisionserver:6.4,java:8,xpaas:1.4",
+                            "tags": "builder,decisionserver,java,hidden",
+                            "supports": "decisionserver:6.4,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "decisionserver/hellorules",
                             "sampleRef": "1.3",
@@ -775,6 +786,7 @@
                 "name": "jboss-processserver63-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.3 intelligent process server",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -788,8 +800,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss BPM Suite 6.3 intelligent process server S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "hidden,builder,processserver,xpaas",
-                            "supports": "processserver:6.3,xpaas:1.3",
+                            "tags": "builder,processserver,hidden",
+                            "supports": "processserver:6.3",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "processserver/library",
                             "sampleRef": "1.3",
@@ -806,8 +818,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss BPM Suite 6.3 intelligent process server S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "hidden,builder,processserver,java,xpaas",
-                            "supports":"processserver:6.3,java:8,xpaas:1.4",
+                            "tags": "builder,processserver,java,hidden",
+                            "supports": "processserver:6.3,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "processserver/library",
                             "sampleRef": "1.3",
@@ -829,6 +841,7 @@
                 "name": "jboss-processserver64-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.4 intelligent process server",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -842,8 +855,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss BPM Suite 6.4 intelligent process server S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,processserver,java,xpaas",
-                            "supports":"processserver:6.4,java:8,xpaas:1.4",
+                            "tags": "builder,processserver,java,hidden",
+                            "supports": "processserver:6.4,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "processserver/library",
                             "sampleRef": "1.3",
@@ -860,8 +873,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss BPM Suite 6.4 intelligent process server S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,processserver,java,xpaas",
-                            "supports":"processserver:6.4,java:8,xpaas:1.4",
+                            "tags": "builder,processserver,java,hidden",
+                            "supports": "processserver:6.4,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "processserver/library",
                             "sampleRef": "1.3",
@@ -878,8 +891,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss BPM Suite 6.4 intelligent process server S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "builder,processserver,java,xpaas",
-                            "supports":"processserver:6.4,java:8,xpaas:1.4",
+                            "tags": "builder,processserver,java,hidden",
+                            "supports": "processserver:6.4,java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
                             "sampleContextDir": "processserver/library",
                             "sampleRef": "1.3",
@@ -901,6 +914,7 @@
                 "name": "jboss-datagrid65-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -914,8 +928,8 @@
                         "annotations": {
                             "description": "JBoss Data Grid 6.5 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datagrid,jboss,xpaas",
-                            "supports": "datagrid:6.5,xpaas:1.2",
+                            "tags": "datagrid,jboss,hidden",
+                            "supports": "datagrid:6.5",
                             "version": "TP",
                             "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 (Tech Preview)"
                         },
@@ -929,8 +943,8 @@
                         "annotations": {
                             "description": "JBoss Data Grid 6.5 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datagrid,jboss,xpaas",
-                            "supports": "datagrid:6.5,xpaas:1.2",
+                            "tags": "datagrid,jboss,hidden",
+                            "supports": "datagrid:6.5",
                             "version": "1.2",
                             "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5"
                         },
@@ -944,8 +958,8 @@
                         "annotations": {
                             "description": "JBoss Data Grid 6.5 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datagrid,jboss,xpaas",
-                            "supports": "datagrid:6.5,xpaas:1.4",
+                            "tags": "datagrid,jboss,hidden",
+                            "supports": "datagrid:6.5",
                             "version": "1.3",
                             "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5"
                         },
@@ -959,8 +973,8 @@
                         "annotations": {
                             "description": "JBoss Data Grid 6.5 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datagrid,jboss,xpaas",
-                            "supports":"datagrid:6.5,xpaas:1.4",
+                            "tags": "datagrid,jboss,hidden",
+                            "supports": "datagrid:6.5",
                             "version": "1.4",
                             "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5"
                         },
@@ -974,8 +988,8 @@
                         "annotations": {
                             "description": "JBoss Data Grid 6.5 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datagrid,jboss,xpaas",
-                            "supports":"datagrid:6.5,xpaas:1.4",
+                            "tags": "datagrid,jboss,hidden",
+                            "supports": "datagrid:6.5",
                             "version": "1.5",
                             "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 (Tech Preview)"
                         },
@@ -994,6 +1008,7 @@
                 "name": "jboss-datagrid71-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -1007,8 +1022,8 @@
                         "annotations": {
                             "description": "JBoss Data Grid 7.1 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datagrid,jboss,xpaas",
-                            "supports": "datagrid:7.1,xpaas:1.0",
+                            "tags": "datagrid,jboss,hidden",
+                            "supports": "datagrid:7.1",
                             "version": "TP",
                             "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1 (Tech Preview)"
                         },
@@ -1022,8 +1037,8 @@
                         "annotations": {
                             "description": "JBoss Data Grid 7.1 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datagrid,jboss,xpaas",
-                            "supports": "datagrid:7.1,xpaas:1.0",
+                            "tags": "datagrid,jboss,hidden",
+                            "supports": "datagrid:7.1",
                             "version": "1.0",
                             "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1"
                         },
@@ -1037,8 +1052,8 @@
                         "annotations": {
                             "description": "JBoss Data Grid 7.1 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datagrid,jboss,xpaas",
-                            "supports": "datagrid:7.1,xpaas:1.0",
+                            "tags": "datagrid,jboss,hidden",
+                            "supports": "datagrid:7.1",
                             "version": "1.1",
                             "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1 (Tech Preview)"
                         },
@@ -1057,6 +1072,7 @@
                 "name": "jboss-datagrid65-client-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 Client Modules for EAP",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -1070,7 +1086,7 @@
                         "annotations": {
                             "description": "JBoss Data Grid 6.5 Client Modules for EAP.",
                             "iconClass": "icon-jboss",
-                            "tags": "client,jboss,xpaas",
+                            "tags": "client,jboss,hidden",
                             "version": "1.0",
                             "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 Client Modules for EAP"
                         },
@@ -1084,7 +1100,7 @@
                         "annotations": {
                             "description": "JBoss Data Grid 6.5 Client Modules for EAP.",
                             "iconClass": "icon-jboss",
-                            "tags": "client,jboss,xpaas",
+                            "tags": "client,jboss,hidden",
                             "version": "1.1",
                             "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 Client Modules for EAP"
                         },
@@ -1103,6 +1119,7 @@
                 "name": "jboss-datagrid71-client-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1 Client Modules for EAP",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -1116,7 +1133,7 @@
                         "annotations": {
                             "description": "JBoss Data Grid 7.1 Client Modules for EAP.",
                             "iconClass": "icon-jboss",
-                            "tags": "client,jboss,xpaas",
+                            "tags": "client,jboss,hidden",
                             "version": "1.0",
                             "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1 Client Modules for EAP"
                         },
@@ -1135,6 +1152,7 @@
                 "name": "jboss-datavirt63-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -1148,8 +1166,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss Data Virtualization 6.3 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datavirt,jboss,xpaas",
-                            "supports": "datavirt:6.3,xpaas:1.4",
+                            "tags": "datavirt,jboss,hidden",
+                            "supports": "datavirt:6.3",
                             "version": "TP",
                             "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3 (Tech Preview)"
                         },
@@ -1163,8 +1181,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss Data Virtualization 6.3 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datavirt,jboss,xpaas",
-                            "supports": "datavirt:6.3,xpaas:1.4",
+                            "tags": "datavirt,jboss,hidden",
+                            "supports": "datavirt:6.3",
                             "version": "1.0",
                             "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3"
                         },
@@ -1178,8 +1196,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss Data Virtualization 6.3 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datavirt,jboss,xpaas",
-                            "supports": "datavirt:6.3,xpaas:1.4",
+                            "tags": "datavirt,jboss,hidden",
+                            "supports": "datavirt:6.3",
                             "version": "1.1",
                             "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3"
                         },
@@ -1193,8 +1211,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss Data Virtualization 6.3 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datavirt,jboss,xpaas",
-                            "supports":"datavirt:6.3,xpaas:1.4",
+                            "tags": "datavirt,jboss,hidden",
+                            "supports": "datavirt:6.3",
                             "version": "1.2",
                             "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3"
                         },
@@ -1208,8 +1226,8 @@
                         "annotations": {
                             "description": "Red Hat JBoss Data Virtualization 6.3 S2I images.",
                             "iconClass": "icon-jboss",
-                            "tags": "datavirt,jboss,xpaas",
-                            "supports":"datavirt:6.3,xpaas:1.4",
+                            "tags": "datavirt,jboss,hidden",
+                            "supports":"datavirt:6.3",
                             "version": "1.3",
                             "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3 (Tech Preview)"
                         },
@@ -1217,7 +1235,7 @@
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/jboss-datavirt-6-tech-preview/datavirt63-openshift:1.3"
                         }
-                    }
+                     }
                 ]
             }
         },
@@ -1228,6 +1246,7 @@
                 "name": "jboss-datavirt63-driver-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -1241,7 +1260,7 @@
                         "annotations": {
                             "description": "JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP.",
                             "iconClass": "icon-jboss",
-                            "tags": "client,jboss,xpaas",
+                            "tags": "client,jboss,hidden",
                             "version": "1.0",
                             "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP"
                         },
@@ -1255,7 +1274,7 @@
                         "annotations": {
                             "description": "JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP.",
                             "iconClass": "icon-jboss",
-                            "tags": "client,jboss,xpaas",
+                            "tags": "client,jboss,hidden",
                             "version": "1.1",
                             "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP"
                         },
@@ -1274,6 +1293,7 @@
                 "name": "jboss-amq-62",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -1287,8 +1307,8 @@
                         "annotations": {
                             "description": "JBoss A-MQ 6.2 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "messaging,amq,jboss,xpaas",
-                            "supports": "amq:6.2,messaging,xpaas:1.1",
+                            "tags": "messaging,amq,jboss,hidden",
+                            "supports": "amq:6.2,messaging",
                             "version": "TP",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2 (Tech Preview)"
                         },
@@ -1302,8 +1322,8 @@
                         "annotations": {
                             "description": "JBoss A-MQ 6.2 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "messaging,amq,jboss,xpaas",
-                            "supports": "amq:6.2,messaging,xpaas:1.1",
+                            "tags": "messaging,amq,jboss,hidden",
+                            "supports": "amq:6.2,messaging",
                             "version": "1.1",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2"
                         },
@@ -1317,8 +1337,8 @@
                         "annotations": {
                             "description": "JBoss A-MQ 6.2 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "messaging,amq,jboss,xpaas",
-                            "supports": "amq:6.2,messaging,xpaas:1.2",
+                            "tags": "messaging,amq,jboss,hidden",
+                            "supports": "amq:6.2,messaging",
                             "version": "1.2",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2"
                         },
@@ -1332,8 +1352,8 @@
                         "annotations": {
                             "description": "JBoss A-MQ 6.2 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "messaging,amq,jboss,xpaas",
-                            "supports": "amq:6.2,messaging,xpaas:1.3",
+                            "tags": "messaging,amq,jboss,hidden",
+                            "supports": "amq:6.2,messaging",
                             "version": "1.3",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2"
                         },
@@ -1347,8 +1367,8 @@
                         "annotations": {
                             "description": "JBoss A-MQ 6.2 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "messaging,amq,jboss,xpaas",
-                            "supports":"amq:6.2,messaging,xpaas:1.4",
+                            "tags": "messaging,amq,jboss,hidden",
+                            "supports": "amq:6.2,messaging",
                             "version": "1.4",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2"
                         },
@@ -1362,8 +1382,8 @@
                         "annotations": {
                             "description": "JBoss A-MQ 6.2 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "messaging,amq,jboss,xpaas",
-                            "supports":"amq:6.2,messaging,xpaas:1.5",
+                            "tags": "messaging,amq,jboss,hidden",
+                            "supports": "amq:6.2,messaging",
                             "version": "1.5",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2"
                         },
@@ -1377,8 +1397,8 @@
                         "annotations": {
                             "description": "JBoss A-MQ 6.2 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "messaging,amq,jboss,xpaas",
-                            "supports":"amq:6.2,messaging,xpaas:1.5",
+                            "tags": "messaging,amq,jboss,hidden",
+                            "supports":"amq:6.2,messaging",
                             "version": "1.6",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2 (Tech Preview)"
                         },
@@ -1386,7 +1406,7 @@
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/jboss-amq-6-tech-preview/amq62-openshift:1.6"
                         }
-                    }
+                     }
                 ]
             }
         },
@@ -1397,6 +1417,7 @@
                 "name": "jboss-amq-63",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -1410,8 +1431,8 @@
                         "annotations": {
                             "description": "JBoss A-MQ 6.3 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "messaging,amq,jboss,xpaas",
-                            "supports": "amq:6.3,messaging,xpaas:1.0",
+                            "tags": "messaging,amq,jboss,hidden",
+                            "supports": "amq:6.3,messaging",
                             "version": "TP",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3 (Tech Preview)"
                         },
@@ -1425,8 +1446,8 @@
                         "annotations": {
                             "description": "JBoss A-MQ 6.3 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "messaging,amq,jboss,xpaas",
-                            "supports": "amq:6.3,messaging,xpaas:1.0",
+                            "tags": "messaging,amq,jboss,hidden",
+                            "supports": "amq:6.3,messaging",
                             "version": "1.0",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3"
                         },
@@ -1440,8 +1461,8 @@
                         "annotations": {
                             "description": "JBoss A-MQ 6.3 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "messaging,amq,jboss,xpaas",
-                            "supports": "amq:6.3,messaging,xpaas:1.1",
+                            "tags": "messaging,amq,jboss,hidden",
+                            "supports": "amq:6.3,messaging",
                             "version": "1.1",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3"
                         },
@@ -1455,8 +1476,8 @@
                         "annotations": {
                             "description": "JBoss A-MQ 6.3 broker image.",
                             "iconClass": "icon-jboss",
-                            "tags": "messaging,amq,jboss,xpaas",
-                            "supports": "amq:6.3,messaging,xpaas:1.1",
+                            "tags": "messaging,amq,jboss,hidden",
+                            "supports": "amq:6.3,messaging",
                             "version": "1.2",
                             "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3 (Tech Preview)"
                         },
@@ -1476,6 +1497,7 @@
                 "annotations": {
                     "description": "Red Hat SSO 7.0",
                     "openshift.io/display-name": "Red Hat Single Sign-On 7.0",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -1489,8 +1511,8 @@
                         "annotations": {
                             "description": "Red Hat SSO 7.0",
                             "iconClass": "icon-jboss",
-                            "tags": "hidden,sso,keycloak,redhat",
-                            "supports": "sso:7.0,xpaas:1.3",
+                            "tags": "sso,keycloak,redhat,hidden",
+                            "supports": "sso:7.0",
                             "version": "1.3",
                             "openshift.io/display-name": "Red Hat Single Sign-On 7.0"
                         },
@@ -1504,8 +1526,8 @@
                         "annotations": {
                             "description": "Red Hat SSO 7.0",
                             "iconClass": "icon-jboss",
-                            "tags": "hidden,sso,keycloak,redhat",
-                            "supports": "sso:7.0,xpaas:1.4",
+                            "tags": "sso,keycloak,redhat,hidden",
+                            "supports": "sso:7.0",
                             "version": "1.4",
                             "openshift.io/display-name": "Red Hat Single Sign-On 7.0"
                         },
@@ -1525,6 +1547,7 @@
                 "annotations": {
                     "description": "Red Hat SSO 7.1",
                     "openshift.io/display-name": "Red Hat Single Sign-On 7.1",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -1538,8 +1561,8 @@
                         "annotations": {
                             "description": "Red Hat SSO 7.1",
                             "iconClass": "icon-jboss",
-                            "tags": "sso,keycloak,redhat",
-                            "supports": "sso:7.1,xpaas:1.4",
+                            "tags": "sso,keycloak,redhat,hidden",
+                            "supports": "sso:7.1",
                             "version": "1.0",
                             "openshift.io/display-name": "Red Hat Single Sign-On 7.1 (Tech Preview)"
                         },
@@ -1553,8 +1576,8 @@
                         "annotations": {
                             "description": "Red Hat SSO 7.1",
                             "iconClass": "icon-jboss",
-                            "tags": "sso,keycloak,redhat",
-                            "supports": "sso:7.1,xpaas:1.4",
+                            "tags": "sso,keycloak,redhat,hidden",
+                            "supports": "sso:7.1",
                             "version": "1.0",
                             "openshift.io/display-name": "Red Hat Single Sign-On 7.1"
                         },
@@ -1568,8 +1591,8 @@
                         "annotations": {
                             "description": "Red Hat SSO 7.1",
                             "iconClass": "icon-jboss",
-                            "tags": "sso,keycloak,redhat",
-                            "supports": "sso:7.1,xpaas:1.4",
+                            "tags": "sso,keycloak,redhat,hidden",
+                            "supports": "sso:7.1",
                             "version": "1.1",
                             "openshift.io/display-name": "Red Hat Single Sign-On 7.1"
                         },
@@ -1583,8 +1606,8 @@
                         "annotations": {
                             "description": "Red Hat SSO 7.1",
                             "iconClass": "icon-jboss",
-                            "tags": "sso,keycloak,redhat",
-                            "supports": "sso:7.1,xpaas:1.4",
+                            "tags": "sso,keycloak,redhat,hidden",
+                            "supports": "sso:7.1",
                             "version": "1.2",
                             "openshift.io/display-name": "Red Hat Single Sign-On 7.1 (Tech Preview)"
                         },
@@ -1603,6 +1626,7 @@
                 "name": "redhat-openjdk18-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat OpenJDK 8",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.6"
                 }
             },
@@ -1616,9 +1640,9 @@
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 8 (Tech Preview)",
                             "description": "Build and run Java applications using Maven and OpenJDK 8.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,java,xpaas,openjdk",
-                            "supports": "java:8,xpaas:1.0",
+                            "iconClass": "icon-openjdk",
+                            "tags": "builder,java,openjdk",
+                            "supports": "java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
                             "sampleContextDir": "undertow-servlet",
                             "version": "TP"
@@ -1633,9 +1657,9 @@
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 8",
                             "description": "Build and run Java applications using Maven and OpenJDK 8.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,java,xpaas,openjdk",
-                            "supports": "java:8,xpaas:1.0",
+                            "iconClass": "icon-openjdk",
+                            "tags": "builder,java,openjdk,hidden",
+                            "supports": "java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
                             "sampleContextDir": "undertow-servlet",
                             "version": "1.0"
@@ -1650,9 +1674,9 @@
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 8",
                             "description": "Build and run Java applications using Maven and OpenJDK 8.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,java,xpaas,openjdk",
-                            "supports": "java:8,xpaas:1.4",
+                            "iconClass": "icon-openjdk",
+                            "tags": "builder,java,openjdk",
+                            "supports": "java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
                             "sampleContextDir": "undertow-servlet",
                             "version": "1.1"
@@ -1667,9 +1691,9 @@
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 8 (Tech Preview)",
                             "description": "Build and run Java applications using Maven and OpenJDK 8.",
-                            "iconClass": "icon-jboss",
-                            "tags": "builder,java,xpaas,openjdk",
-                            "supports": "java:8,xpaas:1.4",
+                            "iconClass": "icon-openjdk",
+                            "tags": "builder,java,openjdk",
+                            "supports": "java:8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
                             "sampleContextDir": "undertow-servlet",
                             "version": "1.2"
