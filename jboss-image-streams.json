@@ -574,7 +574,7 @@
                         },
                         "from": {
                           "kind": "ImageStreamTag",
-                          "name": "1.0-TP"
+                          "name": "1.1-TP"
                         }
                     },
                     {
@@ -593,6 +593,23 @@
                         "from": {
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap71-openshift:1.0"
+                        }
+                    },
+                    {
+                        "name": "1.1-TP",
+                        "annotations": {
+                            "description": "JBoss EAP 7.1",
+                            "iconClass": "icon-jboss",
+                            "tags": "builder,eap,javaee,java,jboss",
+                            "supports":"eap:7.1,javaee:7,java:8",
+                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "7.0.0.GA",
+                            "version": "1.1"
+                        },
+                        "from": {
+                          "kind": "DockerImage",
+                          "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap71-openshift:1.1"
                         }
                     }
                 ]
