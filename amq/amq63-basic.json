@@ -4,10 +4,11 @@
     "metadata": {
         "annotations": {
             "description": "Application template for JBoss A-MQ brokers. These can be deployed as standalone or in a mesh. This template doesn't feature SSL support.",
-            "iconClass": "icon-jboss",
-            "tags": "messaging,amq,jboss,xpaas",
+            "iconClass": "icon-amq",
+            "tags": "messaging,amq,jboss,hidden",
             "version": "1.1",
-            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3 (Ephemeral, no SSL)"
+            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3 (Ephemeral, no SSL)",
+            "openshift.io/provider-display-name": "Red Hat, Inc."
         },
         "name": "amq63-basic"
     },

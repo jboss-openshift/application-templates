@@ -3,11 +3,15 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass": "icon-jboss",
-            "description": "Application template for EAP 6 applications built using S2I, enabled for SSO.",
-            "tags": "eap,javaee,java,jboss,xpaas",
+            "iconClass": "icon-eap",
+            "tags": "eap,javaee,java,jboss,hidden",
             "version": "1.4.6",
-            "openshift.io/display-name": "Red Hat JBoss EAP 7.0 + Single Sign-On (with https)"
+            "openshift.io/display-name": "JBoss EAP 7.0 + Single Sign-On (with https)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "description": "An example EAP 7 Single Sign-On application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.0 based application, including a build configuration, application deployment configuration and integrated with Red Hat Single Sign-On.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
+            "template.openshift.io/support-url": "https://access.redhat.com"
         },
         "name": "eap70-sso-s2i"
     },

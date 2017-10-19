@@ -4,10 +4,11 @@
     "metadata": {
         "annotations": {
             "description": "Application template for JBoss A-MQ brokers. These can be deployed as standalone or in a mesh. This template supports SSL and requires usage of OpenShift secrets.",
-            "iconClass": "icon-jboss",
-            "tags": "messaging,amq,jboss,xpaas",
+            "iconClass": "icon-amq",
+            "tags": "messaging,amq,jboss,hidden",
             "version": "1.4.6",
-            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2 (Ephemeral with SSL)"
+            "openshift.io/display-name": "JBoss A-MQ 6.2 (Ephemeral with SSL)",
+            "openshift.io/provider-display-name": "Red Hat, Inc."
         },
         "name": "amq62-ssl"
     },

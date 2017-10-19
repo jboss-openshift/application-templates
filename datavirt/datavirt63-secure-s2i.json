@@ -3,11 +3,15 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass": "icon-jboss",
-            "description": "Application template for JBoss Data Virtualization 6.3 services built using S2I.  Includes ability to configure certificates for serving secure content.",
-            "tags": "jdv,datavirt,database,jboss,xpaas",
+            "iconClass": "icon-datavirt",
+            "tags": "jdv,datavirt,database,jboss",
             "version": "1.4.6",
-            "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3 (with SSL)"
+            "openshift.io/display-name": "JBoss Data Virtualization 6.3 (with SSL)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "description": "An example JBoss Data Virtualization application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Data Virtualization based application, including a build configuration, application deployment configuration and ability to configure certificates for serving secure content.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-data-virtualization/",
+            "template.openshift.io/support-url": "https://access.redhat.com"
         },
         "name": "datavirt63-secure-s2i"
     },

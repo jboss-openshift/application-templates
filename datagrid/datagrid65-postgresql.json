@@ -3,11 +3,12 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass": "icon-jboss",
+            "iconClass": "icon-datagrid",
             "description": "Application template for JDG 6.5 and PostgreSQL applications built using.",
-            "tags": "datagrid,jboss,xpaas",
+            "tags": "datagrid,jboss,hidden",
             "version": "1.4.6",
-            "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 + PostgreSQL (Ephemeral with https)"
+            "openshift.io/display-name": "JBoss Data Grid 6.5 + PostgreSQL (Ephemeral with https)",
+            "openshift.io/provider-display-name": "Red Hat, Inc."
         },
         "name": "datagrid65-postgresql"
     },
@@ -641,7 +642,7 @@
                                     {
                                         "name": "HOTROD_ENCRYPTION",
                                         "value": "${HTTPS_NAME}"
-                                    }, 
+                                    },
                                     {
                                         "name": "MEMCACHED_CACHE",
                                         "value": "${MEMCACHED_CACHE}"
