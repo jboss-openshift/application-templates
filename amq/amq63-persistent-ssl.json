@@ -125,10 +125,10 @@
             "required": true
         },
         {
-            "displayName": "A-MQ Storage Limit",
-            "description": "The A-MQ storage usage limit",
+            "displayName": "A-MQ Store Usage Limit",
+            "description": "The A-MQ Store Usage limit.",
             "name": "AMQ_STORAGE_USAGE_LIMIT",
-            "value": "100 gb",
+            "value": "512 mb",
             "required": false
         },
         {
