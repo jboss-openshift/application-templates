@@ -3,11 +3,12 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass": "icon-jboss",
+            "iconClass": "icon-datavirt",
             "description": "Application template for JBoss Data Virtualization 6.3 services built using S2I.",
-            "tags": "jdv,datavirt,database,jboss,xpaas",
+            "tags": "jdv,datavirt,database,jboss,hidden",
             "version": "1.4.6",
-            "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3 (no SSL)"
+            "openshift.io/display-name": "JBoss Data Virtualization 6.3 (no SSL)",
+            "openshift.io/provider-display-name": "Red Hat, Inc."
         },
         "name": "datavirt63-basic-s2i"
     },

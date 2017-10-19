@@ -3,11 +3,15 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "description": "Application template for JBoss A-MQ brokers. These are deployed as standalone and use persistent storage for saving messages, including message migration when the number of pods are reduced. This template supports SSL and requires usage of OpenShift secrets.",
-            "iconClass": "icon-jboss",
-            "tags": "messaging,amq,jboss,xpaas",
+            "iconClass": "icon-amq",
+            "tags": "messaging,amq,jboss",
             "version": "1.1",
-            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3 (Persistent with SSL)"
+            "openshift.io/display-name": "JBoss A-MQ 6.3 (with SSL)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "description": "An example JBoss A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss A-MQ 6.3 based application, including a deployment configuration, using persistence and secure communication using SSL.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-amq/",
+            "template.openshift.io/support-url": "https://access.redhat.com"
         },
         "name": "amq63-persistent-ssl"
     },

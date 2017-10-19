@@ -4,10 +4,15 @@
     "metadata": {
         "annotations": {
             "description": "Application template for Red Hat JBoss BRMS 6.4 decision server HTTPS applications built using S2I.",
-            "iconClass": "icon-jboss",
-            "tags": "decisionserver,jboss,xpaas",
+            "iconClass": "icon-decisionserver",
+            "tags": "decisionserver,jboss",
             "version": "1.4.6",
-            "openshift.io/display-name": "Red Hat JBoss BRMS 6.4 decision server (with https)"
+            "openshift.io/display-name": "JBoss BRMS 6.4 decision server (with https)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "description": "An example BRMS decision server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss BRMS 6.4 decision server, including a build configuration,  application deployment configuration and secured using https.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-brms/",
+            "template.openshift.io/support-url": "https://access.redhat.com"
         },
         "name": "decisionserver64-https-s2i"
     },

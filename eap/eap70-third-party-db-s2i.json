@@ -3,11 +3,15 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass": "icon-jboss",
-            "description": "Application template for EAP 7 DB applications built using S2I.  Includes support for installing third-party DB drivers.",
-            "tags": "eap,javaee,java,jboss,xpaas",
+            "iconClass": "icon-eap",
+            "tags": "eap,javaee,java,jboss,hidden",
             "version": "1.4.6",
-            "openshift.io/display-name": "Red Hat JBoss EAP 7.0 (with https, supporting third-party DB drivers)"
+            "openshift.io/display-name": "JBoss EAP 7.0 (with https, DB drivers)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "description": "An example EAP 7 DB application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.0 based application, including a build configuration, application deployment configuration, using third-party DB drivers and secure communication using https.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
+            "template.openshift.io/support-url": "https://access.redhat.com"
         },
         "name": "eap70-third-party-db-s2i"
     },

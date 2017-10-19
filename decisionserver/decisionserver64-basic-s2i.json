@@ -4,7 +4,7 @@
     "metadata": {
         "annotations": {
             "description": "Application template for Red Hat JBoss BRMS 6.4 decision server applications built using S2I.",
-            "iconClass": "icon-jboss",
+            "iconClass": "icon-decisionserver",
             "tags": "decisionserver,jboss,xpaas",
             "version": "1.4.6",
             "openshift.io/display-name": "Red Hat JBoss BRMS 6.4 decision server (no https)"

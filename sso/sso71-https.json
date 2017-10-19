@@ -3,11 +3,15 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "description": "Application template for SSO 7.1",
-            "iconClass" : "icon-jboss",
-            "tags" : "sso,keycloak,jboss,xpaas",
+            "iconClass" : "icon-sso",
+            "tags" : "sso,keycloak,jboss,hidden",
             "version": "1.0.0",
-            "openshift.io/display-name": "Red Hat Single Sign-On 7.1"
+            "openshift.io/display-name": "Single Sign-On 7.1",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "description": "An example SSO 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.1 server based deployment.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
+            "template.openshift.io/support-url": "https://access.redhat.com"
         },
         "name": "sso71-https"
     },
@@ -316,7 +320,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "redhat-sso71-openshift:TP" 
+                                "name": "redhat-sso71-openshift:TP"
                             }
                         }
                     },
