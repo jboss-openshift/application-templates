@@ -111,8 +111,8 @@
             "required": false
         },
         {
-            "displayName": "A-MQ Storage Limit",
-            "description": "The A-MQ storage usage limit",
+            "displayName": "A-MQ Store Usage Limit",
+            "description": "Sets the store disk limit usage in activemq.xml. If the value set is greater than the disk size, it will be resized to the available disk space.",
             "name": "AMQ_STORAGE_USAGE_LIMIT",
             "value": "100 gb",
             "required": false
