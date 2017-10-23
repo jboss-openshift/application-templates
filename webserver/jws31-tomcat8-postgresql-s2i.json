@@ -3,7 +3,7 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass": "icon-tomcat",
+            "iconClass": "icon-rh-tomcat",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "Application template for JWS PostgreSQL applications built using S2I.",
             "tags": "tomcat,tomcat8,java,jboss,hidden",
