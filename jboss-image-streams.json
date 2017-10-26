@@ -896,19 +896,40 @@
             "metadata": {
                 "name": "jboss-bpmsuite70-businesscentral-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central"
+                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
                     {
-                        "name": "1.0",
+                        "name": "TP",
                         "annotations": {
-                            "description": "Red Hat JBoss BPM Suite 7.0 Business Central image.",
+                            "description": "Red Hat JBoss BPM Suite 7.0 Business Central images.",
                             "iconClass": "icon-jboss",
-                            "tags": "bpmsuite,xpaas",
-                            "supports":"bpmsuite:7.0,xpaas:1.4",
-                            "version": "1.0"
+                            "tags": "bpmsuite,java,jboss,hidden",
+                            "supports":"bpmsuite:7.0,java:8",
+                            "version": "TP",
+                            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central (Tech Preview)"
+                        },
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "1.0-TP"
+                        }
+                    },
+                    {
+                        "name": "1.0-TP",
+                        "annotations": {
+                            "description": "Red Hat JBoss BPM Suite 7.0 Business Central images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "bpmsuite,java,jboss,hidden",
+                            "supports":"bpmsuite:7.0,java:8",
+                            "version": "1.0",
+                            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central (Tech Preview)"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -924,19 +945,40 @@
             "metadata": {
                 "name": "jboss-bpmsuite70-businesscentral-monitoring-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central Monitoring"
+                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central Monitoring",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
                     {
-                        "name": "1.0",
+                        "name": "TP",
                         "annotations": {
-                            "description": "Red Hat JBoss BPM Suite 7.0 Business Central Monitoring image.",
+                            "description": "Red Hat JBoss BPM Suite 7.0 Business Central Monitoring images.",
                             "iconClass": "icon-jboss",
-                            "tags": "bpmsuite,xpaas",
-                            "supports":"bpmsuite:7.0,xpaas:1.4",
-                            "version": "1.0"
+                            "tags": "bpmsuite,java,jboss,hidden",
+                            "supports":"bpmsuite:7.0,java:8",
+                            "version": "TP",
+                            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central Monitoring (Tech Preview)"
+                        },
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "1.0-TP"
+                        }
+                    },
+                    {
+                        "name": "1.0-TP",
+                        "annotations": {
+                            "description": "Red Hat JBoss BPM Suite 7.0 Business Central Monitoring images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "bpmsuite,java,jboss,hidden",
+                            "supports":"bpmsuite:7.0,java:8",
+                            "version": "1.0",
+                            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Business Central Monitoring (Tech Preview)"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -952,19 +994,40 @@
             "metadata": {
                 "name": "jboss-bpmsuite70-executionserver-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Execution Server"
+                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Execution Server",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
                     {
-                        "name": "1.0",
+                        "name": "TP",
                         "annotations": {
-                            "description": "Red Hat JBoss BPM Suite 7.0 Execution Server image.",
+                            "description": "Red Hat JBoss BPM Suite 7.0 Execution Server images.",
                             "iconClass": "icon-jboss",
-                            "tags": "bpmsuite,xpaas",
-                            "supports":"bpmsuite:7.0,xpaas:1.4",
-                            "version": "1.0"
+                            "tags": "bpmsuite,java,jboss,hidden",
+                            "supports":"bpmsuite:7.0,java:8",
+                            "version": "TP",
+                            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Execution Server (Tech Preview)"
+                        },
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "1.0-TP"
+                        }
+                    },
+                    {
+                        "name": "1.0-TP",
+                        "annotations": {
+                            "description": "Red Hat JBoss BPM Suite 7.0 Execution Server images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "bpmsuite,java,jboss,hidden",
+                            "supports":"bpmsuite:7.0,java:8",
+                            "version": "1.0",
+                            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Execution Server (Tech Preview)"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -980,19 +1043,40 @@
             "metadata": {
                 "name": "jboss-bpmsuite70-smartrouter-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Smart Router"
+                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Smart Router",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
                     {
-                        "name": "1.0",
+                        "name": "TP",
                         "annotations": {
-                            "description": "Red Hat JBoss BPM Suite 7.0 Smart Router image.",
+                            "description": "Red Hat JBoss BPM Suite 7.0 Smart Router images.",
                             "iconClass": "icon-jboss",
-                            "tags": "bpmsuite,xpaas",
-                            "supports":"bpmsuite:7.0,xpaas:1.4",
-                            "version": "1.0"
+                            "tags": "bpmsuite,java,jboss,hidden",
+                            "supports":"bpmsuite:7.0,java:8",
+                            "version": "TP",
+                            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Smart Router (Tech Preview)"
+                        },
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "1.0-TP"
+                        }
+                    },
+                    {
+                        "name": "1.0-TP",
+                        "annotations": {
+                            "description": "Red Hat JBoss BPM Suite 7.0 Smart Router images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "bpmsuite,java,jboss,hidden",
+                            "supports":"bpmsuite:7.0,java:8",
+                            "version": "1.0",
+                            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Smart Router (Tech Preview)"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -1008,19 +1092,40 @@
             "metadata": {
                 "name": "jboss-bpmsuite70-standalonecontroller-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Standalone Controller"
+                    "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Standalone Controller",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "version": "1.4.6"
                 }
+            },
+            "labels": {
+                "xpaas": "1.4.6"
             },
             "spec": {
                 "tags": [
                     {
-                        "name": "1.0",
+                        "name": "TP",
                         "annotations": {
-                            "description": "Red Hat JBoss BPM Suite 7.0 Standalone Controller image.",
+                            "description": "Red Hat JBoss BPM Suite 7.0 Standalone Controller images.",
                             "iconClass": "icon-jboss",
-                            "tags": "bpmsuite,xpaas",
-                            "supports":"bpmsuite:7.0,xpaas:1.4",
-                            "version": "1.0"
+                            "tags": "bpmsuite,java,jboss,hidden",
+                            "supports":"bpmsuite:7.0,java:8",
+                            "version": "TP",
+                            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Standalone Controller (Tech Preview)"
+                        },
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "1.0-TP"
+                        }
+                    },
+                    {
+                        "name": "1.0-TP",
+                        "annotations": {
+                            "description": "Red Hat JBoss BPM Suite 7.0 Standalone Controller images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "bpmsuite,java,jboss,hidden",
+                            "supports":"bpmsuite:7.0,java:8",
+                            "version": "1.0",
+                            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Standalone Controller (Tech Preview)"
                         },
                         "from": {
                             "kind": "DockerImage",
