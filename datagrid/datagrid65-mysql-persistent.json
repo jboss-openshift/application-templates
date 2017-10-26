@@ -6,14 +6,14 @@
             "iconClass": "icon-jboss",
             "description": "Application template for JDG 6.5 and MySQL applications with persistent storage.",
             "tags": "datagrid,jboss,xpaas",
-            "version": "1.4.0",
+            "version": "1.4.6",
             "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 + MySQL (Persistent with https)"
         },
         "name": "datagrid65-mysql-persistent"
     },
     "labels": {
         "template": "datagrid65-mysql-persistent",
-        "xpaas": "1.4.0"
+        "xpaas": "1.4.6"
     },
     "message": "A new data grid service (using MySQL with persistent storage) has been created in your project. It supports connector type(s) \"${INFINISPAN_CONNECTORS}\". The username/password for accessing the MySQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the \"datagrid-service-account\" service account and the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
@@ -457,7 +457,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-datagrid65-openshift:1.5"
+                                "name": "jboss-datagrid65-openshift:TP"
                             }
                         }
                     },

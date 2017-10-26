@@ -13,7 +13,7 @@
     },
     "labels": {
         "template": "amq63-ssl",
-        "xpaas": "1.5.0"
+        "xpaas": "1.4.6"
     },
     "message": "A new messaging service with SSL support has been created in your project. It will handle the protocol(s) \"${MQ_PROTOCOL}\". The username/password for accessing the service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the \"amq-service-account\" service account and a secret named \"${AMQ_SECRET}\" containing the trust store and key store files (\"${AMQ_TRUSTSTORE}\" and \"${AMQ_KEYSTORE}\") used for serving secure content.",
     "parameters": [
@@ -115,6 +115,13 @@
             "description": "The A-MQ storage usage limit",
             "name": "AMQ_STORAGE_USAGE_LIMIT",
             "value": "100 gb",
+            "required": false
+        },
+        {
+            "displayName": "Queue Memory Limit",
+            "description": "The queue memory limit (default is 1mb)",
+            "name": "AMQ_QUEUE_MEMORY_LIMIT",
+            "value": "",
             "required": false
         },
         {
@@ -346,7 +353,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-amq-63:1.2"
+                                "name": "jboss-amq-63:TP"
                             }
                         }
                     },
@@ -501,6 +508,10 @@
                                     {
                                         "name": "AMQ_STORAGE_USAGE_LIMIT",
                                         "value": "${AMQ_STORAGE_USAGE_LIMIT}"
+                                    },
+                                    {
+                                        "name": "AMQ_QUEUE_MEMORY_LIMIT",
+                                        "value": "${AMQ_QUEUE_MEMORY_LIMIT}"
                                     }
                                 ]
                             }

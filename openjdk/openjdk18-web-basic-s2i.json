@@ -13,7 +13,7 @@
     },
     "labels": {
         "template": "openjdk18-web-basic-s2i",
-        "xpaas": "1.4.0"
+        "xpaas": "1.4.6"
     },
     "message": "A new java application has been created in your project.",
     "parameters": [
@@ -156,7 +156,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "redhat-openjdk18-openshift:1.2"
+                            "name": "redhat-openjdk18-openshift:TP"
                         }
                     }
                 },
