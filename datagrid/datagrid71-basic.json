@@ -236,6 +236,29 @@
             }
         },
         {
+            "kind": "ServiceAccount",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "datagrid-service-account"
+            }
+        },
+        {
+            "kind": "RoleBinding",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "datagrid-service-account_view"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "datagrid-service-account"
+                }
+            ],
+            "roleRef": {
+                "name": "view"
+            }
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -280,6 +303,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccountName": "datagrid-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {

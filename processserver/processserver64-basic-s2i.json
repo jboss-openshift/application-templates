@@ -272,6 +272,29 @@
             }
         },
         {
+            "kind": "ServiceAccount",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "processserver-service-account"
+            }
+        },
+        {
+            "kind": "RoleBinding",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "processserver-service-account_view"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "processserver-service-account"
+                }
+            ],
+            "roleRef": {
+                "name": "view"
+            }
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -315,6 +338,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccountName": "processserver-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {

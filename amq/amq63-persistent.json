@@ -214,6 +214,29 @@
             }
         },
         {
+            "kind": "ServiceAccount",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "amq-service-account"
+            }
+        },
+        {
+            "kind": "RoleBinding",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "amq-service-account_view"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "amq-service-account"
+                }
+            ],
+            "roleRef": {
+                "name": "view"
+            }
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -261,6 +284,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccountName": "amq-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
@@ -422,6 +446,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccountName": "amq-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {

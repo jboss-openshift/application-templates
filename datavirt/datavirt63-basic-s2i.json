@@ -16,7 +16,7 @@
         "template": "datavirt63-basic-s2i",
         "xpaas": "1.4.7"
     },
-    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
+    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
     "parameters": [
         {
             "description": "The name for the application.",
@@ -326,6 +326,29 @@
                         "type": "ConfigChange"
                     }
                 ]
+            }
+        },
+        {
+            "kind": "ServiceAccount",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${SERVICE_ACCOUNT_NAME}"
+            }
+        },
+        {
+            "kind": "RoleBinding",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${SERVICE_ACCOUNT_NAME}_view"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "${SERVICE_ACCOUNT_NAME}"
+                }
+            ],
+            "roleRef": {
+                "name": "view"
             }
         },
         {

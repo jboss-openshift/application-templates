@@ -254,6 +254,29 @@
             }
         },
         {
+            "kind": "ServiceAccount",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "eap7-service-account"
+            }
+        },
+        {
+            "kind": "RoleBinding",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "eap7-service-account_view"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "eap7-service-account"
+                }
+            ],
+            "roleRef": {
+                "name": "view"
+            }
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -297,6 +320,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccountName": "eap7-service-account",
                         "terminationGracePeriodSeconds": 75,
                         "containers": [
                             {

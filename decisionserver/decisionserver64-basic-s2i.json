@@ -261,6 +261,29 @@
             }
         },
         {
+            "kind": "ServiceAccount",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "decisionserver-service-account"
+            }
+        },
+        {
+            "kind": "RoleBinding",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "decisionserver-service-account_view"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "decisionserver-service-account"
+                }
+            ],
+            "roleRef": {
+                "name": "view"
+            }
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -304,6 +327,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccountName": "decisionserver-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {

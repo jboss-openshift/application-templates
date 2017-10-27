@@ -19,7 +19,7 @@
         "template": "processserver64-postgresql-s2i",
         "xpaas": "1.4.7"
     },
-    "message": "A new BPMS application (using PostgreSQL) has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the \"processserver-service-account\" service account and the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
+    "message": "A new BPMS application (using PostgreSQL) has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
     "parameters": [
         {
             "displayName": "KIE Container Deployment",
@@ -465,6 +465,29 @@
                         "type": "ConfigChange"
                     }
                 ]
+            }
+        },
+        {
+            "kind": "ServiceAccount",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "processserver-service-account"
+            }
+        },
+        {
+            "kind": "RoleBinding",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "processserver-service-account_view"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "processserver-service-account"
+                }
+            ],
+            "roleRef": {
+                "name": "view"
             }
         },
         {

@@ -20,7 +20,7 @@
         "template": "decisionserver64-https-s2i",
         "xpaas": "1.4.7"
     },
-    "message": "A new BRMS application with SSL support has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. Please be sure to create the \"decisionserver-service-account\" service account and the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
+    "message": "A new BRMS application with SSL support has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. Please be sure to create the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
     "parameters": [
         {
             "displayName": "KIE Container Deployment",
@@ -359,6 +359,29 @@
                         "type": "ConfigChange"
                     }
                 ]
+            }
+        },
+        {
+            "kind": "ServiceAccount",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "decisionserver-service-account"
+            }
+        },
+        {
+            "kind": "RoleBinding",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "decisionserver-service-account_view"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "decisionserver-service-account"
+                }
+            ],
+            "roleRef": {
+                "name": "view"
             }
         },
         {
