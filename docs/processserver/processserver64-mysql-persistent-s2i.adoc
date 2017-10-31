@@ -119,7 +119,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-processserver64-openshift:TP |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver64-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|jboss-processserver64-openshift:1.1 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver64-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 

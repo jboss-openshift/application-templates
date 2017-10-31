@@ -6,7 +6,7 @@
             "iconClass": "icon-datavirt",
             "description": "Application template for JBoss Data Virtualization 6.3 services built using S2I.",
             "tags": "jdv,datavirt,database,jboss,hidden",
-            "version": "1.4.6",
+            "version": "1.4.7",
             "openshift.io/display-name": "JBoss Data Virtualization 6.3 (no SSL)",
             "openshift.io/provider-display-name": "Red Hat, Inc."
         },
@@ -14,7 +14,7 @@
     },
     "labels": {
         "template": "datavirt63-basic-s2i",
-        "xpaas": "1.4.6"
+        "xpaas": "1.4.7"
     },
     "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
     "parameters": [
@@ -268,7 +268,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-datavirt63-openshift:TP"
+                            "name": "jboss-datavirt63-openshift:1.3"
                         },
                         "env": [
                             {

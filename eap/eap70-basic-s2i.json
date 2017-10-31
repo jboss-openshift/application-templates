@@ -5,7 +5,7 @@
         "annotations": {
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss,hidden",
-            "version": "1.4.6",
+            "version": "1.4.7",
             "openshift.io/display-name": "JBoss EAP 7.0 (no https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example EAP 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
@@ -17,7 +17,7 @@
     },
     "labels": {
         "template": "eap70-basic-s2i",
-        "xpaas": "1.4.6"
+        "xpaas": "1.4.7"
     },
     "message": "A new EAP 7 based application has been created in your project.",
     "parameters": [
@@ -220,7 +220,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap70-openshift:TP"
+                            "name": "jboss-eap70-openshift:1.6"
                         }
                     }
                 },
