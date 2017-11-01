@@ -6,7 +6,7 @@
             "iconClass": "icon-rh-tomcat",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "Application template for JWS applications built using S2I.",
-            "tags": "tomcat,tomcat7,java,jboss,hidden",
+            "tags": "tomcat,tomcat7,java,jboss",
             "version": "1.4.7",
             "openshift.io/display-name": "JBoss Web Server 3.1 Apache Tomcat 7 (no https)"
         },

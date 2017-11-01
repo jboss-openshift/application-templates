@@ -4,7 +4,7 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-eap",
-            "tags": "eap,javaee,java,jboss,hidden",
+            "tags": "eap,javaee,java,jboss",
             "version": "1.4.7",
             "openshift.io/display-name": "JBoss EAP 6.4 (no https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",

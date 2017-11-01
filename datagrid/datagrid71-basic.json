@@ -4,7 +4,7 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-datagrid",
-            "tags": "datagrid,jboss,hidden",
+            "tags": "datagrid,jboss",
             "version": "1.4.7",
             "openshift.io/display-name": "JBoss Data Grid 7.1 (Ephemeral, no https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",

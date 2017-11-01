@@ -4,7 +4,7 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-eap",
-            "tags": "eap,javaee,java,jboss",
+            "tags": "eap,javaee,java,jboss,hidden",
             "version": "1.4.7",
             "openshift.io/display-name": "JBoss EAP 7.1 + MySQL (with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
