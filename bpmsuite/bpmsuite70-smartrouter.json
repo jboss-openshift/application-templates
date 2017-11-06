@@ -1,0 +1,298 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "annotations": {
+            "description": "Application template for Red Hat JBoss BPM Suite 7.0 which includes a Smart Router.",
+            "iconClass": "icon-jboss",
+            "tags": "bpmsuite,jboss,xpaas",
+            "version": "1.4.0",
+            "openshift.io/display-name": "Red Hat JBoss BPM Suite 7.0 Smart router"
+        },
+        "name": "bpmsuite70-smartrouter"
+    },
+    "labels": {
+        "template": "bpmsuite70-smartrouter",
+        "xpaas": "1.4.0"
+    },
+    "message": "A new BPM Suite Smart Router applications have been created in your project.",
+    "parameters": [
+        {
+            "displayName": "Application Name",
+            "description": "The name for the application.",
+            "name": "APPLICATION_NAME",
+            "value": "myapp",
+            "required": true
+        },
+        {
+            "displayName": "ImageStream Namespace",
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "name": "IMAGE_STREAM_NAMESPACE",
+            "value": "openshift",
+            "required": true
+        },
+        {
+            "displayName": "Smart Router ID",
+            "description": "Router ID used when connecting to the controller (router property org.kie.server.router.id)",
+            "name": "KIE_SERVER_ROUTER_ID",
+            "value": "kie-server-router",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router listening port",
+            "description": "Port in which the smart router server listens (router property org.kie.server.router.port)",
+            "name": "KIE_SERVER_ROUTER_PORT",
+            "value": "9000",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router protocol",
+            "description": "KIE server router protocol (Used to build the org.kie.server.router.url.external property)",
+            "name": "KIE_SERVER_ROUTER_PROTOCOL",
+            "value": "http",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router external URL",
+            "description": "Public URL where the router can be found. Format http://<host>:<port> (router property org.kie.server.router.url.external)",
+            "name": "KIE_SERVER_ROUTER_URL_EXTERNAL",
+            "example": "http://my-app-smartrouter-projectName.osurl:9000",
+            "required": false
+        },
+
+        {
+            "displayName": "Smart Router name",
+            "description": "Router name used when connecting to the controller (router property org.kie.server.router.name)",
+            "name": "KIE_SERVER_ROUTER_NAME",
+            "value": "KIE Server Router",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router controller protocol",
+            "description": "KIE server controller protocol (Used to set the org.kie.server.controller system property)",
+            "name": "KIE_SERVER_CONTROLLER_PROTOCOL",
+            "value": "http",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router controller service",
+            "description": "KIE server controller service (Used to set the org.kie.server.controller system property if host and port aren't set)",
+            "name": "KIE_SERVER_CONTROLLER_SERVICE",
+            "example": "buscentr-myapp",
+            "required": false
+        },
+        {
+            "displayName": "Smart router controller host",
+            "description": "KIE server controller service (Used to set the org.kie.server.controller system property if host and port aren't set)",
+            "name": "KIE_SERVER_CONTROLLER_HOST",
+            "example": "my-app-controller.os.mycloud.com",
+            "required": false
+        },
+        {
+            "displayName": "Smart router controller port",
+            "description": "KIE server controller port (Used to set the org.kie.server.controller system property)",
+            "name": "KIE_SERVER_CONTROLLER_PORT",
+            "value": "80",
+            "example": "8080",
+            "required": true
+        },
+        {
+            "displayName": "Smart router controller token",
+            "description": "KIE server controller token for bearer authentication (Sets the org.kie.server.controller.token system property)",
+            "name": "KIE_SERVER_CONTROLLER_TOKEN",
+            "example": "dasd373egds",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router controller user",
+            "description": "User name of the user to access the controller, when using basic authentication (router property org.kie.server.controller.user)",
+            "name": "KIE_SERVER_CONTROLLER_USER",
+            "value": "controllerUser",
+            "example": "bpmsAdmin",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router controller password",
+            "description": "Password of the user to access the controller, when using basic authentication (router property org.kie.server.controller.pwd)",
+            "name": "KIE_SERVER_CONTROLLER_PWD",
+            "value": "controllerPassword",
+            "example": "bpmsAdmin",
+            "required": false
+        },
+        {
+            "displayName": "Smart Router Custom http Route Hostname",
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-smartrouter-<project>.<default-domain-suffix>",
+            "name": "SMART_ROUTER_HOSTNAME_HTTP",
+            "value": "",
+            "required": false
+        }
+    ],
+    "objects": [
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 9000,
+                        "targetPort": 9000
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-smartrouter"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-smartrouter",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The smart router server http port."
+                }
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-smartrouter-http",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-smartrouter",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "Route for the smart router's http service."
+                }
+            },
+            "spec": {
+                "host": "${SMART_ROUTER_HOSTNAME_HTTP}",
+                "to": {
+                    "name": "${APPLICATION_NAME}-smartrouter"
+                }
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-smartrouter",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-smartrouter"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "name": "jboss-bpmsuite70-smartrouter-openshift:TP"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-smartrouter"
+                },
+                "template": {
+                    "metadata": {
+                        "name": "${APPLICATION_NAME}-smartrouter",
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}-smartrouter",
+                            "application": "${APPLICATION_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "containers": [
+                            {
+                                "name": "${APPLICATION_NAME}-smartrouter",
+                                "image": "jboss-bpmsuite70-smartrouter-openshift",
+                                "imagePullPolicy": "Always",
+                                "ports": [
+                                    {
+                                        "name": "http",
+                                        "containerPort": 9000,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_HOST",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "status.podIP"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_PORT",
+                                        "value": "${KIE_SERVER_ROUTER_PORT}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_URL_EXTERNAL",
+                                        "value": "${KIE_SERVER_ROUTER_URL_EXTERNAL}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_ID",
+                                        "value": "${KIE_SERVER_ROUTER_ID}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_NAME",
+                                        "value": "${KIE_SERVER_ROUTER_NAME}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_PROTOCOL",
+                                        "value": "${KIE_SERVER_ROUTER_PROTOCOL}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_HOST",
+                                        "value": "${KIE_SERVER_CONTROLLER_HOST}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_PORT",
+                                        "value": "${KIE_SERVER_CONTROLLER_PORT}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_PROTOCOL",
+                                        "value": "${KIE_SERVER_CONTROLLER_PROTOCOL}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_SERVICE",
+                                        "value": "${KIE_SERVER_CONTROLLER_SERVICE}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_USER",
+                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_PWD",
+                                        "value": "${KIE_SERVER_CONTROLLER_PWD}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_TOKEN",
+                                        "value": "${KIE_SERVER_CONTROLLER_TOKEN}"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}
