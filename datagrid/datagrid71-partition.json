@@ -326,7 +326,7 @@
                                 "imagePullPolicy": "Always",
                                 "volumeMounts": [
                                     {
-                                        "mountPath": "/opt/datagrid/standalone/data",
+                                        "mountPath": "/opt/datagrid/standalone/partitioned_data",
                                         "name": "${APPLICATION_NAME}-datagrid-pvol"
                                     }
                                 ],
