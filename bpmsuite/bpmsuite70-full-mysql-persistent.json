@@ -676,42 +676,6 @@
                                         "value": "${KIE_SERVER_USER}"
                                     },
                                     {
-                                        "name": "DB_SERVICE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-mysql=DB"
-                                    },
-                                    {
-                                        "name": "DB_JNDI",
-                                        "value": "${DB_JNDI}"
-                                    },
-                                    {
-                                        "name": "DB_USERNAME",
-                                        "value": "${DB_USERNAME}"
-                                    },
-                                    {
-                                        "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "DB_DATABASE",
-                                        "value": "${DB_DATABASE}"
-                                    },
-                                    {
-                                        "name": "TX_DATABASE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-mysql=DB"
-                                    },
-                                    {
-                                        "name": "DB_MIN_POOL_SIZE",
-                                        "value": "${DB_MIN_POOL_SIZE}"
-                                    },
-                                    {
-                                        "name": "DB_MAX_POOL_SIZE",
-                                        "value": "${DB_MAX_POOL_SIZE}"
-                                    },
-                                    {
-                                        "name": "DB_TX_ISOLATION",
-                                        "value": "${DB_TX_ISOLATION}"
-                                    },
-                                    {
                                         "name": "HTTPS_KEYSTORE_DIR",
                                         "value": "/etc/bpmsuite-secret-volume"
                                     },
