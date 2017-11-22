@@ -176,7 +176,7 @@
             "displayName": "Database Volume Capacity",
             "description": "Size of persistent storage for database volume.",
             "name": "VOLUME_CAPACITY",
-            "value": "512Mi",
+            "value": "1Gi",
             "required": true
         },
         {

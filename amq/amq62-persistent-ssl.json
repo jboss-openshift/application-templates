@@ -68,7 +68,7 @@
             "displayName": "A-MQ Volume Size",
             "description": "Size of the volume used by A-MQ for persisting messages.",
             "name": "VOLUME_CAPACITY",
-            "value": "512Mi",
+            "value": "1Gi",
             "required": true
         },
         {
