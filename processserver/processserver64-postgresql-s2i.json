@@ -747,7 +747,21 @@
                                         "name": "POSTGRESQL_SHARED_BUFFERS",
                                         "value": "${POSTGRESQL_SHARED_BUFFERS}"
                                     }
+                                ],
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/var/lib/pgsql/data",
+                                        "name": "${APPLICATION_NAME}-data"
+                                    }
                                 ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "emptyDir": {
+                                    "medium": ""
+                                },
+                                "name": "${APPLICATION_NAME}-data"
                             }
                         ]
                     }

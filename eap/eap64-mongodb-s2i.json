@@ -804,7 +804,21 @@
                                         "name": "MONGODB_QUIET",
                                         "value": "${MONGODB_QUIET}"
                                     }
+                                ],
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/var/lib/mongodb/data",
+                                        "name": "${APPLICATION_NAME}-data"
+                                    }
                                 ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "emptyDir": {
+                                    "medium": ""
+                                },
+                                "name": "${APPLICATION_NAME}-data"
                             }
                         ]
                     }
