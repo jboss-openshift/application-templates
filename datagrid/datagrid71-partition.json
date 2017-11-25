@@ -154,6 +154,12 @@
             "name": "DATAGRID_SPLIT",
             "value": "true",
             "required": false
+        },
+        {
+            "description": "Container memory limit",
+            "name": "MEMORY_LIMIT",
+            "value": "1Gi",
+            "required": false
         }
     ],
     "objects": [
@@ -324,6 +330,11 @@
                                 "name": "${APPLICATION_NAME}",
                                 "image": "jboss-datagrid71-openshift",
                                 "imagePullPolicy": "Always",
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/opt/datagrid/standalone/partitioned_data",
