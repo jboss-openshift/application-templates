@@ -66,16 +66,24 @@
         {
             "displayName": "Queues",
             "description": "Queue names",
-            "name": "HORNETQ_QUEUES",
+            "name": "MQ_QUEUES",
             "value": "",
             "required": false
         },
         {
             "displayName": "Topics",
             "description": "Topic names",
-            "name": "HORNETQ_TOPICS",
+            "name": "MQ_TOPICS",
             "value": "",
             "required": false
+        },
+        {
+            "displayName": "A-MQ cluster password",
+            "description": "A-MQ cluster admin password",
+            "name": "MQ_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
         },
         {
             "displayName": "Server Keystore Secret Name",
@@ -111,14 +119,6 @@
             "name": "HTTPS_PASSWORD",
             "value": "",
             "required": false
-        },
-        {
-            "displayName": "HornetQ Password",
-            "description": "HornetQ cluster admin password",
-            "name": "HORNETQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
         },
         {
             "displayName": "Github Webhook Secret",
@@ -694,16 +694,16 @@
                                         "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                        "name": "MQ_CLUSTER_PASSWORD",
+                                        "value": "${MQ_CLUSTER_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_QUEUES",
-                                        "value": "${HORNETQ_QUEUES}"
+                                        "name": "MQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
                                     },
                                     {
-                                        "name": "HORNETQ_TOPICS",
-                                        "value": "${HORNETQ_TOPICS}"
+                                        "name": "MQ_TOPICS",
+                                        "value": "${MQ_TOPICS}"
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
