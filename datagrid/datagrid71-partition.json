@@ -236,30 +236,6 @@
             }
         },
         {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 8787,
-                        "targetPort": 8787
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            },
-            "metadata": {
-                "name": "${APPLICATION_NAME}-debug",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Hot Rod service for clustered applications."
-                }
-            }
-        },
-        {
             "kind": "Route",
             "apiVersion": "v1",
             "id": "${APPLICATION_NAME}-http",
@@ -389,11 +365,6 @@
                                     {
                                         "name": "hotrod",
                                         "containerPort": 11333,
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "debug",
-                                        "containerPort": 8787,
                                         "protocol": "TCP"
                                     }
                                 ],
