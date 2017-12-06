@@ -37,6 +37,7 @@ toc::[levels=1]
 * link:./datagrid/datagrid71-https.adoc[datagrid71-https]
 * link:./datagrid/datagrid71-mysql-persistent.adoc[datagrid71-mysql-persistent]
 * link:./datagrid/datagrid71-mysql.adoc[datagrid71-mysql]
+* link:./datagrid/datagrid71-partition.adoc[datagrid71-partition]
 * link:./datagrid/datagrid71-postgresql-persistent.adoc[datagrid71-postgresql-persistent]
 * link:./datagrid/datagrid71-postgresql.adoc[datagrid71-postgresql]
 

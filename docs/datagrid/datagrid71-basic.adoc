@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for JDG 7.1 applications.
+An example JBoss Data Grid application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 For simple authentication, set
 
@@ -43,6 +43,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`USERNAME` | `USERNAME` | User name for JDG user. | `${USERNAME}` | False
 |`PASSWORD` | `PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${PASSWORD}` | False
+|`ADMIN_GROUP` | `ADMIN_GROUP` | Comma delimited list of roles/groups associated with the JDG user | `${ADMIN_GROUP}` | False
+|`HOTROD_AUTHENTICATION` | `HOTROD_AUTHENTICATION` | Enable Hotrod Authentication | `${HOTROD_AUTHENTICATION}` | False
+|`CONTAINER_SECURITY_ROLE_MAPPER` | `CONTAINER_SECURITY_ROLE_MAPPER` | Defines which role mapper to use for cache authentication | `${CONTAINER_SECURITY_ROLE_MAPPER}` | False
+|`CONTAINER_SECURITY_ROLES` | `CONTAINER_SECURITY_ROLES` | Comma delimited list of role names and assigned permissions | `${CONTAINER_SECURITY_ROLES}` | False
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`INFINISPAN_CONNECTORS` | `INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | hotrod,memcached,rest | False
 |`CACHE_NAMES` | `CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${CACHE_NAMES}` | False
@@ -79,6 +83,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .1+| `${APPLICATION_NAME}-hotrod`
 |11333 | --
 .1+| Hot Rod service for clustered applications.
+.1+| `${APPLICATION_NAME}-ping`
+|8888 | ping
+.1+| The JGroups ping port for clustering.
 |=============
 
 
@@ -179,11 +186,16 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.13+| `${APPLICATION_NAME}`
+.18+| `${APPLICATION_NAME}`
 |`USERNAME` | User name for JDG user. | `${USERNAME}`
 |`PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${PASSWORD}`
-|`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
-|`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
+|`ADMIN_GROUP` | Comma delimited list of roles/groups associated with the JDG user | `${ADMIN_GROUP}`
+|`HOTROD_AUTHENTICATION` | Enable Hotrod Authentication | `${HOTROD_AUTHENTICATION}`
+|`CONTAINER_SECURITY_ROLE_MAPPER` | Defines which role mapper to use for cache authentication | `${CONTAINER_SECURITY_ROLE_MAPPER}`
+|`CONTAINER_SECURITY_ROLES` | Comma delimited list of role names and assigned permissions | `${CONTAINER_SECURITY_ROLES}`
+|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
+|`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | `${INFINISPAN_CONNECTORS}`
 |`CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${CACHE_NAMES}`
 |`DATAVIRT_CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${DATAVIRT_CACHE_NAMES}`

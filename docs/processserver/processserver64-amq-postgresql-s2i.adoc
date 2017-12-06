@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for Red Hat JBoss BPM Suite 6.4 intelligent process server AMQ and PostgreSQL applications built using S2I.
+An example BPM Suite application with A-MQ and a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 toc::[]
 
@@ -58,7 +58,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`POSTGRESQL_SHARED_BUFFERS` | `POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}` | False
 |`MQ_USERNAME` | `MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}` | False
 |`MQ_PASSWORD` | `MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}` | False
-|`AMQ_MESH_DISCOVERY_TYPE` | `AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | kube | False
+|`AMQ_MESH_DISCOVERY_TYPE` | `AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | dns | False
 |`AMQ_STORAGE_USAGE_LIMIT` | `AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | 100 gb | False
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
@@ -96,6 +96,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .1+| `${APPLICATION_NAME}-amq-tcp`
 |61616 | --
 .1+| The broker's OpenWire port.
+.1+| `${APPLICATION_NAME}-amq-mesh`
+|61616 | mesh
+.1+| Supports node discovery for mesh formation.
 |=============
 
 
@@ -283,7 +286,7 @@ information.
 |`AMQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
 |`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
 |`AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | `${AMQ_MESH_DISCOVERY_TYPE}`
-|`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-tcp`
+|`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-mesh`
 |`AMQ_MESH_SERVICE_NAMESPACE` | -- | --
 |`AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | `${AMQ_STORAGE_USAGE_LIMIT}`
 |=======================================================================

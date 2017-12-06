@@ -107,6 +107,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .1+| `${APPLICATION_NAME}-mysql`
 |3306 | --
 .1+| The database server's port.
+.1+| `${APPLICATION_NAME}-ping`
+|8888 | ping
+.1+| The JGroups ping port for clustering.
 |=============
 
 
@@ -226,7 +229,7 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.36+| `${APPLICATION_NAME}`
+.37+| `${APPLICATION_NAME}`
 |`USERNAME` | User name for JDG user. | `${USERNAME}`
 |`PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${PASSWORD}`
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/datagrid-secret-volume`
@@ -246,8 +249,9 @@ information.
 |`DEFAULT_JDBC_STORE_DATASOURCE` | -- | `${DB_JNDI}`
 |`MEMCACHED_JDBC_STORE_TYPE` | -- | string
 |`MEMCACHED_JDBC_STORE_DATASOURCE` | -- | `${DB_JNDI}`
-|`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
-|`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
+|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
+|`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | `${INFINISPAN_CONNECTORS}`
 |`CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${CACHE_NAMES}`
 |`DATAVIRT_CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${DATAVIRT_CACHE_NAMES}`

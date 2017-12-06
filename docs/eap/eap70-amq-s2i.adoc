@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for EAP 7 A-MQ applications built using S2I.
+An example EAP 7 A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 toc::[]
 
@@ -42,7 +42,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}` | False
 |`MQ_USERNAME` | `MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}` | False
 |`MQ_PASSWORD` | `MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}` | False
-|`AMQ_MESH_DISCOVERY_TYPE` | `AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | kube | False
+|`AMQ_MESH_DISCOVERY_TYPE` | `AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | dns | False
 |`AMQ_STORAGE_USAGE_LIMIT` | `AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | 100 gb | False
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
@@ -79,9 +79,15 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .1+| `secure-${APPLICATION_NAME}`
 |8443 | --
 .1+| The web server's HTTPS port.
+.1+| `${APPLICATION_NAME}-ping`
+|8888 | ping
+.1+| The JGroups ping port for clustering.
 .1+| `${APPLICATION_NAME}-amq-tcp`
 |61616 | --
 .1+| The broker's OpenWire port.
+.1+| `${APPLICATION_NAME}-amq-mesh`
+|61616 | mesh
+.1+| Supports node discovery for mesh formation.
 |=============
 
 
@@ -223,7 +229,7 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.22+| `${APPLICATION_NAME}`
+.23+| `${APPLICATION_NAME}`
 |`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq=MQ`
 |`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | `${MQ_JNDI}`
 |`MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
@@ -232,8 +238,9 @@ information.
 |`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_QUEUES}`
 |`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}`
 |`MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}`
-|`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
-|`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
+|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
+|`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
 |`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
@@ -254,7 +261,7 @@ information.
 |`AMQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | `${MQ_TOPICS}`
 |`MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}`
 |`AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | `${AMQ_MESH_DISCOVERY_TYPE}`
-|`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-tcp`
+|`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-mesh`
 |`AMQ_MESH_SERVICE_NAMESPACE` | -- | --
 |`AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | `${AMQ_STORAGE_USAGE_LIMIT}`
 |=======================================================================
@@ -288,10 +295,52 @@ to be installed for the application to run.
 Clustering in OpenShift EAP is achieved through one of two discovery mechanisms:
 Kubernetes or DNS. This is done by configuring the JGroups protocol stack in
 standalone-openshift.xml with either the `<openshift.KUBE_PING/>` or `<openshift.DNS_PING/>`
-elements. Out of the box, `KUBE_PING` is the supported protocol and what is
-pre-configured in OpenShift EAP.
+elements. The templates are configured to use `DNS_PING`, however `KUBE_PING`is
+the default used by the image.
 
-For `KUBE_PING` to work, however, the following steps must be taken:
+The discovery mechanism used is specified by the `JGROUPS_PING_PROTOCOL` environment
+variable which can be set to either `openshift.DNS_PING` or `openshift.KUBE_PING`.
+`openshift.KUBE_PING` is the default used by the image if no value is specified
+for `JGROUPS_PING_PROTOCOL`.
+
+For DNS_PING to work, the following steps must be taken:
+
+. The `OPENSHIFT_DNS_PING_SERVICE_NAME` environment variable must be set to the
+  name of the ping service for the cluster (see table above).  If not set, the
+  server will act as if it is a single-node cluster (a "cluster of one").
+. The `OPENSHIFT_DNS_PING_SERVICE_PORT` environment variables should be set to
+  the port number on which the ping service is exposed (see table above).  The
+  `DNS_PING` protocol will attempt to discern the port from the SRV records, if
+  it can, otherwise it will default to 8888.
+. A ping service which exposes the ping port must be defined.  This service
+  should be "headless" (ClusterIP=None) and must have the following:
+.. The port must be named for port discovery to work.
+.. It must be annotated with `service.alpha.kubernetes.io/tolerate-unready-endpoints`
+   set to `"true"`.  Omitting this annotation will result in each node forming
+   their own "cluster of one" during startup, then merging their cluster into
+   the other nodes' clusters after startup (as the other nodes are not detected
+   until after they have started).
+
+.Example ping service for use with DNS_PING
+[source,yaml]
+----
+kind: Service
+apiVersion: v1
+spec:
+    clusterIP: None
+    ports:
+    - name: ping
+      port: 8888
+    selector:
+        deploymentConfig: eap-app
+metadata:
+    name: eap-app-ping
+    annotations:
+        service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+        description: "The JGroups ping port for clustering."
+----
+
+For `KUBE_PING` to work, the following steps must be taken:
 
 . The `OPENSHIFT_KUBE_PING_NAMESPACE` environment variable must be set (see table above).
   If not set, the server will act as if it is a single-node cluster (a "cluster of one").

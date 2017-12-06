@@ -65,6 +65,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .3+| The data virtualization services.
 |31000 | jdbc
 |35432 | odbc
+.1+| `${APPLICATION_NAME}-ping`
+|8888 | ping
+.1+| The JGroups ping port for clustering.
 |=============
 
 
@@ -189,9 +192,10 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.9+| `${APPLICATION_NAME}`
-|`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
-|`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
+.10+| `${APPLICATION_NAME}`
+|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
+|`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`JGROUPS_CLUSTER_PASSWORD` | Password used by JGroups to authenticate nodes in the cluster. | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
 |`TEIID_USERNAME` | Username associated with Teiid data service. | `${TEIID_USERNAME}`
