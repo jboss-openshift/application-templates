@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= processserver64-postgresql-persistent-s2i
+= decisionserver64-https-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-An example BPM Suite application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+An example BRMS decision server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 toc::[]
 
@@ -23,42 +23,29 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | processserver-library=org.openshift.quickstarts:processserver-library:1.3.0.Final | False
+|`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | decisionserver-hellorules=org.openshift.quickstarts:decisionserver-hellorules:1.3.0.Final | False
 |`KIE_SERVER_PROTOCOL` | `KIE_SERVER_PROTOCOL` | The protocol to access the KIE Server REST interface. | https | False
 |`KIE_SERVER_PORT` | `KIE_SERVER_PORT` | The port to access the KIE Server REST interface. | 8443 | False
 |`KIE_SERVER_USER` | `KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | kieserver | False
 |`KIE_SERVER_PASSWORD` | `KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}` | False
-|`KIE_SERVER_DOMAIN` | `KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | other | False
-|`KIE_SERVER_PERSISTENCE_DIALECT` | `KIE_SERVER_PERSISTENCE_DIALECT` | Hibernate persistence dialect. | org.hibernate.dialect.PostgreSQL82Dialect | False
 |`APPLICATION_NAME` | -- | The name for the application. | kie-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
-|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts.git | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.3 | False
-|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | processserver/library | False
-|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS | java:jboss/datasources/ExampleDS | False
-|`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
-|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | decisionserver/hellorules | False
 |`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
 |`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
-|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | processserver-app-secret | False
+|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | decisionserver-app-secret | True
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | jboss | False
 |`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | mykeystorepass | False
-|`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
-|`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
-|`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
-|`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
-|`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
-|`POSTGRESQL_MAX_CONNECTIONS` | `POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}` | False
-|`POSTGRESQL_SHARED_BUFFERS` | `POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}` | False
 |`HORNETQ_CLUSTER_PASSWORD` | `HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}` | True
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
 |`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
-|`POSTGRESQL_IMAGE_STREAM_TAG` | -- | The tag to use for the "postgresql" image stream.  Typically, this aligns with the major.minor version of PostgreSQL. | 9.5 | True
 |=======================================================================
 
 
@@ -83,9 +70,6 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .1+| `secure-${APPLICATION_NAME}`
 |8443 | --
 .1+| The web server's https port.
-.1+| `${APPLICATION_NAME}-postgresql`
-|5432 | --
-.1+| The database server's port.
 |=============
 
 
@@ -116,7 +100,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-processserver64-openshift:1.1 |  link:../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver64-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|jboss-decisionserver64-openshift:1.1 |  link:../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver64-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
@@ -135,7 +119,6 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |Deployment | Triggers
 
 |`${APPLICATION_NAME}` | ImageChange
-|`${APPLICATION_NAME}-postgresql` | ImageChange
 |============
 
 
@@ -151,7 +134,6 @@ for more information.
 |Deployment | Replicas
 
 |`${APPLICATION_NAME}` | 1
-|`${APPLICATION_NAME}-postgresql` | 1
 |============
 
 
@@ -167,7 +149,7 @@ information.
 |============
 |Deployment | Service Account
 
-|`${APPLICATION_NAME}` | processserver-service-account
+|`${APPLICATION_NAME}` | decisionserver-service-account
 |============
 
 
@@ -178,7 +160,6 @@ information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
-|`${APPLICATION_NAME}-postgresql` | postgresql
 |============
 
 
@@ -203,8 +184,6 @@ information.
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
-.1+| `${APPLICATION_NAME}-postgresql`
-|-- | 5432 | `TCP`
 |=============
 
 
@@ -214,45 +193,19 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.32+| `${APPLICATION_NAME}`
+.12+| `${APPLICATION_NAME}`
 |`KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | `${KIE_CONTAINER_DEPLOYMENT}`
 |`KIE_SERVER_PROTOCOL` | The protocol to access the KIE Server REST interface. | `${KIE_SERVER_PROTOCOL}`
 |`KIE_SERVER_PORT` | The port to access the KIE Server REST interface. | `${KIE_SERVER_PORT}`
 |`KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | `${KIE_SERVER_USER}`
 |`KIE_SERVER_PASSWORD` | The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). | `${KIE_SERVER_PASSWORD}`
-|`KIE_SERVER_DOMAIN` | JAAS LoginContext domain that shall be used to authenticate users when using JMS. | `${KIE_SERVER_DOMAIN}`
-|`KIE_SERVER_PERSISTENCE_DIALECT` | Hibernate persistence dialect. | `${KIE_SERVER_PERSISTENCE_DIALECT}`
-|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB,${APPLICATION_NAME}-postgresql=QUARTZ`
-|`TX_DATABASE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
-|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS | `${DB_JNDI}`
-|`DB_USERNAME` | Database user name | `${DB_USERNAME}`
-|`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
-|`DB_DATABASE` | Database name | `${DB_DATABASE}`
-|`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
-|`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
-|`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
-|`QUARTZ_JNDI` | -- | `${DB_JNDI}NotManaged`
-|`QUARTZ_USERNAME` | -- | `${DB_USERNAME}`
-|`QUARTZ_PASSWORD` | -- | `${DB_PASSWORD}`
-|`QUARTZ_DATABASE` | -- | `${DB_DATABASE}`
-|`QUARTZ_MIN_POOL_SIZE` | -- | `${DB_MIN_POOL_SIZE}`
-|`QUARTZ_MAX_POOL_SIZE` | -- | `${DB_MAX_POOL_SIZE}`
-|`QUARTZ_TX_ISOLATION` | -- | `${DB_TX_ISOLATION}`
-|`QUARTZ_JTA` | -- | false
-|`QUARTZ_NONXA` | -- | true
-|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/processserver-secret-volume`
+|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/decisionserver-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
 |`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
 |`HORNETQ_CLUSTER_PASSWORD` | HornetQ cluster admin password | `${HORNETQ_CLUSTER_PASSWORD}`
 |`HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}`
 |`HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}`
-.5+| `${APPLICATION_NAME}-postgresql`
-|`POSTGRESQL_USER` | -- | `${DB_USERNAME}`
-|`POSTGRESQL_PASSWORD` | -- | `${DB_PASSWORD}`
-|`POSTGRESQL_DATABASE` | -- | `${DB_DATABASE}`
-|`POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}`
-|`POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}`
 |=======================================================================
 
 
@@ -262,33 +215,18 @@ information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-|`${APPLICATION_NAME}` | processserver-keystore-volume | `/etc/processserver-secret-volume` | ssl certs | True
-|`${APPLICATION_NAME}-postgresql` | `${APPLICATION_NAME}-postgresql-pvol` | `/var/lib/pgsql/data` | postgresql | false
+|`${APPLICATION_NAME}` | decisionserver-keystore-volume | `/etc/decisionserver-secret-volume` | ssl certs | True
 |=============
 
 
 === External Dependencies
 
 
-==== Volume Claims
-
-A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
-by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
-Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
-more information.
-
-|=============
-|Name | Access Mode
-
-|`${APPLICATION_NAME}-postgresql-claim` | ReadWriteOnce
-|=============
-
-
 
 
 ==== Secrets
 
-This template requires link:../secrets/processserver-app-secret.adoc[processserver-app-secret.json]
+This template requires link:../secrets/decisionserver-app-secret.adoc[decisionserver-app-secret.json]
 to be installed for the application to run.
 
 

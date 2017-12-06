@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for EAP 7 DB applications built using S2I.  Includes support for installing third-party DB drivers.
+An example EAP 7 DB application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 toc::[]
 
@@ -77,6 +77,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .1+| `secure-${APPLICATION_NAME}`
 |8443 | --
 .1+| The web server's https port.
+.1+| `${APPLICATION_NAME}-ping`
+|8888 | ping
+.1+| The JGroups ping port for clustering.
 |=============
 
 
@@ -107,7 +110,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap71-openshift:TP |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7-tech-preview/eap71-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ImageChange, ConfigChange
+|jboss-eap71-openshift:1.1 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7-tech-preview/eap71-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ImageChange, ConfigChange
 |=============
 
 
@@ -201,9 +204,10 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.18+| `${APPLICATION_NAME}`
-|`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
-|`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
+.19+| `${APPLICATION_NAME}`
+|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
+|`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`ENV_FILES` | -- | `/etc/eap-environment/*`
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
@@ -251,10 +255,52 @@ to be installed for the application to run.
 Clustering in OpenShift EAP is achieved through one of two discovery mechanisms:
 Kubernetes or DNS. This is done by configuring the JGroups protocol stack in
 standalone-openshift.xml with either the `<openshift.KUBE_PING/>` or `<openshift.DNS_PING/>`
-elements. Out of the box, `KUBE_PING` is the supported protocol and what is
-pre-configured in OpenShift EAP.
+elements. The templates are configured to use `DNS_PING`, however `KUBE_PING`is
+the default used by the image.
 
-For `KUBE_PING` to work, however, the following steps must be taken:
+The discovery mechanism used is specified by the `JGROUPS_PING_PROTOCOL` environment
+variable which can be set to either `openshift.DNS_PING` or `openshift.KUBE_PING`.
+`openshift.KUBE_PING` is the default used by the image if no value is specified
+for `JGROUPS_PING_PROTOCOL`.
+
+For DNS_PING to work, the following steps must be taken:
+
+. The `OPENSHIFT_DNS_PING_SERVICE_NAME` environment variable must be set to the
+  name of the ping service for the cluster (see table above).  If not set, the
+  server will act as if it is a single-node cluster (a "cluster of one").
+. The `OPENSHIFT_DNS_PING_SERVICE_PORT` environment variables should be set to
+  the port number on which the ping service is exposed (see table above).  The
+  `DNS_PING` protocol will attempt to discern the port from the SRV records, if
+  it can, otherwise it will default to 8888.
+. A ping service which exposes the ping port must be defined.  This service
+  should be "headless" (ClusterIP=None) and must have the following:
+.. The port must be named for port discovery to work.
+.. It must be annotated with `service.alpha.kubernetes.io/tolerate-unready-endpoints`
+   set to `"true"`.  Omitting this annotation will result in each node forming
+   their own "cluster of one" during startup, then merging their cluster into
+   the other nodes' clusters after startup (as the other nodes are not detected
+   until after they have started).
+
+.Example ping service for use with DNS_PING
+[source,yaml]
+----
+kind: Service
+apiVersion: v1
+spec:
+    clusterIP: None
+    ports:
+    - name: ping
+      port: 8888
+    selector:
+        deploymentConfig: eap-app
+metadata:
+    name: eap-app-ping
+    annotations:
+        service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+        description: "The JGroups ping port for clustering."
+----
+
+For `KUBE_PING` to work, the following steps must be taken:
 
 . The `OPENSHIFT_KUBE_PING_NAMESPACE` environment variable must be set (see table above).
   If not set, the server will act as if it is a single-node cluster (a "cluster of one").

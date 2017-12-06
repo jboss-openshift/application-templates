@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for Red Hat JBoss BPM Suite 6.4 intelligent process server PostgreSQL applications built using S2I.
+An example BPM Suite application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 toc::[]
 

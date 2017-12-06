@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for JWS applications built using S2I.
+An example JBoss Web Server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 toc::[]
 

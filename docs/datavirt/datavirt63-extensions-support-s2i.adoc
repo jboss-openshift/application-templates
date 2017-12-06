@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for JBoss Data Virtualization 6.3 services built using S2I.  Includes support for installing extensions (e.g. third-party DB drivers) and the ability to configure certificates for serving secure content.
+An example JBoss Data Virtualization application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 toc::[]
 
@@ -83,6 +83,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |31443 | jdbcs
 |35432 | odbc
 |35443 | odbcs
+.1+| `${APPLICATION_NAME}-ping`
+|8888 | ping
+.1+| The JGroups ping port for clustering.
 |=============
 
 
@@ -213,9 +216,10 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.24+| `${APPLICATION_NAME}`
-|`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
-|`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
+.25+| `${APPLICATION_NAME}`
+|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
+|`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret. | `/etc/datavirt-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret. | `${HTTPS_KEYSTORE}`
 |`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret. | `${HTTPS_KEYSTORE_TYPE}`
