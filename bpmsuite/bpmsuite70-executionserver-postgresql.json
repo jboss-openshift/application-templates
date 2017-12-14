@@ -113,6 +113,49 @@
             "required": false
         },
         {
+            "displayName": "KIE Server Controller User",
+            "description": "KIE server controller username (Sets the org.kie.server.controller.user system property)",
+            "name": "KIE_SERVER_CONTROLLER_USER",
+            "value": "controllerUser",
+            "required": false
+        },
+        {
+            "displayName": "KIE Server Controller Password",
+            "description": "KIE server controller password (Sets the org.kie.server.controller.pwd system property)",
+            "name": "KIE_SERVER_CONTROLLER_PWD",
+            "from": "[a-zA-Z]{6}[0-9]{1}!",
+            "generate": "expression",
+            "required": false
+        },
+        {
+            "displayName": "KIE server controller protocol",
+            "description": "KIE server controller protocol (Used to set the org.kie.server.controller system property)",
+            "name": "KIE_SERVER_CONTROLLER_PROTOCOL",
+            "value": "http",
+            "required": false
+        },
+        {
+            "displayName": "KIE server controller service",
+            "description": "KIE server controller service (Used to set the org.kie.server.controller system property if host and port aren't set)",
+            "name": "KIE_SERVER_CONTROLLER_SERVICE",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "KIE server controller host",
+            "description": "KIE server controller host (Used to set the org.kie.server.controller system property)",
+            "name": "KIE_SERVER_CONTROLLER_HOST",
+            "example": "my-app-controller-ocpuser.os.example.com",
+            "required": false
+        },
+        {
+            "displayName": "KIE server controller port",
+            "description": "KIE server controller port (Used to set the org.kie.server.controller system property)",
+            "name": "KIE_SERVER_CONTROLLER_PORT",
+            "example": "8080",
+            "required": false
+        },
+        {
             "displayName": "KIE Server Router protocol",
             "description": "KIE Server Router protocol (Used to set the org.kie.server.router system property)",
             "name": "KIE_SERVER_ROUTER_PROTOCOL",
@@ -523,6 +566,30 @@
                                     {
                                         "name": "KIE_SERVER_USER",
                                         "value": "${KIE_SERVER_USER}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_PWD",
+                                        "value": "${KIE_SERVER_CONTROLLER_PWD}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_USER",
+                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_PROTOCOL",
+                                        "value": "${KIE_SERVER_CONTROLLER_PROTOCOL}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_SERVICE",
+                                        "value": "${KIE_SERVER_CONTROLLER_SERVICE}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_HOST",
+                                        "value": "${KIE_SERVER_CONTROLLER_HOST}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_PORT",
+                                        "value": "${KIE_SERVER_CONTROLLER_PORT}"
                                     },
                                     {
                                         "name": "KIE_SERVER_ROUTER_PROTOCOL",
