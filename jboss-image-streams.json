@@ -492,7 +492,7 @@
                     {
                         "name": "TP",
                         "annotations": {
-                            "description": "JBoss EAP 7.1 Tech Preview.",
+                            "description": "The latest available build of the JBoss EAP 7.1 S2I image.",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.1,javaee:7,java:8,xpass:1.0",
@@ -504,7 +504,7 @@
                         },
                         "from": {
                           "kind": "ImageStreamTag",
-                          "name": "1.0-TP"
+                          "name": "1.1"
                         }
                     },
                     {
@@ -523,6 +523,24 @@
                         "from": {
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap71-openshift:1.0"
+                        }
+                    },
+                    {
+                        "name": "1.1",
+                        "annotations": {
+                            "description": "JBoss EAP 7.1 S2I image.",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.1,javaee:7,java:8",
+                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "7.0.0.GA",
+                            "version": "1.0",
+                            "openshift.io/display-name": "Red Hat JBoss EAP 7.1"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/jboss-eap-7/eap71-openshift:1.1"
                         }
                     }
                 ]
