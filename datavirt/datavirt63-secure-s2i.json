@@ -19,7 +19,7 @@
         "template": "datavirt63-secure-s2i",
         "xpaas": "1.4.7"
     },
-    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets: \"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed VDB(s); \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the following secrets: \"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed VDB(s); \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "description": "The name for the application.",
@@ -76,13 +76,6 @@
             "name": "CONTEXT_DIR",
             "value": "datavirt/dynamicvdb-datafederation/app",
             "required": false
-        },
-        {
-            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow usage of the secret(s) specified by CONFIGURATION_NAME, HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
-            "displayName": "Service Account Name",
-            "name": "SERVICE_ACCOUNT_NAME",
-            "value": "datavirt-service-account",
-            "required": true
         },
         {
             "description": "The name of the secret containing the keystore to be used for serving secure content.",
@@ -666,7 +659,6 @@
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
