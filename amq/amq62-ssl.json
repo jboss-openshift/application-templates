@@ -16,7 +16,7 @@
         "template": "amq62-ssl",
         "xpaas": "1.4.7"
     },
-    "message": "A new messaging service with SSL support has been created in your project. It will handle the protocol(s) \"${MQ_PROTOCOL}\". The username/password for accessing the service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the \"amq-service-account\" service account and a secret named \"${AMQ_SECRET}\" containing the trust store and key store files (\"${AMQ_TRUSTSTORE}\" and \"${AMQ_KEYSTORE}\") used for serving secure content.",
+    "message": "A new messaging service with SSL support has been created in your project. It will handle the protocol(s) \"${MQ_PROTOCOL}\". The username/password for accessing the service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create a secret named \"${AMQ_SECRET}\" containing the trust store and key store files (\"${AMQ_TRUSTSTORE}\" and \"${AMQ_KEYSTORE}\") used for serving secure content.",
     "parameters": [
         {
             "displayName": "Application Name",
@@ -401,7 +401,6 @@
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "amq-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {

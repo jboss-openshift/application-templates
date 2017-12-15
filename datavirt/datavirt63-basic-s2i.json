@@ -16,7 +16,7 @@
         "template": "datavirt63-basic-s2i",
         "xpaas": "1.4.7"
     },
-    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
+    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
     "parameters": [
         {
             "description": "The name for the application.",
@@ -59,13 +59,6 @@
             "name": "CONTEXT_DIR",
             "value": "datavirt/dynamicvdb-datafederation/app",
             "required": false
-        },
-        {
-            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow usage of the secret specified by CONFIGURATION_NAME.",
-            "displayName": "Service Account Name",
-            "name": "SERVICE_ACCOUNT_NAME",
-            "value": "datavirt-service-account",
-            "required": true
         },
         {
             "description": "Username associated with Teiid data service.",
@@ -404,7 +397,6 @@
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
