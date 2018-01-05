@@ -61,7 +61,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
 |`POSTGRESQL_MAX_CONNECTIONS` | `POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}` | False
 |`POSTGRESQL_SHARED_BUFFERS` | `POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}` | False
-|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
+|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 1Gi | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`INFINISPAN_CONNECTORS` | `INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | hotrod,memcached,rest | False
 |`CACHE_NAMES` | `CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${CACHE_NAMES}` | False
@@ -76,6 +76,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`JGROUPS_ENCRYPT_PASSWORD` | `PASSWORD` | The password for the keystore and certificate | `${PASSWORD}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `PASSWORD` | JGroups cluster password | `${PASSWORD}` | True
 |`POSTGRESQL_IMAGE_STREAM_TAG` | -- | The tag to use for the "postgresql" image stream.  Typically, this aligns with the major.minor version of PostgreSQL. | 9.5 | True
+|`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
 |=======================================================================
 
 
@@ -170,18 +171,6 @@ for more information.
 
 ==== Pod Template
 
-
-===== Service Accounts
-
-Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
-https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
-information.
-
-|============
-|Deployment | Service Account
-
-|`${APPLICATION_NAME}` | datagrid-service-account
-|============
 
 
 
@@ -312,11 +301,6 @@ more information.
 
 
 
-
-==== Secrets
-
-This template requires link:../secrets/datagrid-app-secret.adoc[datagrid-app-secret.json]
-to be installed for the application to run.
 
 
 

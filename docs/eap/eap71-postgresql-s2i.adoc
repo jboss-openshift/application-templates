@@ -33,7 +33,6 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
 |`MQ_QUEUES` | `MQ_QUEUES` | Queue names | `${MQ_QUEUES}` | False
 |`MQ_TOPICS` | `MQ_TOPICS` | Topic names | `${MQ_TOPICS}` | False
-|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | eap7-service-account | True
 |`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap7-app-secret | True
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
@@ -59,6 +58,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
 |`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
 |`POSTGRESQL_IMAGE_STREAM_TAG` | -- | The tag to use for the "postgresql" image stream.  Typically, this aligns with the major.minor version of PostgreSQL. | 9.5 | True
+|`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
 |=======================================================================
 
 
@@ -161,18 +161,6 @@ for more information.
 ==== Pod Template
 
 
-===== Service Accounts
-
-Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
-https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
-information.
-
-|============
-|Deployment | Service Account
-
-|`${APPLICATION_NAME}` | `${SERVICE_ACCOUNT_NAME}`
-|============
-
 
 
 ===== Image
@@ -265,6 +253,7 @@ information.
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
 |`${APPLICATION_NAME}` | eap-keystore-volume | `/etc/eap-secret-volume` | ssl certs | True
+|`${APPLICATION_NAME}-postgresql` | `${APPLICATION_NAME}-data` | `/var/lib/pgsql/data` | -- | false
 |=============
 
 
@@ -272,11 +261,6 @@ information.
 
 
 
-
-==== Secrets
-
-This template requires link:../secrets/eap7-app-secret.adoc[eap7-app-secret.json]
-to be installed for the application to run.
 
 
 

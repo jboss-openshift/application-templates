@@ -38,6 +38,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
 |`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
+|`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
 |=======================================================================
 
 
@@ -91,7 +92,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap70-openshift:1.6 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|jboss-eap70-openshift:1.7 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 

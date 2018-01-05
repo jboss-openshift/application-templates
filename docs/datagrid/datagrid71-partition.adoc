@@ -56,8 +56,9 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`CONTAINER_SECURITY_ROLES` | `CONTAINER_SECURITY_ROLES` | Comma Delimited List of Container Roles | `${CONTAINER_SECURITY_ROLES}` | False
 |`REST_SECURITY_DOMAIN` | `REST_SECURITY_DOMAIN` | The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint | `${REST_SECURITY_DOMAIN}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `PASSWORD` | JGroups cluster password | `${PASSWORD}` | True
-|`VOLUME_CAPACITY` | -- | Size of the volume used by Datagrid for persisting metadata. | 512Mi | True
+|`VOLUME_CAPACITY` | -- | Size of the volume used by Datagrid for persisting metadata. | 1Gi | True
 |`DATAGRID_SPLIT` | `DATAGRID_SPLIT` | Split the data directory for each node in a mesh, this is now the default behaviour. | true | False
+|`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
 |=======================================================================
 
 
