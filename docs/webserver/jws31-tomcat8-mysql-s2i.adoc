@@ -152,18 +152,6 @@ for more information.
 ==== Pod Template
 
 
-===== Service Accounts
-
-Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
-https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
-information.
-
-|============
-|Deployment | Service Account
-
-|`${APPLICATION_NAME}` | jws-service-account
-|============
-
 
 
 ===== Image
@@ -242,6 +230,7 @@ information.
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
 |`${APPLICATION_NAME}` | jws-certificate-volume | `/etc/jws-secret-volume` | ssl certs | True
+|`${APPLICATION_NAME}-mysql` | `${APPLICATION_NAME}-data` | `/var/lib/mysql/data` | -- | false
 |=============
 
 
@@ -249,11 +238,6 @@ information.
 
 
 
-
-==== Secrets
-
-This template requires link:../secrets/jws-app-secret.adoc[jws-app-secret.json]
-to be installed for the application to run.
 
 
 

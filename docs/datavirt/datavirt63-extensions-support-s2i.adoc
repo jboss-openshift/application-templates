@@ -35,7 +35,6 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`EXTENSIONS_REPOSITORY_REF` | -- | Set this to a branch name, tag or other ref of your extensions repository if you are not using the default branch. | master | False
 |`EXTENSIONS_DIR` | -- | Set this to the relative path to your project if it is not in the root of your extensions repository. | datavirt/derby-driver-image | False
 |`EXTENSIONS_DOCKERFILE` | -- | Set this to the relative path to the Dockerfile in your extensions directory. | Dockerfile | False
-|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow usage of the secret(s) specified by CONFIGURATION_NAME, HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | datavirt-service-account | True
 |`HTTPS_SECRET` | -- | The name of the secret containing the keystore to be used for serving secure content. | datavirt-app-secret | True
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret. | keystore.jks | False
 |`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS). | `${HTTPS_KEYSTORE}` | False
@@ -57,6 +56,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`VDB_DIRS` | -- | Comma delimited list of source directories containing VDBs for deployment | -- | False
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
 |`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
+|`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
 |=======================================================================
 
 
@@ -118,7 +118,7 @@ for more information.
 | S2I image  | link | Build output | BuildTriggers and Settings
 
 |`${EXTENSIONS_DOCKERFILE}` |  | `${APPLICATION_NAME}-ext:latest` | GitHub, Generic, ConfigChange
-|jboss-datavirt63-openshift:1.3 |  link:../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ImageChange, ImageChange, ConfigChange
+|jboss-datavirt63-openshift:1.4 |  link:../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ImageChange, ImageChange, ConfigChange
 |=============
 
 
@@ -157,18 +157,6 @@ for more information.
 
 ==== Pod Template
 
-
-===== Service Accounts
-
-Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
-https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
-information.
-
-|============
-|Deployment | Service Account
-
-|`${APPLICATION_NAME}` | `${SERVICE_ACCOUNT_NAME}`
-|============
 
 
 
@@ -259,11 +247,6 @@ information.
 
 
 
-
-==== Secrets
-
-This template requires link:../secrets/datavirt-app-secret.adoc[datavirt-app-secret.yaml]
-to be installed for the application to run.
 
 
 

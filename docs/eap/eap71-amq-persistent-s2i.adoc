@@ -29,14 +29,13 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts.git | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.3 | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld-mdb | False
-|`VOLUME_CAPACITY` | -- | Size of the volume used by A-MQ for persisting messages. | 512Mi | True
+|`VOLUME_CAPACITY` | -- | Size of the volume used by A-MQ for persisting messages. | 1Gi | True
 |`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/ConnectionFactory | java:/ConnectionFactory | False
 |`AMQ_SPLIT` | `AMQ_SPLIT` | Split the data directory for each node in a mesh. | false | False
 |`MQ_PROTOCOL` | `MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | openwire | False
 |`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | HELLOWORLDMDBQueue | False
 |`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. | HELLOWORLDMDBTopic | False
 |`MQ_SERIALIZABLE_PACKAGES` | `MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}` | False
-|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | eap7-service-account | True
 |`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap7-app-secret | False
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
@@ -57,6 +56,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
 |`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
+|`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
 |=======================================================================
 
 
@@ -161,18 +161,6 @@ for more information.
 
 ==== Pod Template
 
-
-===== Service Accounts
-
-Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
-https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
-information.
-
-|============
-|Deployment | Service Account
-
-|`${APPLICATION_NAME}` | `${SERVICE_ACCOUNT_NAME}`
-|============
 
 
 
@@ -299,11 +287,6 @@ more information.
 
 
 
-
-==== Secrets
-
-This template requires link:../secrets/eap7-app-secret.adoc[eap7-app-secret.json]
-to be installed for the application to run.
 
 
 

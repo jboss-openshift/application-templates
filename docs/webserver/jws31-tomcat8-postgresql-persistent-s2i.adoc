@@ -31,7 +31,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-jdbc | False
 |`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. jboss/datasources/postgresqlDS | jboss/datasources/defaultDS | False
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
-|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
+|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 1Gi | True
 |`JWS_HTTPS_SECRET` | -- | The name of the secret containing the certificate files | jws-app-secret | True
 |`JWS_HTTPS_CERTIFICATE` | `JWS_HTTPS_CERTIFICATE_DIR` | The name of the certificate file within the secret | server.crt | False
 |`JWS_HTTPS_CERTIFICATE_KEY` | `JWS_HTTPS_CERTIFICATE` | The name of the certificate key file within the secret | server.key | False
@@ -150,18 +150,6 @@ for more information.
 ==== Pod Template
 
 
-===== Service Accounts
-
-Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
-https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
-information.
-
-|============
-|Deployment | Service Account
-
-|`${APPLICATION_NAME}` | jws-service-account
-|============
-
 
 
 ===== Image
@@ -260,11 +248,6 @@ more information.
 
 
 
-
-==== Secrets
-
-This template requires link:../secrets/jws-app-secret.adoc[jws-app-secret.json]
-to be installed for the application to run.
 
 
 
