@@ -53,7 +53,7 @@
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "7.0.0.GA",
+            "value": "7.1.0.GA",
             "required": false
         },
         {
