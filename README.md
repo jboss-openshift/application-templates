@@ -33,20 +33,20 @@ To install the service accounts and secrets into your project:
 $ oc create -n myproject -f secrets
 ```
 
-The following templates can be used without creating a service account or a secret: eap/eap6-basic-s2i.json, webserver/jws-tomcat7-basic-s2i.json and webserver/jws-tomcat8-basic-s2i.json.
+The following templates can be used without creating a service account or a secret: eap/eap64-basic-s2i.json, webserver/jws31-tomcat7-basic-s2i.json and webserver/jws31-tomcat8-basic-s2i.json.
 
 ## Example
 The easiest way to use the templates is to install them in your project, then use the _Create+_ button in the OpenShift console to create your application.  The console will prompt you for the values for all of the parameters used by the template.  To set this up for a particular template:
 ```
 $ oc create -n openshift -f jboss-image-streams.json
-$ oc create -n myproject -f webserver/jws-tomcat7-basic-s2i.json
+$ oc create -n myproject -f webserver/jws31-tomcat7-basic-s2i.json
 ```
 After executing the above, you should be able to see the template after pressing _Create+_ in your project.
 
 Or, if you prefer the command line:
 ```
 $ oc create -n openshift -f jboss-image-streams.json
-$ oc process -n yourproject -f eap/eap6-basic-s2i.json -v APPLICATION_NAME=helloworld,SOURCE_REPOSITORY_URL=https://github.com/jboss-developer/jboss-eap-quickstarts,SOURCE_REPOSITORY_REF=6.4.x,CONTEXT_DIR=helloworld | oc create -n yourproject -f -
+$ oc process -n yourproject -f eap/eap64-basic-s2i.json -p APPLICATION_NAME=helloworld -p SOURCE_REPOSITORY_URL=https://github.com/jboss-developer/jboss-eap-quickstarts -p SOURCE_REPOSITORY_REF=6.4.x -p CONTEXT_DIR=helloworld | oc create -n yourproject -f -
 ```
 
 You may also install the templates into the `openshift` namespace in order to make them
