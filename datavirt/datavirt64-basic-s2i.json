@@ -347,7 +347,7 @@
                             }
                         }
                     },
-                    {ImageStreamTag
+                    {
                         "type": "ConfigChange"
                     }
                 ]
