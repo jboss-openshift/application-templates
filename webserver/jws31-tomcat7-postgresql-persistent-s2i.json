@@ -7,9 +7,9 @@
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "tomcat,tomcat7,java,jboss",
             "version": "1.4.14",
-            "openshift.io/display-name": "JBoss Web Server 3.1 Apache Tomcat 7 + PostgreSQL (with https)",
+            "openshift.io/display-name": "JBoss Web Server 3.1 Apache Tomcat 7 + PostgreSQL (Persistent)",
             "description": "An example JBoss Web Server application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 3.1 Apache Tomcat 8 based application, including a build configuration, application deployment configuration, database deployment configuration for PostgreSQL using persistence and secure communication using https.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 3.1 Apache Tomcat 7 based application, including a build configuration, application deployment configuration, database deployment configuration for PostgreSQL using persistence and secure communication using passthrough TLS.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-web-server/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },

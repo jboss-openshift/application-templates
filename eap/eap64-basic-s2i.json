@@ -6,10 +6,10 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
             "version": "1.4.14",
-            "openshift.io/display-name": "JBoss EAP 6.4 (no https)",
+            "openshift.io/display-name": "JBoss EAP 6.4",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example EAP 6 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 6.4 based application, including a build configuration, application deployment configuration and insecure communication using http.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 6.4 based application, including a build configuration, application deployment configuration and secure communication using https.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
@@ -27,13 +27,6 @@
             "name": "APPLICATION_NAME",
             "value": "eap-app",
             "required": true
-        },
-        {
-            "displayName": "Custom http Route Hostname",
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
-            "name": "HOSTNAME_HTTP",
-            "value": "",
-            "required": false
         },
         {
             "displayName": "Git Repository URL",
@@ -201,9 +194,11 @@
                 }
             },
             "spec": {
-                "host": "${HOSTNAME_HTTP}",
                 "to": {
                     "name": "${APPLICATION_NAME}"
+                },
+                "tls": {
+                    "termination": "edge"
                 }
             }
         },
