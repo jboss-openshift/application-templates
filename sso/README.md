@@ -1,38 +1,53 @@
-#Application Templates
-This project contains OpenShift v3 application templates which support
-Red Hat SSO/Keycloak
+# Application Templates
+This project contains OpenShift v3 application templates which support Red Hat Single Sign-On (RH-SSO) / Keycloak.
 
-##Structure
+## Structure
 Several templates are provided:
- * sso70-https.json:  SSO/Keycloak template backed by internal H2 database
- * sso70-postgresql.json: SSO/Keycloak template backed by Postgresql
- * sso70-postgresql-persistent.json: SSO/Keycloak template backed by persistent Postgresql
- * sso70-mysql.json: SSO/Keycloak template backed by MySQL
- * sso70-mysql-persistent.json: SSO/Keycloak template backed by persistent MySQL
 
-Templates are configured with the following basic parameters:
- * APPLICATION_NAME: the name of the application (defaults to sso)
- * HTTPS_SECRET: Name of the Secret to use to expose SSO/Keycloak over HTTPS (defaults to sso-app-secret)
- * HTTPS_KEYSTORE: Name of the keystore to use to expose SSO/Keycloak over HTTPS (defaults to keystore.jks)
- * HTTPS_NAME: The alias of the keys/certificate to use to expose SSO/Keycloak over HTTPS (required)
- * HTTPS_PASSWORD: The password of the keystore to use to expose SSO/Keycloak over HTTPS (required)
- * SSO_ADMIN_USERNAME: The username of the initial admin user in the Master Realm (defaults to admin)
- * SSO_ADMIN__PASSWORD: The password of the initial admin user in the Master Realm (defaults to admin)
- * SSO_REALM: Realm that will be automatically created (optional)
- * SSO_SERVICE_USERNAME: User that will be automatically created in SSO_REALM with permissions to create client configrations (optional)
- * SSO_SERVICE_PASSWORD: Password for SSO_SERVICE_USERNAME (optional)
+|     Template Name                      |                       Description                                      |
+| ---------------------------------------|----------------------------------------------------------------------- |
+| **_sso71-https.json_**                 | RH-SSO 7.1/Keycloak template backed by internal H2 database.           |
+| **_sso71-postgresql.json_**            | RH-SSO 7.1/Keycloak template backed by ephemeral PostgreSQL database.  |
+| **_sso71-postgresql-persistent.json_** | RH-SSO 7.1/Keycloak template backed by persistent PostgreSQL database. |
+| **_sso71-mysql.json_**                 | RH-SSO 7.1/Keycloak template backed by ephemeral MySQL database.       |
+| **_sso71-mysql-persistent.json_**      | RH-SSO 7.1/Keycloak template backed by persistent MySQL database.      |
+| **_sso72-https.json_**                 | RH-SSO 7.2/Keycloak template backed by internal H2 database.           |
+| **_sso72-postgresql.json_**            | RH-SSO 7.2/Keycloak template backed by ephemeral PostgreSQL database.  |
+| **_sso72-postgresql-persistent.json_** | RH-SSO 7.2/Keycloak template backed by persistent PostgreSQL database. |
+| **_sso72-mysql.json_**                 | RH-SSO 7.2/Keycloak template backed by ephemeral MySQL database.       |
+| **_sso72-mysql-persistent.json_**      | RH-SSO 7.2/Keycloak template backed by persistent MySQL database.      |
 
-##Username/Password
-For SSO Server: Defaults to admin/admin but can be overridden by SSO_ADMIN_USERNAME/SSO_ADMIN_PASSWORD
 
-##SSO Example
+The templates are configured with the following basic parameters:
 
-Create Secrets and SSO/Keycloak Server in user (e.g. "myproject") project/namespace:
+
+|     Parameter Name                  |                         Description                                                                                       |
+| ------------------------------------|-------------------------------------------------------------------------------------------------------------------------- |
+| **_APPLICATION\_NAME_**             | The name of the application. Defaults to _sso_.                                                                           |
+| **_HTTPS\_SECRET_**                 | The name of the secret to use to expose RH-SSO/Keycloak over HTTPS. Defaults to _sso-app-secret_.                         |
+| **_HTTPS\_KEYSTORE_**               | The name of the keystore to use to expose RH-SSO/Keycloak over HTTPS. Defaults to _keystore.jks_.                         |
+| **_HTTPS\_NAME_**                   | The alias of the keys/certificate to use to expose RH-SSO/Keycloak over HTTPS. **Required**.                              |
+| **_HTTPS\_PASSWORD_**               | The password of the keystore to use to expose RH-SSO/Keycloak over HTTPS. **Required**.                                   |
+| **_SSO\_ADMIN\_USERNAME_**          | The username of the initial administrator account to be created for the _master_ realm. **Required**.                     |
+| **_SSO\_ADMIN\_PASSWORD_**          | The password of the initial administrator account to be created for the _master_ realm. **Required**.                     |
+| **_SSO\_REALM_**                    | The realm that will be automatically created. _Optional_.                                                                 |
+| **_SSO\_SERVICE\_USERNAME_**        | User that will be automatically created in **_SSO\_REALM_** with permissions to create client configrations. _Optional_.  |
+| **_SSO\_SERVICE\_PASSWORD_**        | The password for **_SSO\_SERVICE\_USERNAME_**. _Optional_.                                                                |
+
+
+## Credentials of the RH-SSO Administrator Account
+
+When deploying RH-SSO application template, **_SSO\_ADMIN\_USERNAME_** and **_SSO\_ADMIN\_PASSWORD_** parameters denote the user name and password of the RH-SSO server’s administrator account to be created for the _master_ realm.
+
+**Both of these parameters are required.** If not specified, they are auto generated and displayed as an OpenShift Instructional message when the template is instantiated.
+
+## SSO Example
+
+Create [secrets](https://docs.openshift.com/container-platform/latest/dev_guide/secrets.html) and RH-SSO/Keycloak server in user (e.g. "myproject") project/namespace:
 
 ```
 $ oc create -n myproject -f ../secrets/sso-app-secret.json
 $ oc process -f sso70-postgresql.json -v HTTPS_NAME=jboss,HTTPS_PASSWORD=mykeystorepass | oc create -n myproject -f -
 ```
 
-After executing the above, you should be able to access the SSO/Keycloak server at http://sso-myproject.hostname/auth and https://secure-sso-myproject.hostname/auth
-
+After executing the above, you should be able to access the RH-SSO/Keycloak server at http://sso-myproject.hostname/auth and https://secure-sso-myproject.hostname/auth.
