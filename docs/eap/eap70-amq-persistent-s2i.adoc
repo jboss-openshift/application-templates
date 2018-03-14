@@ -170,7 +170,7 @@ for more information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
-|`${APPLICATION_NAME}-amq` | jboss-amq-62
+|`${APPLICATION_NAME}-amq` | jboss-amq-63
 |============
 
 

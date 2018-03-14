@@ -4,7 +4,7 @@
     generator or the input template (./*.in)
 ////
 
-= sso71-postgresql
+= sso72-postgresql
 :toc:
 :toc-placement!:
 :toclevels: 5

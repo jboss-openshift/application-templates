@@ -4,27 +4,16 @@
     generator or the input template (./*.in)
 ////
 
-= datagrid65-mysql-persistent
+= sso72-mysql-persistent
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-An example JBoss Data Grid application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+An example SSO 7 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
-For simple authentication, set
+When deploying RH-SSO application template, *_SSO_ADMIN_USERNAME_* and *_SSO_ADMIN_PASSWORD_* parameters denote the user name and password of the Red Hat Single Sign-On server’s administrator account to be created for the _master_ realm.
 
-  USERNAME=<username>
-  PASSWORD=<password>
-
-This will enable user authentication with the datagrid. Provided username and password will be used to access the cache over both HTTPS and HotRod. With this case, the user will have all permissions configured.
-
-Restrictions for password:
-
-  at least 8 characters
-  at least 1 digit
-  at least 1 non-alphanumeric symbol
-  must be different than username
-  must not be root, admin, or administrator
+*Both of these parameters are required.* If not specified, they are auto generated and displayed as an OpenShift Instructional message when the template is instantiated.
 
 
 toc::[]
@@ -39,19 +28,16 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`APPLICATION_NAME` | -- | The name for the application. | datagrid-app | True
-|`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
-|`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
-|`USERNAME` | `USERNAME` | User name for JDG user. | `${USERNAME}` | False
-|`PASSWORD` | `PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${PASSWORD}` | False
-|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | datagrid-app-secret | True
-|`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
-|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}` | False
-|`HTTPS_PASSWORD` | `PASSWORD` | The password for the keystore and certificate | `${PASSWORD}` | False
-|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | java:/jboss/datasources/mysql | False
+|`APPLICATION_NAME` | -- | The name for the application. | sso | True
+|`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | -- | False
+|`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | -- | False
+|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | java:jboss/datasources/KeycloakDS | False
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
-|`DB_USERNAME` | `USERNAME` | Database user name | `${USERNAME}` | True
-|`DB_PASSWORD` | `PASSWORD` | Database user password | `${PASSWORD}` | True
+|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | sso-app-secret | False
+|`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
+|`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
+|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate (e.g. jboss) | `${HTTPS_NAME}` | False
+|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate (e.g. mykeystorepass) | `${HTTPS_PASSWORD}` | False
 |`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
 |`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
 |`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
@@ -60,20 +46,23 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`MYSQL_FT_MIN_WORD_LEN` | `MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}` | False
 |`MYSQL_FT_MAX_WORD_LEN` | `MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}` | False
 |`MYSQL_AIO` | `MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}` | False
+|`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
+|`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
 |`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 1Gi | True
+|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | sso-app-secret | False
+|`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False
+|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate (e.g. secret-key) | `${JGROUPS_ENCRYPT_NAME}` | False
+|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}` | False
+|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
-|`INFINISPAN_CONNECTORS` | `INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | hotrod,memcached,rest | False
-|`CACHE_NAMES` | `CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${CACHE_NAMES}` | False
-|`DATAVIRT_CACHE_NAMES` | `CACHE_NAMES` | Comma-separated list of caches to configure for use by Red Hat JBoss Data Virtualization for materialization of views.  Three caches will be created for each named cache: <name>, <name>_staging and <name>_alias. | `${CACHE_NAMES}` | False
-|`CACHE_TYPE_DEFAULT` | `CACHE_TYPE_DEFAULT` | Default cache type for all caches. If empty then distributed will be the default | `${CACHE_TYPE_DEFAULT}` | False
-|`ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH` | `ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH` |  | `${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}` | False
-|`MEMCACHED_CACHE` | `MEMCACHED_CACHE` | The name of the cache to expose through this memcached connector (defaults to 'default') | default | False
-|`REST_SECURITY_DOMAIN` | `REST_SECURITY_DOMAIN` | The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint | `${REST_SECURITY_DOMAIN}` | False
-|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | datagrid-app-secret | False
-|`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | jgroups.jceks | False
-|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
-|`JGROUPS_ENCRYPT_PASSWORD` | `PASSWORD` | The password for the keystore and certificate | `${PASSWORD}` | False
-|`JGROUPS_CLUSTER_PASSWORD` | `PASSWORD` | JGroups cluster password | `${PASSWORD}` | True
+|`SSO_ADMIN_USERNAME` | `SSO_ADMIN_USERNAME` | SSO Server admin username | `${SSO_ADMIN_USERNAME}` | True
+|`SSO_ADMIN_PASSWORD` | `SSO_ADMIN_PASSWORD` | SSO Server admin  password | `${SSO_ADMIN_PASSWORD}` | True
+|`SSO_REALM` | `SSO_REALM` | Realm to be created in the SSO server (e.g. demo). | `${SSO_REALM}` | False
+|`SSO_SERVICE_USERNAME` | `SSO_SERVICE_USERNAME` | The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm. | `${SSO_SERVICE_USERNAME}` | False
+|`SSO_SERVICE_PASSWORD` | `SSO_SERVICE_PASSWORD` | The password for the SSO service user. | `${SSO_SERVICE_PASSWORD}` | False
+|`SSO_TRUSTSTORE` | `SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}` | False
+|`SSO_TRUSTSTORE_PASSWORD` | `SSO_TRUSTSTORE` | The password for the truststore and certificate (e.g. mykeystorepass) | `${SSO_TRUSTSTORE}` | False
+|`SSO_TRUSTSTORE_SECRET` | `SSO_TRUSTSTORE` | The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName | sso-app-secret | False
 |`MYSQL_IMAGE_STREAM_TAG` | -- | The tag to use for the "mysql" image stream.  Typically, this aligns with the major.minor version of MySQL. | 5.7 | True
 |`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
 |=======================================================================
@@ -96,16 +85,10 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 
 .1+| `${APPLICATION_NAME}`
 |8080 | --
-.1+| The web server's HTTP port.
+.1+| The web server's http port.
 .1+| `secure-${APPLICATION_NAME}`
 |8443 | --
-.1+| The web server's HTTPS port.
-.1+| `${APPLICATION_NAME}-memcached`
-|11211 | --
-.1+| Memcached service for clustered applications.
-.1+| `${APPLICATION_NAME}-hotrod`
-|11333 | --
-.1+| Hot Rod service for clustered applications.
+.1+| The web server's https port.
 .1+| `${APPLICATION_NAME}-mysql`
 |3306 | --
 .1+| The database server's port.
@@ -178,7 +161,7 @@ for more information.
 |============
 |Deployment | Image
 
-|`${APPLICATION_NAME}` | jboss-datagrid65-openshift
+|`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
 |`${APPLICATION_NAME}-mysql` | mysql
 |============
 
@@ -189,7 +172,7 @@ for more information.
 
 .${APPLICATION_NAME}
 ----
-/bin/bash -c /opt/datagrid/bin/readinessProbe.sh
+/bin/bash -c /opt/eap/bin/readinessProbe.sh
 ----
 
 .${APPLICATION_NAME}-mysql
@@ -205,14 +188,11 @@ for more information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.7+| `${APPLICATION_NAME}`
+.4+| `${APPLICATION_NAME}`
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
-|memcached | 11211 | `TCP`
-|hotrod-internal | 11222 | `TCP`
-|hotrod | 11333 | `TCP`
 .1+| `${APPLICATION_NAME}-mysql`
 |-- | 3306 | `TCP`
 |=============
@@ -224,47 +204,41 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.37+| `${APPLICATION_NAME}`
-|`USERNAME` | User name for JDG user. | `${USERNAME}`
-|`PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${PASSWORD}`
-|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/datagrid-secret-volume`
-|`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
-|`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
-|`HTTPS_PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${HTTPS_PASSWORD}`
+.31+| `${APPLICATION_NAME}`
 |`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
 |`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | `${DB_JNDI}`
-|`DB_USERNAME` | User name for JDG user. | `${DB_USERNAME}`
-|`DB_PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${DB_PASSWORD}`
+|`DB_USERNAME` | Database user name | `${DB_USERNAME}`
+|`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
 |`DB_DATABASE` | Database name | `${DB_DATABASE}`
 |`TX_DATABASE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
 |`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
 |`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
 |`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
-|`DEFAULT_JDBC_STORE_TYPE` | -- | string
-|`DEFAULT_JDBC_STORE_DATASOURCE` | -- | `${DB_JNDI}`
-|`MEMCACHED_JDBC_STORE_TYPE` | -- | string
-|`MEMCACHED_JDBC_STORE_DATASOURCE` | -- | `${DB_JNDI}`
 |`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
-|`INFINISPAN_CONNECTORS` | Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest') | `${INFINISPAN_CONNECTORS}`
-|`CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${CACHE_NAMES}`
-|`DATAVIRT_CACHE_NAMES` | Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry. | `${DATAVIRT_CACHE_NAMES}`
-|`CACHE_TYPE_DEFAULT` | Default cache type for all caches. If empty then distributed will be the default | `${CACHE_TYPE_DEFAULT}`
-|`ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH` |  | `${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}`
-|`HOTROD_SERVICE_NAME` | -- | `${APPLICATION_NAME}-hotrod`
-|`HOTROD_ENCRYPTION` | -- | `${HTTPS_NAME}`
-|`MEMCACHED_CACHE` | The name of the cache to expose through this memcached connector (defaults to 'default') | `${MEMCACHED_CACHE}`
-|`REST_SECURITY_DOMAIN` | The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint | `${REST_SECURITY_DOMAIN}`
+|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
+|`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
+|`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
+|`HTTPS_NAME` | The name associated with the server certificate (e.g. jboss) | `${HTTPS_NAME}`
+|`HTTPS_PASSWORD` | The password for the keystore and certificate (e.g. mykeystorepass) | `${HTTPS_PASSWORD}`
 |`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
-|`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
 |`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
-|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
-|`JGROUPS_ENCRYPT_PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${JGROUPS_ENCRYPT_PASSWORD}`
-|`JGROUPS_CLUSTER_PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${JGROUPS_CLUSTER_PASSWORD}`
+|`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
+|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate (e.g. secret-key) | `${JGROUPS_ENCRYPT_NAME}`
+|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}`
+|`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
+|`SSO_ADMIN_USERNAME` | SSO Server admin username | `${SSO_ADMIN_USERNAME}`
+|`SSO_ADMIN_PASSWORD` | SSO Server admin  password | `${SSO_ADMIN_PASSWORD}`
+|`SSO_REALM` | Realm to be created in the SSO server (e.g. demo). | `${SSO_REALM}`
+|`SSO_SERVICE_USERNAME` | The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm. | `${SSO_SERVICE_USERNAME}`
+|`SSO_SERVICE_PASSWORD` | The password for the SSO service user. | `${SSO_SERVICE_PASSWORD}`
+|`SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}`
+|`SSO_TRUSTSTORE_DIR` | The name of the truststore file within the secret (e.g. truststore.jks) | `/etc/sso-secret-volume`
+|`SSO_TRUSTSTORE_PASSWORD` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE_PASSWORD}`
 .8+| `${APPLICATION_NAME}-mysql`
 |`MYSQL_USER` | -- | `${DB_USERNAME}`
-|`MYSQL_PASSWORD` | The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional) | `${DB_PASSWORD}`
+|`MYSQL_PASSWORD` | -- | `${DB_PASSWORD}`
 |`MYSQL_DATABASE` | -- | `${DB_DATABASE}`
 |`MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}`
 |`MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}`
@@ -280,7 +254,7 @@ for more information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-|`${APPLICATION_NAME}` | datagrid-keystore-volume | `/etc/datagrid-secret-volume` | ssl certs | True
+|`${APPLICATION_NAME}` | eap-keystore-volume | `/etc/eap-secret-volume` | ssl certs | True
 |`${APPLICATION_NAME}-mysql` | `${APPLICATION_NAME}-mysql-pvol` | `/var/lib/mysql/data` | mysql | false
 |=============
 

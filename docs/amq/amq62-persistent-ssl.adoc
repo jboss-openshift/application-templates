@@ -96,7 +96,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`AMQ_TRUSTSTORE_PASSWORD` | `AMQ_TRUSTSTORE` | SSL trust store password | `${AMQ_TRUSTSTORE}` | True
 |`AMQ_KEYSTORE` | `AMQ_KEYSTORE_TRUSTSTORE_DIR` | SSL key store filename | broker.ks | True
 |`AMQ_KEYSTORE_PASSWORD` | `AMQ_KEYSTORE` | Password for accessing SSL keystore | `${AMQ_KEYSTORE}` | True
-|`AMQ_STORAGE_USAGE_LIMIT` | `AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | 100 gb | False
+|`AMQ_STORAGE_USAGE_LIMIT` | `AMQ_STORAGE_USAGE_LIMIT` | Sets the store disk limit usage in activemq.xml. If the value set is greater than the disk size, it will be resized to the available disk space. | 100 gb | False
 |`AMQ_QUEUE_MEMORY_LIMIT` | `AMQ_QUEUE_MEMORY_LIMIT` | The queue memory limit (default is 1mb) | `${AMQ_QUEUE_MEMORY_LIMIT}` | False
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |=======================================================================
@@ -256,7 +256,7 @@ for more information.
 |`AMQ_TRUSTSTORE_PASSWORD` | SSL trust store filename | `${AMQ_TRUSTSTORE_PASSWORD}`
 |`AMQ_KEYSTORE` | SSL key store filename | `${AMQ_KEYSTORE}`
 |`AMQ_KEYSTORE_PASSWORD` | SSL key store filename | `${AMQ_KEYSTORE_PASSWORD}`
-|`AMQ_STORAGE_USAGE_LIMIT` | The A-MQ storage usage limit | `${AMQ_STORAGE_USAGE_LIMIT}`
+|`AMQ_STORAGE_USAGE_LIMIT` | Sets the store disk limit usage in activemq.xml. If the value set is greater than the disk size, it will be resized to the available disk space. | `${AMQ_STORAGE_USAGE_LIMIT}`
 |`AMQ_QUEUE_MEMORY_LIMIT` | The queue memory limit (default is 1mb) | `${AMQ_QUEUE_MEMORY_LIMIT}`
 .4+| `${APPLICATION_NAME}-drainer`
 |`AMQ_USER` | User name for standard broker user.  It is required for connecting to the broker.  If left empty, it will be generated. | `${MQ_USERNAME}`

@@ -24,15 +24,16 @@ APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","processserv
 template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'processserver', 'datagrid', 'datavirt', 'sso']
 amq_ssl_desc = None
 
-LINKS =  {"jboss-eap64-openshift:1.7": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
+LINKS =  {"jboss-eap64-openshift:1.8": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
           "jboss-eap70-openshift:1.7": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`]",
-          "jboss-eap71-openshift:1.1": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7-tech-preview/eap71-openshift`]",
+          "jboss-eap71-openshift:1.2": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap71-openshift`]",
           "jboss-webserver31-tomcat7-openshift:1.1": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat7-openshift`]",
           "jboss-webserver31-tomcat8-openshift:1.1": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat8-openshift`]",
           "jboss-decisionserver64-openshift:1.2": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver64-openshift`]",
           "jboss-processserver64-openshift:1.2": "../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver64-openshift`]",
           "jboss-datavirt63-openshift:1.4": "../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`]",
           "redhat-sso71-openshift:1.3": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso71-openshift`]",
+          "redhat-sso72-openshift:1.0": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso72-openshift`]",
 }
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
@@ -60,6 +61,8 @@ def generate_templates():
             generate_template(os.path.join(directory, template))
 
 def generate_template(path):
+    if "image-stream" in path:
+        return
     with open(path) as data_file:
         if path[-5:] == '.json':
             data = json.load(data_file, object_pairs_hook=OrderedDict)
@@ -333,7 +336,7 @@ def generate_readme():
             # links
             for template in [ os.path.splitext(x)[0] for x in sorted(os.listdir(directory)) ]:
                 # XXX: Hack for 1.3 release, which excludes processserver
-                if template != "processserver-app-secret":
+                if template != "processserver-app-secret" and "image-stream" not in template:
                     fh.write("* link:./%s/%s.adoc[%s]\n" % (directory, template, template))
 
         # release notes

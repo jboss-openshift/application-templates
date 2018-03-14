@@ -173,6 +173,11 @@ for more information.
 /bin/bash -c curl --noproxy '*' -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer&att=stateName' |grep -iq 'stateName *= *STARTED'
 ----
 
+.${APPLICATION_NAME}-mongodb
+----
+/bin/sh -i -c mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval="quit()"
+----
+
 
 
 

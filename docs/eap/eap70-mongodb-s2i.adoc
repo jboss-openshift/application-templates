@@ -184,6 +184,11 @@ for more information.
 /bin/bash -c /opt/eap/bin/readinessProbe.sh
 ----
 
+.${APPLICATION_NAME}-mongodb
+----
+/bin/sh -i -c mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval="quit()"
+----
+
 
 
 

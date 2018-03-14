@@ -118,7 +118,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap71-openshift:1.1 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7-tech-preview/eap71-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|jboss-eap71-openshift:1.2 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap71-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
@@ -168,7 +168,7 @@ for more information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
-|`${APPLICATION_NAME}-amq` | jboss-amq-62
+|`${APPLICATION_NAME}-amq` | jboss-amq-63
 |============
 
 

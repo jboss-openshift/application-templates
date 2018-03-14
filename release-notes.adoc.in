@@ -6,6 +6,48 @@
 
 == Release Notes
 
+=== Release 1.4.10
+
+=== Release 1.4.9
+ * Add probes for DB pods
+ * Update datavirt secret to use correct location for database files
+ * Add support for SSO 7.2
+ * Update EAP templates to reference AMQ 6.3, from 6.2
+ * Split jboss-image-streams.json into separate files, e.g. eap/eap64-image-sream.json
+
+=== Release 1.4.8
+ * Update default volume capacity to 1G
+ * Add emptyDir volumes for non-persistent databases
+ * Add parameter for configuring memory limits (default 1G)
+ * Move from KUBE_PING to DNS_PING for clustering in AMQ and EAP based products
+ * Removed service accounts (DNS_PING requires no special privileges).
+ * Added templates for automated TX recovery in EAP (tech-preview)
+
+=== Release 1.4.7
+ * Support clean shutdown on TERM for EAP 7.x based products
+ * Remove JWS 3.0 templates
+ * Remove BxMS 6.3 templates
+ * Deprecate SSO 7.0
+ * Add support for configuring queue memory limit (AMQ)
+
+=== Release 1.4.5
+ * Add support for JDG 7.1
+
+=== Release 1.4.4
+ * Add templates for AMQ message migration
+
+=== Release 1.4.1
+ * Update BxMS templates to reference AMQ 6.3, from 6.2
+
+=== Release 1.4.0
+ * Add parameter for specifying DB version
+
+=== Release 1.3.7
+ * Add client images for datavirt and datagrid
+
+=== Release 1.3.6
+ * Add support for Java S2I image
+
 === Release 1.3.5
  * Updated datavirt templates to reference new quickstart
  * Modified datavirt-app-secret to include secret for datasource configuration
