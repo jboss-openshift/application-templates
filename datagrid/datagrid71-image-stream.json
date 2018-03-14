@@ -69,6 +69,21 @@
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/jboss-datagrid-7/datagrid71-openshift:1.2"
                         }
+                    },
+                    {
+                        "name": "1.3",
+                        "annotations": {
+                            "description": "JBoss Data Grid 7.1 S2I images.",
+                            "iconClass": "icon-datagrid",
+                            "tags": "datagrid,jboss,hidden",
+                            "supports": "datagrid:7.1",
+                            "version": "1.3",
+                            "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/jboss-datagrid-7/datagrid71-openshift:1.3"
+                        }
                     }
                 ]
             }
