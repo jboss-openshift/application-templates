@@ -17,11 +17,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 7",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -87,11 +87,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 8",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -157,11 +157,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Apache Tomcat 7",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -210,11 +210,11 @@
                 "annotations": {
                     "openshift.io/display-name": "JBoss Web Server 3.1 Apache Tomcat 8",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -263,11 +263,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss EAP 6.4",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -408,11 +408,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss EAP 7.0",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -517,11 +517,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss EAP 7.1",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -589,11 +589,11 @@
                 "name": "jboss-decisionserver62-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss BRMS 6.2 decision server",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -626,11 +626,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss BRMS 6.3 decision server",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -681,11 +681,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss BRMS 6.4 decision server",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -754,11 +754,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.3 intelligent process server",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -809,11 +809,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss BPM Suite 6.4 intelligent process server",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -882,11 +882,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -976,11 +976,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -1040,11 +1040,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 Client Modules for EAP",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -1087,11 +1087,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Grid 7.1 Client Modules for EAP",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -1120,11 +1120,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -1214,11 +1214,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -1261,11 +1261,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -1385,11 +1385,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -1465,11 +1465,11 @@
                     "description": "Red Hat SSO 7.0",
                     "openshift.io/display-name": "Red Hat Single Sign-On 7.0",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -1515,11 +1515,11 @@
                     "description": "Red Hat SSO 7.1",
                     "openshift.io/display-name": "Red Hat Single Sign-On 7.1",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -1595,11 +1595,11 @@
                     "description": "Red Hat SSO 7.2",
                     "openshift.io/display-name": "Red Hat Single Sign-On 7.2",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -1629,11 +1629,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat OpenJDK 8",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.9"
+                    "version": "1.4.10"
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
