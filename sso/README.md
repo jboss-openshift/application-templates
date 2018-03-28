@@ -12,10 +12,17 @@ Several templates are provided:
 | **_sso71-mysql.json_**                 | RH-SSO 7.1/Keycloak template backed by ephemeral MySQL database.       |
 | **_sso71-mysql-persistent.json_**      | RH-SSO 7.1/Keycloak template backed by persistent MySQL database.      |
 | **_sso72-https.json_**                 | RH-SSO 7.2/Keycloak template backed by internal H2 database.           |
+| **_sso72-x509-https.json_**            | RH-SSO 7.2/Keycloak template with auto-generated HTTPS and JGroups     |
+|                                        | keystores, and RH-SSO truststore, backed by internal H2 database.      |
 | **_sso72-postgresql.json_**            | RH-SSO 7.2/Keycloak template backed by ephemeral PostgreSQL database.  |
 | **_sso72-postgresql-persistent.json_** | RH-SSO 7.2/Keycloak template backed by persistent PostgreSQL database. |
+| **_sso72-x509-postgresql-_**           | RH-SSO 7.2/Keycloak template with auto-generated HTTPS and JGroups     |
+| **_persistent.json_**                  | keystores, and RH-SSO truststore, backed by persistent PostgreSQL      |
+|                                        | database.                                                              |
 | **_sso72-mysql.json_**                 | RH-SSO 7.2/Keycloak template backed by ephemeral MySQL database.       |
 | **_sso72-mysql-persistent.json_**      | RH-SSO 7.2/Keycloak template backed by persistent MySQL database.      |
+| **_sso72-x509-mysql-persistent.json_** | RH-SSO 7.2/Keycloak template with auto-generated HTTPS and JGroups     |
+|                                        | keystores, and RH-SSO truststore, backed by persistent MySQL database. |
 
 
 The templates are configured with the following basic parameters:
