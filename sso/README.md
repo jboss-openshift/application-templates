@@ -6,11 +6,6 @@ Several templates are provided:
 
 |     Template Name                      |                       Description                                      |
 | ---------------------------------------|----------------------------------------------------------------------- |
-| **_sso71-https.json_**                 | RH-SSO 7.1/Keycloak template backed by internal H2 database.           |
-| **_sso71-postgresql.json_**            | RH-SSO 7.1/Keycloak template backed by ephemeral PostgreSQL database.  |
-| **_sso71-postgresql-persistent.json_** | RH-SSO 7.1/Keycloak template backed by persistent PostgreSQL database. |
-| **_sso71-mysql.json_**                 | RH-SSO 7.1/Keycloak template backed by ephemeral MySQL database.       |
-| **_sso71-mysql-persistent.json_**      | RH-SSO 7.1/Keycloak template backed by persistent MySQL database.      |
 | **_sso72-https.json_**                 | RH-SSO 7.2/Keycloak template backed by internal H2 database.           |
 | **_sso72-x509-https.json_**            | RH-SSO 7.2/Keycloak template with auto-generated HTTPS and JGroups     |
 |                                        | keystores, and RH-SSO truststore, backed by internal H2 database.      |
