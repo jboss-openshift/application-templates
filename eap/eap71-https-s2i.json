@@ -53,7 +53,7 @@
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "7.0.0.GA",
+            "value": "7.1.0.GA",
             "required": false
         },
         {
@@ -191,6 +191,13 @@
             "description": "Maven mirror to use for S2I builds",
             "name": "MAVEN_MIRROR_URL",
             "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Maven Additional Arguments",
+            "description": "Maven additional arguments to use for S2I builds",
+            "name": "MAVEN_ARGS_APPEND",
+            "value": "-Dcom.redhat.xpaas.repo.jbossorg",
             "required": false
         },
         {
@@ -359,6 +366,10 @@
                             {
                                 "name": "MAVEN_MIRROR_URL",
                                 "value": "${MAVEN_MIRROR_URL}"
+                            },
+                            {
+                                "name": "MAVEN_ARGS_APPEND",
+                                "value": "${MAVEN_ARGS_APPEND}"
                             },
                             {
                                 "name": "ARTIFACT_DIR",

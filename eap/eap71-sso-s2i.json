@@ -328,6 +328,13 @@
             "required": false
         },
         {
+            "displayName": "Maven Additional Arguments",
+            "description": "Maven additional arguments to use for S2I builds",
+            "name": "MAVEN_ARGS_APPEND",
+            "value": "",
+            "required": false
+        },
+        {
             "description": "Container memory limit",
             "name": "MEMORY_LIMIT",
             "value": "1Gi",
@@ -495,12 +502,12 @@
                                 "value": "${ARTIFACT_DIR}"
                             },
                             {
-                                "name": "MAVEN_ARGS_APPEND",
-                                "value": ""
-                            },
-                            {
                                 "name": "MAVEN_MIRROR_URL",
                                 "value": "${MAVEN_MIRROR_URL}"
+                            },
+                            {
+                                "name": "MAVEN_ARGS_APPEND",
+                                "value": "${MAVEN_ARGS_APPEND}"
                             }
                         ]
                     }
