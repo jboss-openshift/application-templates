@@ -4,12 +4,12 @@
     "metadata": {
         "annotations": {
             "iconClass" : "icon-sso",
-            "tags" : "sso,keycloak,jboss,hidden",
+            "tags" : "sso,keycloak,jboss",
             "version": "1.4.10",
-            "openshift.io/display-name": "Single Sign-On 7.2",
+            "openshift.io/display-name": "Red Hat Single Sign-On 7.2 (Ephemeral)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example RH-SSO 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.2 server based deployment.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.2 server based deployment, securing RH-SSO communication using re-encrypt TLS.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
