@@ -110,13 +110,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}-amq-amqp",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 },
                 "annotations": {
                     "description": "The broker's AMQP port."
@@ -134,13 +136,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}-amq-mqtt",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 },
                 "annotations": {
                     "description": "The broker's MQTT port."
@@ -158,13 +162,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}-amq-stomp",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 },
                 "annotations": {
                     "description": "The broker's STOMP port."
@@ -182,13 +188,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}-amq-tcp",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 },
                 "annotations": {
                     "description": "The broker's OpenWire port.",
@@ -226,9 +234,10 @@
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
-                "name": "${APPLICATION_NAME}-amq",
+                "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "amq"
                 }
             },
             "spec": {
@@ -244,7 +253,7 @@
                         "imageChangeParams": {
                             "automatic": true,
                             "containerNames": [
-                                "${APPLICATION_NAME}-amq"
+                                "${APPLICATION_NAME}"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
@@ -258,22 +267,19 @@
                     }
                 ],
                 "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-amq"
-                },
                 "template": {
                     "metadata": {
-                        "name": "${APPLICATION_NAME}-amq",
+                        "name": "${APPLICATION_NAME}",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-amq",
-                            "application": "${APPLICATION_NAME}"
+                            "application": "${APPLICATION_NAME}",
+                            "component": "amq"
                         }
                     },
                     "spec": {
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
-                                "name": "${APPLICATION_NAME}-amq",
+                                "name": "${APPLICATION_NAME}",
                                 "image": "jboss-amq-62",
                                 "imagePullPolicy": "Always",
                                 "readinessProbe": {

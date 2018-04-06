@@ -308,13 +308,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datagrid"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datagrid"
                 },
                 "annotations": {
                     "description": "The web server's HTTP port.",
@@ -333,13 +335,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datagrid"
                 }
             },
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datagrid"
                 },
                 "annotations": {
                     "description": "The web server's HTTPS port.",
@@ -358,13 +362,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datagrid"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}-memcached",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datagrid"
                 },
                 "annotations": {
                     "description": "Memcached service for clustered applications.",
@@ -383,13 +389,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datagrid"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}-hotrod",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datagrid"
                 },
                 "annotations": {
                     "description": "Hot Rod service for clustered applications.",
@@ -408,13 +416,15 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "mysql"
                 }
             },
             "metadata": {
                 "name": "${APPLICATION_NAME}-mysql",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "mysql"
                 },
                 "annotations": {
                     "description": "The database server's port."
@@ -454,7 +464,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datagrid"
                 },
                 "annotations": {
                     "description": "Route for application's HTTP service."
@@ -474,7 +485,8 @@
             "metadata": {
                 "name": "secure-${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datagrid"
                 },
                 "annotations": {
                     "description": "Route for application's HTTPS service."
@@ -496,7 +508,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "datagrid"
                 }
             },
             "spec": {
@@ -523,15 +536,12 @@
                     }
                 ],
                 "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                },
                 "template": {
                     "metadata": {
                         "name": "${APPLICATION_NAME}",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}",
-                            "application": "${APPLICATION_NAME}"
+                            "application": "${APPLICATION_NAME}",
+                            "component": "datagrid"
                         }
                     },
                     "spec": {
@@ -806,7 +816,8 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}-mysql",
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "component": "mysql"
                 }
             },
             "spec": {
@@ -833,15 +844,12 @@
                     }
                 ],
                 "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
-                },
                 "template": {
                     "metadata": {
                         "name": "${APPLICATION_NAME}-mysql",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-mysql",
-                            "application": "${APPLICATION_NAME}"
+                            "application": "${APPLICATION_NAME}",
+                            "component": "mysql"
                         }
                     },
                     "spec": {
