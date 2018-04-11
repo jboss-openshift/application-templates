@@ -334,7 +334,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-decisionserver64-openshift:1.2"
+                            "name": "jboss-decisionserver64-openshift:1.3"
                         }
                     }
                 },
