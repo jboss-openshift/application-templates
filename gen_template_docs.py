@@ -27,13 +27,13 @@ amq_ssl_desc = None
 LINKS =  {"jboss-eap64-openshift:1.8": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
           "jboss-eap70-openshift:1.7": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap70-openshift`]",
           "jboss-eap71-openshift:1.2": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap71-openshift`]",
-          "jboss-webserver31-tomcat7-openshift:1.1": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat7-openshift`]",
-          "jboss-webserver31-tomcat8-openshift:1.1": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat8-openshift`]",
-          "jboss-decisionserver64-openshift:1.2": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver64-openshift`]",
-          "jboss-processserver64-openshift:1.2": "../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver64-openshift`]",
+          "jboss-webserver31-tomcat7-openshift:1.2": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat7-openshift`]",
+          "jboss-webserver31-tomcat8-openshift:1.2": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat8-openshift`]",
+          "jboss-decisionserver64-openshift:1.3": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver64-openshift`]",
+          "jboss-processserver64-openshift:1.3": "../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver64-openshift`]",
           "jboss-datavirt63-openshift:1.4": "../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`]",
           "redhat-sso71-openshift:1.3": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso71-openshift`]",
-          "redhat-sso72-openshift:1.0": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso72-openshift`]",
+          "redhat-sso72-openshift:1.1": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso72-openshift`]",
 }
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
@@ -234,10 +234,13 @@ def createObjectTable(data, tableKind):
                addDescription=False
          continue
       elif obj["kind"] ==  'Route' and tableKind == 'Route':
+         hostname = "<default>"
+         if "host" in obj["spec"]:
+            hostname = obj["spec"]["host"]
          if(obj["spec"].get("tls")):
-            columns = [obj["id"], ("TLS "+ obj["spec"]["tls"]["termination"]), obj["spec"]["host"]]
+            columns = [obj["id"], ("TLS "+ obj["spec"]["tls"]["termination"]), hostname]
          else:
-            columns = [obj["id"], "none", obj["spec"]["host"]]
+            columns = [obj["id"], "none", hostname]
       elif obj["kind"] ==  'BuildConfig' and tableKind == 'BuildConfig':
          if obj["spec"]["strategy"]["type"] == 'Source':
             s2i = obj["spec"]["strategy"]["sourceStrategy"]["from"]["name"]

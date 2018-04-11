@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= sso71-postgresql
+= sso72-x509-postgresql-persistent
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-An example SSO 7 application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+An example RH-SSO 7 application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 When deploying RH-SSO application template, *_SSO_ADMIN_USERNAME_* and *_SSO_ADMIN_PASSWORD_* parameters denote the user name and password of the Red Hat Single Sign-On server’s administrator account to be created for the _master_ realm.
 
@@ -29,15 +29,9 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`APPLICATION_NAME` | -- | The name for the application. | sso | True
-|`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | -- | False
-|`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | -- | False
+|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | The password for the JGroups cluster. | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | java:jboss/datasources/KeycloakDS | False
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
-|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | sso-app-secret | False
-|`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
-|`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
-|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate (e.g. jboss) | `${HTTPS_NAME}` | False
-|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate (e.g. mykeystorepass) | `${HTTPS_PASSWORD}` | False
 |`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
 |`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
 |`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
@@ -45,22 +39,15 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`POSTGRESQL_SHARED_BUFFERS` | `POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}` | False
 |`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
 |`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
-|`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | sso-app-secret | False
-|`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False
-|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate (e.g. secret-key) | `${JGROUPS_ENCRYPT_NAME}` | False
-|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}` | False
-|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
+|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 1Gi | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
-|`SSO_ADMIN_USERNAME` | `SSO_ADMIN_USERNAME` | SSO Server admin username | `${SSO_ADMIN_USERNAME}` | True
-|`SSO_ADMIN_PASSWORD` | `SSO_ADMIN_PASSWORD` | SSO Server admin  password | `${SSO_ADMIN_PASSWORD}` | True
-|`SSO_REALM` | `SSO_REALM` | Realm to be created in the SSO server (e.g. demo). | `${SSO_REALM}` | False
-|`SSO_SERVICE_USERNAME` | `SSO_SERVICE_USERNAME` | The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm. | `${SSO_SERVICE_USERNAME}` | False
-|`SSO_SERVICE_PASSWORD` | `SSO_SERVICE_PASSWORD` | The password for the SSO service user. | `${SSO_SERVICE_PASSWORD}` | False
-|`SSO_TRUSTSTORE` | `SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}` | False
-|`SSO_TRUSTSTORE_PASSWORD` | `SSO_TRUSTSTORE` | The password for the truststore and certificate (e.g. mykeystorepass) | `${SSO_TRUSTSTORE}` | False
-|`SSO_TRUSTSTORE_SECRET` | `SSO_TRUSTSTORE` | The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName | sso-app-secret | False
+|`SSO_ADMIN_USERNAME` | `SSO_ADMIN_USERNAME` | RH-SSO Server administrator username | `${SSO_ADMIN_USERNAME}` | True
+|`SSO_ADMIN_PASSWORD` | `SSO_ADMIN_PASSWORD` | RH-SSO Server administrator password | `${SSO_ADMIN_PASSWORD}` | True
+|`SSO_REALM` | `SSO_REALM` | Realm to be created in the RH-SSO server (e.g. demorealm). | `${SSO_REALM}` | False
+|`SSO_SERVICE_USERNAME` | `SSO_SERVICE_USERNAME` | The username used to access the RH-SSO service. This is used by clients to create the appliction client(s) within the specified RH-SSO realm. | `${SSO_SERVICE_USERNAME}` | False
+|`SSO_SERVICE_PASSWORD` | `SSO_SERVICE_PASSWORD` | The password for the RH-SSO service user. | `${SSO_SERVICE_PASSWORD}` | False
 |`POSTGRESQL_IMAGE_STREAM_TAG` | -- | The tag to use for the "postgresql" image stream.  Typically, this aligns with the major.minor version of PostgreSQL. | 9.5 | True
-|`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
+|`MEMORY_LIMIT` | -- | Container memory limit. | 1Gi | False
 |=======================================================================
 
 
@@ -105,8 +92,8 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-|`${APPLICATION_NAME}-http` | none | `${HOSTNAME_HTTP}`
-|`${APPLICATION_NAME}-https` | TLS passthrough | `${HOSTNAME_HTTPS}`
+|`${APPLICATION_NAME}-http` | none | <default>
+|`${APPLICATION_NAME}-https` | TLS reencrypt | <default>
 |=============
 
 
@@ -200,7 +187,7 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.31+| `${APPLICATION_NAME}`
+.19+| `${APPLICATION_NAME}`
 |`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
 |`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | `${DB_JNDI}`
 |`DB_USERNAME` | Database user name | `${DB_USERNAME}`
@@ -213,25 +200,13 @@ for more information.
 |`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
-|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
-|`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
-|`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
-|`HTTPS_NAME` | The name associated with the server certificate (e.g. jboss) | `${HTTPS_NAME}`
-|`HTTPS_PASSWORD` | The password for the keystore and certificate (e.g. mykeystorepass) | `${HTTPS_PASSWORD}`
-|`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
-|`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
-|`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
-|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate (e.g. secret-key) | `${JGROUPS_ENCRYPT_NAME}`
-|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}`
-|`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
-|`SSO_ADMIN_USERNAME` | SSO Server admin username | `${SSO_ADMIN_USERNAME}`
-|`SSO_ADMIN_PASSWORD` | SSO Server admin  password | `${SSO_ADMIN_PASSWORD}`
-|`SSO_REALM` | Realm to be created in the SSO server (e.g. demo). | `${SSO_REALM}`
-|`SSO_SERVICE_USERNAME` | The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm. | `${SSO_SERVICE_USERNAME}`
-|`SSO_SERVICE_PASSWORD` | The password for the SSO service user. | `${SSO_SERVICE_PASSWORD}`
-|`SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}`
-|`SSO_TRUSTSTORE_DIR` | The name of the truststore file within the secret (e.g. truststore.jks) | `/etc/sso-secret-volume`
-|`SSO_TRUSTSTORE_PASSWORD` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE_PASSWORD}`
+|X509_CA_BUNDLE | -- | `/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt`
+|`JGROUPS_CLUSTER_PASSWORD` | The password for the JGroups cluster. | `${JGROUPS_CLUSTER_PASSWORD}`
+|`SSO_ADMIN_USERNAME` | RH-SSO Server administrator username | `${SSO_ADMIN_USERNAME}`
+|`SSO_ADMIN_PASSWORD` | RH-SSO Server administrator password | `${SSO_ADMIN_PASSWORD}`
+|`SSO_REALM` | Realm to be created in the RH-SSO server (e.g. demorealm). | `${SSO_REALM}`
+|`SSO_SERVICE_USERNAME` | The username used to access the RH-SSO service. This is used by clients to create the appliction client(s) within the specified RH-SSO realm. | `${SSO_SERVICE_USERNAME}`
+|`SSO_SERVICE_PASSWORD` | The password for the RH-SSO service user. | `${SSO_SERVICE_PASSWORD}`
 .6+| `${APPLICATION_NAME}-postgresql`
 |`POSTGRESQL_USER` | -- | `${DB_USERNAME}`
 |`POSTGRESQL_PASSWORD` | -- | `${DB_PASSWORD}`
@@ -248,12 +223,26 @@ for more information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-|`${APPLICATION_NAME}` | eap-keystore-volume | `/etc/eap-secret-volume` | ssl certs | True
-|`${APPLICATION_NAME}-postgresql` | `${APPLICATION_NAME}-data` | `/var/lib/pgsql/data` | -- | false
+|`${APPLICATION_NAME}` | sso-x509-https-volume | `/etc/x509/https` | -- | True
+|`${APPLICATION_NAME}-postgresql` | `${APPLICATION_NAME}-postgresql-pvol` | `/var/lib/pgsql/data` | postgresql | false
 |=============
 
 
 === External Dependencies
+
+
+==== Volume Claims
+
+A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
+by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
+Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
+more information.
+
+|=============
+|Name | Access Mode
+
+|`${APPLICATION_NAME}-postgresql-claim` | ReadWriteOnce
+|=============
 
 
 

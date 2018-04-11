@@ -66,6 +66,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SSO_TRUSTSTORE_PASSWORD` | `SSO_TRUSTSTORE` | The password for the truststore and certificate (e.g. mykeystorepass) | `${SSO_TRUSTSTORE}` | False
 |`SSO_TRUSTSTORE_SECRET` | `SSO_TRUSTSTORE` | The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName | eap7-app-secret | False
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
+|`MAVEN_ARGS_APPEND` | -- | Maven additional arguments to use for S2I builds | -- | False
 |`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
 |=======================================================================
 

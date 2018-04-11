@@ -122,16 +122,14 @@ toc::[levels=1]
 == Red Hat SSO
 
 * link:./sso/README.adoc[README]
-* link:./sso/sso71-https.adoc[sso71-https]
-* link:./sso/sso71-mysql-persistent.adoc[sso71-mysql-persistent]
-* link:./sso/sso71-mysql.adoc[sso71-mysql]
-* link:./sso/sso71-postgresql-persistent.adoc[sso71-postgresql-persistent]
-* link:./sso/sso71-postgresql.adoc[sso71-postgresql]
 * link:./sso/sso72-https.adoc[sso72-https]
 * link:./sso/sso72-mysql-persistent.adoc[sso72-mysql-persistent]
 * link:./sso/sso72-mysql.adoc[sso72-mysql]
 * link:./sso/sso72-postgresql-persistent.adoc[sso72-postgresql-persistent]
 * link:./sso/sso72-postgresql.adoc[sso72-postgresql]
+* link:./sso/sso72-x509-https.adoc[sso72-x509-https]
+* link:./sso/sso72-x509-mysql-persistent.adoc[sso72-x509-mysql-persistent]
+* link:./sso/sso72-x509-postgresql-persistent.adoc[sso72-x509-postgresql-persistent]
 
 == JBoss Web Server
 

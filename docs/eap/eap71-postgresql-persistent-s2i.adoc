@@ -57,6 +57,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
+|`MAVEN_ARGS_APPEND` | -- | Maven additional arguments to use for S2I builds | -- | False
 |`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
 |`POSTGRESQL_IMAGE_STREAM_TAG` | -- | The tag to use for the "postgresql" image stream.  Typically, this aligns with the major.minor version of PostgreSQL. | 9.5 | True
 |`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False

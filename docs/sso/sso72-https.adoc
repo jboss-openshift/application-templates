@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-An example SSO 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+An example RH-SSO 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 When deploying RH-SSO application template, *_SSO_ADMIN_USERNAME_* and *_SSO_ADMIN_PASSWORD_* parameters denote the user name and password of the Red Hat Single Sign-On server’s administrator account to be created for the _master_ realm.
 
@@ -29,8 +29,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`APPLICATION_NAME` | -- | The name for the application. | sso | True
-|`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | -- | False
-|`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | -- | False
+|`HOSTNAME_HTTP` | -- | Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | -- | False
+|`HOSTNAME_HTTPS` | -- | Custom hostname for https service route. Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix> | -- | False
 |`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | sso-app-secret | False
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
@@ -45,15 +45,15 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
-|`SSO_ADMIN_USERNAME` | `SSO_ADMIN_USERNAME` | SSO Server admin username | `${SSO_ADMIN_USERNAME}` | True
-|`SSO_ADMIN_PASSWORD` | `SSO_ADMIN_PASSWORD` | SSO Server admin  password | `${SSO_ADMIN_PASSWORD}` | True
-|`SSO_REALM` | `SSO_REALM` | Realm to be created in the SSO server (e.g. demo). | `${SSO_REALM}` | False
-|`SSO_SERVICE_USERNAME` | `SSO_SERVICE_USERNAME` | The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm. | `${SSO_SERVICE_USERNAME}` | False
-|`SSO_SERVICE_PASSWORD` | `SSO_SERVICE_PASSWORD` | The password for the SSO service user. | `${SSO_SERVICE_PASSWORD}` | False
+|`SSO_ADMIN_USERNAME` | `SSO_ADMIN_USERNAME` | RH-SSO Server administrator username | `${SSO_ADMIN_USERNAME}` | True
+|`SSO_ADMIN_PASSWORD` | `SSO_ADMIN_PASSWORD` | RH-SSO Server administrator password | `${SSO_ADMIN_PASSWORD}` | True
+|`SSO_REALM` | `SSO_REALM` | Realm to be created in the RH-SSO server (e.g. demorealm). | `${SSO_REALM}` | False
+|`SSO_SERVICE_USERNAME` | `SSO_SERVICE_USERNAME` | The username used to access the RH-SSO service. This is used by clients to create the appliction client(s) within the specified RH-SSO realm. | `${SSO_SERVICE_USERNAME}` | False
+|`SSO_SERVICE_PASSWORD` | `SSO_SERVICE_PASSWORD` | The password for the RH-SSO service user. | `${SSO_SERVICE_PASSWORD}` | False
 |`SSO_TRUSTSTORE` | `SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}` | False
 |`SSO_TRUSTSTORE_PASSWORD` | `SSO_TRUSTSTORE` | The password for the truststore and certificate (e.g. mykeystorepass) | `${SSO_TRUSTSTORE}` | False
 |`SSO_TRUSTSTORE_SECRET` | `SSO_TRUSTSTORE` | The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName | sso-app-secret | False
-|`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
+|`MEMORY_LIMIT` | -- | Container memory limit. | 1Gi | False
 |=======================================================================
 
 
@@ -198,11 +198,11 @@ for more information.
 |`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate (e.g. secret-key) | `${JGROUPS_ENCRYPT_NAME}`
 |`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
-|`SSO_ADMIN_USERNAME` | SSO Server admin username | `${SSO_ADMIN_USERNAME}`
-|`SSO_ADMIN_PASSWORD` | SSO Server admin  password | `${SSO_ADMIN_PASSWORD}`
-|`SSO_REALM` | Realm to be created in the SSO server (e.g. demo). | `${SSO_REALM}`
-|`SSO_SERVICE_USERNAME` | The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm. | `${SSO_SERVICE_USERNAME}`
-|`SSO_SERVICE_PASSWORD` | The password for the SSO service user. | `${SSO_SERVICE_PASSWORD}`
+|`SSO_ADMIN_USERNAME` | RH-SSO Server administrator username | `${SSO_ADMIN_USERNAME}`
+|`SSO_ADMIN_PASSWORD` | RH-SSO Server administrator password | `${SSO_ADMIN_PASSWORD}`
+|`SSO_REALM` | Realm to be created in the RH-SSO server (e.g. demorealm). | `${SSO_REALM}`
+|`SSO_SERVICE_USERNAME` | The username used to access the RH-SSO service. This is used by clients to create the appliction client(s) within the specified RH-SSO realm. | `${SSO_SERVICE_USERNAME}`
+|`SSO_SERVICE_PASSWORD` | The password for the RH-SSO service user. | `${SSO_SERVICE_PASSWORD}`
 |`SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}`
 |`SSO_TRUSTSTORE_DIR` | The name of the truststore file within the secret (e.g. truststore.jks) | `/etc/sso-secret-volume`
 |`SSO_TRUSTSTORE_PASSWORD` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE_PASSWORD}`
