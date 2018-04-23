@@ -4,7 +4,7 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-amq",
-            "tags": "messaging,amq,jboss,hidden",
+            "tags": "messaging,amq,jboss",
             "version": "1.4.11",
             "openshift.io/display-name": "JBoss A-MQ 6.3 (Ephemeral with SSL)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
