@@ -154,7 +154,6 @@
                 },
                 "annotations": {
                     "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true",
-                    "service.alpha.openshift.io/serving-cert-secret-name": "sso-x509-jgroups-secret",
                     "description": "The JGroups ping port for clustering."
                 }
             }
@@ -242,11 +241,6 @@
                                         "name": "sso-x509-https-volume",
                                         "mountPath": "/etc/x509/https",
                                         "readOnly": true
-                                    },
-                                    {
-                                        "name": "sso-x509-jgroups-volume",
-                                        "mountPath": "/etc/x509/jgroups",
-                                        "readOnly": true
                                     }
                                 ],
                                 "livenessProbe": {
@@ -324,6 +318,10 @@
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
                                     {
+                                        "name": "JGROUPS_ENCRYPT_PROTOCOL",
+                                        "value": "ASYM_ENCRYPT"
+                                    },
+                                    {
                                         "name": "SSO_ADMIN_USERNAME",
                                         "value": "${SSO_ADMIN_USERNAME}"
                                     },
@@ -351,12 +349,6 @@
                                 "name": "sso-x509-https-volume",
                                 "secret": {
                                     "secretName": "sso-x509-https-secret"
-                                }
-                            },
-                            {
-                                "name": "sso-x509-jgroups-volume",
-                                "secret": {
-                                    "secretName": "sso-x509-jgroups-secret"
                                 }
                             }
                         ]
