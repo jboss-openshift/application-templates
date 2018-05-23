@@ -283,6 +283,13 @@
             "name": "MEMORY_LIMIT",
             "value": "1Gi",
             "required": false
+        },
+        {
+            "displayName": "Store REST values as strings",
+            "description": "This ensures compatibility with JDG 7.1 where REST values were always stored as strings.",
+            "name": "REST_STORE_AS_STRING",
+            "value": "false",
+            "required": false
         }
     ],
     "objects": [
@@ -685,6 +692,10 @@
                                     {
                                         "name": "DEFAULT_JDBC_STORE_DATASOURCE",
                                         "value": "${DB_JNDI}"
+                                    },
+                                    {
+                                        "name": "DEFAULT_REST_STORE_AS_STRING",
+                                        "value": "${REST_STORE_AS_STRING}"
                                     },
                                     {
                                         "name": "MEMCACHED_JDBC_STORE_TYPE",
