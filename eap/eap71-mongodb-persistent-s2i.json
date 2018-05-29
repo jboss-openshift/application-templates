@@ -494,7 +494,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap71-openshift:1.2"
+                            "name": "jboss-eap71-openshift:1.3"
                         }
                     }
                 },
