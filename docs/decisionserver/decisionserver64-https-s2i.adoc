@@ -23,7 +23,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | decisionserver-hellorules=org.openshift.quickstarts:decisionserver-hellorules:1.3.0.Final | False
+|`KIE_CONTAINER_DEPLOYMENT` | `KIE_CONTAINER_DEPLOYMENT` | The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2 | decisionserver-hellorules=org.openshift.quickstarts:decisionserver-hellorules:1.4.0.Final | False
 |`KIE_SERVER_PROTOCOL` | `KIE_SERVER_PROTOCOL` | The protocol to access the KIE Server REST interface. | https | False
 |`KIE_SERVER_PORT` | `KIE_SERVER_PORT` | The port to access the KIE Server REST interface. | 8443 | False
 |`KIE_SERVER_USER` | `KIE_SERVER_USER` | The user name to access the KIE Server REST or JMS interface. | kieserver | False
