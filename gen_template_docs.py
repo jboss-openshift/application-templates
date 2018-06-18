@@ -33,7 +33,7 @@ LINKS =  {"jboss-eap64-openshift:1.8": "../../eap/eap-openshift{outfilesuffix}[`
           "jboss-processserver64-openshift:1.3": "../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver64-openshift`]",
           "jboss-datavirt63-openshift:1.4": "../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`]",
           "redhat-sso71-openshift:1.3": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso71-openshift`]",
-          "redhat-sso72-openshift:1.1": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso72-openshift`]",
+          "redhat-sso72-openshift:1.2": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso72-openshift`]",
 }
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
