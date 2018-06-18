@@ -20,8 +20,8 @@ from ptemplate.template import Template
 GIT_REPO = "https://github.com/jboss-openshift/application-templates.git"
 REPO_NAME = "application-templates/"
 TEMPLATE_DOCS = "docs/"
-APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","processserver","datagrid","datavirt","sso")
-template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'processserver', 'datagrid', 'datavirt', 'sso']
+APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","processserver","datagrid","datavirt","sso","openjdk")
+template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'processserver', 'datagrid', 'datavirt', 'sso', 'openjdk']
 amq_ssl_desc = None
 
 LINKS =  {"jboss-eap64-openshift:1.8": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
@@ -34,6 +34,7 @@ LINKS =  {"jboss-eap64-openshift:1.8": "../../eap/eap-openshift{outfilesuffix}[`
           "jboss-datavirt63-openshift:1.4": "../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`]",
           "redhat-sso71-openshift:1.3": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso71-openshift`]",
           "redhat-sso72-openshift:1.2": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso72-openshift`]",
+          "redhat-openjdk18-openshift:1.4": "../../openjdk/openjdk-openshift{outfilesuffix}[`redhat-openjdk-18/openjdk18-openshift`]",
 }
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
