@@ -96,6 +96,10 @@ toc::[levels=1]
 * link:./eap/eap71-third-party-db-s2i.adoc[eap71-third-party-db-s2i]
 * link:./eap/eap71-tx-recovery-s2i.adoc[eap71-tx-recovery-s2i]
 
+== Red Hat Java S2I
+
+* link:./openjdk/openjdk18-web-basic-s2i.adoc[openjdk18-web-basic-s2i]
+
 == Red Hat JBoss BPM Suite intelligent process server
 
 * link:./processserver/processserver64-amq-mysql-persistent-s2i.adoc[processserver64-amq-mysql-persistent-s2i]

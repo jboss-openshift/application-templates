@@ -35,6 +35,7 @@ LINKS =  {"jboss-eap64-openshift:1.8": "../../eap/eap-openshift{outfilesuffix}[`
           "redhat-sso71-openshift:1.3": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso71-openshift`]",
           "redhat-sso72-openshift:1.2": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso72-openshift`]",
           "redhat-openjdk18-openshift:1.4": "../../openjdk/openjdk-openshift{outfilesuffix}[`redhat-openjdk-18/openjdk18-openshift`]",
+          "java:8": "../../openjdk/openjdk-openshift{outfilesuffix}[`redhat-openjdk-18/openjdk18-openshift`]",
 }
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
@@ -323,6 +324,7 @@ fullname = {
     "datagrid": "JBoss Data Grid",
     "datavirt": "Red Hat JBoss Data Virtualization",
     "sso": "Red Hat SSO",
+    "openjdk": "Red Hat Java S2I",
 }
 
 def generate_readme():

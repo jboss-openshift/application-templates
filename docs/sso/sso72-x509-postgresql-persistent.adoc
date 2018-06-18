@@ -67,9 +67,6 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |Service        |Port  |Name | Description
 
 .1+| `${APPLICATION_NAME}`
-|8080 | --
-.1+| The web server's http port.
-.1+| `secure-${APPLICATION_NAME}`
 |8443 | --
 .1+| The web server's https port.
 .1+| `${APPLICATION_NAME}-postgresql`
@@ -92,7 +89,6 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-|`${APPLICATION_NAME}-http` | none | <default>
 |`${APPLICATION_NAME}-https` | TLS reencrypt | <default>
 |=============
 

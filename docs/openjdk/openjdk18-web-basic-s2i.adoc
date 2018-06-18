@@ -4,17 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= sso72-x509-https
+= openjdk18-web-basic-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-An example RH-SSO 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
-
-When deploying RH-SSO application template, *_SSO_ADMIN_USERNAME_* and *_SSO_ADMIN_PASSWORD_* parameters denote the user name and password of the Red Hat Single Sign-On server’s administrator account to be created for the _master_ realm.
-
-*Both of these parameters are required.* If not specified, they are auto generated and displayed as an OpenShift Instructional message when the template is instantiated.
-
+An example Java application using OpenJDK 8. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 toc::[]
 
@@ -28,18 +23,14 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
 
-|`APPLICATION_NAME` | -- | The name for the application. | sso | True
-|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | The password for the JGroups cluster. | `${JGROUPS_CLUSTER_PASSWORD}` | True
-|`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
-|`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
-|`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
+|`APPLICATION_NAME` | -- | The name for the application. | openjdk-app | True
+|`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | master | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | undertow-servlet | False
+|`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
+|`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
-|`SSO_ADMIN_USERNAME` | `SSO_ADMIN_USERNAME` | RH-SSO Server administrator username | `${SSO_ADMIN_USERNAME}` | True
-|`SSO_ADMIN_PASSWORD` | `SSO_ADMIN_PASSWORD` | RH-SSO Server admininistrator password | `${SSO_ADMIN_PASSWORD}` | True
-|`SSO_REALM` | `SSO_REALM` | Realm to be created in the RH-SSO server (e.g. demorealm). | `${SSO_REALM}` | False
-|`SSO_SERVICE_USERNAME` | `SSO_SERVICE_USERNAME` | The username used to access the RH-SSO service. This is used by clients to create the appliction client(s) within the specified RH-SSO realm. | `${SSO_SERVICE_USERNAME}` | False
-|`SSO_SERVICE_PASSWORD` | `SSO_SERVICE_PASSWORD` | The password for the RH-SSO service user. | `${SSO_SERVICE_PASSWORD}` | False
-|`MEMORY_LIMIT` | -- | Container memory limit. | 1Gi | False
 |=======================================================================
 
 
@@ -59,11 +50,8 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 |Service        |Port  |Name | Description
 
 .1+| `${APPLICATION_NAME}`
-|8443 | --
-.1+| The web server's https port.
-.1+| `${APPLICATION_NAME}-ping`
-|8888 | ping
-.1+| The JGroups ping port for clustering.
+|8080 | --
+.1+| The application's http port.
 |=============
 
 
@@ -78,10 +66,23 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 |=============
 | Service    | Security | Hostname
 
-|`${APPLICATION_NAME}-https` | TLS reencrypt | <default>
+|`${APPLICATION_NAME}-http` | none | `${HOSTNAME_HTTP}`
 |=============
 
 
+
+=== Build Configurations
+
+A `buildConfig` describes a single build definition and a set of triggers for when a new build should be created.
+A `buildConfig` is a REST object, which can be used in a POST to the API server to create a new instance. Refer to
+the https://docs.openshift.com/enterprise/3.0/dev_guide/builds.html#defining-a-buildconfig[Openshift documentation]
+for more information.
+
+|=============
+| S2I image  | link | Build output | BuildTriggers and Settings
+
+|java:8 |  link:../../openjdk/openjdk-openshift{outfilesuffix}[`redhat-openjdk-18/openjdk18-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|=============
 
 
 === Deployment Configurations
@@ -135,11 +136,6 @@ for more information.
 ===== Readiness Probe
 
 
-.${APPLICATION_NAME}
-----
-/bin/bash -c /opt/eap/bin/readinessProbe.sh
-----
-
 
 
 
@@ -148,11 +144,10 @@ for more information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.4+| `${APPLICATION_NAME}`
+.3+| `${APPLICATION_NAME}`
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
-|ping | 8888 | `TCP`
 |=============
 
 
@@ -162,31 +157,10 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.13+| `${APPLICATION_NAME}`
-|`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
-|`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
-|`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
-|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
-|`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
-|`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
-|X509_CA_BUNDLE | -- | `/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt`
-|`JGROUPS_CLUSTER_PASSWORD` | The password for the JGroups cluster. | `${JGROUPS_CLUSTER_PASSWORD}`
-|`SSO_ADMIN_USERNAME` | RH-SSO Server administrator username | `${SSO_ADMIN_USERNAME}`
-|`SSO_ADMIN_PASSWORD` | RH-SSO Server admininistrator password | `${SSO_ADMIN_PASSWORD}`
-|`SSO_REALM` | Realm to be created in the RH-SSO server (e.g. demorealm). | `${SSO_REALM}`
-|`SSO_SERVICE_USERNAME` | The username used to access the RH-SSO service. This is used by clients to create the appliction client(s) within the specified RH-SSO realm. | `${SSO_SERVICE_USERNAME}`
-|`SSO_SERVICE_PASSWORD` | The password for the RH-SSO service user. | `${SSO_SERVICE_PASSWORD}`
+.0+| `${APPLICATION_NAME}`
 |=======================================================================
 
 
-
-=====  Volumes
-
-|=============
-|Deployment |Name  | mountPath | Purpose | readOnly 
-
-|`${APPLICATION_NAME}` | sso-x509-https-volume | `/etc/x509/https` | -- | True
-|=============
 
 
 === External Dependencies
