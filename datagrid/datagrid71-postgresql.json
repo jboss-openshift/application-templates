@@ -216,9 +216,9 @@
         },
         {
             "displayName": "Memcached Cache Name",
-            "description": "The name of the cache to expose through this memcached connector (defaults to 'default')",
+            "description": "The name of the cache to expose through this memcached connector",
             "name": "MEMCACHED_CACHE",
-            "value": "default",
+            "value": "default_memcached",
             "required": false
         },
         {
