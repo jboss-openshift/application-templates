@@ -204,6 +204,9 @@
                 "host": "${HOSTNAME_HTTP}",
                 "to": {
                     "name": "${APPLICATION_NAME}"
+                },
+                "tls": {
+                    "termination": "edge"
                 }
             }
         },

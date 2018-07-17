@@ -6,10 +6,10 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
             "version": "1.4.14",
-            "openshift.io/display-name": "JBoss EAP 7.1 + MySQL (with https)",
+            "openshift.io/display-name": "JBoss EAP 7.1 + MySQL (Persistent)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example EAP 7 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.1 based application, including a build configuration, application deployment configuration, database deployment configuration for MySQL using persistence and secure communication using https.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.1 based application, including a build configuration, application deployment configuration, database deployment configuration for MySQL using persistence and secure communication using passthrough TLS.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },

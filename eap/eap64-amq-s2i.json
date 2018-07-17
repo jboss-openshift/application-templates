@@ -6,7 +6,7 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss,hidden",
             "version": "1.4.14",
-            "openshift.io/display-name": "JBoss EAP 6.4 + A-MQ (Ephemeral with https)",
+            "openshift.io/display-name": "JBoss EAP 6.4 + A-MQ (Ephemeral)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example EAP 6 A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 6.4 based application, including a build configuration, application deployment configuration, using Red Hat JBoss A-MQ and secure communication using https.",
@@ -19,7 +19,7 @@
         "template": "eap64-amq-s2i",
         "xpaas": "1.4.14"
     },
-    "message": "A new EAP 6 and A-MQ based application with SSL support has been created in your project. The username/password for accessing the A-MQ service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new EAP 6 and A-MQ based application has been created in your project. The username/password for accessing the A-MQ service is ${MQ_USERNAME}/${MQ_PASSWORD}.",
     "parameters": [
         {
             "displayName": "Application Name",
@@ -27,20 +27,6 @@
             "name": "APPLICATION_NAME",
             "value": "eap-app",
             "required": true
-        },
-        {
-            "displayName": "Custom http Route Hostname",
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
-            "name": "HOSTNAME_HTTP",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Custom https Route Hostname",
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
-            "name": "HOSTNAME_HTTPS",
-            "value": "",
-            "required": false
         },
         {
             "displayName": "Git Repository URL",
@@ -99,41 +85,6 @@
             "required": false
         },
         {
-            "displayName": "Server Keystore Secret Name",
-            "description": "The name of the secret containing the keystore file",
-            "name": "HTTPS_SECRET",
-            "value": "eap-app-secret",
-            "required": false
-        },
-        {
-            "displayName": "Server Keystore Filename",
-            "description": "The name of the keystore file within the secret",
-            "name": "HTTPS_KEYSTORE",
-            "value": "keystore.jks",
-            "required": false
-        },
-        {
-            "displayName": "Server Keystore Type",
-            "description": "The type of the keystore file (JKS or JCEKS)",
-            "name": "HTTPS_KEYSTORE_TYPE",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Server Certificate Name",
-            "description": "The name associated with the server certificate",
-            "name": "HTTPS_NAME",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Server Keystore Password",
-            "description": "The password for the keystore and certificate",
-            "name": "HTTPS_PASSWORD",
-            "value": "",
-            "required": false
-        },
-        {
             "displayName": "A-MQ Username",
             "description": "User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
             "name": "MQ_USERNAME",
@@ -185,34 +136,6 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
-        },
-        {
-            "displayName": "JGroups Secret Name",
-            "description": "The name of the secret containing the keystore file",
-            "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "eap-app-secret",
-            "required": false
-        },
-        {
-            "displayName": "JGroups Keystore Filename",
-            "description": "The name of the keystore file within the secret",
-            "name": "JGROUPS_ENCRYPT_KEYSTORE",
-            "value": "jgroups.jceks",
-            "required": false
-        },
-        {
-            "displayName": "JGroups Certificate Name",
-            "description": "The name associated with the server certificate",
-            "name": "JGROUPS_ENCRYPT_NAME",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "JGroups Keystore Password",
-            "description": "The password for the keystore and certificate",
-            "name": "JGROUPS_ENCRYPT_PASSWORD",
-            "value": "",
-            "required": false
         },
         {
             "displayName": "JGroups Cluster Password",
@@ -271,31 +194,6 @@
                 },
                 "annotations": {
                     "description": "The web server's HTTP port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}]"
-                }
-            }
-        },
-        {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 8443,
-                        "targetPort": 8443
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            },
-            "metadata": {
-                "name": "secure-${APPLICATION_NAME}",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "The web server's HTTPS port.",
                     "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}]"
                 }
             }
@@ -390,32 +288,11 @@
                 }
             },
             "spec": {
-                "host": "${HOSTNAME_HTTP}",
                 "to": {
                     "name": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-https",
-            "metadata": {
-                "name": "secure-${APPLICATION_NAME}",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Route for application's HTTPS service."
-                }
-            },
-            "spec": {
-                "host": "${HOSTNAME_HTTPS}",
-                "to": {
-                    "name": "secure-${APPLICATION_NAME}"
                 },
                 "tls": {
-                    "termination": "passthrough"
+                    "termination": "edge"
                 }
             }
         },
@@ -552,18 +429,6 @@
                                         "memory": "${MEMORY_LIMIT}"
                                     }
                                 },
-                                "volumeMounts": [
-                                    {
-                                        "name": "eap-keystore-volume",
-                                        "mountPath": "/etc/eap-secret-volume",
-                                        "readOnly": true
-                                    },
-                                    {
-                                        "name": "eap-jgroups-keystore-volume",
-                                        "mountPath": "/etc/jgroups-encrypt-secret-volume",
-                                        "readOnly": true
-                                    }
-                                ],
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
@@ -592,11 +457,6 @@
                                     {
                                         "name": "http",
                                         "containerPort": 8080,
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "https",
-                                        "containerPort": 8443,
                                         "protocol": "TCP"
                                     },
                                     {
@@ -651,46 +511,6 @@
                                         "value": "8888"
                                     },
                                     {
-                                        "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/eap-secret-volume"
-                                    },
-                                    {
-                                        "name": "HTTPS_KEYSTORE",
-                                        "value": "${HTTPS_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "HTTPS_KEYSTORE_TYPE",
-                                        "value": "${HTTPS_KEYSTORE_TYPE}"
-                                    },
-                                    {
-                                        "name": "HTTPS_NAME",
-                                        "value": "${HTTPS_NAME}"
-                                    },
-                                    {
-                                        "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_SECRET",
-                                        "value": "${JGROUPS_ENCRYPT_SECRET}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
-                                        "value": "/etc/jgroups-encrypt-secret-volume"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_KEYSTORE",
-                                        "value": "${JGROUPS_ENCRYPT_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_NAME",
-                                        "value": "${JGROUPS_ENCRYPT_NAME}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_PASSWORD",
-                                        "value": "${JGROUPS_ENCRYPT_PASSWORD}"
-                                    },
-                                    {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
@@ -699,20 +519,6 @@
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
                                     }
                                 ]
-                            }
-                        ],
-                        "volumes": [
-                            {
-                                "name": "eap-keystore-volume",
-                                "secret": {
-                                    "secretName": "${HTTPS_SECRET}"
-                                }
-                            },
-                            {
-                                "name": "eap-jgroups-keystore-volume",
-                                "secret": {
-                                    "secretName": "${JGROUPS_ENCRYPT_SECRET}"
-                                }
                             }
                         ]
                     }
