@@ -158,7 +158,8 @@ def createTemplate(data, path):
                     tdata['objects'][0]['secrets'] = [{ "secretName": "datavirt-app-secret", "secretFile": "datavirt-app-secret.yaml" }]
                 else:
                     secretName = [param["value"] for param in data["parameters"] if "value" in param and param["value"].endswith("-app-secret")]
-                    tdata['objects'][0]['secrets'] = [{ "secretName": secretName[0], "secretFile": secretName[0] + ".json" }]
+                    if len(secretName) > 0:
+                        tdata['objects'][0]['secrets'] = [{ "secretName": secretName[0], "secretFile": secretName[0] + ".json" }]
 
         # currently the clustering section applies only to EAP templates
         if re.match('^eap', path):

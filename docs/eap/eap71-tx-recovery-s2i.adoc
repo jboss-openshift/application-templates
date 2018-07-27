@@ -137,6 +137,19 @@ for more information.
 ==== Pod Template
 
 
+===== Service Accounts
+
+Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
+https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
+information.
+
+|============
+|Deployment | Service Account
+
+|`${APPLICATION_NAME}` | `${APPLICATION_NAME}-sa`
+|`${APPLICATION_NAME}-migration` | `${APPLICATION_NAME}-sa`
+|============
+
 
 
 ===== Image
