@@ -39,21 +39,28 @@
             "displayName": "Git Repository URL",
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/jboss-developer/jboss-eap-quickstarts",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts.git",
             "required": true
         },
         {
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "7.1.0.GA",
+            "value": "1.3",
             "required": false
         },
         {
             "displayName": "Context Directory",
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "kitchensink",
+            "value": "jta-crash-rec-eap7",
+            "required": false
+        },
+        {
+            "displayName": "Custom install directories (see documentation).",
+            "description": "Additional directories from which to install.",
+            "name": "CUSTOM_INSTALL_DIRECTORIES",
+            "value": "extensions/*",
             "required": false
         },
         {
@@ -468,6 +475,10 @@
                                     {
                                         "name": "SPLIT_DATA",
                                         "value": "${SPLIT_DATA}"
+                                    },
+                                    {
+                                        "name": "CUSTOM_INSTALL_DIRECTORIES",
+                                        "value": "${CUSTOM_INSTALL_DIRECTORIES}"
                                     }
                                 ]
                             }
@@ -602,6 +613,10 @@
                                     {
                                         "name": "SPLIT_DATA",
                                         "value": "${SPLIT_DATA}"
+                                    },
+                                    {
+                                        "name": "CUSTOM_INSTALL_DIRECTORIES",
+                                        "value": "${CUSTOM_INSTALL_DIRECTORIES}"
                                     }
                                 ]
                             }
