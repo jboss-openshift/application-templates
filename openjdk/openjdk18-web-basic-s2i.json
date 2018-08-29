@@ -243,6 +243,12 @@
                                 "name": "${APPLICATION_NAME}",
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
+                                "readinessProbe": {
+                                    "tcpSocket": {
+                                        "port": 8080
+                                    },
+                                    "initialDelaySeconds": 5
+                                },
                                 "env": [
                                 ],
                                 "ports": [
