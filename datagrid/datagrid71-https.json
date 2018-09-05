@@ -9,7 +9,7 @@
             "openshift.io/display-name": "JBoss Data Grid 7.1 (Ephemeral with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example JBoss Data Grid application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Data Grid 7.1 based application, including a deployment configuration, using using ephemeral (temporary) storage and secure communication using https.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Data Grid 7.1 based application, including a deployment configuration, using ephemeral (temporary) storage and secure communication using https.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-data-grid/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
