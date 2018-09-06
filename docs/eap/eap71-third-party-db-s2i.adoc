@@ -28,7 +28,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | master | False
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.4 | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | datavirt/hibernate-webapp | False
 |`EXTENSIONS_IMAGE` | -- | ImageStreamTag definition for the image containing the drivers and configuration, e.g. jboss-datavirt63-driver-openshift:1.1 | jboss-datavirt63-driver-openshift:1.1 | True
 |`EXTENSIONS_IMAGE_NAMESPACE` | -- | Namespace within which the ImageStream definition for the image containing the drivers and configuration is located. | openshift | True

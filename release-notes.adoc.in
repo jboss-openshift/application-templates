@@ -6,6 +6,11 @@
 
 == Release Notes
 
+=== Release 1.4.16
+ * Changed image stream URLs from registry.access.redhat.com to registry.redhat.io
+ * Removed JBoss Data Grid 6.5
+ * Added hidden tag Jboss Data Virtualization 6.3 resources
+
 === Release 1.4.10
 
 === Release 1.4.9

@@ -23,12 +23,6 @@ toc::[levels=1]
 
 == JBoss Data Grid
 
-* link:./datagrid/datagrid65-basic.adoc[datagrid65-basic]
-* link:./datagrid/datagrid65-https.adoc[datagrid65-https]
-* link:./datagrid/datagrid65-mysql-persistent.adoc[datagrid65-mysql-persistent]
-* link:./datagrid/datagrid65-mysql.adoc[datagrid65-mysql]
-* link:./datagrid/datagrid65-postgresql-persistent.adoc[datagrid65-postgresql-persistent]
-* link:./datagrid/datagrid65-postgresql.adoc[datagrid65-postgresql]
 * link:./datagrid/datagrid71-basic.adoc[datagrid71-basic]
 * link:./datagrid/datagrid71-https.adoc[datagrid71-https]
 * link:./datagrid/datagrid71-mysql-persistent.adoc[datagrid71-mysql-persistent]
@@ -143,6 +137,11 @@ toc::[levels=1]
 ////
 
 == Release Notes
+
+=== Release 1.4.16
+ * Changed image stream URLs from registry.access.redhat.com to registry.redhat.io
+ * Removed JBoss Data Grid 6.5
+ * Added hidden tag Jboss Data Virtualization 6.3 resources
 
 === Release 1.4.10
 

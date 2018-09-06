@@ -25,9 +25,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
 |`HOSTNAME_HTTP` | -- | Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix> | -- | False
-|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 7.1.0.GA | False
-|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | kitchensink | False
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts.git | True
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.4 | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | jta-crash-rec-eap7 | False
+|`CUSTOM_INSTALL_DIRECTORIES` | `CUSTOM_INSTALL_DIRECTORIES` | Additional directories from which to install. | extensions/* | False
 |`MQ_QUEUES` | `MQ_QUEUES` | Queue names | `${MQ_QUEUES}` | False
 |`MQ_TOPICS` | `MQ_TOPICS` | Topic names | `${MQ_TOPICS}` | False
 |`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | A-MQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
@@ -196,7 +197,7 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.9+| `${APPLICATION_NAME}`
+.10+| `${APPLICATION_NAME}`
 |`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
@@ -206,7 +207,8 @@ information.
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
 |`SPLIT_DATA` | Split the data directory for each node in a cluster. | `${SPLIT_DATA}`
-.9+| `${APPLICATION_NAME}-migration`
+|`CUSTOM_INSTALL_DIRECTORIES` | Additional directories from which to install. | `${CUSTOM_INSTALL_DIRECTORIES}`
+.10+| `${APPLICATION_NAME}-migration`
 |`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
@@ -216,6 +218,7 @@ information.
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
 |`SPLIT_DATA` | Split the data directory for each node in a cluster. | `${SPLIT_DATA}`
+|`CUSTOM_INSTALL_DIRECTORIES` | Additional directories from which to install. | `${CUSTOM_INSTALL_DIRECTORIES}`
 |=======================================================================
 
 
