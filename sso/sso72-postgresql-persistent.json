@@ -455,6 +455,11 @@
                                 "name": "${APPLICATION_NAME}",
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
+                                "command": [
+                                    "/usr/bin/sh",
+                                    "-c",
+                                    "printf -v LOGDELIM '#%.0s' {0..5}; echo \"${LOGDELIM} Running database connectivity check ${LOGDELIM}\"; echo; echo \"Ensure a persistent volume is available for the \"${APPLICATION_NAME}-postgresql-claim\" or a storage class is set.\"; until nc -w 3 -z ${APPLICATION_NAME}-postgresql 5432; do echo \"Waiting for the \"${APPLICATION_NAME}-postgresql\" service to become available..\"; sleep 5; done; echo \"Database connectivity check succeeded.\"; echo; echo \"${LOGDELIM} Starting the RH-SSO server ${LOGDELIM}\"; echo; /opt/eap/bin/openshift-launch.sh"
+                                ],
                                 "resources": {
                                     "limits": {
                                         "memory": "${MEMORY_LIMIT}"
@@ -480,7 +485,7 @@
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
-                                            "/bin/bash",
+                                            "/usr/bin/bash",
                                             "-c",
                                             "/opt/eap/bin/livenessProbe.sh"
                                         ]
@@ -490,7 +495,7 @@
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [
-                                            "/bin/bash",
+                                            "/usr/bin/bash",
                                             "-c",
                                             "/opt/eap/bin/readinessProbe.sh"
                                         ]
@@ -731,7 +736,7 @@
                                     "timeoutSeconds": 1,
                                     "initialDelaySeconds": 5,
                                     "exec": {
-                                        "command": [ "/bin/sh", "-i", "-c", "psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c 'SELECT 1'"]
+                                        "command": [ "/usr/bin/sh", "-i", "-c", "psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c 'SELECT 1'"]
                                     }
                                 },
                                 "livenessProbe": {
