@@ -76,7 +76,7 @@ toc::[]
 
 Templates allow you to define parameters which take on a value. That value is then substituted wherever the parameter is referenced.
 References can be defined in any text field in the objects list field. Refer to the
-https://docs.openshift.org/latest/architecture/core_concepts/templates.html#parameters[Openshift documentation] for more information.
+https://docs.okd.io/latest/architecture/core_concepts/templates.html#parameters[Openshift documentation] for more information.
 
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
@@ -104,7 +104,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 == Objects
 
 The CLI supports various object types. A list of these object types as well as their abbreviations
-can be found in the https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#object-types[Openshift documentation].
+can be found in the https://docs.okd.io/latest/cli_reference/basic_cli_operations.html#object-types[Openshift documentation].
 
 
 === Services
