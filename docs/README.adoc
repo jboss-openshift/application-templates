@@ -31,12 +31,6 @@ toc::[levels=1]
 * link:./datagrid/datagrid71-postgresql-persistent.adoc[datagrid71-postgresql-persistent]
 * link:./datagrid/datagrid71-postgresql.adoc[datagrid71-postgresql]
 
-== Red Hat JBoss Data Virtualization
-
-* link:./datavirt/datavirt63-basic-s2i.adoc[datavirt63-basic-s2i]
-* link:./datavirt/datavirt63-extensions-support-s2i.adoc[datavirt63-extensions-support-s2i]
-* link:./datavirt/datavirt63-secure-s2i.adoc[datavirt63-secure-s2i]
-
 == Red Hat JBoss BRMS decision server
 
 * link:./decisionserver/decisionserver64-amq-s2i.adoc[decisionserver64-amq-s2i]
@@ -140,8 +134,8 @@ toc::[levels=1]
 
 === Release 1.4.16
  * Changed image stream URLs from registry.access.redhat.com to registry.redhat.io
- * Removed JBoss Data Grid 6.5
- * Added hidden tag Jboss Data Virtualization 6.3 resources
+ * Removed JBoss Data Grid 6.5 resources
+ * Removed Jboss Data Virtualization 6.3 resources
 
 === Release 1.4.10
 

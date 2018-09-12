@@ -18,7 +18,7 @@ toc::[]
 
 Templates allow you to define parameters which take on a value. That value is then substituted wherever the parameter is referenced.
 References can be defined in any text field in the objects list field. Refer to the
-https://docs.openshift.org/latest/architecture/core_concepts/templates.html#parameters[Openshift documentation] for more information.
+https://docs.okd.io/latest/architecture/core_concepts/templates.html#parameters[OKD documentation] for more information.
 
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
@@ -41,13 +41,13 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 == Objects
 
 The CLI supports various object types. A list of these object types as well as their abbreviations
-can be found in the https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#object-types[Openshift documentation].
+can be found in the https://docs.okd.io/latest/cli_reference/basic_cli_operations.html#object-types[OKD documentation].
 
 
 === Services
 
 A service is an abstraction which defines a logical set of pods and a policy by which to access them. Refer to the
-https://cloud.google.com/container-engine/docs/services/[container-engine documentation] for more information.
+https://docs.okd.io/latest/architecture/core_concepts/pods_and_services.html#services[OKD documentation] for more information.
 
 |=============
 |Service        |Port  |Name | Description
@@ -77,13 +77,13 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 === Deployment Configurations
 
 A deployment in OpenShift is a replication controller based on a user defined template called a deployment configuration. Deployments are created manually or in response to triggered events.
-Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/deployments.html#creating-a-deployment-configuration[Openshift documentation] for more information.
+Refer to the https://docs.okd.io/latest/dev_guide/deployments/how_deployments_work.html#creating-a-deployment-configuration[OKD documentation] for more information.
 
 
 ==== Triggers
 
 A trigger drives the creation of new deployments in response to events, both inside and outside OpenShift. Refer to the
-https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-developer-guide#triggers[Openshift documentation] for more information.
+https://docs.okd.io/latest/dev_guide/deployments/basic_deployment_operations.html#triggers[OKD documentation] for more information.
 
 |============
 |Deployment | Triggers
@@ -97,7 +97,7 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 
 A replication controller ensures that a specified number of pod "replicas" are running at any one time.
 If there are too many, the replication controller kills some pods. If there are too few, it starts more.
-Refer to the https://cloud.google.com/container-engine/docs/replicationcontrollers/[container-engine documentation]
+Refer to the https://docs.okd.io/latest/dev_guide/deployments/basic_deployment_operations.html#scaling[OKD documentation]
 for more information.
 
 |============
