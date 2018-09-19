@@ -415,7 +415,32 @@
             },
             "spec": {
                 "strategy": {
-                    "type": "Recreate"
+                    "type": "Recreate",
+                    "customParams": {
+                        "command": [
+                            "/bin/sh",
+                            "-c",
+                            "until nc -w 3 ${DB_SERVICE} ${DB_PORT} &> /dev/null; do [[ -n \"${PV_CLAIM_MESSAGE}\" ]] && echo \"${PV_CLAIM_MESSAGE}\" && unset PV_CLAIM_MESSAGE; echo \"${SRV_WAIT_MESSAGE}\"; sleep 10; done; openshift-deploy"
+                        ],
+                        "environment": [
+                            {
+                                "name": "DB_SERVICE",
+                                "value": "${APPLICATION_NAME}-postgresql"
+                            },
+                            {
+                                "name": "DB_PORT",
+                                "value": "5432"
+                            },
+                            {
+                                "name": "PV_CLAIM_MESSAGE",
+                                "value": "Ensure a persistent volume is available for the \"${APPLICATION_NAME}-postgresql-claim\" or a storage class is set."
+                            },
+                            {
+                                "name": "SRV_WAIT_MESSAGE",
+                                "value": "Waiting for the \"${APPLICATION_NAME}-postgresql\" service to become available.."
+                            }
+                        ]
+                    }
                 },
                 "triggers": [
                     {
