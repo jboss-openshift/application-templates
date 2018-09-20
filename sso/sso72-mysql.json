@@ -630,6 +630,10 @@
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
                                     {
+                                        "name": "SERVICE_WAIT_NAME",
+                                        "value": "${APPLICATION_NAME}-mysql"
+                                    },
+                                    {
                                         "name": "SSO_ADMIN_USERNAME",
                                         "value": "${SSO_ADMIN_USERNAME}"
                                     },
