@@ -37,6 +37,9 @@ The templates are configured with the following basic parameters:
 | **_SSO\_REALM_**                    | The realm that will be automatically created. _Optional_.                                                                 |
 | **_SSO\_SERVICE\_USERNAME_**        | User that will be automatically created in **_SSO\_REALM_** with permissions to create client configrations. _Optional_.  |
 | **_SSO\_SERVICE\_PASSWORD_**        | The password for **_SSO\_SERVICE\_USERNAME_**. _Optional_.                                                                |
+| **_SSO\_MYSQL\_SERVICE\_HOST_**     | The MySQL host name if you are hosting mySql outside Openshift. _Optional_.                                               |
+| **_SSO\_MYSQL\_SERVICE\_PORT_**     | The MySQL port if you are hosting mySql outside Openshift. _Optional_.                                                    |
+
 
 
 ## Credentials of the RH-SSO Administrator Account
@@ -55,3 +58,14 @@ $ oc process -f sso70-postgresql.json -v HTTPS_NAME=jboss,HTTPS_PASSWORD=mykeyst
 ```
 
 After executing the above, you should be able to access the RH-SSO/Keycloak server at http://sso-myproject.hostname/auth and https://secure-sso-myproject.hostname/auth.
+
+
+## Hosting MySql outside OpenShift instance
+
+Below link can be helpful when planning to host MySQL outside Openshift when planning to back the sso using MySql database.
+1. Host the MySql - in this AWS RDS instance.
+2. Replace the svc using type "external" and define the ExternalName with url
+3. Add two new env variable in SSO pod i.e. SSO_MYSQL_SERVICE_HOST & SSO_MYSQL_SERVICE_PORT.
+
+https://docs.openshift.com/container-platform/3.5/dev_guide/integrating_external_services.html
+
