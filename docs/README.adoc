@@ -94,18 +94,6 @@ toc::[levels=1]
 * link:./secrets/jws-app-secret.adoc[jws-app-secret]
 * link:./secrets/sso-app-secret.adoc[sso-app-secret]
 
-== Red Hat SSO
-
-* link:./sso/README.adoc[README]
-* link:./sso/sso72-https.adoc[sso72-https]
-* link:./sso/sso72-mysql-persistent.adoc[sso72-mysql-persistent]
-* link:./sso/sso72-mysql.adoc[sso72-mysql]
-* link:./sso/sso72-postgresql-persistent.adoc[sso72-postgresql-persistent]
-* link:./sso/sso72-postgresql.adoc[sso72-postgresql]
-* link:./sso/sso72-x509-https.adoc[sso72-x509-https]
-* link:./sso/sso72-x509-mysql-persistent.adoc[sso72-x509-mysql-persistent]
-* link:./sso/sso72-x509-postgresql-persistent.adoc[sso72-x509-postgresql-persistent]
-
 == JBoss Web Server
 
 * link:./webserver/jws31-tomcat7-basic-s2i.adoc[jws31-tomcat7-basic-s2i]
@@ -131,6 +119,9 @@ toc::[levels=1]
 ////
 
 == Release Notes
+
+=== Relese 1.4.17
+* RH-SSO 7.2 templates and related documentation for these templates were moved to dedicated link:https://github.com/jboss-container-images/redhat-sso-7-openshift-image[Red Hat Single Sign-On 7 OpenShift container images] repository
 
 === Release 1.4.16
  * Changed image stream URLs from registry.access.redhat.com to registry.redhat.io
