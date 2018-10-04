@@ -20,8 +20,8 @@ from ptemplate.template import Template
 GIT_REPO = "https://github.com/jboss-openshift/application-templates.git"
 REPO_NAME = "application-templates/"
 TEMPLATE_DOCS = "docs/"
-APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","processserver","datagrid","datavirt","sso","openjdk")
-template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'processserver', 'datagrid', 'datavirt', 'sso', 'openjdk']
+APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","processserver","datagrid","datavirt", "openjdk")
+template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'processserver', 'datagrid', 'datavirt', 'openjdk']
 amq_ssl_desc = None
 
 LINKS =  {"jboss-eap64-openshift:1.8": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
@@ -32,8 +32,6 @@ LINKS =  {"jboss-eap64-openshift:1.8": "../../eap/eap-openshift{outfilesuffix}[`
           "jboss-decisionserver64-openshift:1.3": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver64-openshift`]",
           "jboss-processserver64-openshift:1.3": "../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver64-openshift`]",
           "jboss-datavirt63-openshift:1.4": "../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`]",
-          "redhat-sso71-openshift:1.3": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso71-openshift`]",
-          "redhat-sso72-openshift:1.2": "../../sso/sso-openshift{outfilesuffix}[`redhat-sso-7/sso72-openshift`]",
           "redhat-openjdk18-openshift:1.4": "../../openjdk/openjdk-openshift{outfilesuffix}[`redhat-openjdk-18/openjdk18-openshift`]",
           "java:8": "../../openjdk/openjdk-openshift{outfilesuffix}[`redhat-openjdk-18/openjdk18-openshift`]",
 }
@@ -109,12 +107,6 @@ def createTemplate(data, path):
         with open('datagrid.adoc.in','r') as tmp:
             datagrid_desc = tmp.read()
             tdata['description'] += "\n\n" + datagrid_desc
-
-    # special case: JDG templates have additional description
-    if re.match('sso', path):
-        with open('sso.adoc.in','r') as tmp:
-            sso_desc = tmp.read()
-            tdata['description'] += "\n\n" + sso_desc
 
     # Fill in template parameters table, if there are any
     if ("parameters" in data and "objects" in data) and len(data["parameters"]) > 0:
@@ -324,7 +316,6 @@ fullname = {
     "processserver": "Red Hat JBoss BPM Suite intelligent process server",
     "datagrid": "JBoss Data Grid",
     "datavirt": "Red Hat JBoss Data Virtualization",
-    "sso": "Red Hat SSO",
     "openjdk": "Red Hat Java S2I",
 }
 
