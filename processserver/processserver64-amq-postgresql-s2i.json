@@ -907,11 +907,7 @@
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-amq",
-<<<<<<< HEAD
-                                "image": "jboss-amq-62",
-=======
                                 "image": "jboss-amq-63",
->>>>>>> master
                                 "imagePullPolicy": "Always",
                                 "readinessProbe": {
                                     "exec": {
