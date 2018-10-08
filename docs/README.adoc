@@ -16,34 +16,26 @@ toc::[levels=1]
 
 == JBoss A-MQ
 
-* link:./amq/amq62-basic.adoc[amq62-basic]
-* link:./amq/amq62-persistent-ssl.adoc[amq62-persistent-ssl]
-* link:./amq/amq62-persistent.adoc[amq62-persistent]
-* link:./amq/amq62-ssl.adoc[amq62-ssl]
+* link:./amq/amq63-basic.adoc[amq63-basic]
+* link:./amq/amq63-persistent-ssl.adoc[amq63-persistent-ssl]
+* link:./amq/amq63-persistent.adoc[amq63-persistent]
+* link:./amq/amq63-ssl.adoc[amq63-ssl]
 
 == JBoss Data Grid
 
-* link:./datagrid/datagrid65-basic.adoc[datagrid65-basic]
-* link:./datagrid/datagrid65-https.adoc[datagrid65-https]
-* link:./datagrid/datagrid65-mysql-persistent.adoc[datagrid65-mysql-persistent]
-* link:./datagrid/datagrid65-mysql.adoc[datagrid65-mysql]
-* link:./datagrid/datagrid65-postgresql-persistent.adoc[datagrid65-postgresql-persistent]
-* link:./datagrid/datagrid65-postgresql.adoc[datagrid65-postgresql]
-
-== Red Hat JBoss Data Virtualization
-
-* link:./datavirt/datavirt63-basic-s2i.adoc[datavirt63-basic-s2i]
-* link:./datavirt/datavirt63-extensions-support-s2i.adoc[datavirt63-extensions-support-s2i]
-* link:./datavirt/datavirt63-secure-s2i.adoc[datavirt63-secure-s2i]
+* link:./datagrid/datagrid71-basic.adoc[datagrid71-basic]
+* link:./datagrid/datagrid71-https.adoc[datagrid71-https]
+* link:./datagrid/datagrid71-mysql-persistent.adoc[datagrid71-mysql-persistent]
+* link:./datagrid/datagrid71-mysql.adoc[datagrid71-mysql]
+* link:./datagrid/datagrid71-partition.adoc[datagrid71-partition]
+* link:./datagrid/datagrid71-postgresql-persistent.adoc[datagrid71-postgresql-persistent]
+* link:./datagrid/datagrid71-postgresql.adoc[datagrid71-postgresql]
 
 == Red Hat JBoss BRMS decision server
 
-* link:./decisionserver/decisionserver62-amq-s2i.adoc[decisionserver62-amq-s2i]
-* link:./decisionserver/decisionserver62-basic-s2i.adoc[decisionserver62-basic-s2i]
-* link:./decisionserver/decisionserver62-https-s2i.adoc[decisionserver62-https-s2i]
-* link:./decisionserver/decisionserver63-amq-s2i.adoc[decisionserver63-amq-s2i]
-* link:./decisionserver/decisionserver63-basic-s2i.adoc[decisionserver63-basic-s2i]
-* link:./decisionserver/decisionserver63-https-s2i.adoc[decisionserver63-https-s2i]
+* link:./decisionserver/decisionserver64-amq-s2i.adoc[decisionserver64-amq-s2i]
+* link:./decisionserver/decisionserver64-basic-s2i.adoc[decisionserver64-basic-s2i]
+* link:./decisionserver/decisionserver64-https-s2i.adoc[decisionserver64-https-s2i]
 
 == JBoss EAP
 
@@ -60,30 +52,36 @@ toc::[levels=1]
 * link:./eap/eap64-postgresql-s2i.adoc[eap64-postgresql-s2i]
 * link:./eap/eap64-sso-s2i.adoc[eap64-sso-s2i]
 * link:./eap/eap64-third-party-db-s2i.adoc[eap64-third-party-db-s2i]
-* link:./eap/eap70-amq-persistent-s2i.adoc[eap70-amq-persistent-s2i]
-* link:./eap/eap70-amq-s2i.adoc[eap70-amq-s2i]
-* link:./eap/eap70-basic-s2i.adoc[eap70-basic-s2i]
-* link:./eap/eap70-https-s2i.adoc[eap70-https-s2i]
-* link:./eap/eap70-mongodb-persistent-s2i.adoc[eap70-mongodb-persistent-s2i]
-* link:./eap/eap70-mongodb-s2i.adoc[eap70-mongodb-s2i]
-* link:./eap/eap70-mysql-persistent-s2i.adoc[eap70-mysql-persistent-s2i]
-* link:./eap/eap70-mysql-s2i.adoc[eap70-mysql-s2i]
-* link:./eap/eap70-postgresql-persistent-s2i.adoc[eap70-postgresql-persistent-s2i]
-* link:./eap/eap70-postgresql-s2i.adoc[eap70-postgresql-s2i]
-* link:./eap/eap70-sso-s2i.adoc[eap70-sso-s2i]
-* link:./eap/eap70-third-party-db-s2i.adoc[eap70-third-party-db-s2i]
+* link:./eap/eap64-tx-recovery-s2i.adoc[eap64-tx-recovery-s2i]
+* link:./eap/eap71-amq-persistent-s2i.adoc[eap71-amq-persistent-s2i]
+* link:./eap/eap71-amq-s2i.adoc[eap71-amq-s2i]
+* link:./eap/eap71-basic-s2i.adoc[eap71-basic-s2i]
+* link:./eap/eap71-https-s2i.adoc[eap71-https-s2i]
+* link:./eap/eap71-mongodb-persistent-s2i.adoc[eap71-mongodb-persistent-s2i]
+* link:./eap/eap71-mongodb-s2i.adoc[eap71-mongodb-s2i]
+* link:./eap/eap71-mysql-persistent-s2i.adoc[eap71-mysql-persistent-s2i]
+* link:./eap/eap71-mysql-s2i.adoc[eap71-mysql-s2i]
+* link:./eap/eap71-postgresql-persistent-s2i.adoc[eap71-postgresql-persistent-s2i]
+* link:./eap/eap71-postgresql-s2i.adoc[eap71-postgresql-s2i]
+* link:./eap/eap71-sso-s2i.adoc[eap71-sso-s2i]
+* link:./eap/eap71-third-party-db-s2i.adoc[eap71-third-party-db-s2i]
+* link:./eap/eap71-tx-recovery-s2i.adoc[eap71-tx-recovery-s2i]
+
+== Red Hat Java S2I
+
+* link:./openjdk/openjdk18-web-basic-s2i.adoc[openjdk18-web-basic-s2i]
 
 == Red Hat JBoss BPM Suite intelligent process server
 
-* link:./processserver/processserver63-amq-mysql-persistent-s2i.adoc[processserver63-amq-mysql-persistent-s2i]
-* link:./processserver/processserver63-amq-mysql-s2i.adoc[processserver63-amq-mysql-s2i]
-* link:./processserver/processserver63-amq-postgresql-persistent-s2i.adoc[processserver63-amq-postgresql-persistent-s2i]
-* link:./processserver/processserver63-amq-postgresql-s2i.adoc[processserver63-amq-postgresql-s2i]
-* link:./processserver/processserver63-basic-s2i.adoc[processserver63-basic-s2i]
-* link:./processserver/processserver63-mysql-persistent-s2i.adoc[processserver63-mysql-persistent-s2i]
-* link:./processserver/processserver63-mysql-s2i.adoc[processserver63-mysql-s2i]
-* link:./processserver/processserver63-postgresql-persistent-s2i.adoc[processserver63-postgresql-persistent-s2i]
-* link:./processserver/processserver63-postgresql-s2i.adoc[processserver63-postgresql-s2i]
+* link:./processserver/processserver64-amq-mysql-persistent-s2i.adoc[processserver64-amq-mysql-persistent-s2i]
+* link:./processserver/processserver64-amq-mysql-s2i.adoc[processserver64-amq-mysql-s2i]
+* link:./processserver/processserver64-amq-postgresql-persistent-s2i.adoc[processserver64-amq-postgresql-persistent-s2i]
+* link:./processserver/processserver64-amq-postgresql-s2i.adoc[processserver64-amq-postgresql-s2i]
+* link:./processserver/processserver64-basic-s2i.adoc[processserver64-basic-s2i]
+* link:./processserver/processserver64-mysql-persistent-s2i.adoc[processserver64-mysql-persistent-s2i]
+* link:./processserver/processserver64-mysql-s2i.adoc[processserver64-mysql-s2i]
+* link:./processserver/processserver64-postgresql-persistent-s2i.adoc[processserver64-postgresql-persistent-s2i]
+* link:./processserver/processserver64-postgresql-s2i.adoc[processserver64-postgresql-s2i]
 
 == secrets
 
@@ -99,35 +97,33 @@ toc::[levels=1]
 == Red Hat SSO
 
 * link:./sso/README.adoc[README]
-* link:./sso/sso70-https.adoc[sso70-https]
-* link:./sso/sso70-mysql-persistent.adoc[sso70-mysql-persistent]
-* link:./sso/sso70-mysql.adoc[sso70-mysql]
-* link:./sso/sso70-postgresql-persistent.adoc[sso70-postgresql-persistent]
-* link:./sso/sso70-postgresql.adoc[sso70-postgresql]
-* link:./sso/sso71-https.adoc[sso71-https]
-* link:./sso/sso71-mysql-persistent.adoc[sso71-mysql-persistent]
-* link:./sso/sso71-mysql.adoc[sso71-mysql]
-* link:./sso/sso71-postgresql-persistent.adoc[sso71-postgresql-persistent]
-* link:./sso/sso71-postgresql.adoc[sso71-postgresql]
+* link:./sso/sso72-https.adoc[sso72-https]
+* link:./sso/sso72-mysql-persistent.adoc[sso72-mysql-persistent]
+* link:./sso/sso72-mysql.adoc[sso72-mysql]
+* link:./sso/sso72-postgresql-persistent.adoc[sso72-postgresql-persistent]
+* link:./sso/sso72-postgresql.adoc[sso72-postgresql]
+* link:./sso/sso72-x509-https.adoc[sso72-x509-https]
+* link:./sso/sso72-x509-mysql-persistent.adoc[sso72-x509-mysql-persistent]
+* link:./sso/sso72-x509-postgresql-persistent.adoc[sso72-x509-postgresql-persistent]
 
 == JBoss Web Server
 
-* link:./webserver/jws30-tomcat7-basic-s2i.adoc[jws30-tomcat7-basic-s2i]
-* link:./webserver/jws30-tomcat7-https-s2i.adoc[jws30-tomcat7-https-s2i]
-* link:./webserver/jws30-tomcat7-mongodb-persistent-s2i.adoc[jws30-tomcat7-mongodb-persistent-s2i]
-* link:./webserver/jws30-tomcat7-mongodb-s2i.adoc[jws30-tomcat7-mongodb-s2i]
-* link:./webserver/jws30-tomcat7-mysql-persistent-s2i.adoc[jws30-tomcat7-mysql-persistent-s2i]
-* link:./webserver/jws30-tomcat7-mysql-s2i.adoc[jws30-tomcat7-mysql-s2i]
-* link:./webserver/jws30-tomcat7-postgresql-persistent-s2i.adoc[jws30-tomcat7-postgresql-persistent-s2i]
-* link:./webserver/jws30-tomcat7-postgresql-s2i.adoc[jws30-tomcat7-postgresql-s2i]
-* link:./webserver/jws30-tomcat8-basic-s2i.adoc[jws30-tomcat8-basic-s2i]
-* link:./webserver/jws30-tomcat8-https-s2i.adoc[jws30-tomcat8-https-s2i]
-* link:./webserver/jws30-tomcat8-mongodb-persistent-s2i.adoc[jws30-tomcat8-mongodb-persistent-s2i]
-* link:./webserver/jws30-tomcat8-mongodb-s2i.adoc[jws30-tomcat8-mongodb-s2i]
-* link:./webserver/jws30-tomcat8-mysql-persistent-s2i.adoc[jws30-tomcat8-mysql-persistent-s2i]
-* link:./webserver/jws30-tomcat8-mysql-s2i.adoc[jws30-tomcat8-mysql-s2i]
-* link:./webserver/jws30-tomcat8-postgresql-persistent-s2i.adoc[jws30-tomcat8-postgresql-persistent-s2i]
-* link:./webserver/jws30-tomcat8-postgresql-s2i.adoc[jws30-tomcat8-postgresql-s2i]
+* link:./webserver/jws31-tomcat7-basic-s2i.adoc[jws31-tomcat7-basic-s2i]
+* link:./webserver/jws31-tomcat7-https-s2i.adoc[jws31-tomcat7-https-s2i]
+* link:./webserver/jws31-tomcat7-mongodb-persistent-s2i.adoc[jws31-tomcat7-mongodb-persistent-s2i]
+* link:./webserver/jws31-tomcat7-mongodb-s2i.adoc[jws31-tomcat7-mongodb-s2i]
+* link:./webserver/jws31-tomcat7-mysql-persistent-s2i.adoc[jws31-tomcat7-mysql-persistent-s2i]
+* link:./webserver/jws31-tomcat7-mysql-s2i.adoc[jws31-tomcat7-mysql-s2i]
+* link:./webserver/jws31-tomcat7-postgresql-persistent-s2i.adoc[jws31-tomcat7-postgresql-persistent-s2i]
+* link:./webserver/jws31-tomcat7-postgresql-s2i.adoc[jws31-tomcat7-postgresql-s2i]
+* link:./webserver/jws31-tomcat8-basic-s2i.adoc[jws31-tomcat8-basic-s2i]
+* link:./webserver/jws31-tomcat8-https-s2i.adoc[jws31-tomcat8-https-s2i]
+* link:./webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc[jws31-tomcat8-mongodb-persistent-s2i]
+* link:./webserver/jws31-tomcat8-mongodb-s2i.adoc[jws31-tomcat8-mongodb-s2i]
+* link:./webserver/jws31-tomcat8-mysql-persistent-s2i.adoc[jws31-tomcat8-mysql-persistent-s2i]
+* link:./webserver/jws31-tomcat8-mysql-s2i.adoc[jws31-tomcat8-mysql-s2i]
+* link:./webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc[jws31-tomcat8-postgresql-persistent-s2i]
+* link:./webserver/jws31-tomcat8-postgresql-s2i.adoc[jws31-tomcat8-postgresql-s2i]
 
 ////
   the source for the release notes part of this page is in the file
@@ -135,6 +131,53 @@ toc::[levels=1]
 ////
 
 == Release Notes
+
+=== Release 1.4.16
+ * Changed image stream URLs from registry.access.redhat.com to registry.redhat.io
+ * Removed JBoss Data Grid 6.5 resources
+ * Removed Jboss Data Virtualization 6.3 resources
+
+=== Release 1.4.10
+
+=== Release 1.4.9
+ * Add probes for DB pods
+ * Update datavirt secret to use correct location for database files
+ * Add support for SSO 7.2
+ * Update EAP templates to reference AMQ 6.3, from 6.2
+ * Split jboss-image-streams.json into separate files, e.g. eap/eap64-image-sream.json
+
+=== Release 1.4.8
+ * Update default volume capacity to 1G
+ * Add emptyDir volumes for non-persistent databases
+ * Add parameter for configuring memory limits (default 1G)
+ * Move from KUBE_PING to DNS_PING for clustering in AMQ and EAP based products
+ * Removed service accounts (DNS_PING requires no special privileges).
+ * Added templates for automated TX recovery in EAP (tech-preview)
+
+=== Release 1.4.7
+ * Support clean shutdown on TERM for EAP 7.x based products
+ * Remove JWS 3.0 templates
+ * Remove BxMS 6.3 templates
+ * Deprecate SSO 7.0
+ * Add support for configuring queue memory limit (AMQ)
+
+=== Release 1.4.5
+ * Add support for JDG 7.1
+
+=== Release 1.4.4
+ * Add templates for AMQ message migration
+
+=== Release 1.4.1
+ * Update BxMS templates to reference AMQ 6.3, from 6.2
+
+=== Release 1.4.0
+ * Add parameter for specifying DB version
+
+=== Release 1.3.7
+ * Add client images for datavirt and datagrid
+
+=== Release 1.3.6
+ * Add support for Java S2I image
 
 === Release 1.3.5
  * Updated datavirt templates to reference new quickstart

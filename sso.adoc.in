@@ -1,1 +1,3 @@
-The default uid/pwd for the SSO Server: admin/admin
+When deploying RH-SSO application template, *_SSO_ADMIN_USERNAME_* and *_SSO_ADMIN_PASSWORD_* parameters denote the user name and password of the Red Hat Single Sign-On server’s administrator account to be created for the _master_ realm.
+
+*Both of these parameters are required.* If not specified, they are auto generated and displayed as an OpenShift Instructional message when the template is instantiated.

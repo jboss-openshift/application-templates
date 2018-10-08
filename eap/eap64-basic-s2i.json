@@ -3,17 +3,21 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "iconClass": "icon-jboss",
-            "description": "Application template for EAP 6 applications built using S2I.",
-            "tags": "eap,javaee,java,jboss,xpaas",
-            "version": "1.4.0",
-            "openshift.io/display-name": "Red Hat JBoss EAP 6.4 (no https)"
+            "iconClass": "icon-eap",
+            "tags": "eap,javaee,java,jboss",
+            "version": "1.4.16",
+            "openshift.io/display-name": "JBoss EAP 6.4 (no https)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "description": "An example EAP 6 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 6.4 based application, including a build configuration, application deployment configuration and insecure communication using http.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
+            "template.openshift.io/support-url": "https://access.redhat.com"
         },
         "name": "eap64-basic-s2i"
     },
     "labels": {
         "template": "eap64-basic-s2i",
-        "xpaas": "1.4.0"
+        "xpaas": "1.4.16"
     },
     "message": "A new EAP 6 based application has been created in your project.",
     "parameters": [
@@ -124,6 +128,12 @@
             "name": "ARTIFACT_DIR",
             "value": "",
             "required": false
+        },
+        {
+            "description": "Container memory limit",
+            "name": "MEMORY_LIMIT",
+            "value": "1Gi",
+            "required": false
         }
     ],
     "objects": [
@@ -148,6 +158,32 @@
                 },
                 "annotations": {
                     "description": "The web server's http port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "name": "ping",
+                        "port": 8888
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-ping",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true",
+                    "description": "The JGroups ping port for clustering."
                 }
             }
         },
@@ -216,7 +252,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap64-openshift:1.5"
+                            "name": "jboss-eap64-openshift:1.8"
                         }
                     }
                 },
@@ -299,6 +335,11 @@
                                 "name": "${APPLICATION_NAME}",
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
@@ -306,7 +347,8 @@
                                             "-c",
                                             "/opt/eap/bin/livenessProbe.sh"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 60
                                 },
                                 "readinessProbe": {
                                     "exec": {
@@ -336,16 +378,16 @@
                                 ],
                                 "env": [
                                     {
-                                        "name": "OPENSHIFT_KUBE_PING_LABELS",
-                                        "value": "application=${APPLICATION_NAME}"
+                                        "name": "JGROUPS_PING_PROTOCOL",
+                                        "value": "openshift.DNS_PING"
                                     },
                                     {
-                                        "name": "OPENSHIFT_KUBE_PING_NAMESPACE",
-                                        "valueFrom": {
-                                            "fieldRef": {
-                                                "fieldPath": "metadata.namespace"
-                                            }
-                                        }
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-ping"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
+                                        "value": "8888"
                                     },
                                     {
                                         "name": "HORNETQ_CLUSTER_PASSWORD",

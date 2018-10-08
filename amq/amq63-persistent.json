@@ -3,17 +3,21 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "description": "Application template for JBoss A-MQ brokers. These can be deployed as standalone and use persistent storage for saving messages. This template doesn't feature SSL support.",
-            "iconClass": "icon-jboss",
-            "tags": "messaging,amq,jboss,xpaas",
-            "version": "1.0",
-            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3 (Persistent, no SSL)"
+            "iconClass": "icon-amq",
+            "tags": "messaging,amq,jboss",
+            "version": "1.4.16",
+            "openshift.io/display-name": "JBoss A-MQ 6.3 (no SSL)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "description": "An example JBoss A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss A-MQ 6.3 based application, including a deployment configuration and using persistence.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-amq/",
+            "template.openshift.io/support-url": "https://access.redhat.com"
         },
         "name": "amq63-persistent"
     },
     "labels": {
         "template": "amq63-persistent",
-        "xpaas": "1.4.0"
+        "xpaas": "1.4.16"
     },
     "message": "A new persistent messaging service has been created in your project. It will handle the protocol(s) \"${MQ_PROTOCOL}\". The username/password for accessing the service is ${MQ_USERNAME}/${MQ_PASSWORD}.",
     "parameters": [
@@ -26,9 +30,9 @@
         },
         {
             "displayName": "Split Data?",
-            "description": "Split the data directory for each node in a mesh.",
+            "description": "Split the data directory for each node in a mesh, this is now the default behaviour.",
             "name": "AMQ_SPLIT",
-            "value": "false",
+            "value": "true",
             "required": false
         },
         {
@@ -63,7 +67,7 @@
             "displayName": "A-MQ Volume Size",
             "description": "Size of the volume used by A-MQ for persisting messages.",
             "name": "VOLUME_CAPACITY",
-            "value": "512Mi",
+            "value": "1Gi",
             "required": true
         },
         {
@@ -86,14 +90,21 @@
             "displayName": "A-MQ Mesh Discovery Type",
             "description": "The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace.",
             "name": "AMQ_MESH_DISCOVERY_TYPE",
-            "value": "kube",
+            "value": "dns",
             "required": false
         },
         {
-            "displayName": "A-MQ Storage Limit",
-            "description": "The A-MQ storage usage limit",
+            "displayName": "A-MQ Store Usage Limit",
+            "description": "Sets the store disk limit usage in activemq.xml. If the value set is greater than the disk size, it will be resized to the available disk space.",
             "name": "AMQ_STORAGE_USAGE_LIMIT",
             "value": "100 gb",
+            "required": false
+        },
+        {
+            "displayName": "Queue Memory Limit",
+            "description": "The queue memory limit (default is 1mb)",
+            "name": "AMQ_QUEUE_MEMORY_LIMIT",
+            "value": "",
             "required": false
         },
         {
@@ -203,6 +214,32 @@
             }
         },
         {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "name": "mesh",
+                        "port": 61616
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-mesh",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true",
+                    "description": "Supports node discovery for mesh formation."
+                }
+            }
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -229,7 +266,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-amq-63:1.0"
+                                "name": "jboss-amq-63:1.4"
                             }
                         }
                     },
@@ -333,7 +370,7 @@
                                     },
                                     {
                                         "name": "AMQ_MESH_SERVICE_NAME",
-                                        "value": "${APPLICATION_NAME}-amq-tcp"
+                                        "value": "${APPLICATION_NAME}-amq-mesh"
                                     },
                                     {
                                         "name": "AMQ_MESH_SERVICE_NAMESPACE",
@@ -346,6 +383,118 @@
                                     {
                                         "name": "AMQ_STORAGE_USAGE_LIMIT",
                                         "value": "${AMQ_STORAGE_USAGE_LIMIT}"
+                                    },
+                                    {
+                                        "name": "AMQ_QUEUE_MEMORY_LIMIT",
+                                        "value": "${AMQ_QUEUE_MEMORY_LIMIT}"
+                                    }
+                                ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "${APPLICATION_NAME}-amq-pvol",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${APPLICATION_NAME}-amq-claim"
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-drainer",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-drainer"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "name": "jboss-amq-63:1.4"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-drainer"
+                },
+                "template": {
+                    "metadata": {
+                        "name": "${APPLICATION_NAME}-drainer",
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}-drainer",
+                            "application": "${APPLICATION_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "containers": [
+                            {
+                                "name": "${APPLICATION_NAME}-drainer",
+                                "image": "jboss-amq-63",
+                                "command": [
+                                    "/opt/amq/bin/drain.sh"
+                                ],
+                                "imagePullPolicy": "Always",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/opt/amq/data",
+                                        "name": "${APPLICATION_NAME}-amq-pvol"
+                                    }
+                                ],
+                                "ports": [
+                                    {
+                                        "name": "jolokia",
+                                        "containerPort": 8778,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "tcp",
+                                        "containerPort": 61616,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "AMQ_USER",
+                                        "value": "${MQ_USERNAME}"
+                                    },
+                                    {
+                                        "name": "AMQ_PASSWORD",
+                                        "value": "${MQ_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-amq-mesh"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_SERVICE_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
                                     }
                                 ]
                             }

@@ -4,16 +4,17 @@
     "metadata": {
         "annotations": {
             "description": "Application template for JBoss A-MQ brokers. These can be deployed as standalone or in a mesh. This template doesn't feature SSL support.",
-            "iconClass": "icon-jboss",
-            "tags": "messaging,amq,jboss,xpaas",
-            "version": "1.0",
-            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3 (Ephemeral, no SSL)"
+            "iconClass": "icon-amq",
+            "tags": "messaging,amq,jboss",
+            "version": "1.4.16",
+            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3 (Ephemeral, no SSL)",
+            "openshift.io/provider-display-name": "Red Hat, Inc."
         },
         "name": "amq63-basic"
     },
     "labels": {
         "template": "amq63-basic",
-        "xpaas": "1.4.0"
+        "xpaas": "1.4.16"
     },
     "message": "A new messaging service has been created in your project. It will handle the protocol(s) \"${MQ_PROTOCOL}\". The username/password for accessing the service is ${MQ_USERNAME}/${MQ_PASSWORD}.",
     "parameters": [
@@ -72,14 +73,21 @@
             "displayName": "A-MQ Mesh Discovery Type",
             "description": "The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace.",
             "name": "AMQ_MESH_DISCOVERY_TYPE",
-            "value": "kube",
+            "value": "dns",
             "required": false
         },
         {
-            "displayName": "A-MQ Storage Limit",
-            "description": "The A-MQ storage usage limit",
+            "displayName": "A-MQ Store Usage Limit",
+            "description": "Sets the store disk limit usage in activemq.xml. If the value set is greater than the disk size, it will be resized to the available disk space.",
             "name": "AMQ_STORAGE_USAGE_LIMIT",
             "value": "100 gb",
+            "required": false
+        },
+        {
+            "displayName": "Queue Memory Limit",
+            "description": "The queue memory limit (default is 1mb)",
+            "name": "AMQ_QUEUE_MEMORY_LIMIT",
+            "value": "",
             "required": false
         },
         {
@@ -189,6 +197,32 @@
             }
         },
         {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "name": "mesh",
+                        "port": 61616
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-mesh",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true",
+                    "description": "Supports node discovery for mesh formation."
+                }
+            }
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -215,7 +249,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-amq-63:1.0"
+                                "name": "jboss-amq-63:1.4"
                             }
                         }
                     },
@@ -309,7 +343,7 @@
                                     },
                                     {
                                         "name": "AMQ_MESH_SERVICE_NAME",
-                                        "value": "${APPLICATION_NAME}-amq-tcp"
+                                        "value": "${APPLICATION_NAME}-amq-mesh"
                                     },
                                     {
                                         "name": "AMQ_MESH_SERVICE_NAMESPACE",
@@ -322,6 +356,10 @@
                                     {
                                         "name": "AMQ_STORAGE_USAGE_LIMIT",
                                         "value": "${AMQ_STORAGE_USAGE_LIMIT}"
+                                    },
+                                    {
+                                        "name": "AMQ_QUEUE_MEMORY_LIMIT",
+                                        "value": "${AMQ_QUEUE_MEMORY_LIMIT}"
                                     }
                                 ]
                             }

@@ -9,7 +9,7 @@
 :toc-placement!:
 :toclevels: 5
 
-Application template for EAP 6 MySQL applications with persistent storage built using S2I.
+An example EAP 6 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
 
 toc::[]
 
@@ -18,7 +18,7 @@ toc::[]
 
 Templates allow you to define parameters which take on a value. That value is then substituted wherever the parameter is referenced.
 References can be defined in any text field in the objects list field. Refer to the
-https://docs.openshift.org/latest/architecture/core_concepts/templates.html#parameters[Openshift documentation] for more information.
+https://docs.okd.io/latest/architecture/core_concepts/templates.html#parameters[OKD documentation] for more information.
 
 |=======================================================================
 |Variable name |Image Environment Variable |Description |Example value |Required
@@ -31,10 +31,9 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-jdbc | False
 |`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | java:jboss/datasources/TodoListDS | False
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
-|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 512Mi | True
+|`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 1Gi | True
 |`HORNETQ_QUEUES` | `HORNETQ_QUEUES` | Queue names | `${HORNETQ_QUEUES}` | False
 |`HORNETQ_TOPICS` | `HORNETQ_TOPICS` | Topic names | `${HORNETQ_TOPICS}` | False
-|`SERVICE_ACCOUNT_NAME` | -- | The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET. | eap-service-account | True
 |`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap-app-secret | True
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
@@ -63,6 +62,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
 |`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
 |`MYSQL_IMAGE_STREAM_TAG` | -- | The tag to use for the "mysql" image stream.  Typically, this aligns with the major.minor version of MySQL. | 5.7 | True
+|`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
 |=======================================================================
 
 
@@ -70,13 +70,13 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 == Objects
 
 The CLI supports various object types. A list of these object types as well as their abbreviations
-can be found in the https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#object-types[Openshift documentation].
+can be found in the https://docs.okd.io/latest/cli_reference/basic_cli_operations.html#object-types[OKD documentation].
 
 
 === Services
 
 A service is an abstraction which defines a logical set of pods and a policy by which to access them. Refer to the
-https://cloud.google.com/container-engine/docs/services/[container-engine documentation] for more information.
+https://docs.okd.io/latest/architecture/core_concepts/pods_and_services.html#services[OKD documentation] for more information.
 
 |=============
 |Service        |Port  |Name | Description
@@ -90,6 +90,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .1+| `${APPLICATION_NAME}-mysql`
 |3306 | --
 .1+| The database server's port.
+.1+| `${APPLICATION_NAME}-ping`
+|8888 | ping
+.1+| The JGroups ping port for clustering.
 |=============
 
 
@@ -99,7 +102,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 A route is a way to expose a service by giving it an externally-reachable hostname such as `www.example.com`. A defined route and the endpoints
 identified by its service can be consumed by a router to provide named connectivity from external clients to your applications. Each route consists
 of a route name, service selector, and (optionally) security configuration. Refer to the
-https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html[Openshift documentation] for more information.
+https://docs.okd.io/latest/dev_guide/routes.html[OKD documentation] for more information.
 
 |=============
 | Service    | Security | Hostname
@@ -114,26 +117,26 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 
 A `buildConfig` describes a single build definition and a set of triggers for when a new build should be created.
 A `buildConfig` is a REST object, which can be used in a POST to the API server to create a new instance. Refer to
-the https://docs.openshift.com/enterprise/3.0/dev_guide/builds.html#defining-a-buildconfig[Openshift documentation]
+the https://docs.okd.io/latest/dev_guide/builds/index.html[OKD documentation]
 for more information.
 
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap64-openshift:1.5 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|jboss-eap64-openshift:1.8 |  link:../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
 === Deployment Configurations
 
 A deployment in OpenShift is a replication controller based on a user defined template called a deployment configuration. Deployments are created manually or in response to triggered events.
-Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/deployments.html#creating-a-deployment-configuration[Openshift documentation] for more information.
+Refer to the https://docs.okd.io/latest/dev_guide/deployments/how_deployments_work.html#creating-a-deployment-configuration[OKD documentation] for more information.
 
 
 ==== Triggers
 
 A trigger drives the creation of new deployments in response to events, both inside and outside OpenShift. Refer to the
-https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-developer-guide#triggers[Openshift documentation] for more information.
+https://docs.okd.io/latest/dev_guide/deployments/basic_deployment_operations.html#triggers[OKD documentation] for more information.
 
 |============
 |Deployment | Triggers
@@ -148,7 +151,7 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 
 A replication controller ensures that a specified number of pod "replicas" are running at any one time.
 If there are too many, the replication controller kills some pods. If there are too few, it starts more.
-Refer to the https://cloud.google.com/container-engine/docs/replicationcontrollers/[container-engine documentation]
+Refer to the https://docs.okd.io/latest/dev_guide/deployments/basic_deployment_operations.html#scaling[OKD documentation]
 for more information.
 
 |============
@@ -161,18 +164,6 @@ for more information.
 
 ==== Pod Template
 
-
-===== Service Accounts
-
-Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
-https://docs.openshift.com/enterprise/3.0/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
-information.
-
-|============
-|Deployment | Service Account
-
-|`${APPLICATION_NAME}` | `${SERVICE_ACCOUNT_NAME}`
-|============
 
 
 
@@ -193,6 +184,11 @@ information.
 .${APPLICATION_NAME}
 ----
 /bin/bash -c /opt/eap/bin/readinessProbe.sh
+----
+
+.${APPLICATION_NAME}-mysql
+----
+/bin/sh -i -c MYSQL_PWD="$MYSQL_PASSWORD" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'
 ----
 
 
@@ -219,7 +215,7 @@ information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.27+| `${APPLICATION_NAME}`
+.28+| `${APPLICATION_NAME}`
 |`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
 |`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | `${DB_JNDI}`
 |`DB_USERNAME` | Database user name | `${DB_USERNAME}`
@@ -229,8 +225,9 @@ information.
 |`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
 |`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
 |`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
-|`OPENSHIFT_KUBE_PING_LABELS` | -- | `application=${APPLICATION_NAME}`
-|`OPENSHIFT_KUBE_PING_NAMESPACE` | -- | --
+|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
+|`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
 |`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
@@ -277,7 +274,7 @@ information.
 
 A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
 by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
-Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
+Refer to the https://docs.okd.io/latest/dev_guide/persistent_volumes.html#overview[OKD documentation] for
 more information.
 
 |=============
@@ -289,11 +286,6 @@ more information.
 
 
 
-==== Secrets
-
-This template requires link:../secrets/eap-app-secret.adoc[eap-app-secret.json]
-to be installed for the application to run.
-
 
 
 [[clustering]]
@@ -302,10 +294,52 @@ to be installed for the application to run.
 Clustering in OpenShift EAP is achieved through one of two discovery mechanisms:
 Kubernetes or DNS. This is done by configuring the JGroups protocol stack in
 standalone-openshift.xml with either the `<openshift.KUBE_PING/>` or `<openshift.DNS_PING/>`
-elements. Out of the box, `KUBE_PING` is the supported protocol and what is
-pre-configured in OpenShift EAP.
+elements. The templates are configured to use `DNS_PING`, however `KUBE_PING`is
+the default used by the image.
 
-For `KUBE_PING` to work, however, the following steps must be taken:
+The discovery mechanism used is specified by the `JGROUPS_PING_PROTOCOL` environment
+variable which can be set to either `openshift.DNS_PING` or `openshift.KUBE_PING`.
+`openshift.KUBE_PING` is the default used by the image if no value is specified
+for `JGROUPS_PING_PROTOCOL`.
+
+For DNS_PING to work, the following steps must be taken:
+
+. The `OPENSHIFT_DNS_PING_SERVICE_NAME` environment variable must be set to the
+  name of the ping service for the cluster (see table above).  If not set, the
+  server will act as if it is a single-node cluster (a "cluster of one").
+. The `OPENSHIFT_DNS_PING_SERVICE_PORT` environment variables should be set to
+  the port number on which the ping service is exposed (see table above).  The
+  `DNS_PING` protocol will attempt to discern the port from the SRV records, if
+  it can, otherwise it will default to 8888.
+. A ping service which exposes the ping port must be defined.  This service
+  should be "headless" (ClusterIP=None) and must have the following:
+.. The port must be named for port discovery to work.
+.. It must be annotated with `service.alpha.kubernetes.io/tolerate-unready-endpoints`
+   set to `"true"`.  Omitting this annotation will result in each node forming
+   their own "cluster of one" during startup, then merging their cluster into
+   the other nodes' clusters after startup (as the other nodes are not detected
+   until after they have started).
+
+.Example ping service for use with DNS_PING
+[source,yaml]
+----
+kind: Service
+apiVersion: v1
+spec:
+    clusterIP: None
+    ports:
+    - name: ping
+      port: 8888
+    selector:
+        deploymentConfig: eap-app
+metadata:
+    name: eap-app-ping
+    annotations:
+        service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+        description: "The JGroups ping port for clustering."
+----
+
+For `KUBE_PING` to work, the following steps must be taken:
 
 . The `OPENSHIFT_KUBE_PING_NAMESPACE` environment variable must be set (see table above).
   If not set, the server will act as if it is a single-node cluster (a "cluster of one").

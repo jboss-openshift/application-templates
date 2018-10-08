@@ -3,19 +3,23 @@
     "apiVersion": "v1",
     "metadata": {
         "annotations": {
-            "description": "Application template for EAP 6 A-MQ applications with persistent storage built using S2I.",
-            "iconClass": "icon-jboss",
-            "tags": "eap,javaee,java,jboss,xpaas",
-            "version": "1.4.0",
-            "openshift.io/display-name": "Red Hat JBoss EAP 6.4 + A-MQ (Persistent with https)"
+            "iconClass": "icon-eap",
+            "tags": "eap,javaee,java,jboss",
+            "version": "1.4.16",
+            "openshift.io/display-name": "JBoss EAP 6.4 + A-MQ (with https)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "description": "An example EAP 6 A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 6.4 based application, including a build configuration, application deployment configuration, using Red Hat JBoss A-MQ with persistence and secure communication using https.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
+            "template.openshift.io/support-url": "https://access.redhat.com"
         },
         "name": "eap64-amq-persistent-s2i"
     },
     "labels": {
         "template": "eap64-amq-persistent-s2i",
-        "xpaas": "1.4.0"
+        "xpaas": "1.4.16"
     },
-    "message": "A new EAP 6 and A-MQ persistent based application with SSL support has been created in your project. The username/password for accessing the A-MQ service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new EAP 6 and A-MQ persistent based application with SSL support has been created in your project. The username/password for accessing the A-MQ service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "displayName": "Application Name",
@@ -63,7 +67,7 @@
             "displayName": "A-MQ Volume Size",
             "description": "Size of the volume used by A-MQ for persisting messages.",
             "name": "VOLUME_CAPACITY",
-            "value": "512Mi",
+            "value": "1Gi",
             "required": true
         },
         {
@@ -107,13 +111,6 @@
             "name": "MQ_SERIALIZABLE_PACKAGES",
             "value": "",
             "required": false
-        },
-        {
-            "displayName": "Service Account Name",
-            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
-            "name": "SERVICE_ACCOUNT_NAME",
-            "value": "eap-service-account",
-            "required": true
         },
         {
             "displayName": "Server Keystore Secret Name",
@@ -170,7 +167,7 @@
             "displayName": "A-MQ Mesh Discovery Type",
             "description": "The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace.",
             "name": "AMQ_MESH_DISCOVERY_TYPE",
-            "value": "kube",
+            "value": "dns",
             "required": false
         },
         {
@@ -258,6 +255,12 @@
             "name": "ARTIFACT_DIR",
             "value": "",
             "required": false
+        },
+        {
+            "description": "Container memory limit",
+            "name": "MEMORY_LIMIT",
+            "value": "1Gi",
+            "required": false
         }
     ],
     "objects": [
@@ -315,6 +318,32 @@
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "name": "ping",
+                        "port": 8888
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-ping",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true",
+                    "description": "The JGroups ping port for clustering."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
                 "ports": [
                     {
                         "port": 61616,
@@ -332,6 +361,32 @@
                 },
                 "annotations": {
                     "description": "The broker's OpenWire port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "name": "mesh",
+                        "port": 61616
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-mesh",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true",
+                    "description": "Supports node discovery for mesh formation."
                 }
             }
         },
@@ -423,7 +478,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap64-openshift:1.5"
+                            "name": "jboss-eap64-openshift:1.8"
                         }
                     }
                 },
@@ -500,13 +555,17 @@
                         }
                     },
                     "spec": {
-                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
                                 "volumeMounts": [
                                     {
                                         "name": "eap-keystore-volume",
@@ -526,7 +585,8 @@
                                             "-c",
                                             "/opt/eap/bin/livenessProbe.sh"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 60
                                 },
                                 "readinessProbe": {
                                     "exec": {
@@ -593,16 +653,16 @@
                                         "value": "${MQ_SERIALIZABLE_PACKAGES}"
                                     },
                                     {
-                                        "name": "OPENSHIFT_KUBE_PING_LABELS",
-                                        "value": "application=${APPLICATION_NAME}"
+                                        "name": "JGROUPS_PING_PROTOCOL",
+                                        "value": "openshift.DNS_PING"
                                     },
                                     {
-                                        "name": "OPENSHIFT_KUBE_PING_NAMESPACE",
-                                        "valueFrom": {
-                                            "fieldRef": {
-                                                "fieldPath": "metadata.namespace"
-                                            }
-                                        }
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-ping"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
+                                        "value": "8888"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
@@ -700,7 +760,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "jboss-amq-62:1.4"
+                                "name": "jboss-amq-63:1.4"
                             }
                         }
                     },
@@ -725,7 +785,7 @@
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}-amq",
-                                "image": "jboss-amq-62",
+                                "image": "jboss-amq-63",
                                 "imagePullPolicy": "Always",
                                 "readinessProbe": {
                                     "exec": {
@@ -819,7 +879,7 @@
                                     },
                                     {
                                         "name": "AMQ_MESH_SERVICE_NAME",
-                                        "value": "${APPLICATION_NAME}-amq-tcp"
+                                        "value": "${APPLICATION_NAME}-amq-mesh"
                                     },
                                     {
                                         "name": "AMQ_MESH_SERVICE_NAMESPACE",
