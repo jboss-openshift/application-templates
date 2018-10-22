@@ -17,11 +17,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat OpenJDK 8",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.16"
+                    "version": "1.4.17"
                 }
             },
             "labels": {
-                "xpaas": "1.4.16"
+                "xpaas": "1.4.17"
             },
             "spec": {
                 "tags": [
@@ -156,11 +156,11 @@
                 "annotations": {
                     "openshift.io/display-name": "Red Hat OpenJDK 8",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "1.4.16"
+                    "version": "1.4.17"
                 }
             },
             "labels": {
-                "xpaas": "1.4.16"
+                "xpaas": "1.4.17"
             },
             "spec": {
                 "tags": [
