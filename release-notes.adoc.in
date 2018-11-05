@@ -6,6 +6,10 @@
 
 == Release Notes
 
+=== Relese 1.4.19
+* Red Hat JBoss BRMS Decision Server 6 streams,  templates, secrets, and documentation were moved to dedicated link:https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image[Red Hat JBoss BRMS Decision Server 6 OpenShift container images] repository
+* Red Hat JBoss BPM Suite Intelligent Process Server 6 streams, templates, secrets, and documentation were moved to dedicated link:https://github.com/jboss-container-images/jboss-processserver-6-openshift-image[Red Hat JBoss BPM Suite Intelligent Process Server 6 OpenShift container images] repository
+
 === Relese 1.4.17
 * RH-SSO 7.2 templates and related documentation for these templates were moved to dedicated link:https://github.com/jboss-container-images/redhat-sso-7-openshift-image[Red Hat Single Sign-On 7 OpenShift container images] repository
 
@@ -114,7 +118,7 @@
  * Add ConfigChange trigger to DeploymentConfig in all templates
  * Set appropriate defaults so all templates can be instantiated as-is
  * Image names and tags have changed from product release to xPaaS release (e.g. jboss-eap-6/eap6-openshift:6.4 => jboss-eap-6/eap64-openshift:1.1)
- * ImageStream names have changed to include minor version in names (e.g. jboss-eap6-openshift => jboss-eap64-openshift) 
+ * ImageStream names have changed to include minor version in names (e.g. jboss-eap6-openshift => jboss-eap64-openshift)
  * Use Kubernetes to locate cluster nodes instead of DNS (e.g. KUBE_PING vs DNS_PING in JGroups configuration)
  * Add ConfigChange trigger to BuildConfig in all templates
  * Add forcePull=true to BuildConfig in all templates
@@ -134,4 +138,3 @@
 
 === Release 1.0.0
  * Initial release with support for JBoss EAP, JBoss Web Server, and JBoss A-MQ
-
