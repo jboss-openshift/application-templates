@@ -31,12 +31,6 @@ toc::[levels=1]
 * link:./datagrid/datagrid71-postgresql-persistent.adoc[datagrid71-postgresql-persistent]
 * link:./datagrid/datagrid71-postgresql.adoc[datagrid71-postgresql]
 
-== Red Hat JBoss BRMS decision server
-
-* link:./decisionserver/decisionserver64-amq-s2i.adoc[decisionserver64-amq-s2i]
-* link:./decisionserver/decisionserver64-basic-s2i.adoc[decisionserver64-basic-s2i]
-* link:./decisionserver/decisionserver64-https-s2i.adoc[decisionserver64-https-s2i]
-
 == JBoss EAP
 
 * link:./eap/README_SSO.adoc[README_SSO]
@@ -71,24 +65,11 @@ toc::[levels=1]
 
 * link:./openjdk/openjdk18-web-basic-s2i.adoc[openjdk18-web-basic-s2i]
 
-== Red Hat JBoss BPM Suite intelligent process server
-
-* link:./processserver/processserver64-amq-mysql-persistent-s2i.adoc[processserver64-amq-mysql-persistent-s2i]
-* link:./processserver/processserver64-amq-mysql-s2i.adoc[processserver64-amq-mysql-s2i]
-* link:./processserver/processserver64-amq-postgresql-persistent-s2i.adoc[processserver64-amq-postgresql-persistent-s2i]
-* link:./processserver/processserver64-amq-postgresql-s2i.adoc[processserver64-amq-postgresql-s2i]
-* link:./processserver/processserver64-basic-s2i.adoc[processserver64-basic-s2i]
-* link:./processserver/processserver64-mysql-persistent-s2i.adoc[processserver64-mysql-persistent-s2i]
-* link:./processserver/processserver64-mysql-s2i.adoc[processserver64-mysql-s2i]
-* link:./processserver/processserver64-postgresql-persistent-s2i.adoc[processserver64-postgresql-persistent-s2i]
-* link:./processserver/processserver64-postgresql-s2i.adoc[processserver64-postgresql-s2i]
-
 == secrets
 
 * link:./secrets/amq-app-secret.adoc[amq-app-secret]
 * link:./secrets/datagrid-app-secret.adoc[datagrid-app-secret]
 * link:./secrets/datavirt-app-secret.adoc[datavirt-app-secret]
-* link:./secrets/decisionserver-app-secret.adoc[decisionserver-app-secret]
 * link:./secrets/eap-app-secret.adoc[eap-app-secret]
 * link:./secrets/eap7-app-secret.adoc[eap7-app-secret]
 * link:./secrets/jws-app-secret.adoc[jws-app-secret]

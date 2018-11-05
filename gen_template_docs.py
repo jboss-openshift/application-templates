@@ -20,8 +20,8 @@ from ptemplate.template import Template
 GIT_REPO = "https://github.com/jboss-openshift/application-templates.git"
 REPO_NAME = "application-templates/"
 TEMPLATE_DOCS = "docs/"
-APPLICATION_DIRECTORIES = ("amq","eap","webserver","decisionserver","processserver","datagrid","datavirt", "openjdk")
-template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'decisionserver', 'processserver', 'datagrid', 'datavirt', 'openjdk']
+APPLICATION_DIRECTORIES = ("amq","eap","webserver","datagrid","datavirt", "openjdk")
+template_dirs = [ 'amq', 'eap', 'secrets', 'webserver', 'datagrid', 'datavirt', 'openjdk']
 amq_ssl_desc = None
 
 LINKS =  {"jboss-eap64-openshift:1.8": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-6/eap64-openshift`]",
@@ -29,8 +29,6 @@ LINKS =  {"jboss-eap64-openshift:1.8": "../../eap/eap-openshift{outfilesuffix}[`
           "jboss-eap71-openshift:1.3": "../../eap/eap-openshift{outfilesuffix}[`jboss-eap-7/eap71-openshift`]",
           "jboss-webserver31-tomcat7-openshift:1.3": "../../webserver/tomcat7-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat7-openshift`]",
           "jboss-webserver31-tomcat8-openshift:1.3": "../../webserver/tomcat8-openshift{outfilesuffix}[`jboss-webserver-3/webserver31-tomcat8-openshift`]",
-          "jboss-decisionserver64-openshift:1.3": "../../decisionserver/decisionserver-openshift{outfilesuffix}[`jboss-decisionserver-6/decisionserver64-openshift`]",
-          "jboss-processserver64-openshift:1.3": "../../processserver/processserver-openshift{outfilesuffix}[`jboss-processserver-6/processserver64-openshift`]",
           "jboss-datavirt63-openshift:1.4": "../../datavirt/datavirt-openshift{outfilesuffix}[`jboss-datavirt-6/datavirt63-openshift`]",
           "redhat-openjdk18-openshift:1.4": "../../openjdk/openjdk-openshift{outfilesuffix}[`redhat-openjdk-18/openjdk18-openshift`]",
           "java:8": "../../openjdk/openjdk-openshift{outfilesuffix}[`redhat-openjdk-18/openjdk18-openshift`]",
@@ -312,8 +310,6 @@ fullname = {
     "amq":       "JBoss A-MQ",
     "eap":       "JBoss EAP",
     "webserver": "JBoss Web Server",
-    "decisionserver": "Red Hat JBoss BRMS decision server",
-    "processserver": "Red Hat JBoss BPM Suite intelligent process server",
     "datagrid": "JBoss Data Grid",
     "datavirt": "Red Hat JBoss Data Virtualization",
     "openjdk": "Red Hat Java S2I",
@@ -333,8 +329,7 @@ def generate_readme():
             fh.write('\n== %s\n\n' % fullname.get(directory, directory))
             # links
             for template in [ os.path.splitext(x)[0] for x in sorted(os.listdir(directory)) ]:
-                # XXX: Hack for 1.3 release, which excludes processserver
-                if template != "processserver-app-secret" and "image-stream" not in template:
+                if "image-stream" not in template:
                     fh.write("* link:./%s/%s.adoc[%s]\n" % (directory, template, template))
 
         # release notes
