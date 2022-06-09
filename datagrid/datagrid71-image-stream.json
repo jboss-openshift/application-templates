@@ -11,7 +11,7 @@
     "items": [
         {
             "kind": "ImageStream",
-            "apiVersion": "image.openshift.io/v1",
+            "apiVersion": "v1",
             "metadata": {
                 "name": "jboss-datagrid71-openshift",
                 "annotations": {
@@ -102,7 +102,7 @@
         },
         {
             "kind": "ImageStream",
-            "apiVersion": "image.openshift.io/v1",
+            "apiVersion": "v1",
             "metadata": {
                 "name": "jboss-datagrid71-client-openshift",
                 "annotations": {
