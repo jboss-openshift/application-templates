@@ -1,6 +1,6 @@
 {
     "kind": "Template",
-    "apiVersion": "v1",
+    "apiVersion": "template.openshift.io/v1",
     "metadata": {
         "annotations": {
             "iconClass": "icon-amq",
@@ -372,7 +372,7 @@
         },
         {
             "kind": "DeploymentConfig",
-            "apiVersion": "v1",
+            "apiVersion": "apps.openshift.io/v1",
             "metadata": {
                 "name": "${APPLICATION_NAME}-amq",
                 "labels": {
@@ -587,7 +587,7 @@
         },
         {
             "kind": "DeploymentConfig",
-            "apiVersion": "v1",
+            "apiVersion": "apps.openshift.io/v1",
             "metadata": {
                 "name": "${APPLICATION_NAME}-drainer",
                 "labels": {
